@@ -21,6 +21,7 @@
     "**/*.tsx",
     "jest.setup.js",
     "src/i18n.js",
-    "src/relay"
+    "src/relay",
+    "next.config.js"
   ]
 }
