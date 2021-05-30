@@ -6,7 +6,7 @@ import { ButtonProps as AntButtonProps } from 'antd/lib/button';
 import { throttle } from 'lodash';
 
 export interface ButtonProps extends AntButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   text: string;
 }
 
