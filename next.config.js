@@ -14,6 +14,9 @@ const nextConfig = {
   env: {
     spaceID: process.env.spaceID,
     accessTokenDelivery: process.env.accessTokenDelivery,
+    API_URL: process.env.API_URL,
+    VERSION: process.env.VERSION,
+    GIT_COMMIT: process.env.GIT_COMMIT,
   },
   distDir: '.next',
 };

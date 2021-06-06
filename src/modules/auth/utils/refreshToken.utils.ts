@@ -1,6 +1,4 @@
 import { ajax } from 'rxjs/ajax';
-
-import { Observable } from 'rxjs';
 import settings from '../../../settings';
 
 export const REFRESH_TOKEN = `mutation RefreshToken($refreshToken: String!) {
@@ -10,7 +8,7 @@ export const REFRESH_TOKEN = `mutation RefreshToken($refreshToken: String!) {
   }
 }`;
 
-export const apiRefreshToken = (refreshToken: string): Observable<any> =>
+export const apiRefreshToken = (refreshToken: string): any =>
   ajax.post(
     settings.apiUrl,
     {

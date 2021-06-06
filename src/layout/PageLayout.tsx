@@ -1,9 +1,15 @@
-import React, { FunctionComponent, ReactNode, useState } from 'react';
+import React, {
+  FunctionComponent,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react';
 import SideMenu from './SideMenu';
 import './layout.module.less';
-import { Layout, Menu, Breadcrumb, Dropdown, Avatar } from 'antd';
-
+import { Layout, Menu, Dropdown, Avatar } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
+import signOut from '../modules/auth/utils/sign-out';
+import { useRouter } from 'next/router';
 const { Header, Content } = Layout;
 
 interface Props {
@@ -18,9 +24,16 @@ const PageLayout: FunctionComponent<Props> = (props: Props) => {
     setCollapsed(!collapsed);
   };
 
+  const router = useRouter();
+  const handleSignOut = useCallback(() => {
+    signOut(router);
+  }, [router]);
+
   const menu = (
     <Menu>
-      <Menu.Item icon={<LogoutOutlined />}>Çıkış Yap</Menu.Item>
+      <Menu.Item onClick={handleSignOut} icon={<LogoutOutlined />}>
+        Çıkış Yap
+      </Menu.Item>
     </Menu>
   );
 
@@ -51,14 +64,7 @@ const PageLayout: FunctionComponent<Props> = (props: Props) => {
             marginLeft: collapsed ? 80 : 200,
           }}
         >
-          <Header className="site-layout-sub-header-background">
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
-          </Header>
-          <Content className="content-container">{children}</Content>
+          <>{children}</>
         </Layout>
       </Layout>
     </Layout>

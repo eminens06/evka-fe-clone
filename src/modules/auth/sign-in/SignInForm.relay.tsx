@@ -10,6 +10,7 @@ export default graphql`
         lastName
         email
         id
+        roles
       }
     }
   }

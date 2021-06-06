@@ -22,6 +22,7 @@
     "jest.setup.js",
     "src/i18n.js",
     "src/relay",
-    "next.config.js"
+    "next.config.js",
+    "config-overrides.js"
   ]
 }
