@@ -1,8 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
   TableOutlined,
-  UploadOutlined,
   InboxOutlined,
   DashboardOutlined,
   AuditOutlined,
@@ -13,6 +12,9 @@ import {
   SettingOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons';
+import CustomMenuItem from './CustomMenuItem';
+import { Roles } from './roles';
+import CustomSubMenu from './CustomSubMenu';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -42,57 +44,101 @@ const SideMenu: FunctionComponent<Props> = (props) => {
       }
     >
       <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
-        <Menu.Item key="1" icon={<DashboardOutlined />}>
-          Ana Sayfa
-        </Menu.Item>
-        <Menu.Item key="2" icon={<TableOutlined />}>
-          Siparişler
-        </Menu.Item>
-        <Menu.Item key="3" icon={<AuditOutlined />}>
-          Üretim Yönetimi
-        </Menu.Item>
-        <SubMenu
-          key="sub1"
+        <CustomMenuItem
+          role={Roles.kiosk}
+          title="Ana Sayfa"
+          icon={<DashboardOutlined />}
+        />
+        <CustomMenuItem
+          role={Roles.orders}
+          title="Siparişler"
+          icon={<TableOutlined />}
+        />
+        <CustomMenuItem
+          role={Roles.management_production}
+          title="Üretim Yönetimi"
+          icon={<AuditOutlined />}
+        />
+        <CustomSubMenu
+          role="production"
           icon={<SisternodeOutlined />}
           title="Üretim"
-          onTitleClick={() => console.log('asd')}
         >
-          <Menu.Item key="sub1-1">Ahşap Atölyesi</Menu.Item>
-          <Menu.Item key="sub1-2">Metal Atölyesi</Menu.Item>
-          <Menu.Item key="sub1-3">Boya Atölyesi</Menu.Item>
-          <Menu.Item key="sub1-4">Cam Atölyesi</Menu.Item>
-          <Menu.Item key="sub1-5">Mermer Atölyesi</Menu.Item>
-          <Menu.Item key="sub1-6">Kumaş Atölyesi</Menu.Item>
-        </SubMenu>
-        <Menu.Item key="4" icon={<InboxOutlined />}>
-          Toplama/Paketleme
-        </Menu.Item>
-        <SubMenu
-          key="sub2"
-          icon={<UploadOutlined />}
+          <CustomMenuItem
+            role={Roles.production_summary}
+            title="Üretim Özeti"
+          />
+          <CustomMenuItem role={Roles.production_wood} title="Ahşap Atölyesi" />
+          <CustomMenuItem
+            role={Roles.production_metal}
+            title="Metal Atölyesi"
+          />
+          <CustomMenuItem role={Roles.production_paint} title="Boya Atölyesi" />
+          <CustomMenuItem role={Roles.production_glass} title="Cam Atölyesi" />
+          <CustomMenuItem
+            role={Roles.production_marble}
+            title="Mermer Atölyesi"
+          />
+          <CustomMenuItem
+            role={Roles.production_fabric}
+            title="Kumaş Atölyesi"
+          />
+        </CustomSubMenu>
+        <CustomMenuItem
+          role={Roles.packaging}
+          title="Toplama/Paketleme"
+          icon={<InboxOutlined />}
+        />
+
+        <CustomSubMenu
+          role="shipment"
+          icon={<SisternodeOutlined />}
           title="Sevkiyat/Fatura"
-          onTitleClick={() => console.log('asd')}
         >
-          <Menu.Item key="sub2-1">Sevkiyat</Menu.Item>
-          <Menu.Item key="sub2-2">Fatura</Menu.Item>
-        </SubMenu>
-        <Menu.Item key="5" icon={<InteractionOutlined />}>
-          Al-Sat
-        </Menu.Item>
-        <Menu.Item key="6" icon={<MinusCircleOutlined />}>
-          İptal-İade
-        </Menu.Item>
-        <Menu.Item key="7" icon={<CodeOutlined />}>
-          Log
-        </Menu.Item>
-        <SubMenu key="sub3" icon={<SettingOutlined />} title="Admin Panel">
-          <Menu.Item key="sub3-1">Dış Hizmetler</Menu.Item>
-          <Menu.Item key="sub3-2">Sistem Parametreleri</Menu.Item>
-          <Menu.Item key="sub3-3">Pazaryerleri</Menu.Item>
-          <Menu.Item key="sub3-4">Kullanıcılar</Menu.Item>
-          <Menu.Item key="sub3-5">Metadata</Menu.Item>
-          <Menu.Item key="sub3-6">Ürünler</Menu.Item>
-        </SubMenu>
+          <CustomMenuItem
+            role={Roles.shipment_summary}
+            title="Sevkiyat Özeti"
+          />
+          <CustomMenuItem
+            role={Roles.shipment_shipmentOrder}
+            title="Sevkiyat"
+          />
+          <CustomMenuItem role={Roles.shipment_invoice} title="Fatura" />
+        </CustomSubMenu>
+
+        <CustomMenuItem
+          role={Roles.oem}
+          title="Al-Sat"
+          icon={<InteractionOutlined />}
+        />
+        <CustomMenuItem
+          role={Roles.return_cancel}
+          title="İptal-İade"
+          icon={<MinusCircleOutlined />}
+        />
+        <CustomMenuItem role={Roles.log} title="Log" icon={<CodeOutlined />} />
+
+        <CustomSubMenu
+          role="admin"
+          icon={<SettingOutlined />}
+          title="Admin Panel"
+        >
+          <CustomMenuItem
+            role={Roles.admin + '_outsource'}
+            title="Dış Hizmetler"
+          />
+          <CustomMenuItem
+            role={Roles.admin + '_parameters'}
+            title="Sistem Parametreleri"
+          />
+          <CustomMenuItem
+            role={Roles.admin + '_marketplaces'}
+            title="Pazaryerleri"
+          />
+          <CustomMenuItem role={Roles.admin + '_users'} title="Kullanıcılar" />
+          <CustomMenuItem role={Roles.admin + '_metadata'} title="Metadata" />
+          <CustomMenuItem role={Roles.admin + '_products'} title="Ürünler" />
+        </CustomSubMenu>
       </Menu>
     </Sider>
   );

@@ -68,3 +68,11 @@ export async function getOrRefreshToken(): Promise<string | null> {
   }
   return null;
 }
+
+export async function getUserRoles(): Promise<string[]> {
+  const session = loadSession();
+  if (session && session.token && session.user.roles) {
+    return session.user.roles;
+  }
+  return [];
+}

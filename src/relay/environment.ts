@@ -5,12 +5,14 @@ import {
   RecordSource,
   Store,
 } from 'relay-runtime';
+import { ajax } from 'rxjs/ajax';
+import { saveSession } from '../modules/auth/utils/session.utils';
+import settings from '../settings';
+import { getOrRefreshToken } from '../modules/auth/utils/session.utils';
 
 const oneMinute = 60 * 1000;
 const cache = new QueryResponseCache({ size: 250, ttl: oneMinute });
-export function clearCache(): void {
-  cache.clear();
-}
+
 async function fetchQuery(
   operation: any,
   variables: any,
@@ -22,7 +24,6 @@ async function fetchQuery(
   const isQuery = operation.operationKind === 'query';
   const forceFetch = cacheConfig && cacheConfig.force;
   const fromCache = cache.get(queryID, variables);
-  // console.log('operation', operation, variables, cacheConfig);
   if (isQuery && fromCache !== null && !forceFetch) {
     return fromCache;
   }
@@ -31,7 +32,15 @@ async function fetchQuery(
   const headers: any = {
     Accept: 'application/json',
   };
-
+  let token;
+  try {
+    token = await getOrRefreshToken();
+  } catch (err) {
+    token = null;
+  }
+  if (token) {
+    headers['Authorization'] = `JWT ${token}`;
+  }
   if (uploadables) {
     if (!window.FormData) {
       throw new Error('Uploading files without `FormData` not supported.');
@@ -53,26 +62,41 @@ async function fetchQuery(
       variables,
     };
   }
-
-  return fetch('https://audio-book-be-kttmv.ondigitalocean.app/graphql/', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      query: operation.text, // GraphQL text from input
-      variables,
-    }),
-  })
-    .then(response => {
-      return response.json();
+  return ajax
+    .post(settings.apiUrl, body, headers)
+    .toPromise()
+    .then((response: any) => {
+      if (response.status !== 200) {
+        throw Error(`Network error ${response.status}`);
+      }
+      if (isQuery && response.response) {
+        cache.set(queryID, variables, response.response);
+      }
+      // Clear cache on mutations
+      if (isMutation) {
+        cache.clear();
+      }
+      if (response.response && response.response.errors) {
+        throw new Error(response.response.errors[0].message);
+      }
+      if (response.response && response.response.data.tokenAuth) {
+        const { tokenAuth } = response.response.data;
+        saveSession(tokenAuth.user, tokenAuth.token, tokenAuth.refreshToken);
+      }
+      return response.response;
     })
-    .catch(err => console.log({ err }));
+    .catch((err) => {
+      throw err;
+    });
 }
 
 const source = new RecordSource();
 const store = new Store(source);
 const network = Network.create(fetchQuery);
+
+export function clearCache(): void {
+  cache.clear();
+}
 
 export default new Environment({
   network,

@@ -1,110 +1,110 @@
-import React, { useState } from 'react';
-import { Button, Form } from 'semantic-ui-react';
-import { useFormik } from 'formik';
-import { useRelayEnvironment } from 'relay-hooks';
-import { commitMutation } from 'relay-runtime';
-import { useRouter } from 'next/router';
-import FormError from '../../common/form/form-error';
-import mutation from './SignInForm.relay';
-import standardRelayError from '../../utils/standard-relay-error';
-import EmailInput from '../../common/form/EmailControl.component';
-import PasswordInput from '../../common/form/password-control.component';
-import * as Yup from 'yup';
-import { Routes } from '../../utils/routes';
-import LoadingIndicator from '../../common/loading-indicator';
-import RememberMeControl from '../../common/form/remember-me';
-import '../../LogIn/login.styles.less';
-const image = require('../../../assets/logo/loginImage.svg');
-const logoMarker = require('../../../assets/logo/Logo.svg');
+import { NextPage } from 'next';
+import { Form, Button, Row, Col, message } from 'antd';
+import { loadSession } from '../utils/session.utils';
+import useAuthState from '../utils/UseAuthState.hook';
+import './SignIn.module.less';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import Router from 'next/router';
+import { Routes } from '../utils/routes';
+import { useEffect } from 'react';
+import Input from '../../../atoms/Input';
+import { useMutation } from 'relay-hooks';
+import TOKEN_AUTH, {
+  SignInFormRelayMutation,
+} from '../../../__generated__/SignInFormRelayMutation.graphql';
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  password: Yup.string().required('Required'),
-  remember: Yup.boolean(),
-});
+const SignInForm: NextPage = () => {
+  const session = loadSession();
+  const state = useAuthState(session);
 
-const LoginForm = (): any => {
-  const environment: any = useRelayEnvironment();
-  const router = useRouter();
-  const [errors, setErrors] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
+  const [tokenAuth] = useMutation<SignInFormRelayMutation>(TOKEN_AUTH, {
+    onError: (addErrors: any) => {
+      console.log(addErrors);
+      if (addErrors.message === 'Please enter valid credentials') {
+        message.error('Kullanıcı adı veya şifre hatalıdır');
+      }
     },
-    validationSchema: LoginSchema,
-    validateOnChange: false,
-    onSubmit: values => {
-      setLoading(true);
-      setErrors([]);
-      commitMutation(environment, {
-        mutation,
-        variables: {
-          input: {
-            ...values,
-          },
-        },
-        onCompleted: () => {
-          console.log('on complete');
-          router.push('/');
-        },
-        onError: standardRelayError(setLoading, setErrors),
-      });
+    onCompleted: (res) => {
+      console.log(res);
+      window.location.reload();
     },
   });
 
-  return (
-    <div>
-      <LoadingIndicator loading={loading} msg="Signing in" />
-      <Form onSubmit={formik.handleSubmit}>
-        <div className="login-container">
-          <div className="login-image-wrapper">
-            <img src={image} className="login-image" />
-            <div className="form-container">
-              <img src={logoMarker} className="form-logo" />
-              <div className="form-title">ADMİN GİRİŞ</div>
-              <div className="form-frame">
-                <div className="form-input">
-                  <EmailInput
-                    formikProps={formik}
-                    name="email"
-                    icon="mail"
-                    inputProps={{
-                      placeholder: 'Email',
-                    }}
-                  />
-                </div>
-                <div className="form-input">
-                  <PasswordInput
-                    name="password"
-                    label=""
-                    icon="lock"
-                    handleChange={formik.handleChange}
-                    handleBlur={formik.handleBlur}
-                    value={formik.values.password}
-                    error={formik.errors && formik.errors.password}
-                    touched={formik.touched && formik.touched.password}
-                    inputProps={{
-                      autoCapitalize: 'none',
-                      placeholder: 'Password',
-                    }}
-                  />
-                </div>
+  useEffect(() => {
+    if (state === 'authenticated') {
+      Router.push(Routes.kiosk);
+    }
+  }, []);
 
-                <div className="form-button">
-                  <Button type="submit">Giriş</Button>
-                </div>
-                {!!errors.length && <FormError errors={errors} />}
-              </div>
-            </div>
-          </div>
-        </div>
-      </Form>
-    </div>
+  const onFinish = (values: any) => {
+    //TODO: kullanici girisi istegi atilacak
+    console.log('Success:', values);
+
+    tokenAuth({
+      variables: {
+        input: {
+          ...values,
+        },
+      },
+    });
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    //window.alert(errorInfo);
+  };
+
+  return (
+    <Row>
+      <Col xs={6} sm={7} md={8} lg={9} xl={10} />
+      <Col className="sign-in-wrapper" xs={12} sm={10} md={8} lg={6} xl={4}>
+        <img src="/evka-logo.png" alt="Evka" className="sign-in-logo" />
+        <Form
+          name="normal_login"
+          className="login-form"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Lütfen kullanıcı adınızı kontrol ediniz.',
+              },
+            ]}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Kullanıcı Adı"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              { required: true, message: 'Lütfen şifrenizi kontrol ediniz.' },
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Şifre"
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Giriş Yap
+            </Button>
+          </Form.Item>
+        </Form>
+      </Col>
+    </Row>
   );
 };
 
-export default LoginForm;
+export default SignInForm;
