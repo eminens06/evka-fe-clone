@@ -44,9 +44,9 @@ const KioskPage: FunctionComponent = () => {
           current={1}
           style={{ width: '50%', marginBottom: 30 }}
         >
-          <Step title="Finished" />
-          <Step title="In Progress" />
-          <Step title="Waiting" />
+          <Step title="Hazırlanıyor" />
+          <Step title="Tamamlandı" />
+          <Step title="Teslim Edildi" />
         </Steps>
 
         <Form
@@ -57,13 +57,6 @@ const KioskPage: FunctionComponent = () => {
           size={componentSize as SizeType}
           layout="vertical"
         >
-          <Form.Item label="Form Size" name="size">
-            <Radio.Group>
-              <Radio.Button value="small">Small</Radio.Button>
-              <Radio.Button value="default">Default</Radio.Button>
-              <Radio.Button value="large">Large</Radio.Button>
-            </Radio.Group>
-          </Form.Item>
           <Form.Item label="Input">
             <Input />
           </Form.Item>
@@ -72,44 +65,17 @@ const KioskPage: FunctionComponent = () => {
               <Select.Option value="demo">Demo</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label="TreeSelect">
-            <TreeSelect
-              treeData={[
-                {
-                  title: 'Light',
-                  value: 'light',
-                  children: [{ title: 'Bamboo', value: 'bamboo' }],
-                },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item label="Cascader">
-            <Cascader
-              options={[
-                {
-                  value: 'zhejiang',
-                  label: 'Zhejiang',
-                  children: [
-                    {
-                      value: 'hangzhou',
-                      label: 'Hangzhou',
-                    },
-                  ],
-                },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item label="DatePicker">
+          <Form.Item label="Tarih Seçimi">
             <DatePicker />
           </Form.Item>
-          <Form.Item label="InputNumber">
+          <Form.Item label="Numara Input">
             <InputNumber />
           </Form.Item>
           <Form.Item label="Switch">
             <Switch />
           </Form.Item>
-          <Form.Item label="Button">
-            <Button>Button</Button>
+          <Form.Item label="Buton">
+            <Button type="primary">Button</Button>
           </Form.Item>
         </Form>
       </Card>
