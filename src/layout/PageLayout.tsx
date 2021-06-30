@@ -64,7 +64,7 @@ const PageLayout: FunctionComponent<Props> = (props: Props) => {
             marginLeft: collapsed ? 80 : 200,
           }}
         >
-          <>{children}</>
+          {children}
         </Layout>
       </Layout>
     </Layout>

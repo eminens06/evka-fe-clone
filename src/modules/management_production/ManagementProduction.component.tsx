@@ -1,64 +1,105 @@
-import { Breadcrumb, Modal, Button, Input, Form } from 'antd';
-import { Content, Header } from 'antd/lib/layout/layout';
+import { Pagination, Row, Tooltip, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
-import { CheckCircleOutlined } from '@ant-design/icons';
+import PageContent from '../../layout/PageContent';
+import Table from '../../molecules/Table';
+import TableFilter from '../../molecules/TableFilter';
 
-const ManagementProductionPage: FunctionComponent = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+const columns = [
+  {
+    key: 'id',
+    title: 'Sipariş Id',
+    dataIndex: 'id',
+    render: (value: any, order: any) => {
+      if (order.notes) {
+        return (
+          <Row className="note">
+            <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
+              <Typography.Text>{`${value} *`}</Typography.Text>
+            </Tooltip>
+          </Row>
+        );
+      }
+      return value;
+    },
+  },
+  {
+    key: 'product_name',
+    title: 'Ürün Adı',
+    dataIndex: 'product_name',
+  },
+  {
+    key: 'remaining_time',
+    title: 'Kalan Süre',
+    dataIndex: 'remaining_time',
+  },
+  {
+    key: 'product_count',
+    title: 'Ürün Adedi',
+    dataIndex: 'product_count',
+  },
+  {
+    key: 'customer',
+    title: 'Müşteri',
+    dataIndex: 'customer',
+  },
+];
 
-  const showModal = () => {
-    setIsModalVisible(true);
+const data: DataSource = [
+  {
+    id: 1,
+    product_name: 'Lake Orta Sehpa',
+    remaining_time: 10,
+    product_count: 1,
+    customer: 'Berkay Yılmaz',
+  },
+  {
+    id: 2,
+    price: 300,
+    product_count: 1,
+    remaining_time: 10,
+    customer: 'Berkay2 Yılmaz',
+    notes: 'alfakf fkasmfalks',
+  },
+];
+
+const ManagementProduction: FunctionComponent = () => {
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState<string>();
+  const [page, setPage] = useState(1);
+
+  const changePagination = (page: number) => {
+    setPage(page);
   };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-  const { Search } = Input;
 
   return (
-    <>
-      <Header className="site-layout-sub-header-background">
-        <Breadcrumb style={{ marginTop: '22px' }}>
-          <Breadcrumb.Item>Management Production Page</Breadcrumb.Item>
-        </Breadcrumb>
-      </Header>
-      <Content className="content-container">
-        <Modal
-          title="Basic Modal"
-          visible={isModalVisible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          okText="Kaydet"
-          cancelText="Vazgeç"
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
-
-        <Form name="basic" initialValues={{ remember: true }}>
-          <Form.Item label="SKU" name="sku">
-            <Search
-              style={{ width: '50%' }}
-              placeholder="EVKA-ZEMA-00111010441"
-              allowClear
-              enterButton={<CheckCircleOutlined />}
-              size="large"
-              onSearch={() => console.log('asd')}
-            />
-          </Form.Item>
-        </Form>
-
-        <Button type="primary" onClick={showModal}>
-          Open Modal
-        </Button>
-      </Content>
-    </>
+    <PageContent header={['Üretim Yönetimi']}>
+      <div>
+        <TableFilter />
+        <div className="table-header">
+          <Typography.Title level={5}>
+            Üretim Onayı Bekleyen Siparişler
+          </Typography.Title>
+        </div>
+        <Table
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: () => console.log('Id : ', record.id),
+            };
+          }}
+          columns={columns}
+          dataSource={data}
+          rowKey="name"
+          loading={loading}
+          pagination={{
+            total: 50,
+            defaultCurrent: 1,
+            current: page,
+            onChange: (page, pageSize) => changePagination(page),
+          }}
+        />
+      </div>
+    </PageContent>
   );
 };
 
-export default ManagementProductionPage;
+export default ManagementProduction;
