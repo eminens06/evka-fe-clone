@@ -19,3 +19,25 @@ export enum Roles {
   return_cancel = 'return_cancel',
   admin = 'admin',
 }
+
+export const RoleTexts = {
+  [Roles.admin]: 'Admin',
+  [Roles.kiosk]: 'Kiosk',
+  [Roles.management_production]: 'Üretim Yönetimi',
+  [Roles.production_summary]: 'Üretim Özeti',
+  [Roles.production_wood]: 'Ahşap Atölyesi',
+  [Roles.production_metal]: 'Metal Atölyesi',
+  [Roles.production_paint]: 'Boya Atölyesi',
+  [Roles.production_marble]: 'Mermer Atölyesi',
+  [Roles.production_glass]: 'Cam Atölyesi',
+  [Roles.production_fabric]: 'Kumaş Atölyesi',
+  [Roles.packaging]: 'Toplama/Paketleme',
+  [Roles.return_cancel]: 'İptal/İade',
+  [Roles.shipment_invoice]: 'Sevkiyat/Fatura',
+  [Roles.shipment_shipmentManagement]: 'Sevkiyat Yönetimi',
+  [Roles.shipment_shipmentOrder]: 'Sevkiyat',
+  [Roles.shipment_summary]: 'Sevkiyat Özeti',
+  [Roles.log]: 'Loglar',
+  [Roles.oem]: 'Al-Sat',
+  [Roles.orders]: 'Siparişler',
+};

@@ -1,9 +1,11 @@
+import { Roles } from '../../layout/roles';
+
 interface User {
-  first_name?: string;
-  last_name?: string;
-  username: string;
+  firstName?: string;
+  lastName?: string;
+  email: string;
   id: string;
-  roles: any;
+  roles: Roles[];
 }
 
 interface Session {
