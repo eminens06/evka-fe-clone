@@ -1368,7 +1368,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "String",
+                  "name": "Float",
                   "ofType": null
                 }
               }
@@ -1492,7 +1492,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Float",
+                  "name": "JSONString",
                   "ofType": null
                 }
               }
@@ -1605,15 +1605,15 @@
             {
               "args": [],
               "deprecationReason": null,
-              "description": "Pagination data for this connection.",
+              "description": "",
               "isDeprecated": false,
-              "name": "pageInfo",
+              "name": "commissionRate",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
+                  "kind": "SCALAR",
+                  "name": "Float",
                   "ofType": null
                 }
               }
@@ -1621,9 +1621,9 @@
             {
               "args": [],
               "deprecationReason": null,
-              "description": "Contains the nodes in this connection.",
+              "description": "",
               "isDeprecated": false,
-              "name": "edges",
+              "name": "completedDate",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1640,7 +1640,13 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [],
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
           "kind": "OBJECT",
           "name": "ProductOrderNodeConnection",
           "possibleTypes": null
@@ -2108,25 +2114,13 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "updatedAt",
-              "type": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "The ID of the object.",
-              "isDeprecated": false,
-              "name": "id",
+              "name": "woodStatus",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
+                  "kind": "ENUM",
+                  "name": "ProductOrderWoodStatus",
                   "ofType": null
                 }
               }
@@ -2136,13 +2130,13 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "name",
+              "name": "glassStatus",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "ENUM",
+                  "name": "ProductOrderGlassStatus",
                   "ofType": null
                 }
               }
@@ -2476,7 +2470,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "ProductOrderNodeConnection",
+                  "name": "MetaProductNodeConnection",
                   "ofType": null
                 }
               }
@@ -2501,15 +2495,15 @@
             {
               "args": [],
               "deprecationReason": null,
-              "description": "Pagination data for this connection.",
+              "description": "",
               "isDeprecated": false,
-              "name": "pageInfo",
+              "name": "isCollectable",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
+                  "kind": "SCALAR",
+                  "name": "Boolean",
                   "ofType": null
                 }
               }
@@ -2550,28 +2544,34 @@
               "deprecationReason": null,
               "description": "The item at the end of the edge",
               "isDeprecated": false,
-              "name": "node",
+              "name": "sku",
               "type": {
+<<<<<<< HEAD
                 "kind": "OBJECT",
                 "name": "MetaProductNode",
+=======
+                "kind": "SCALAR",
+                "name": "String",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
                 "ofType": null
               }
             },
             {
               "args": [],
               "deprecationReason": null,
-              "description": "A cursor for use in pagination",
+              "description": "",
               "isDeprecated": false,
-              "name": "cursor",
+              "name": "packageCount",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "String",
+                  "name": "Int",
                   "ofType": null
                 }
               }
+<<<<<<< HEAD
             }
           ],
           "inputFields": null,
@@ -2584,10 +2584,14 @@
           "description": null,
           "enumValues": null,
           "fields": [
+=======
+            },
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
             {
               "args": [],
               "deprecationReason": null,
               "description": "",
+<<<<<<< HEAD
               "isDeprecated": false,
               "name": "createdAt",
               "type": {
@@ -2612,16 +2616,14 @@
               "args": [],
               "deprecationReason": null,
               "description": "The ID of the object.",
+=======
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
               "isDeprecated": false,
-              "name": "id",
+              "name": "metalAttributes",
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "JSONString",
+                "ofType": null
               }
             },
             {
@@ -2629,6 +2631,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
+<<<<<<< HEAD
               "name": "categoryName",
               "type": {
                 "kind": "NON_NULL",
@@ -2638,6 +2641,13 @@
                   "name": "MetaProductCategoryName",
                   "ofType": null
                 }
+=======
+              "name": "woodAttributes",
+              "type": {
+                "kind": "SCALAR",
+                "name": "JSONString",
+                "ofType": null
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
               }
             },
             {
@@ -2645,6 +2655,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
+<<<<<<< HEAD
               "name": "materialName",
               "type": {
                 "kind": "NON_NULL",
@@ -2654,6 +2665,13 @@
                   "name": "String",
                   "ofType": null
                 }
+=======
+              "name": "otherAttributes",
+              "type": {
+                "kind": "SCALAR",
+                "name": "JSONString",
+                "ofType": null
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
               }
             },
             {
@@ -2661,27 +2679,186 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
+<<<<<<< HEAD
               "name": "materialId",
+=======
+              "name": "labor",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
               "type": {
                 "kind": "SCALAR",
-                "name": "Int",
+                "name": "JSONString",
                 "ofType": null
               }
             },
             {
               "args": [],
               "deprecationReason": null,
+<<<<<<< HEAD
               "description": "",
               "isDeprecated": false,
               "name": "metaType",
+=======
+              "description": "",
+              "isDeprecated": false,
+              "name": "aluminiumPrice",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "ENUM",
-                  "name": "MetaProductMetaType",
+                  "kind": "SCALAR",
+                  "name": "Float",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "sivamaPrice",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "silikonHirdavatPrice",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+<<<<<<< HEAD
+                  "kind": "ENUM",
+                  "name": "MetaProductMetaType",
+=======
+                  "kind": "SCALAR",
+                  "name": "Float",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+                  "ofType": null
+                }
+              }
+            },
+            {
+<<<<<<< HEAD
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "before",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "after",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "first",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "last",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "productSet",
+=======
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "aksesuarPrice",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "packingPrice",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+<<<<<<< HEAD
+                  "kind": "OBJECT",
+                  "name": "ProductNodeConnection",
+=======
+                  "kind": "SCALAR",
+                  "name": "Float",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+<<<<<<< HEAD
+              "name": "type",
+=======
+              "name": "productImages",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+              "type": {
+                "kind": "OBJECT",
+                "name": "ImageGroupNode",
+                "ofType": null
               }
             },
             {
@@ -2740,32 +2917,26 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "productSet",
+              "name": "productorderSet",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "ProductNodeConnection",
+                  "name": "ProductOrderNodeConnection",
                   "ofType": null
                 }
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "type",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
               }
             }
           ],
           "inputFields": null,
           "interfaces": [
+<<<<<<< HEAD
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+=======
             {
               "kind": "INTERFACE",
               "name": "Node",
@@ -2773,32 +2944,136 @@
             }
           ],
           "kind": "OBJECT",
+          "name": "ProductNode",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Pagination data for this connection.",
+              "isDeprecated": false,
+              "name": "pageInfo",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Contains the nodes in this connection.",
+              "isDeprecated": false,
+              "name": "edges",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MetaProductNodeEdge",
+                    "ofType": null
+                  }
+                }
+              }
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+            }
+          ],
+          "kind": "OBJECT",
+<<<<<<< HEAD
           "name": "MetaProductNode",
           "possibleTypes": null
         },
         {
           "description": "An enumeration.",
           "enumValues": [
+=======
+          "name": "MetaProductNodeConnection",
+          "possibleTypes": null
+        },
+        {
+          "description": "A Relay edge containing a `MetaProductNode` and its cursor.",
+          "enumValues": null,
+          "fields": [
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
             {
               "deprecationReason": null,
               "description": "Kategori",
               "isDeprecated": false,
+<<<<<<< HEAD
               "name": "CT"
+=======
+              "name": "node",
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetaProductNode",
+                "ofType": null
+              }
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
             },
             {
               "deprecationReason": null,
               "description": "Alt Kategori",
               "isDeprecated": false,
+<<<<<<< HEAD
               "name": "CA"
             },
+=======
+              "name": "cursor",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "MetaProductNodeEdge",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
             {
+              "args": [],
               "deprecationReason": null,
+<<<<<<< HEAD
               "description": "Ayak",
               "isDeprecated": false,
               "name": "AY"
+=======
+              "description": "",
+              "isDeprecated": false,
+              "name": "createdAt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "DateTime",
+                "ofType": null
+              }
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
             },
             {
+              "args": [],
               "deprecationReason": null,
+<<<<<<< HEAD
               "description": "Tabla",
               "isDeprecated": false,
               "name": "TB"
@@ -2820,8 +3095,21 @@
         {
           "description": "An enumeration.",
           "enumValues": [
+=======
+              "description": "",
+              "isDeprecated": false,
+              "name": "updatedAt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "DateTime",
+                "ofType": null
+              }
+            },
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
             {
+              "args": [],
               "deprecationReason": null,
+<<<<<<< HEAD
               "description": "Wood",
               "isDeprecated": false,
               "name": "WD"
@@ -2915,15 +3203,21 @@
               "description": "A cursor for use in pagination",
               "isDeprecated": false,
               "name": "cursor",
+=======
+              "description": "The ID of the object.",
+              "isDeprecated": false,
+              "name": "id",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "String",
+                  "name": "ID",
                   "ofType": null
                 }
               }
+<<<<<<< HEAD
             }
           ],
           "inputFields": null,
@@ -2949,6 +3243,518 @@
             {
               "args": [],
               "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "createdAt",
+              "type": {
+                "kind": "SCALAR",
+                "name": "DateTime",
+                "ofType": null
+              }
+=======
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "categoryName",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "MetaProductCategoryName",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "materialName",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "processed",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "tags",
+              "type": {
+                "kind": "SCALAR",
+                "name": "JSONString",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "orderBy",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "before",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "after",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "first",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "last",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+<<<<<<< HEAD
+              "name": "images",
+              "type": {
+                "kind": "OBJECT",
+                "name": "ImageConnection",
+=======
+              "name": "materialId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "before",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "after",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "first",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "last",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+<<<<<<< HEAD
+              "name": "productImages",
+=======
+              "name": "metaType",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+<<<<<<< HEAD
+                  "kind": "OBJECT",
+                  "name": "ProductNodeConnection",
+=======
+                  "kind": "ENUM",
+                  "name": "MetaProductMetaType",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "offset",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "before",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "after",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "first",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "last",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+<<<<<<< HEAD
+              "name": "productOrderImages",
+=======
+              "name": "productSet",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ProductNodeConnection",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "type",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "kind": "OBJECT",
+<<<<<<< HEAD
+          "name": "ImageGroupNode",
+=======
+          "name": "MetaProductNode",
+          "possibleTypes": null
+        },
+        {
+          "description": "An enumeration.",
+          "enumValues": [
+            {
+              "deprecationReason": null,
+              "description": "Kategori",
+              "isDeprecated": false,
+              "name": "CT"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Alt Kategori",
+              "isDeprecated": false,
+              "name": "CA"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Ayak",
+              "isDeprecated": false,
+              "name": "AY"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Tabla",
+              "isDeprecated": false,
+              "name": "TB"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Default",
+              "isDeprecated": false,
+              "name": "DF"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "MetaProductCategoryName",
+          "possibleTypes": null
+        },
+        {
+          "description": "An enumeration.",
+          "enumValues": [
+            {
+              "deprecationReason": null,
+              "description": "Wood",
+              "isDeprecated": false,
+              "name": "WD"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Metal",
+              "isDeprecated": false,
+              "name": "MT"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Default",
+              "isDeprecated": false,
+              "name": "DF"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "MetaProductMetaType",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Pagination data for this connection.",
+              "isDeprecated": false,
+              "name": "pageInfo",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Contains the nodes in this connection.",
+              "isDeprecated": false,
+              "name": "edges",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+<<<<<<< HEAD
+                    "name": "ImageEdge",
+=======
+                    "name": "ProductNodeEdge",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+                    "ofType": null
+                  }
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+<<<<<<< HEAD
+          "name": "ImageConnection",
+          "possibleTypes": null
+        },
+        {
+          "description": "A Relay edge containing a `Image` and its cursor.",
+=======
+          "name": "ProductNodeConnection",
+          "possibleTypes": null
+        },
+        {
+          "description": "A Relay edge containing a `ProductNode` and its cursor.",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "The item at the end of the edge",
+              "isDeprecated": false,
+              "name": "node",
+              "type": {
+                "kind": "OBJECT",
+<<<<<<< HEAD
+                "name": "ImageNode",
+=======
+                "name": "ProductNode",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "A cursor for use in pagination",
+              "isDeprecated": false,
+              "name": "cursor",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+<<<<<<< HEAD
+          "name": "ImageEdge",
+=======
+          "name": "ProductNodeEdge",
+          "possibleTypes": null
+        },
+        {
+          "description": "Allows use of a JSON String for input / output from the GraphQL schema.\n\nUse of this type is *not recommended* as you lose the benefits of having a defined, static\nschema (one of the key benefits of GraphQL).",
+          "enumValues": null,
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "SCALAR",
+          "name": "JSONString",
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+<<<<<<< HEAD
+=======
               "description": "",
               "isDeprecated": false,
               "name": "createdAt",
@@ -3333,6 +4139,7 @@
             {
               "args": [],
               "deprecationReason": null,
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
               "description": "The ID of the object.",
               "isDeprecated": false,
               "name": "id",
@@ -3518,6 +4325,7 @@
           "possibleTypes": null
         },
         {
+<<<<<<< HEAD
           "description": "The `Date` scalar type represents a Date\nvalue as specified by\n[iso8601](https://en.wikipedia.org/wiki/ISO_8601).",
           "enumValues": null,
           "fields": null,
@@ -3528,6 +4336,8 @@
           "possibleTypes": null
         },
         {
+=======
+>>>>>>> 6eb194d26e8e593b95ce383a5e7417d1481aa449
           "description": "An enumeration.",
           "enumValues": [
             {
@@ -5584,6 +6394,16 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "UserOrderCreateInput",
+          "possibleTypes": null
+        },
+        {
+          "description": "The `Date` scalar type represents a Date\nvalue as specified by\n[iso8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "enumValues": null,
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "SCALAR",
+          "name": "Date",
           "possibleTypes": null
         },
         {
