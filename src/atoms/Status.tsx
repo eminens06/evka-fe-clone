@@ -5,7 +5,7 @@ import './atoms.styles.less';
 
 interface Props {
   status: Status;
-  statusTexts: StatusTexts;
+  text: string;
 }
 
 type StatusColors = Record<Status, string>;
@@ -16,7 +16,7 @@ const COLORS: StatusColors = {
   success: 'green',
 };
 
-const Status: FC<Props> = ({ status, statusTexts }) => {
+const Status: FC<Props> = ({ status, text }) => {
   console.log('Status : ', status);
   return (
     <Row style={{ alignItems: 'center' }}>
@@ -24,7 +24,7 @@ const Status: FC<Props> = ({ status, statusTexts }) => {
         className="status-circle"
         style={{ backgroundColor: COLORS[status] }}
       ></div>
-      <Typography.Text>{statusTexts[status]}</Typography.Text>
+      <Typography.Text>{text}</Typography.Text>
     </Row>
   );
 };

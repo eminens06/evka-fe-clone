@@ -5,22 +5,25 @@ import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
 import AddOrderMenu from './AddOrderMenu';
 import Status from '../../atoms/Status';
-import { useQuery, STORE_OR_NETWORK } from 'relay-hooks';
-import ORDER_QUERY, {
-  OrdersRelayAllUserOrdersNormalQuery,
-} from '../../__generated__/OrdersRelayAllUserOrdersNormalQuery.graphql';
+import useFetchTablePagination from '../../hooks/useFetchTableData';
+import mappers from '../../mappers';
+import GET_USER_ORDERS, {
+  OrdersRelayGetAllUserOrdersQuery,
+} from '../../__generated__/OrdersRelayGetAllUserOrdersQuery.graphql';
+import { OrderStatusType } from './types';
 
-const statusTexts = {
-  warning: 'Onay Bekleniyor',
-  success: 'Tamamlandı',
-  error: 'Üretimde',
+const OrderStatus = {
+  [OrderStatusType.DF]: {
+    text: 'Onay Bekleniyor',
+    status: 'error' as Status,
+  },
 };
 
 const columns = [
   {
-    key: 'id',
-    title: 'Id',
-    dataIndex: 'id',
+    key: 'orderId',
+    title: 'Pazaryeri Sipariş No',
+    dataIndex: 'orderId',
     render: (value: any, order: any) => {
       if (order.notes) {
         return (
@@ -35,19 +38,19 @@ const columns = [
     },
   },
   {
+    key: 'marketplace',
+    title: 'Pazar Yeri',
+    dataIndex: 'marketplace',
+  },
+  {
     key: 'price',
     title: 'Fiyat',
     dataIndex: 'price',
   },
   {
-    key: 'remaining_time',
+    key: 'remainingTime',
     title: 'Kalan Süre',
-    dataIndex: 'remaining_time',
-  },
-  {
-    key: 'market_place',
-    title: 'Pazar Yeri',
-    dataIndex: 'market_place',
+    dataIndex: 'remainingTime',
   },
   {
     key: 'customer',
@@ -55,59 +58,43 @@ const columns = [
     dataIndex: 'customer',
   },
   {
+    key: 'products',
+    title: 'Ürün(ler)',
+    dataIndex: 'products',
+  },
+  {
     key: 'status',
     title: 'Durum',
     dataIndex: 'status',
-    render: (value: any) => {
-      return <Status status={value} statusTexts={statusTexts} />;
+    render: (value: OrderStatusType) => {
+      const { text, status } = OrderStatus[value];
+      return <Status status={status} text={text} />;
     },
-  },
-];
-
-const dataSource: DataSource = [
-  {
-    id: '1',
-    price: 500,
-    market_place: 'Trendyol',
-    remaining_time: 10,
-    customer: 'Berkay Yılmaz',
-    status: 'warning',
-  },
-  {
-    id: '2',
-    price: 300,
-    market_place: 'Trendyol',
-    remaining_time: 10,
-    customer: 'Berkay2 Yılmaz',
-    status: 'error',
-    notes: 'alfakf fkasmfalks',
   },
 ];
 
 const OrdersPage: FunctionComponent = () => {
-  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState<string>();
   const [page, setPage] = useState(1);
-
-  // const pagination = useTablePagination(50, page, requestPageChange);
-
   const changePagination = (page: number) => {
     setPage(page);
   };
 
-  const { data } = useQuery<OrdersRelayAllUserOrdersNormalQuery>(
-    ORDER_QUERY,
+  const {
+    data,
+    size,
+    isLoading,
+  } = useFetchTablePagination<OrdersRelayGetAllUserOrdersQuery>(
+    GET_USER_ORDERS,
     {
       first: 10,
     },
-    { fetchPolicy: STORE_OR_NETWORK },
+    mappers.orderListMapper,
   );
 
   const onTableClick = (id: string) => {
     console.log('Go To edit selected row ', id);
   };
-
-  // const pagination = usePagination(Orders_Fragment, );
 
   return (
     <PageContent header={['Siparişler']}>
@@ -118,17 +105,17 @@ const OrdersPage: FunctionComponent = () => {
           <AddOrderMenu />
         </div>
         <Table
-          onRow={(record, rowIndex) => {
+          onRow={(record: any, rowIndex: any) => {
             return {
               onClick: () => onTableClick(record.id),
             };
           }}
           columns={columns}
-          dataSource={dataSource}
+          dataSource={data}
           rowKey="name"
-          loading={loading}
+          loading={isLoading}
           pagination={{
-            total: 50,
+            total: size,
             defaultCurrent: 1,
             current: page,
             onChange: (page, pageSize) => changePagination(page),

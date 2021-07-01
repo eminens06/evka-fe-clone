@@ -8,13 +8,26 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
     readonly allUserOrders: {
         readonly edges: ReadonlyArray<{
             readonly node: {
+                readonly notes: string;
                 readonly id: string;
+                readonly totalPrice: number;
                 readonly marketplace: {
                     readonly name: string;
                 } | null;
                 readonly customerInfo: unknown;
                 readonly marketplaceOrderId: string;
                 readonly orderStatus: UserOrderOrderStatus;
+                readonly products: {
+                    readonly edges: ReadonlyArray<{
+                        readonly node: {
+                            readonly orderCount: number;
+                            readonly product: {
+                                readonly name: string;
+                                readonly productName: string;
+                            } | null;
+                        } | null;
+                    } | null>;
+                };
             } | null;
         } | null>;
     } | null;
@@ -31,7 +44,9 @@ query OrdersRelayGetAllUserOrdersQuery {
   allUserOrders {
     edges {
       node {
+        notes
         id
+        totalPrice
         marketplace {
           name
           id
@@ -39,6 +54,19 @@ query OrdersRelayGetAllUserOrdersQuery {
         customerInfo
         marketplaceOrderId
         orderStatus
+        products {
+          edges {
+            node {
+              orderCount
+              product {
+                name
+                productName
+                id
+              }
+              id
+            }
+          }
+        }
       }
     }
   }
@@ -50,35 +78,63 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "notes",
   "storageKey": null
 },
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "id",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "customerInfo",
+  "name": "totalPrice",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marketplaceOrderId",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "customerInfo",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "marketplaceOrderId",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "orderStatus",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "orderCount",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "productName",
   "storageKey": null
 };
 return {
@@ -113,6 +169,8 @@ return {
                 "plural": false,
                 "selections": [
                   (v0/*: any*/),
+                  (v1/*: any*/),
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -121,13 +179,60 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v1/*: any*/)
+                      (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ProductOrderNodeConnection",
+                    "kind": "LinkedField",
+                    "name": "products",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ProductOrderNodeEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ProductOrderNode",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v7/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ProductNode",
+                                "kind": "LinkedField",
+                                "name": "product",
+                                "plural": false,
+                                "selections": [
+                                  (v3/*: any*/),
+                                  (v8/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -171,6 +276,8 @@ return {
                 "plural": false,
                 "selections": [
                   (v0/*: any*/),
+                  (v1/*: any*/),
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -179,14 +286,63 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v1/*: any*/),
-                      (v0/*: any*/)
+                      (v3/*: any*/),
+                      (v1/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ProductOrderNodeConnection",
+                    "kind": "LinkedField",
+                    "name": "products",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ProductOrderNodeEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ProductOrderNode",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v7/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ProductNode",
+                                "kind": "LinkedField",
+                                "name": "product",
+                                "plural": false,
+                                "selections": [
+                                  (v3/*: any*/),
+                                  (v8/*: any*/),
+                                  (v1/*: any*/)
+                                ],
+                                "storageKey": null
+                              },
+                              (v1/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -203,9 +359,9 @@ return {
     "metadata": {},
     "name": "OrdersRelayGetAllUserOrdersQuery",
     "operationKind": "query",
-    "text": "query OrdersRelayGetAllUserOrdersQuery {\n  allUserOrders {\n    edges {\n      node {\n        id\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n      }\n    }\n  }\n}\n"
+    "text": "query OrdersRelayGetAllUserOrdersQuery {\n  allUserOrders {\n    edges {\n      node {\n        notes\n        id\n        totalPrice\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        products {\n          edges {\n            node {\n              orderCount\n              product {\n                name\n                productName\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '78e40864f5585e767485541e0bfff0b4';
+(node as any).hash = '138d4c46bf778abc0de54cbd68be7d79';
 export default node;
