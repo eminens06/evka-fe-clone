@@ -4,27 +4,29 @@ import { Select } from 'antd';
 interface Props {
   options: Option[];
   defaultValue?: string;
-  onChange?: any;
+  onChange?: (value: string) => void;
 }
 
-const { Option } = Select;
-
-const SingleSelect: FC<Props> = ({ onChange, defaultValue, options }) => {
-  const handleChange = (value: any) => {
-    console.log('Handle Change ');
-    if (onChange) {
-      onChange(value);
-    }
-  };
-
+const SingleSelect: FC<Props> = ({ defaultValue, options, onChange }) => {
   return (
     <Select
       defaultValue={defaultValue}
+      onChange={onChange}
       style={{ minWidth: 120 }}
-      onChange={handleChange}
     >
-      {options.map((option) => {
-        return <Option value={option.value}>{option.text}</Option>;
+      {options.map((option, index) => {
+        return (
+          <Select.Option
+            key={`${option.value}-${index}`}
+            value={
+              typeof option.value === 'string'
+                ? option.value
+                : JSON.stringify(option.value)
+            }
+          >
+            {option.text}
+          </Select.Option>
+        );
       })}
     </Select>
   );

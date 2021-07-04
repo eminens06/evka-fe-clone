@@ -1,0 +1,151 @@
+import { Card, Form, Row, Col, Checkbox, Input, FormInstance } from 'antd';
+import React, { FC, useState } from 'react';
+import TextArea from 'antd/lib/input/TextArea';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+
+interface Props {
+  form: FormInstance<any>;
+}
+
+const CustomerCard: FC<Props> = ({ form }) => {
+  const [isCorporate, setIsCorporate] = useState<boolean>(false);
+  const [isSameAddress, setIsSameAddress] = useState<boolean>(false);
+
+  const individualCustomer = (
+    <Row gutter={24}>
+      <Col span={6} key={1}>
+        <Form.Item
+          name="name"
+          label="Adı"
+          rules={[{ required: true, message: 'Lütfen Müşteri Adı Giriniz' }]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+      <Col span={6} key={2}>
+        <Form.Item
+          name="surname"
+          label="Soyadı"
+          rules={[{ required: true, message: 'Lütfen Müşteri Soyadı Giriniz' }]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+      <Col span={6} key={3}>
+        <Form.Item
+          name="tc"
+          label="TC Kimlik No"
+          rules={[{ required: true, message: 'Lütfen TC Kimlik No Giriniz' }]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+      <Col span={6} key={4}>
+        <Form.Item
+          name="phoneNumber"
+          label="Telefon"
+          rules={[
+            { required: true, message: 'Lütfen Müşteri Telefonu Giriniz' },
+          ]}
+        >
+          <Input placeholder="+90 555 123 45 67" />
+        </Form.Item>
+      </Col>
+    </Row>
+  );
+
+  const corporateCustomer = (
+    <Row gutter={24}>
+      <Col span={8} key={1}>
+        <Form.Item
+          name="name"
+          label="Şirket Adı"
+          rules={[{ required: true, message: 'Lütfen Şirket Adı Giriniz' }]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+      <Col span={8} key={2}>
+        <Form.Item
+          name="tc"
+          label="Vergi Kimlik No"
+          rules={[
+            { required: true, message: 'Lütfen Vergi Kimlik No Giriniz' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+      <Col span={8} key={3}>
+        <Form.Item
+          name="phoneNumber"
+          label="Telefon"
+          rules={[{ required: true, message: 'Lütfen Telefon Giriniz' }]}
+        >
+          <Input placeholder="+90 555 123 45 67" />
+        </Form.Item>
+      </Col>
+    </Row>
+  );
+
+  const onChange = (e: CheckboxChangeEvent) => {
+    setIsCorporate(e.target.checked);
+  };
+
+  const onAddressChange = (e: CheckboxChangeEvent) => {
+    setIsSameAddress(e.target.checked);
+    e.target.checked && form.setFieldsValue({ invoiceAddress: '' });
+  };
+
+  return (
+    <Card title="Müşteri Bilgileri" bordered={false} className="form-card">
+      <Row gutter={24}>
+        <Col span={8} key={0}>
+          <Form.Item name="isCorporate" valuePropName="checked" noStyle>
+            <Checkbox onChange={onChange}>Kurumsal Müşteri </Checkbox>
+          </Form.Item>
+        </Col>
+      </Row>
+      {isCorporate ? corporateCustomer : individualCustomer}
+      <Row gutter={24}>
+        <Col span={12} key={4}>
+          <Form.Item
+            name="deliveryAddress"
+            label="Teslimat Adresi"
+            rules={[
+              { required: true, message: 'Lütfen Teslimat Adresi Giriniz' },
+            ]}
+          >
+            <TextArea rows={4} />
+          </Form.Item>
+        </Col>
+        <Col span={12} key={5}>
+          <Form.Item
+            name="invoiceAddress"
+            label="Fatura Adresi"
+            rules={[
+              {
+                required: !isSameAddress,
+                message: 'Lütfen Fatura Adresi Giriniz',
+              },
+            ]}
+            style={{ width: '100%' }}
+          >
+            <TextArea rows={4} disabled={isSameAddress} />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row gutter={24}>
+        <Col span={8} key={0}>
+          <Form.Item name="isSameAddress" valuePropName="checked" noStyle>
+            <Checkbox onChange={onAddressChange}>
+              Fatura adresi için aynı adresi kullan
+            </Checkbox>
+          </Form.Item>
+        </Col>
+      </Row>
+    </Card>
+  );
+};
+
+export default CustomerCard;

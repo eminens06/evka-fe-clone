@@ -1,3 +1,5 @@
 import OrdersPage from './Orders.component';
+import NormalOrderPage from './NormalOrder.component';
+import CustomOrderPage from './CustomOrder.component';
 
-export default OrdersPage;
+export { OrdersPage, NormalOrderPage, CustomOrderPage };

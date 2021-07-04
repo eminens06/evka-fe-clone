@@ -20,11 +20,7 @@
             }
           ],
           "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
-          "locations": [
-            "FIELD",
-            "FRAGMENT_SPREAD",
-            "INLINE_FRAGMENT"
-          ],
+          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
           "name": "include"
         },
         {
@@ -45,11 +41,7 @@
             }
           ],
           "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
-          "locations": [
-            "FIELD",
-            "FRAGMENT_SPREAD",
-            "INLINE_FRAGMENT"
-          ],
+          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
           "name": "skip"
         }
       ],
@@ -143,6 +135,16 @@
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "superSearch",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
                     "ofType": null
                   }
                 }
@@ -1367,7 +1369,7 @@
               "name": "orderDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -5533,7 +5535,7 @@
               "name": "orderDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -5563,7 +5565,7 @@
               "name": "invoiceDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -5633,7 +5635,7 @@
               "name": "completedDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -5845,7 +5847,7 @@
               "name": "orderDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -5875,7 +5877,7 @@
               "name": "invoiceDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -5945,7 +5947,7 @@
               "name": "completedDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -6174,7 +6176,7 @@
               "name": "orderDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -6258,7 +6260,7 @@
               "name": "completedDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             }
@@ -6549,7 +6551,7 @@
               "name": "orderDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -6633,7 +6635,7 @@
               "name": "completedDate",
               "type": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -7521,7 +7523,7 @@
               "name": "packageCount",
               "type": {
                 "kind": "SCALAR",
-                "name": "Int",
+                "name": "Float",
                 "ofType": null
               }
             },
