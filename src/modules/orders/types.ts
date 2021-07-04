@@ -1,9 +1,31 @@
-type OrderProduct = {
-  name: string;
-  count: number;
+import { MetadataType } from '../metadata/types';
+
+type OrderProductDTO = {
+  node: {
+    orderCount: number;
+    product: {
+      name: string;
+      productName: string;
+      metaInfo: string;
+    };
+  };
 };
 
-type UserOrderProductDTO = {};
+type OrderProductMetaInfo = {
+  [MetadataType.AY]: string;
+  [MetadataType.TB]: string;
+};
+
+export type OrderProduct = {
+  count: number;
+  name: string;
+  productName: string;
+  metaInfo?: OrderProductMetaInfo;
+};
+
+export type UserOrderProductDTO = {
+  edges: OrderProductDTO[];
+};
 
 export enum OrderStatusType {
   DF = 'DF',
@@ -30,6 +52,6 @@ export type UserOrder = {
   marketplace: string;
   status: OrderStatusType;
   price: number;
-  products: string;
+  products: OrderProduct[];
   remainingTime: number;
 };

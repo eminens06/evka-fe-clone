@@ -1,4 +1,5 @@
 import { Row, Tooltip, Typography } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
@@ -10,7 +11,7 @@ import mappers from '../../mappers';
 import GET_USER_ORDERS, {
   OrdersRelayGetAllUserOrdersQuery,
 } from '../../__generated__/OrdersRelayGetAllUserOrdersQuery.graphql';
-import { OrderStatusType } from './types';
+import { OrderProduct, OrderStatusType } from './types';
 
 const OrderStatus = {
   [OrderStatusType.DF]: {
@@ -29,7 +30,8 @@ const columns = [
         return (
           <Row className="note">
             <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
-              <Typography.Text>{`${value} *`}</Typography.Text>
+              <Typography.Text>{`${value}  `}</Typography.Text>
+              <InfoCircleOutlined />
             </Tooltip>
           </Row>
         );
@@ -61,6 +63,26 @@ const columns = [
     key: 'products',
     title: 'Ürün(ler)',
     dataIndex: 'products',
+    render: (products: OrderProduct[]) => {
+      return products.map((product) => {
+        const { name, productName, count, metaInfo } = product;
+        const text = name || productName;
+        const no = count === 1 ? '' : `x${count}`;
+        const getMetaInfo = () => {
+          if (metaInfo) {
+            return `Ayak: ${metaInfo.AY} \n Tabla: ${metaInfo.TB}`;
+          }
+          return '';
+        };
+        return (
+          <Row>
+            <Tooltip placement="topLeft" title={getMetaInfo}>
+              <Typography>{`${text} ${no}`}</Typography>
+            </Tooltip>
+          </Row>
+        );
+      });
+    },
   },
   {
     key: 'status',

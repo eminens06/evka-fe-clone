@@ -1,6 +1,11 @@
 import { Roles, RoleTexts } from './layout/roles';
 import { User } from './modules/auth/types';
-import { UserOrderDTO, UserOrder } from './modules/orders/types';
+import { Metadata, MetadataDTO } from './modules/metadata/types';
+import {
+  UserOrderDTO,
+  UserOrder,
+  UserOrderProductDTO,
+} from './modules/orders/types';
 
 const genericTableDataMapper = (data: any): any[] => {
   if (!data) return [];
@@ -21,6 +26,21 @@ const userMapper = (data: User[]) => {
   });
 };
 
+const orderProductMapper = (data: UserOrderProductDTO) => {
+  const productArr = data.edges.map((product) => product.node);
+  debugger;
+  return productArr.map((item) => {
+    return {
+      count: item.orderCount,
+      name: item.product.name,
+      productName: item.product.name,
+      metaInfo: item.product.metaInfo
+        ? JSON.parse(item.product.metaInfo)
+        : undefined,
+    };
+  });
+};
+
 const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
   return data.map((order) => {
     const { name, surname } = JSON.parse(order.customerInfo);
@@ -32,8 +52,18 @@ const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
       marketplace: order.marketplace.name,
       status: order.orderStatus,
       price: order.totalPrice,
-      products: '',
+      products: orderProductMapper(order.products),
       remainingTime: 12,
+    };
+  });
+};
+
+const metadataMapper = (data: MetadataDTO[]): Metadata[] => {
+  return data.map((item) => {
+    return {
+      id: item.id,
+      material: item.materialName,
+      number: item.materialId,
     };
   });
 };
@@ -42,4 +72,5 @@ export default {
   genericTableDataMapper,
   userMapper,
   orderListMapper,
+  metadataMapper,
 };

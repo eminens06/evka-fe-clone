@@ -21,6 +21,7 @@ graphql`
                 product {
                   name
                   productName
+                  metaInfo
                 }
               }
             }

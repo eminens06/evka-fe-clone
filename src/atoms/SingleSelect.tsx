@@ -10,17 +10,17 @@ interface Props {
 const { Option } = Select;
 
 const SingleSelect: FC<Props> = ({ onChange, defaultValue, options }) => {
-  const handleChange = () => {
+  const handleChange = (value: any) => {
     console.log('Handle Change ');
     if (onChange) {
-      onChange();
+      onChange(value);
     }
   };
 
   return (
     <Select
       defaultValue={defaultValue}
-      style={{ width: 120 }}
+      style={{ minWidth: 120 }}
       onChange={handleChange}
     >
       {options.map((option) => {
