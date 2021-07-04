@@ -3,13 +3,12 @@ import {
   Form,
   Row,
   Col,
-  Select,
   Button,
-  Input,
   FormInstance,
   Tag,
   Result,
   InputNumber,
+  Modal,
 } from 'antd';
 import Search from 'antd/lib/input/Search';
 import React, { FC, useEffect, useState } from 'react';
@@ -20,7 +19,7 @@ import PRODUCTS_QUERY, {
   OrdersAllProductsQuery,
 } from '../__generated__/OrdersAllProductsQuery.graphql';
 import { metaProductsDTO, productDTO } from './types';
-
+import ListProducts from '../modules/orders/ListProducts';
 interface Props {
   remove: () => void;
   field: FormListFieldData;
@@ -29,11 +28,15 @@ interface Props {
 
 const ProductCard: FC<Props> = ({ remove, field, form }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showAllProducts, setShowAllProducts] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<productDTO | null>();
+  const [selectedWithTable, setSelectWithTable] = useState<React.Key>('');
   const [error, setError] = useState<boolean>(false);
   const environment = useRelayEnvironment();
 
-  const getProductBySku = async (value: string) => {
+  const getProductBySku = async (
+    value: string | React.ReactText | undefined,
+  ) => {
     setIsLoading(true);
     const { allProducts } = await fetchQuery<OrdersAllProductsQuery>(
       environment,
@@ -45,7 +48,10 @@ const ProductCard: FC<Props> = ({ remove, field, form }) => {
 
     if (allProducts && allProducts?.edges.length > 0) {
       const products = form.getFieldValue('products');
-      products[field.name].productId = allProducts.edges[0]?.node?.id;
+      products[field.name] = {
+        productId: allProducts.edges[0]?.node?.id,
+        sku: value,
+      };
       setError(false);
       setSelectedProduct(allProducts.edges[0]?.node);
       form.setFieldsValue({ products: products });
@@ -95,8 +101,35 @@ const ProductCard: FC<Props> = ({ remove, field, form }) => {
         </Col>
 
         <Col span={4} key={`${field.fieldKey}-2`} className="find-table-btn">
-          <Button type="default">Tablodan Bul</Button>
+          <Button type="default" onClick={() => setShowAllProducts(true)}>
+            Tablodan Bul
+          </Button>
         </Col>
+        <Modal
+          visible={showAllProducts}
+          title="Tüm Ürünler"
+          width={'70%'}
+          afterClose={() => setSelectWithTable('')}
+          footer={[
+            <Button key="back" onClick={() => setShowAllProducts(false)}>
+              Vazgeç
+            </Button>,
+            <Button
+              key="submit"
+              type="primary"
+              onClick={() => {
+                getProductBySku(selectedWithTable);
+                setShowAllProducts(false);
+                form.setFieldsValue({ sku: 'asdasdasd' });
+              }}
+              disabled={!selectedWithTable}
+            >
+              Kaydet
+            </Button>,
+          ]}
+        >
+          <ListProducts setSelectWithTable={setSelectWithTable} />
+        </Modal>
       </Row>
       {selectedProduct && (
         <Row gutter={24}>
