@@ -24,6 +24,7 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
                             readonly product: {
                                 readonly name: string;
                                 readonly productName: string;
+                                readonly metaInfo: unknown | null;
                             } | null;
                         } | null;
                     } | null>;
@@ -61,6 +62,7 @@ query OrdersRelayGetAllUserOrdersQuery {
               product {
                 name
                 productName
+                metaInfo
                 id
               }
               id
@@ -135,6 +137,13 @@ v8 = {
   "args": null,
   "kind": "ScalarField",
   "name": "productName",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "metaInfo",
   "storageKey": null
 };
 return {
@@ -220,7 +229,8 @@ return {
                                 "plural": false,
                                 "selections": [
                                   (v3/*: any*/),
-                                  (v8/*: any*/)
+                                  (v8/*: any*/),
+                                  (v9/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -329,6 +339,7 @@ return {
                                 "selections": [
                                   (v3/*: any*/),
                                   (v8/*: any*/),
+                                  (v9/*: any*/),
                                   (v1/*: any*/)
                                 ],
                                 "storageKey": null
@@ -359,9 +370,9 @@ return {
     "metadata": {},
     "name": "OrdersRelayGetAllUserOrdersQuery",
     "operationKind": "query",
-    "text": "query OrdersRelayGetAllUserOrdersQuery {\n  allUserOrders {\n    edges {\n      node {\n        notes\n        id\n        totalPrice\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        products {\n          edges {\n            node {\n              orderCount\n              product {\n                name\n                productName\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query OrdersRelayGetAllUserOrdersQuery {\n  allUserOrders {\n    edges {\n      node {\n        notes\n        id\n        totalPrice\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        products {\n          edges {\n            node {\n              orderCount\n              product {\n                name\n                productName\n                metaInfo\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '138d4c46bf778abc0de54cbd68be7d79';
+(node as any).hash = '3d42c15f15e850fc23e338365362b86b';
 export default node;

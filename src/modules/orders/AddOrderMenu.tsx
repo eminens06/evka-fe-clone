@@ -1,17 +1,19 @@
 import { Dropdown, Button, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import React, { FC } from 'react';
+import { useRouter } from 'next/router';
 
 const AddOrderMenu: FC = () => {
-  const handleMenuClick = () => {
-    console.log('Add Order Menu');
+  const router = useRouter();
+  const handleMenuClick = ({ key }) => {
+    router.push('/', key);
   };
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">Normal Sipariş</Menu.Item>
-      <Menu.Item key="2">Özel Sipariş</Menu.Item>
-      <Menu.Item key="3">Gel-Al Sipariş</Menu.Item>
+      <Menu.Item key="normal_order">Normal Sipariş</Menu.Item>
+      <Menu.Item key="custom_order">Özel Sipariş</Menu.Item>
+      <Menu.Item key="oem_order">Gel-Al Sipariş</Menu.Item>
     </Menu>
   );
 
