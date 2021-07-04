@@ -43,6 +43,16 @@ graphql`
               node {
                 materialName
                 type
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+graphql`
   query OrdersRelayGetAllUserOrdersQuery {
     allUserOrders {
       edges {
