@@ -11,10 +11,19 @@ export interface productDTO {
     } | null>;
   };
 }
-
 export interface metaProductsDTO {
   readonly node: {
     readonly materialName: string;
     readonly type: string | null;
   } | null;
 }
+type Column = {
+  key: string;
+  title: string;
+  dataIndex: string;
+  render?: Function;
+};
+
+type Data = Record<string, any>;
+
+type DataSource = Data[];
