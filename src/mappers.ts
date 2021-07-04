@@ -93,6 +93,8 @@ const userMapper = (data: User[]) => {
         ? RoleTexts[Roles.admin]
         : user.roles.map((role) => RoleTexts[role]).join(','),
       email: user.email,
+      id: user.id,
+      password: user.password,
     };
   });
 };

@@ -1,5 +1,10 @@
-import { useMemo } from 'react';
-import { STORE_OR_NETWORK, useQuery } from 'relay-hooks';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  STORE_OR_NETWORK,
+  useQuery,
+  useRelayEnvironment,
+  fetchQuery,
+} from 'relay-hooks';
 import { ConcreteRequest, OperationType } from 'relay-runtime';
 import mappers from '../mappers';
 
@@ -14,17 +19,44 @@ function useFetchTablePagination<
     fetchPolicy: STORE_OR_NETWORK,
   });
 
-  const tableData = useMemo(() => {
+  const [tableData, setTableData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const environment = useRelayEnvironment();
+
+  const forceFetchQuery = async (queryParams: any) => {
+    setLoading(true);
+    const res = await fetchQuery<TOperationType>(
+      environment,
+      gqlQuery,
+      queryParams,
+    );
     if (customMapper) {
-      return customMapper(mappers.genericTableDataMapper(data));
+      setLoading(false);
+      setTableData(customMapper(mappers.genericTableDataMapper(res)));
+    } else {
+      setLoading(false);
+      setTableData(mappers.genericTableDataMapper(res));
     }
-    return mappers.genericTableDataMapper(data);
+  };
+
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (customMapper) {
+      setTableData(customMapper(mappers.genericTableDataMapper(data)));
+    } else {
+      setTableData(mappers.genericTableDataMapper(data));
+    }
   }, [data]);
 
   return {
     data: tableData,
-    isLoading,
+    isLoading: loading,
     size: tableData.length,
+    forceFetchQuery,
   };
 }
 

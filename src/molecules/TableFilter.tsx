@@ -6,11 +6,12 @@ import './molecules.style.less';
 
 interface Props {
   withFilter?: boolean;
+  onSearchComplete: Function;
 }
 
-const TableFilter: FC<Props> = () => {
-  const onSearch = () => {
-    console.log('On search !!');
+const TableFilter: FC<Props> = ({ onSearchComplete }) => {
+  const onSearch = (value: string) => {
+    onSearchComplete(value);
   };
 
   return (

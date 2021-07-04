@@ -2,7 +2,9 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type UsersRelayGetAllUsersQueryVariables = {};
+export type UsersRelayGetAllUsersQueryVariables = {
+    search?: string | null;
+};
 export type UsersRelayGetAllUsersQueryResponse = {
     readonly allAppUsers: {
         readonly edges: ReadonlyArray<{
@@ -12,6 +14,7 @@ export type UsersRelayGetAllUsersQueryResponse = {
                 readonly lastName: string;
                 readonly id: string;
                 readonly email: string;
+                readonly password: string;
             } | null;
         } | null>;
     } | null;
@@ -24,8 +27,10 @@ export type UsersRelayGetAllUsersQuery = {
 
 
 /*
-query UsersRelayGetAllUsersQuery {
-  allAppUsers {
+query UsersRelayGetAllUsersQuery(
+  $search: String
+) {
+  allAppUsers(superSearch: $search) {
     edges {
       node {
         roles
@@ -33,6 +38,7 @@ query UsersRelayGetAllUsersQuery {
         lastName
         id
         email
+        password
       }
     }
   }
@@ -42,8 +48,22 @@ query UsersRelayGetAllUsersQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search",
+    "type": "String"
+  }
+],
+v1 = [
+  {
     "alias": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "superSearch",
+        "variableName": "search"
+      }
+    ],
     "concreteType": "AppUserNodeConnection",
     "kind": "LinkedField",
     "name": "allAppUsers",
@@ -99,6 +119,13 @@ var v0 = [
                 "kind": "ScalarField",
                 "name": "email",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "password",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -112,28 +139,28 @@ var v0 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "UsersRelayGetAllUsersQuery",
-    "selections": (v0/*: any*/),
+    "selections": (v1/*: any*/),
     "type": "Query"
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UsersRelayGetAllUsersQuery",
-    "selections": (v0/*: any*/)
+    "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "UsersRelayGetAllUsersQuery",
     "operationKind": "query",
-    "text": "query UsersRelayGetAllUsersQuery {\n  allAppUsers {\n    edges {\n      node {\n        roles\n        firstName\n        lastName\n        id\n        email\n      }\n    }\n  }\n}\n"
+    "text": "query UsersRelayGetAllUsersQuery(\n  $search: String\n) {\n  allAppUsers(superSearch: $search) {\n    edges {\n      node {\n        roles\n        firstName\n        lastName\n        id\n        email\n        password\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '91a06a02d24fa881dc0e48d32761a3bb';
+(node as any).hash = 'ff9bdf615195ca62d2bb3280ba66165b';
 export default node;

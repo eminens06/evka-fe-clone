@@ -1,4 +1,4 @@
-import { Button, Table, Typography } from 'antd';
+import { Button, Form, Table, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
@@ -7,6 +7,8 @@ import GET_MARKETPLACES, {
   MarketplaceRelayGetMarketplacesQuery,
 } from '../../../__generated__/MarketplaceRelayGetMarketplacesQuery.graphql';
 import useFetchTablePagination from '../../../hooks/useFetchTableData';
+import AddEditCard from '../../common/AddEditCard';
+import MarketPlaceForm from './MarketPlaceForm';
 
 const columns = [
   {
@@ -27,15 +29,15 @@ const columns = [
 ];
 
 const ListMarketPlaces: FunctionComponent = () => {
-  const [search, setSearch] = useState<string>();
   const [page, setPage] = useState(1);
+  const [modalData, setModalData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [form] = Form.useForm();
 
   const openModal = () => {
     setIsModalVisible(true);
   };
-
-  // const pagination = useTablePagination(50, page, requestPageChange);
 
   const changePagination = (page: number) => {
     setPage(page);
@@ -45,33 +47,48 @@ const ListMarketPlaces: FunctionComponent = () => {
     data,
     size,
     isLoading,
+    forceFetchQuery,
   } = useFetchTablePagination<MarketplaceRelayGetMarketplacesQuery>(
     GET_MARKETPLACES,
     {
-      first: 10,
+      search: '',
     },
   );
 
-  const onTableClick = (id: string) => {
-    console.log('Go To edit selected row ', id);
+  const onSearch = (value: string) => {
+    forceFetchQuery({
+      search: value,
+    });
   };
 
-  // const pagination = usePagination(Orders_Fragment, );
+  const onTableClick = (data: any) => {
+    setModalData({ ...data });
+    openModal();
+  };
+
+  const addNewUser = () => {
+    setModalData(undefined);
+    openModal();
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <PageContent header={['Admin', 'Pazaryeri']}>
       <div>
-        <TableFilter />
+        <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Pazaryerleri</Typography.Title>
-          <Button type="primary" onClick={openModal} icon={<PlusOutlined />}>
+          <Button type="primary" onClick={addNewUser} icon={<PlusOutlined />}>
             Ekle
           </Button>
         </div>
         <Table
           onRow={(record, rowIndex) => {
             return {
-              onClick: () => onTableClick(record.id),
+              onClick: () => onTableClick(record),
             };
           }}
           columns={columns}
@@ -85,6 +102,18 @@ const ListMarketPlaces: FunctionComponent = () => {
             onChange: (page, pageSize) => changePagination(page),
           }}
         />
+        <AddEditCard
+          isVisible={isModalVisible}
+          closeModal={closeModal}
+          header="Pazaryeri Bilgileri"
+          form={form}
+        >
+          <MarketPlaceForm
+            initialValues={modalData}
+            form={form}
+            onSuccess={() => onSearch('')}
+          />
+        </AddEditCard>
       </div>
     </PageContent>
   );

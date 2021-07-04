@@ -41,3 +41,82 @@ export const RoleTexts = {
   [Roles.oem]: 'Al-Sat',
   [Roles.orders]: 'Siparişler',
 };
+
+export const RoleOptions: Option[] = [
+  {
+    text: 'Admin',
+    value: Roles.admin,
+  },
+  {
+    text: 'Kiosk',
+    value: Roles.kiosk,
+  },
+  {
+    text: 'Üretim Yönetimi',
+    value: Roles.management_production,
+  },
+  {
+    text: 'Üretim Özeti',
+    value: Roles.production_summary,
+  },
+  {
+    text: 'Ahşap Atölyesi',
+    value: Roles.production_wood,
+  },
+  {
+    text: 'Metal Atölyesi',
+    value: Roles.production_metal,
+  },
+  {
+    text: 'Boya Atölyesi',
+    value: Roles.production_paint,
+  },
+  {
+    text: 'Mermer Atölyesi',
+    value: Roles.production_marble,
+  },
+  {
+    text: 'Cam Atölyesi',
+    value: Roles.production_glass,
+  },
+  {
+    text: 'Kumaş Atölyesi',
+    value: Roles.production_fabric,
+  },
+  {
+    text: 'Toplama/Paketleme',
+    value: Roles.packaging,
+  },
+  {
+    text: 'İptal/İade',
+    value: Roles.return_cancel,
+  },
+  {
+    text: 'Sevkiyat/Fatura',
+    value: Roles.shipment_invoice,
+  },
+  {
+    text: 'Sevkiyat Yönetimi',
+    value: Roles.shipment_shipmentManagement,
+  },
+  {
+    text: 'Sevkiyat',
+    value: Roles.shipment_shipmentOrder,
+  },
+  {
+    text: 'Sevkiyat Özeti',
+    value: Roles.shipment_summary,
+  },
+  {
+    text: 'Loglar',
+    value: Roles.log,
+  },
+  {
+    text: 'Al-Sat',
+    value: Roles.oem,
+  },
+  {
+    text: 'Siparişler',
+    value: Roles.orders,
+  },
+];

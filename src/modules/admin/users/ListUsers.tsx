@@ -1,4 +1,4 @@
-import { Button, Table, Typography } from 'antd';
+import { Button, Form, Table, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
@@ -8,6 +8,8 @@ import mappers from '../../../mappers';
 import GET_USERS, {
   UsersRelayGetAllUsersQuery,
 } from '../../../__generated__/UsersRelayGetAllUsersQuery.graphql';
+import AddEditCard from '../../common/AddEditCard';
+import UserForm from './UserForm';
 
 const columns = [
   {
@@ -27,16 +29,24 @@ const columns = [
   },
 ];
 
+export interface UserProps {
+  email: string;
+  fullName: string;
+  roles: string;
+  id: string;
+  password: string;
+}
+
 const ListUsers: FunctionComponent = () => {
-  const [search, setSearch] = useState<string>();
   const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalData, setModalData] = useState<UserProps>();
+
+  const [form] = Form.useForm();
 
   const openModal = () => {
     setIsModalVisible(true);
   };
-
-  // TODO Organize pagination for larger results
 
   const changePagination = (page: number) => {
     setPage(page);
@@ -46,32 +56,50 @@ const ListUsers: FunctionComponent = () => {
     data,
     size,
     isLoading,
+    forceFetchQuery,
   } = useFetchTablePagination<UsersRelayGetAllUsersQuery>(
     GET_USERS,
     {
-      first: 10,
+      search: '',
     },
     mappers.userMapper,
   );
 
-  const onTableClick = (id: string) => {
-    console.log('Go To edit selected row ', id);
+  const onTableClick = (data: UserProps) => {
+    console.log('Data : ', data);
+    setModalData({ ...data });
+    openModal();
+  };
+
+  const onSearch = (value: string) => {
+    forceFetchQuery({
+      search: value,
+    });
+  };
+
+  const addNewUser = () => {
+    setModalData(undefined);
+    openModal();
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
     <PageContent header={['Admin', 'Kullanıcılar']}>
       <div>
-        <TableFilter />
+        <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Kullanıcı Listesi</Typography.Title>
-          <Button type="primary" onClick={openModal} icon={<PlusOutlined />}>
+          <Button type="primary" onClick={addNewUser} icon={<PlusOutlined />}>
             Ekle
           </Button>
         </div>
         <Table
           onRow={(record, rowIndex) => {
             return {
-              onClick: () => onTableClick(record.id),
+              onClick: () => onTableClick(record),
             };
           }}
           columns={columns}
@@ -85,6 +113,18 @@ const ListUsers: FunctionComponent = () => {
             onChange: (page, pageSize) => changePagination(page),
           }}
         />
+        <AddEditCard
+          isVisible={isModalVisible}
+          closeModal={closeModal}
+          header="Kullanıcı Bilgileri"
+          form={form}
+        >
+          <UserForm
+            initialValues={modalData}
+            form={form}
+            onSuccess={() => onSearch('')}
+          />
+        </AddEditCard>
       </div>
     </PageContent>
   );

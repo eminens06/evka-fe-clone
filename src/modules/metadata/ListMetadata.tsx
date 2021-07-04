@@ -44,8 +44,6 @@ export interface MetadataFormProps extends Metadata {
 }
 
 const ListMetadata: FunctionComponent = () => {
-  const [search, setSearch] = useState<string>();
-
   const [category, setCategory] = useState<MetadataType>(MetadataType.CA);
   const [modalData, setModalData] = useState<MetadataFormProps>();
   const [page, setPage] = useState(1);
@@ -80,6 +78,7 @@ const ListMetadata: FunctionComponent = () => {
     data,
     size,
     isLoading,
+    forceFetchQuery,
   } = useFetchTablePagination<MetadataRelayAllMetadataQuery>(
     GET_METADATA,
     {
@@ -88,6 +87,13 @@ const ListMetadata: FunctionComponent = () => {
     },
     mappers.metadataMapper,
   );
+
+  const onSearch = (value: string) => {
+    forceFetchQuery({
+      search: value,
+      category,
+    });
+  };
 
   const onTableClick = (data: Metadata) => {
     setModalData({ ...data, category });
@@ -106,7 +112,7 @@ const ListMetadata: FunctionComponent = () => {
   return (
     <PageContent header={['Admin', 'Metadata']}>
       <div>
-        <TableFilter />
+        <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Metadata Listesi</Typography.Title>
           <Row gutter={24}>

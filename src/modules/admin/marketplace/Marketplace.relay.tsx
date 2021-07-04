@@ -1,8 +1,8 @@
 import { graphql } from 'relay-hooks';
 
 graphql`
-  query MarketplaceRelayGetMarketplacesQuery {
-    allMarketplaces {
+  query MarketplaceRelayGetMarketplacesQuery($search: String) {
+    allMarketplaces(superSearch: $search) {
       edges {
         node {
           id
@@ -15,13 +15,11 @@ graphql`
   }
 `;
 
-/* graphql`
-mutation MarketplaceRelay {
-    createMarketplace(input:{
-      name: "Trendyol",
-      commissionRate: 15,
-      deliveryDate: 15,
-    }) {
+graphql`
+  mutation MarketplaceRelayCreateMarketplaceMutation(
+    $input: CreateMarketplaceMutationInput!
+  ) {
+    createMarketplace(input: $input) {
       marketplace {
         id
         name
@@ -30,4 +28,29 @@ mutation MarketplaceRelay {
       }
     }
   }
-` */
+`;
+
+graphql`
+  mutation MarketplaceRelayUpdateMarketplaceMutation(
+    $input: UpdateMarketPlaceMutationInput!
+  ) {
+    updateMarketplace(input: $input) {
+      marketplace {
+        id
+        name
+        commissionRate
+        deliveryDate
+      }
+    }
+  }
+`;
+
+graphql`
+  mutation MarketplaceRelayDeleteMarketplaceMutation(
+    $input: DeleteMarketplaceMutationInput!
+  ) {
+    deleteMarketplace(input: $input) {
+      deletedId
+    }
+  }
+`;

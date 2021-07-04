@@ -5,15 +5,15 @@ import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
 export type MetaProductMetaType = "DF" | "MT" | "WD" | "%future added value";
 export type UpdateMetaProductMutationInput = {
-    input?: MetaProductUpdateInput | null;
+    metaProduct?: MetaProductUpdateInput | null;
     clientMutationId?: string | null;
 };
 export type MetaProductUpdateInput = {
-    categoryName: string;
-    materialName: string;
-    materialId: number;
+    categoryName?: string | null;
+    materialName?: string | null;
+    materialId?: number | null;
     metaType?: string | null;
-    id?: string | null;
+    id: string;
 };
 export type MetadataRelayUpdateMetadataMutationVariables = {
     input: UpdateMetaProductMutationInput;

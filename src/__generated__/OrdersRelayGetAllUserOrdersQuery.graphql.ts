@@ -2,7 +2,6 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type UserOrderOrderStatus = "DF" | "%future added value";
 export type OrdersRelayGetAllUserOrdersQueryVariables = {};
 export type OrdersRelayGetAllUserOrdersQueryResponse = {
     readonly allUserOrders: {
@@ -16,7 +15,7 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
                 } | null;
                 readonly customerInfo: unknown;
                 readonly marketplaceOrderId: string;
-                readonly orderStatus: UserOrderOrderStatus;
+                readonly orderStatus: string | null;
                 readonly products: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {

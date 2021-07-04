@@ -5,6 +5,7 @@ import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
 export type MetadataRelayAllMetadataQueryVariables = {
     category?: string | null;
+    search?: string | null;
 };
 export type MetadataRelayAllMetadataQueryResponse = {
     readonly allMetaProducts: {
@@ -28,8 +29,9 @@ export type MetadataRelayAllMetadataQuery = {
 /*
 query MetadataRelayAllMetadataQuery(
   $category: String
+  $search: String
 ) {
-  allMetaProducts(byCategory: $category) {
+  allMetaProducts(byCategory: $category, superSearch: $search) {
     edges {
       node {
         id
@@ -49,6 +51,12 @@ var v0 = [
     "kind": "LocalArgument",
     "name": "category",
     "type": "String"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search",
+    "type": "String"
   }
 ],
 v1 = [
@@ -59,6 +67,11 @@ v1 = [
         "kind": "Variable",
         "name": "byCategory",
         "variableName": "category"
+      },
+      {
+        "kind": "Variable",
+        "name": "superSearch",
+        "variableName": "search"
       }
     ],
     "concreteType": "MetaProductNodeConnection",
@@ -141,9 +154,9 @@ return {
     "metadata": {},
     "name": "MetadataRelayAllMetadataQuery",
     "operationKind": "query",
-    "text": "query MetadataRelayAllMetadataQuery(\n  $category: String\n) {\n  allMetaProducts(byCategory: $category) {\n    edges {\n      node {\n        id\n        categoryName\n        materialName\n        materialId\n      }\n    }\n  }\n}\n"
+    "text": "query MetadataRelayAllMetadataQuery(\n  $category: String\n  $search: String\n) {\n  allMetaProducts(byCategory: $category, superSearch: $search) {\n    edges {\n      node {\n        id\n        categoryName\n        materialName\n        materialId\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '4a9434d15a283fdcff76f046ce890383';
+(node as any).hash = 'e304bb2fe734a15e32a97140cad65220';
 export default node;

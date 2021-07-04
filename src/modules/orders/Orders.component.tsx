@@ -89,14 +89,12 @@ const columns = [
     title: 'Durum',
     dataIndex: 'status',
     render: (value: OrderStatusType) => {
-      const { text, status } = OrderStatus[value];
-      return <Status status={status} text={text} />;
+      return <Status status="error" text={value} />;
     },
   },
 ];
 
 const OrdersPage: FunctionComponent = () => {
-  const [search, setSearch] = useState<string>();
   const [page, setPage] = useState(1);
   const changePagination = (page: number) => {
     setPage(page);
@@ -106,10 +104,11 @@ const OrdersPage: FunctionComponent = () => {
     data,
     size,
     isLoading,
+    forceFetchQuery,
   } = useFetchTablePagination<OrdersRelayGetAllUserOrdersQuery>(
     GET_USER_ORDERS,
     {
-      first: 10,
+      search: '',
     },
     mappers.orderListMapper,
   );
@@ -118,10 +117,16 @@ const OrdersPage: FunctionComponent = () => {
     console.log('Go To edit selected row ', id);
   };
 
+  const onSearch = (value: string) => {
+    forceFetchQuery({
+      search: value,
+    });
+  };
+
   return (
     <PageContent header={['Siparişler']}>
       <div>
-        <TableFilter />
+        <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Açık Siparişler</Typography.Title>
           <AddOrderMenu />

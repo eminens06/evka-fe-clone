@@ -6,6 +6,7 @@ interface User {
   email: string;
   id: string;
   roles: Roles[];
+  password?: string;
 }
 
 interface Session {

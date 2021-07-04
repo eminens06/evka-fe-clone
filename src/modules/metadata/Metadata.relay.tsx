@@ -1,8 +1,8 @@
 import { graphql } from 'relay-hooks';
 
 graphql`
-  query MetadataRelayAllMetadataQuery($category: String) {
-    allMetaProducts(byCategory: $category) {
+  query MetadataRelayAllMetadataQuery($category: String, $search: String) {
+    allMetaProducts(byCategory: $category, superSearch: $search) {
       edges {
         node {
           id

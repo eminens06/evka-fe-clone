@@ -14,11 +14,12 @@ export type ProductOrderCreateInput = {
     orderDate?: unknown | null;
     isKdvInclude?: boolean | null;
     price?: number | null;
+    productOrderStatus?: string | null;
     notes?: string | null;
     imageId?: string | null;
     orderCount?: number | null;
     externalServiceIds?: Array<string | null> | null;
-    marketPlaceProductId?: string | null;
+    marketplaceOrderId?: string | null;
     completedDate?: unknown | null;
 };
 export type UserOrderCreateInput = {
