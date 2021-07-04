@@ -2,14 +2,14 @@ import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import environment from '../src/relay/environment';
 import React from 'react';
-import { OrdersPage } from '../src/modules/orders';
+import { CustomOrderPage } from '../src/modules/orders';
 
-const Orders: NextPage = () => {
+const NormalOrder: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <OrdersPage />
+      <CustomOrderPage />
     </RelayEnvironmentProvider>
   );
 };
 
-export default Orders;
+export default NormalOrder;
