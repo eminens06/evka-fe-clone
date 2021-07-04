@@ -11,10 +11,11 @@ import CREATE_ORDER, {
 } from '../../__generated__/OrdersCreateOrderMutation.graphql';
 import { useMutation } from 'relay-hooks';
 import { orderSaveMapper } from '../../mappers';
+import { useRouter } from 'next/router';
 
 const NormalOrderPage: FunctionComponent = () => {
   const [form] = Form.useForm();
-
+  const router = useRouter();
   const [createOrder] = useMutation<OrdersCreateOrderMutation>(CREATE_ORDER, {
     onError: (error: any) => {
       message.error('Hata! ', error.response.errors[0].message);
@@ -22,6 +23,7 @@ const NormalOrderPage: FunctionComponent = () => {
     onCompleted: (res) => {
       console.log(res);
       message.success('Siparişiniz başarıyla oluşturuldu');
+      router.back();
     },
   });
 

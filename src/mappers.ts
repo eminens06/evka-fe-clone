@@ -116,7 +116,7 @@ const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
   return data.map((order) => {
     const { name, surname } = JSON.parse(order.customerInfo);
     return {
-      customer: `${name} ${surname}`,
+      customer: `${name} ${surname || ''}`,
       id: order.id,
       orderId: order.marketplaceOrderId,
       notes: order.notes,
