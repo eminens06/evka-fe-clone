@@ -7,6 +7,7 @@ import {
 } from './modules/orders/types';
 import { User } from './modules/auth/types';
 import { OrdersAllMarketplacesQueryResponse } from './__generated__/OrdersAllMarketplacesQuery.graphql';
+import { productMetaData } from './utils/enums';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -141,9 +142,37 @@ const metadataMapper = (data: MetadataDTO[]): Metadata[] => {
   });
 };
 
+const allProductsMapper = (data: any) => {
+  console.log('--------------------------', data);
+  return data.map((item: any) => {
+    const metaProducts = item.metaProducts.edges.reduce(
+      (acc: any, key: any) => {
+        const selectedProduct = productMetaData.find(
+          (item: any) => item.description === key.node.type,
+        );
+
+        if (selectedProduct) {
+          acc[selectedProduct?.name] = key.node.materialName;
+        }
+        return acc;
+      },
+      [],
+    );
+    console.log(metaProducts);
+    return {
+      id: item.id,
+      name: item.name,
+      sku: item.sku,
+      data: item,
+      ...metaProducts,
+    };
+  });
+};
+
 export default {
   genericTableDataMapper,
   userMapper,
   orderListMapper,
   metadataMapper,
+  allProductsMapper,
 };

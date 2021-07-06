@@ -93,3 +93,25 @@ graphql`
     }
   }
 `;
+
+graphql`
+  query OrdersAllProductsWithoutSkuQuery {
+    allProducts {
+      edges {
+        node {
+          id
+          name
+          sku
+          metaProducts {
+            edges {
+              node {
+                materialName
+                type
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
