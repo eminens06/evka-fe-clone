@@ -8,6 +8,9 @@ import CREATE_MARKETPLACE, {
 import UPDATE_MARKETPLACE, {
   MarketplaceRelayUpdateMarketplaceMutation,
 } from '../../../__generated__/MarketplaceRelayUpdateMarketplaceMutation.graphql';
+import DELETE_MARKETPLACE, {
+  MarketplaceRelayDeleteMarketplaceMutation,
+} from '../../../__generated__/MarketplaceRelayDeleteMarketplaceMutation.graphql';
 
 export interface MarketPlaceProps {
   initialValues?: any;
@@ -55,6 +58,27 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
     },
   );
 
+  const [
+    deleteMarketPlace,
+  ] = useMutation<MarketplaceRelayDeleteMarketplaceMutation>(
+    DELETE_MARKETPLACE,
+    {
+      onError: (error: any) => {
+        console.log('ERROR ! ', error);
+        message.error(
+          'Hata! ',
+          error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
+        );
+      },
+      onCompleted: (res) => {
+        console.log(res);
+        message.success('Pazaryeri başarıyla silindi');
+        props.onSuccess();
+        props.close();
+      },
+    },
+  );
+
   useEffect(() => form.resetFields(), [initialValues]);
 
   const onFormFinish = (values: any) => {
@@ -66,10 +90,21 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
       });
       return;
     }
-    console.log('Values : ', values);
     createMarketplace({
       variables: {
         input: { ...values },
+      },
+    });
+  };
+
+  const onPressDelete = () => {
+    const id = initialValues.id;
+    if (!id) return;
+    deleteMarketPlace({
+      variables: {
+        input: {
+          id,
+        },
       },
     });
   };
@@ -114,7 +149,12 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
       {initialValues && (
         <Row gutter={24}>
           <Col offset={9}>
-            <Button type="primary" danger icon={<DeleteOutlined />}>
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={onPressDelete}
+            >
               Pazaryeri Sil
             </Button>
           </Col>
