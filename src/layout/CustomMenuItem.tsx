@@ -25,9 +25,7 @@ const CustomMenuItem: FunctionComponent<Props> = (props) => {
   }, []);
 
   const isHide = useMemo(() => {
-    if (role.startsWith('admin')) {
-      return false;
-    }
+    if (userRoles.includes('admin')) return false;
     return userRoles.indexOf(role) === -1;
   }, [role, userRoles]);
 

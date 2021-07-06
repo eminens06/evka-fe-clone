@@ -169,10 +169,24 @@ const allProductsMapper = (data: any) => {
   });
 };
 
+const managementProductionMapper = (data: any) => {
+  // TODO CHANGE HERE AFTER BACKEND
+  return data.map((item: any) => {
+    return {
+      orderId: 100000,
+      marketplace: 'Trendyol Dummy',
+      productName: 'Product Name Dummy',
+      legMaterial: 'Bişiler Dummy',
+      tableMaterial: 'Tabla Materyali Dummy',
+    };
+  });
+};
+
 export default {
   genericTableDataMapper,
   userMapper,
   orderListMapper,
   metadataMapper,
   allProductsMapper,
+  managementProductionMapper,
 };
