@@ -10,10 +10,14 @@ import UPDATE_METADATA, {
   MetadataRelayUpdateMetadataMutation,
 } from '../../__generated__/MetadataRelayUpdateMetadataMutation.graphql';
 import { CategoryOptions, MetadataFormProps } from './ListMetadata';
+import DELETE_METADATA, {
+  MetadataRelayDeleteMetadataMutation,
+} from '../../__generated__/MetadataRelayDeleteMetadataMutation.graphql';
 
 export interface MetadataProps {
   initialValues?: MetadataFormProps;
   form: FormInstance<any>;
+  onSuccess: Function;
 }
 
 const mapFormData = (data: any): any => {
@@ -35,7 +39,8 @@ const MetadataForm: FC<MetadataProps> = (props) => {
       },
       onCompleted: (res) => {
         console.log(res);
-        message.success('Siparişiniz başarıyla oluşturuldu');
+        message.success('Metadata başarıyla oluşturuldu');
+        props.onSuccess();
         props.close();
       },
     },
@@ -53,7 +58,27 @@ const MetadataForm: FC<MetadataProps> = (props) => {
       },
       onCompleted: (res) => {
         console.log(res);
-        message.success('Siparişiniz başarıyla oluşturuldu');
+        message.success('Metadata başarıyla güncellendi');
+        props.onSuccess();
+        props.close();
+      },
+    },
+  );
+
+  const [deleteMetadata] = useMutation<MetadataRelayDeleteMetadataMutation>(
+    DELETE_METADATA,
+    {
+      onError: (error: any) => {
+        console.log('ERROR ! ', error);
+        message.error(
+          'Hata! ',
+          error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
+        );
+      },
+      onCompleted: (res) => {
+        console.log(res);
+        message.success('Metadata başarıyla silindi');
+        props.onSuccess();
         props.close();
       },
     },
@@ -78,6 +103,18 @@ const MetadataForm: FC<MetadataProps> = (props) => {
       variables: {
         input: {
           metaProductInput: mapFormData({ ...values }),
+        },
+      },
+    });
+  };
+
+  const onPressDelete = () => {
+    const id = initialValues?.id;
+    if (!id) return;
+    deleteMetadata({
+      variables: {
+        input: {
+          id,
         },
       },
     });
@@ -127,8 +164,13 @@ const MetadataForm: FC<MetadataProps> = (props) => {
       {initialValues && (
         <Row gutter={24}>
           <Col offset={9}>
-            <Button type="primary" danger icon={<DeleteOutlined />}>
-              Kullanıcı Sil
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={onPressDelete}
+            >
+              Metadata Sil
             </Button>
           </Col>
         </Row>

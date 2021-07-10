@@ -42,3 +42,13 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation UsersRelayDeleteMarketplaceMutation(
+    $input: DeleteAppUserMutationInput!
+  ) {
+    deleteUser(input: $input) {
+      deletedUserId
+    }
+  }
+`;

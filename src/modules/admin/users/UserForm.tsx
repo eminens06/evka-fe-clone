@@ -20,6 +20,9 @@ import UPDATE_USER, {
   UsersRelayUpdateUserMutation,
 } from '../../../__generated__/UsersRelayUpdateUserMutation.graphql';
 import { UserProps } from './ListUsers';
+import DELETE_USER, {
+  UsersRelayDeleteMarketplaceMutation,
+} from '../../../__generated__/UsersRelayDeleteMarketplaceMutation.graphql';
 
 const PASSWORD_MAPPER = '**********';
 
@@ -86,6 +89,25 @@ const UserForm: FC<UserFormProps> = (props) => {
     },
   });
 
+  const [deleteUser] = useMutation<UsersRelayDeleteMarketplaceMutation>(
+    DELETE_USER,
+    {
+      onError: (error: any) => {
+        console.log('ERROR ! ', error);
+        message.error(
+          'Hata! ',
+          error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
+        );
+      },
+      onCompleted: (res) => {
+        console.log(res);
+        message.success('Kullanıcı başarıyla silindi');
+        props.onSuccess();
+        props.close();
+      },
+    },
+  );
+
   useEffect(() => form.resetFields(), [initialValues]);
 
   const onFormFinish = (values: any) => {
@@ -110,6 +132,18 @@ const UserForm: FC<UserFormProps> = (props) => {
       variables: {
         input: {
           ...finalValues,
+        },
+      },
+    });
+  };
+
+  const onPressDelete = () => {
+    const id = formattedInitialValues?.id;
+    if (!id) return;
+    deleteUser({
+      variables: {
+        input: {
+          id,
         },
       },
     });
@@ -181,7 +215,12 @@ const UserForm: FC<UserFormProps> = (props) => {
       {initialValues && (
         <Row gutter={24}>
           <Col offset={9}>
-            <Button type="primary" danger icon={<DeleteOutlined />}>
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={onPressDelete}
+            >
               Kullanıcı Sil
             </Button>
           </Col>

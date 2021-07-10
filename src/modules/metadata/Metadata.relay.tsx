@@ -46,3 +46,13 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation MetadataRelayDeleteMetadataMutation(
+    $input: DeleteMetaProductMutationInput!
+  ) {
+    deleteMetaProduct(input: $input) {
+      deletedId
+    }
+  }
+`;
