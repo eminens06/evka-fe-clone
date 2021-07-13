@@ -6171,6 +6171,16 @@
             {
               "defaultValue": null,
               "description": null,
+              "name": "id",
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
               "name": "productId",
               "type": {
                 "kind": "SCALAR",
@@ -6389,20 +6399,6 @@
             {
               "defaultValue": null,
               "description": null,
-              "name": "productOrderIds",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
               "name": "clientMutationId",
               "type": {
                 "kind": "SCALAR",
@@ -6556,6 +6552,20 @@
             {
               "defaultValue": null,
               "description": null,
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
               "name": "productId",
               "type": {
                 "kind": "SCALAR",
@@ -6685,20 +6695,6 @@
                 "kind": "SCALAR",
                 "name": "DateTime",
                 "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
               }
             }
           ],

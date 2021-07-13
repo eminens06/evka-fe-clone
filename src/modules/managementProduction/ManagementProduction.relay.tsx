@@ -2,10 +2,13 @@ import { graphql } from 'relay-hooks';
 
 graphql`
   query ManagementProductionRelayallProductOrdersQuery {
-    allProductOrders {
+    allProductOrders(unapprovedProductOrders: "") {
       edges {
         node {
+          notes
+          orderCount
           product {
+            id
             name
             productName
             metaProducts {
@@ -20,6 +23,7 @@ graphql`
           userorderSet {
             edges {
               node {
+                customerInfo
                 marketplaceOrderId
                 marketplace {
                   name

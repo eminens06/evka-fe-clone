@@ -1,5 +1,5 @@
 import { Roles, RoleTexts } from './layout/roles';
-import { MetadataDTO, Metadata } from './modules/metadata/types';
+import { MetadataDTO, Metadata, MetadataType } from './modules/metadata/types';
 import {
   UserOrderDTO,
   UserOrder,
@@ -8,6 +8,12 @@ import {
 import { User } from './modules/auth/types';
 import { OrdersAllMarketplacesQueryResponse } from './__generated__/OrdersAllMarketplacesQuery.graphql';
 import { productMetaData } from './utils/enums';
+import {
+  ProductionManagementDataDTO,
+  ProductionManagment,
+  ProductManagmentMetaProduct,
+  ProductManagmentMetaProductDTO,
+} from './modules/managementProduction/types';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -79,9 +85,14 @@ export const orderSaveMapper = (values: any) => {
   return { productList: productList, userOrderInput: userOrderInput };
 };
 
-const genericTableDataMapper = (data: any): any[] => {
+const genericTableDataMapper = (data: any, custom?: any): any[] => {
   if (!data) return [];
-  const withoutObjName = data[Object.keys(data)[0]];
+  let withoutObjName;
+  if (custom) {
+    withoutObjName = data[custom];
+  } else {
+    withoutObjName = data[Object.keys(data)[0]];
+  }
   const arr = withoutObjName.edges;
   return arr.map((elem: any) => elem.node);
 };
@@ -102,7 +113,6 @@ const userMapper = (data: User[]) => {
 
 const orderProductMapper = (data: UserOrderProductDTO) => {
   const productArr = data.edges.map((product) => product.node);
-  debugger;
   return productArr.map((item) => {
     return {
       count: item.orderCount,
@@ -169,17 +179,66 @@ const allProductsMapper = (data: any) => {
   });
 };
 
-const managementProductionMapper = (data: any) => {
-  // TODO CHANGE HERE AFTER BACKEND
-  return data.map((item: any) => {
-    return {
-      orderId: 100000,
-      marketplace: 'Trendyol Dummy',
-      productName: 'Product Name Dummy',
-      legMaterial: 'Bişiler Dummy',
-      tableMaterial: 'Tabla Materyali Dummy',
-    };
+const findMetadata = (
+  product: ProductManagmentMetaProductDTO[],
+): ProductManagmentMetaProduct => {
+  const metaData: ProductManagmentMetaProduct = {};
+  product.forEach((pr) => {
+    switch (pr.categoryName) {
+      case MetadataType.CT:
+        console.log('Category : ', pr);
+        metaData['category'] = pr.materialName;
+        return;
+      case MetadataType.CA:
+        console.log('Sub Category : ', pr);
+        metaData['subCategory'] = pr.materialName;
+        return;
+      case MetadataType.TB:
+        console.log('Tabla : ', pr);
+        metaData['tableMaterial'] = pr.materialName;
+        return;
+      case MetadataType.AY:
+        console.log('Ayak : ', pr);
+        metaData['legMaterial'] = pr.materialName;
+        return;
+      default:
+        return;
+    }
   });
+  return metaData;
+};
+
+const managementProductionMapper = (
+  data: ProductionManagementDataDTO[],
+): ProductionManagment[] => {
+  return data.map(
+    (item): ProductionManagment => {
+      const { product } = item;
+      const newProduct = genericTableDataMapper(product, 'metaProducts');
+      const {
+        category,
+        subCategory,
+        legMaterial,
+        tableMaterial,
+      } = findMetadata(newProduct);
+
+      const order = genericTableDataMapper(item, 'userorderSet');
+      console.log('ITEM !! ', item);
+      return {
+        id: product.id,
+        orderId: order[0].marketplaceOrderId,
+        marketplace: order[0].marketplace.name,
+        productName: product.name,
+        customerInfo: JSON.parse(order[0].customerInfo),
+        category,
+        count: item.orderCount,
+        notes: item.notes,
+        subCategory,
+        legMaterial,
+        tableMaterial,
+      };
+    },
+  );
 };
 
 export default {

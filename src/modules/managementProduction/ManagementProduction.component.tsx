@@ -9,6 +9,7 @@ import mappers from '../../mappers';
 import GET_MANAGEMENT_PRODUCTION, {
   ManagementProductionRelayallProductOrdersQuery,
 } from '../../__generated__/ManagementProductionRelayallProductOrdersQuery.graphql';
+import ProductOrderSummary from './ProductOrderSummary';
 
 const columns = [
   {
@@ -40,6 +41,11 @@ const columns = [
     dataIndex: 'productName',
   },
   {
+    key: 'count',
+    title: 'Üretim Adedi',
+    dataIndex: 'count',
+  },
+  {
     key: 'legMaterial',
     title: 'Ayak Malzemesi',
     dataIndex: 'legMaterial',
@@ -57,6 +63,13 @@ const ManagementProduction: FunctionComponent = () => {
     setPage(page);
   };
 
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalData, setModalData] = useState<any>();
+
   const {
     data,
     size,
@@ -70,14 +83,28 @@ const ManagementProduction: FunctionComponent = () => {
     mappers.managementProductionMapper,
   );
 
-  const onTableClick = (id: string) => {
-    console.log('Go To edit selected row ', id);
+  const onTableClick = (data: any) => {
+    console.log('Data : ', data);
+    setModalData({ ...data });
+    openModal();
   };
 
   const onSearch = (value: string) => {
     forceFetchQuery({
       search: value,
     });
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const onApprove = () => {
+    console.log('On Approve !');
+  };
+
+  const onStorage = () => {
+    console.log('On Storage !');
   };
 
   return (
@@ -105,6 +132,13 @@ const ManagementProduction: FunctionComponent = () => {
             current: page,
             onChange: (page, pageSize) => changePagination(page),
           }}
+        />
+        <ProductOrderSummary
+          data={modalData}
+          onApprove={onApprove}
+          onStorage={onStorage}
+          isVisible={isModalVisible}
+          closeModal={() => setIsModalVisible(false)}
         />
       </div>
     </PageContent>
