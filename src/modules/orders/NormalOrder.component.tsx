@@ -1,13 +1,4 @@
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Divider,
-  Form,
-  message,
-  Row,
-  Skeleton,
-} from 'antd';
+import { Breadcrumb, Button, Divider, Form, message, Row } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
@@ -20,29 +11,27 @@ import CREATE_ORDER, {
   OrdersCreateOrderMutation,
 } from '../../__generated__/OrdersCreateOrderMutation.graphql';
 import { useMutation, fetchQuery, useRelayEnvironment } from 'relay-hooks';
-import { orderSaveMapper } from '../../mappers';
+import {
+  orderEditMapper,
+  orderSaveMapper,
+  userOrderMapper,
+} from '../../mappers';
 import { useRouter } from 'next/router';
 import USER_ORDER, {
   OrdersGetUserOrderQuery,
 } from '../../__generated__/OrdersGetUserOrderQuery.graphql';
 import { getUserRoles } from '../auth/utils/session.utils';
-
-interface CustomerDTO {
-  tc: string;
-  name: string;
-  surname?: string;
-  phone_number: string;
-  invoice_address: string;
-  delivery_address: string;
-  is_corporate?: boolean;
-}
+import UPDATE_ORDER, {
+  OrdersUpdateOrderMutation,
+} from '../../__generated__/OrdersUpdateOrderMutation.graphql';
 
 const NormalOrderPage: FunctionComponent = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const environment = useRelayEnvironment();
   const [userRoles, setUserRoles] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [productOrderIds, setProductOrderIds] = useState<string[]>([]);
 
   const [initialValues, setInitialValues] = useState<any>();
 
@@ -56,39 +45,13 @@ const NormalOrderPage: FunctionComponent = () => {
     );
 
     if (userOrder) {
-      const customer: CustomerDTO = JSON.parse(
-        userOrder?.customerInfo as string,
-      );
-      const mapped = {
-        commissionRate: userOrder?.commissionRate,
-        notes: userOrder?.notes,
-        tc: customer.tc,
-        name: customer.name,
-        surname: customer.surname,
-        phoneNumber: customer.phone_number,
-        invoiceAddress: customer.invoice_address,
-        deliveryAddress: customer.delivery_address,
-        orderDeliveryTime: userOrder.orderDeliveryTime,
-        marketplaceOrderId: userOrder.marketplaceOrderId,
-        marketplaceId: JSON.stringify(userOrder.marketplace),
-        products: productCardMapper(userOrder.products),
-        isSameAddress: customer.delivery_address === customer.invoice_address,
-        isCorporate: customer.is_corporate,
-      };
+      const mapped = userOrderMapper(userOrder);
+      const mappedIds = userOrder.products.edges.map((item: any) => {
+        return item.node.id;
+      });
+      setProductOrderIds(mappedIds);
       setInitialValues(mapped);
     }
-  };
-
-  const productCardMapper = (data: any) => {
-    const products = data.edges.map((item: any) => {
-      return {
-        sku: item.node.product.sku,
-        count: item.node.orderCount,
-        price: item.node.price,
-        productData: item.node.product,
-      };
-    });
-    return products;
   };
 
   const isAdmin = useMemo(() => {
@@ -97,6 +60,7 @@ const NormalOrderPage: FunctionComponent = () => {
 
   useEffect(() => {
     if (router?.query?.id) {
+      setIsEdit(true);
       const getRoles = async () => {
         const data = await getUserRoles();
         setUserRoles(data);
@@ -116,6 +80,16 @@ const NormalOrderPage: FunctionComponent = () => {
     },
   });
 
+  const [updateOrder] = useMutation<OrdersUpdateOrderMutation>(UPDATE_ORDER, {
+    onError: (error: any) => {
+      message.error('Hata! ', error.response.errors[0].message);
+    },
+    onCompleted: (res) => {
+      message.success('Siparişiniz başarıyla güncellendi');
+      router.back();
+    },
+  });
+
   const onFinish = (values: any) => {
     let saveControl = true;
     values.products.forEach((product: any) => {
@@ -124,12 +98,25 @@ const NormalOrderPage: FunctionComponent = () => {
       }
     });
     if (saveControl) {
-      const orderData = orderSaveMapper(values);
-      createOrder({
-        variables: {
-          input: { ...orderData },
-        },
-      });
+      if (isEdit) {
+        const orderData = orderEditMapper(
+          values,
+          productOrderIds,
+          router?.query?.id as string,
+        );
+        updateOrder({
+          variables: {
+            input: { ...orderData },
+          },
+        });
+      } else {
+        const orderData = orderSaveMapper(values);
+        createOrder({
+          variables: {
+            input: { ...orderData },
+          },
+        });
+      }
     } else {
       message.error('Lütfen ürün bilgilerini kontrol ediniz');
     }
@@ -165,7 +152,7 @@ const NormalOrderPage: FunctionComponent = () => {
                     field={field}
                     form={form}
                     key={field.fieldKey}
-                    isAdmin={isAdmin}
+                    isDisabled={!isAdmin && isEdit}
                   />
                 );
               })}
@@ -175,7 +162,7 @@ const NormalOrderPage: FunctionComponent = () => {
                   type="primary"
                   shape="circle"
                   onClick={() => add()}
-                  disabled={!isAdmin && !!initialValues}
+                  disabled={!isAdmin && isEdit}
                 >
                   <PlusOutlined />
                 </Button>
@@ -186,16 +173,16 @@ const NormalOrderPage: FunctionComponent = () => {
         <OrderCard
           form={form}
           initialValues={initialValues}
-          isAdmin={isAdmin}
+          isDisabled={!isAdmin && isEdit}
         />
         <CustomerCard
           form={form}
           initialValues={initialValues}
-          isAdmin={isAdmin}
+          isDisabled={!isAdmin && isEdit}
         />
         <Row className="buttons-row">
           <Form.Item>
-            {!isAdmin && !!initialValues ? (
+            {!isAdmin && isEdit ? (
               <Button type="default" onClick={() => router.back()}>
                 Vazgeç
               </Button>

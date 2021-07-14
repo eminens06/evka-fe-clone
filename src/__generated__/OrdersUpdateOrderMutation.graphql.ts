@@ -2,9 +2,10 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type CreateOrderMutationInput = {
+export type UpdateOrderMutationInput = {
     productList?: Array<ProductOrderCreateInput | null> | null;
     userOrderInput?: UserOrderCreateInput | null;
+    orderId: string;
     clientMutationId?: string | null;
 };
 export type ProductOrderCreateInput = {
@@ -49,28 +50,28 @@ export type CustomerInfo = {
     deliveryAddress?: string | null;
     invoiceAddress?: string | null;
 };
-export type OrdersCreateOrderMutationVariables = {
-    input: CreateOrderMutationInput;
+export type OrdersUpdateOrderMutationVariables = {
+    input: UpdateOrderMutationInput;
 };
-export type OrdersCreateOrderMutationResponse = {
-    readonly createOrder: {
+export type OrdersUpdateOrderMutationResponse = {
+    readonly updateOrder: {
         readonly order: {
             readonly id: string;
         } | null;
     } | null;
 };
-export type OrdersCreateOrderMutation = {
-    readonly response: OrdersCreateOrderMutationResponse;
-    readonly variables: OrdersCreateOrderMutationVariables;
+export type OrdersUpdateOrderMutation = {
+    readonly response: OrdersUpdateOrderMutationResponse;
+    readonly variables: OrdersUpdateOrderMutationVariables;
 };
 
 
 
 /*
-mutation OrdersCreateOrderMutation(
-  $input: CreateOrderMutationInput!
+mutation OrdersUpdateOrderMutation(
+  $input: UpdateOrderMutationInput!
 ) {
-  createOrder(input: $input) {
+  updateOrder(input: $input) {
     order {
       id
     }
@@ -84,7 +85,7 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateOrderMutationInput!"
+    "type": "UpdateOrderMutationInput!"
   }
 ],
 v1 = [
@@ -97,9 +98,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "CreateOrderMutationPayload",
+    "concreteType": "UpdateOrderMutationPayload",
     "kind": "LinkedField",
-    "name": "createOrder",
+    "name": "updateOrder",
     "plural": false,
     "selections": [
       {
@@ -129,7 +130,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "OrdersCreateOrderMutation",
+    "name": "OrdersUpdateOrderMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation"
   },
@@ -137,17 +138,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "OrdersCreateOrderMutation",
+    "name": "OrdersUpdateOrderMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "OrdersCreateOrderMutation",
+    "name": "OrdersUpdateOrderMutation",
     "operationKind": "mutation",
-    "text": "mutation OrdersCreateOrderMutation(\n  $input: CreateOrderMutationInput!\n) {\n  createOrder(input: $input) {\n    order {\n      id\n    }\n  }\n}\n"
+    "text": "mutation OrdersUpdateOrderMutation(\n  $input: UpdateOrderMutationInput!\n) {\n  updateOrder(input: $input) {\n    order {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '3acb004fab6b726ebc2b02feea5c6499';
+(node as any).hash = '2aa50349f1efeaa87ed94822d5a018bb';
 export default node;

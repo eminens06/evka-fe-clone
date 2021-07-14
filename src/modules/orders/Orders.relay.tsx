@@ -95,6 +95,16 @@ graphql`
 `;
 
 graphql`
+  mutation OrdersUpdateOrderMutation($input: UpdateOrderMutationInput!) {
+    updateOrder(input: $input) {
+      order {
+        id
+      }
+    }
+  }
+`;
+
+graphql`
   query OrdersAllProductsWithoutSkuQuery {
     allProducts {
       edges {

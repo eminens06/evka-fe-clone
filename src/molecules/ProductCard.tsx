@@ -24,10 +24,10 @@ interface Props {
   remove: () => void;
   field: FormListFieldData;
   form: FormInstance<any>;
-  isAdmin: boolean;
+  isDisabled: boolean;
 }
 
-const ProductCard: FC<Props> = ({ remove, field, form, isAdmin }) => {
+const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showProductsTable, setShowProductsTable] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<productDTO | null>();
@@ -37,10 +37,6 @@ const ProductCard: FC<Props> = ({ remove, field, form, isAdmin }) => {
   const [product, setProduct] = useState<any>(null);
   const [sku, setSku] = useState<string>();
   const environment = useRelayEnvironment();
-
-  const isDisabled = useMemo(() => {
-    return !isAdmin && !!selectedProduct;
-  }, [isAdmin, selectedProduct]);
 
   const getProductBySku = async () => {
     setIsLoading(true);

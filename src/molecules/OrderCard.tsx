@@ -20,15 +20,11 @@ import MARKETPLACES_QUERY, {
 interface Props {
   form: FormInstance<any>;
   initialValues: any;
-  isAdmin?: boolean;
+  isDisabled?: boolean;
 }
 
-const OrderCard: FC<Props> = ({ form, initialValues, isAdmin }) => {
+const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
   useEffect(() => form.resetFields(), [initialValues]);
-
-  const isDisabled = useMemo(() => {
-    return !isAdmin && initialValues;
-  }, [isAdmin, initialValues]);
 
   const { error, data, isLoading } = useQuery<OrdersAllMarketplacesQuery>(
     MARKETPLACES_QUERY,

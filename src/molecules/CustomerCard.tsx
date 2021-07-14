@@ -6,10 +6,10 @@ import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 interface Props {
   form: FormInstance<any>;
   initialValues: any;
-  isAdmin?: boolean;
+  isDisabled?: boolean;
 }
 
-const CustomerCard: FC<Props> = ({ form, initialValues, isAdmin }) => {
+const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
   const [isCorporate, setIsCorporate] = useState<boolean>(
@@ -18,10 +18,6 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isAdmin }) => {
   const [isSameAddress, setIsSameAddress] = useState<boolean>(
     initialValues?.isSameAddress || false,
   );
-
-  const isDisabled = useMemo(() => {
-    return !isAdmin && initialValues;
-  }, [isAdmin, initialValues]);
 
   const individualCustomer = (
     <Row gutter={24}>
