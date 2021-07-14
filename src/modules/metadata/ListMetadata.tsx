@@ -157,7 +157,11 @@ const ListMetadata: FunctionComponent = () => {
           header="Metadata Bilgileri"
           form={form}
         >
-          <MetadataForm initialValues={modalData} form={form} />
+          <MetadataForm
+            initialValues={modalData}
+            form={form}
+            onSuccess={() => onSearch('')}
+          />
         </AddEditCard>
       </div>
     </PageContent>
