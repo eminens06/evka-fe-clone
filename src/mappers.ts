@@ -252,6 +252,19 @@ const productCardMapper = (data: any) => {
   });
   return products;
 };
+const allProductsAdminMapper = (data: any) => {
+  return data.map((item: any) => {
+    const metaData = findMetadataWithType(
+      genericTableDataMapper(item, 'metaProducts'),
+    );
+    return {
+      id: item.id,
+      name: item.name,
+      sku: item.sku,
+      ...metaData,
+    };
+  });
+};
 
 const findMetadata = (
   product: ProductManagmentMetaProductDTO[],
@@ -272,6 +285,33 @@ const findMetadata = (
         metaData['tableMaterial'] = pr.materialName;
         return;
       case MetadataType.AY:
+        console.log('Ayak : ', pr);
+        metaData['legMaterial'] = pr.materialName;
+        return;
+      default:
+        return;
+    }
+  });
+  return metaData;
+};
+
+const findMetadataWithType = (product: any[]): ProductManagmentMetaProduct => {
+  const metaData: ProductManagmentMetaProduct = {};
+  product.forEach((pr) => {
+    switch (pr.type) {
+      case 'Kategori':
+        console.log('Category : ', pr);
+        metaData['category'] = pr.materialName;
+        return;
+      case 'Alt Kategori':
+        console.log('Sub Category : ', pr);
+        metaData['subCategory'] = pr.materialName;
+        return;
+      case 'Tabla':
+        console.log('Tabla : ', pr);
+        metaData['tableMaterial'] = pr.materialName;
+        return;
+      case 'Ayak':
         console.log('Ayak : ', pr);
         metaData['legMaterial'] = pr.materialName;
         return;
@@ -322,4 +362,5 @@ export default {
   metadataMapper,
   allProductsMapper,
   managementProductionMapper,
+  allProductsAdminMapper,
 };
