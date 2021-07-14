@@ -29,6 +29,7 @@ const CustomSubMenu: FunctionComponent<Props> = (props) => {
   }, []);
 
   const isHide = useMemo(() => {
+    if (userRoles.includes('admin')) return false;
     const test = userRoles.findIndex((userRole) => {
       return userRole.startsWith(role);
     }, role);

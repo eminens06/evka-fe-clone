@@ -8,6 +8,7 @@ export type CreateOrderMutationInput = {
     clientMutationId?: string | null;
 };
 export type ProductOrderCreateInput = {
+    id?: string | null;
     productId?: string | null;
     shipmentId?: string | null;
     type?: string | null;
