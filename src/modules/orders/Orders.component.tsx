@@ -1,6 +1,7 @@
 import { Row, Tooltip, Typography } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
+import { useRouter } from 'next/router';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
@@ -95,6 +96,8 @@ const columns = [
 ];
 
 const OrdersPage: FunctionComponent = () => {
+  const router = useRouter();
+
   const [page, setPage] = useState(1);
   const changePagination = (page: number) => {
     setPage(page);
@@ -113,8 +116,8 @@ const OrdersPage: FunctionComponent = () => {
     mappers.orderListMapper,
   );
 
-  const onTableClick = (id: string) => {
-    console.log('Go To edit selected row ', id);
+  const onTableClick = (record: any) => {
+    router.push({ pathname: '/normal_order', query: { id: record.id } });
   };
 
   const onSearch = (value: string) => {
@@ -134,7 +137,7 @@ const OrdersPage: FunctionComponent = () => {
         <Table
           onRow={(record: any, rowIndex: any) => {
             return {
-              onClick: () => onTableClick(record.id),
+              onClick: () => onTableClick(record),
             };
           }}
           columns={columns}

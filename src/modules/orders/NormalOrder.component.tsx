@@ -1,27 +1,116 @@
-import { Breadcrumb, Button, Divider, Form, message, Row } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Divider,
+  Form,
+  message,
+  Row,
+  Skeleton,
+} from 'antd';
 import { Header } from 'antd/lib/layout/layout';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
+
 import CustomerCard from '../../molecules/CustomerCard';
 import OrderCard from '../../molecules/OrderCard';
 import ProductCard from '../../molecules/ProductCard';
 import CREATE_ORDER, {
   OrdersCreateOrderMutation,
 } from '../../__generated__/OrdersCreateOrderMutation.graphql';
-import { useMutation } from 'relay-hooks';
+import { useMutation, fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import { orderSaveMapper } from '../../mappers';
 import { useRouter } from 'next/router';
+import USER_ORDER, {
+  OrdersGetUserOrderQuery,
+} from '../../__generated__/OrdersGetUserOrderQuery.graphql';
+import { getUserRoles } from '../auth/utils/session.utils';
+
+interface CustomerDTO {
+  tc: string;
+  name: string;
+  surname?: string;
+  phone_number: string;
+  invoice_address: string;
+  delivery_address: string;
+  is_corporate?: boolean;
+}
 
 const NormalOrderPage: FunctionComponent = () => {
   const [form] = Form.useForm();
   const router = useRouter();
+  const environment = useRelayEnvironment();
+  const [userRoles, setUserRoles] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [initialValues, setInitialValues] = useState<any>();
+
+  const getOrderDetail = async () => {
+    const { userOrder } = await fetchQuery<OrdersGetUserOrderQuery>(
+      environment,
+      USER_ORDER,
+      {
+        id: router.query.id as string,
+      },
+    );
+
+    if (userOrder) {
+      const customer: CustomerDTO = JSON.parse(
+        userOrder?.customerInfo as string,
+      );
+      const mapped = {
+        commissionRate: userOrder?.commissionRate,
+        notes: userOrder?.notes,
+        tc: customer.tc,
+        name: customer.name,
+        surname: customer.surname,
+        phoneNumber: customer.phone_number,
+        invoiceAddress: customer.invoice_address,
+        deliveryAddress: customer.delivery_address,
+        orderDeliveryTime: userOrder.orderDeliveryTime,
+        marketplaceOrderId: userOrder.marketplaceOrderId,
+        marketplaceId: JSON.stringify(userOrder.marketplace),
+        products: productCardMapper(userOrder.products),
+        isSameAddress: customer.delivery_address === customer.invoice_address,
+        isCorporate: customer.is_corporate,
+      };
+      setInitialValues(mapped);
+    }
+  };
+
+  const productCardMapper = (data: any) => {
+    const products = data.edges.map((item: any) => {
+      return {
+        sku: item.node.product.sku,
+        count: item.node.orderCount,
+        price: item.node.price,
+        productData: item.node.product,
+      };
+    });
+    return products;
+  };
+
+  const isAdmin = useMemo(() => {
+    return userRoles.indexOf('admin') !== -1;
+  }, [userRoles]);
+
+  useEffect(() => {
+    if (router?.query?.id) {
+      const getRoles = async () => {
+        const data = await getUserRoles();
+        setUserRoles(data);
+      };
+      getRoles();
+      getOrderDetail();
+    }
+  }, [router]);
+
   const [createOrder] = useMutation<OrdersCreateOrderMutation>(CREATE_ORDER, {
     onError: (error: any) => {
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Siparişiniz başarıyla oluşturuldu');
       router.back();
     },
@@ -54,14 +143,13 @@ const NormalOrderPage: FunctionComponent = () => {
           <Breadcrumb.Item>Normal Sipariş</Breadcrumb.Item>
         </Breadcrumb>
       </Header>
-
       <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
-        onValuesChange={() => console.log(form.getFieldsValue())}
         initialValues={{
           orderDate: moment(),
+          ...initialValues,
         }}
       >
         <Form.List
@@ -77,25 +165,45 @@ const NormalOrderPage: FunctionComponent = () => {
                     field={field}
                     form={form}
                     key={field.fieldKey}
+                    isAdmin={isAdmin}
                   />
                 );
               })}
 
               <Divider>
-                <Button type="primary" shape="circle" onClick={() => add()}>
+                <Button
+                  type="primary"
+                  shape="circle"
+                  onClick={() => add()}
+                  disabled={!isAdmin && !!initialValues}
+                >
                   <PlusOutlined />
                 </Button>
               </Divider>
             </>
           )}
         </Form.List>
-        <OrderCard form={form} />
-        <CustomerCard form={form} />
+        <OrderCard
+          form={form}
+          initialValues={initialValues}
+          isAdmin={isAdmin}
+        />
+        <CustomerCard
+          form={form}
+          initialValues={initialValues}
+          isAdmin={isAdmin}
+        />
         <Row className="buttons-row">
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Kaydet
-            </Button>
+            {!isAdmin && !!initialValues ? (
+              <Button type="default" onClick={() => router.back()}>
+                Vazgeç
+              </Button>
+            ) : (
+              <Button type="primary" htmlType="submit">
+                Kaydet
+              </Button>
+            )}
           </Form.Item>
         </Row>
       </Form>

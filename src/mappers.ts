@@ -102,7 +102,6 @@ const userMapper = (data: User[]) => {
 
 const orderProductMapper = (data: UserOrderProductDTO) => {
   const productArr = data.edges.map((product) => product.node);
-  debugger;
   return productArr.map((item) => {
     return {
       count: item.orderCount,
@@ -143,7 +142,6 @@ const metadataMapper = (data: MetadataDTO[]): Metadata[] => {
 };
 
 const allProductsMapper = (data: any) => {
-  console.log('--------------------------', data);
   return data.map((item: any) => {
     const metaProducts = item.metaProducts.edges.reduce(
       (acc: any, key: any) => {
@@ -158,7 +156,6 @@ const allProductsMapper = (data: any) => {
       },
       [],
     );
-    console.log(metaProducts);
     return {
       id: item.id,
       name: item.name,

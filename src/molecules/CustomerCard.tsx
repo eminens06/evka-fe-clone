@@ -1,15 +1,27 @@
 import { Card, Form, Row, Col, Checkbox, Input, FormInstance } from 'antd';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import TextArea from 'antd/lib/input/TextArea';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 interface Props {
   form: FormInstance<any>;
+  initialValues: any;
+  isAdmin?: boolean;
 }
 
-const CustomerCard: FC<Props> = ({ form }) => {
-  const [isCorporate, setIsCorporate] = useState<boolean>(false);
-  const [isSameAddress, setIsSameAddress] = useState<boolean>(false);
+const CustomerCard: FC<Props> = ({ form, initialValues, isAdmin }) => {
+  useEffect(() => form.resetFields(), [initialValues]);
+
+  const [isCorporate, setIsCorporate] = useState<boolean>(
+    initialValues?.isCorporate || false,
+  );
+  const [isSameAddress, setIsSameAddress] = useState<boolean>(
+    initialValues?.isSameAddress || false,
+  );
+
+  const isDisabled = useMemo(() => {
+    return !isAdmin && initialValues;
+  }, [isAdmin, initialValues]);
 
   const individualCustomer = (
     <Row gutter={24}>
@@ -19,7 +31,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
           label="Adı"
           rules={[{ required: true, message: 'Lütfen Müşteri Adı Giriniz' }]}
         >
-          <Input />
+          <Input disabled={isDisabled} />
         </Form.Item>
       </Col>
       <Col span={6} key={2}>
@@ -28,7 +40,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
           label="Soyadı"
           rules={[{ required: true, message: 'Lütfen Müşteri Soyadı Giriniz' }]}
         >
-          <Input />
+          <Input disabled={isDisabled} />
         </Form.Item>
       </Col>
       <Col span={6} key={3}>
@@ -37,7 +49,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
           label="TC Kimlik No"
           rules={[{ required: true, message: 'Lütfen TC Kimlik No Giriniz' }]}
         >
-          <Input />
+          <Input disabled={isDisabled} />
         </Form.Item>
       </Col>
       <Col span={6} key={4}>
@@ -48,7 +60,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
             { required: true, message: 'Lütfen Müşteri Telefonu Giriniz' },
           ]}
         >
-          <Input placeholder="+90 555 123 45 67" />
+          <Input placeholder="+90 555 123 45 67" disabled={isDisabled} />
         </Form.Item>
       </Col>
     </Row>
@@ -62,7 +74,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
           label="Şirket Adı"
           rules={[{ required: true, message: 'Lütfen Şirket Adı Giriniz' }]}
         >
-          <Input />
+          <Input disabled={isDisabled} />
         </Form.Item>
       </Col>
       <Col span={8} key={2}>
@@ -73,7 +85,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
             { required: true, message: 'Lütfen Vergi Kimlik No Giriniz' },
           ]}
         >
-          <Input />
+          <Input disabled={isDisabled} />
         </Form.Item>
       </Col>
       <Col span={8} key={3}>
@@ -82,7 +94,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
           label="Telefon"
           rules={[{ required: true, message: 'Lütfen Telefon Giriniz' }]}
         >
-          <Input placeholder="+90 555 123 45 67" />
+          <Input placeholder="+90 555 123 45 67" disabled={isDisabled} />
         </Form.Item>
       </Col>
     </Row>
@@ -102,7 +114,9 @@ const CustomerCard: FC<Props> = ({ form }) => {
       <Row gutter={24}>
         <Col span={8} key={0}>
           <Form.Item name="isCorporate" valuePropName="checked" noStyle>
-            <Checkbox onChange={onChange}>Kurumsal Müşteri </Checkbox>
+            <Checkbox onChange={(e) => onChange(e)} disabled={isDisabled}>
+              Kurumsal Müşteri{' '}
+            </Checkbox>
           </Form.Item>
         </Col>
       </Row>
@@ -116,7 +130,7 @@ const CustomerCard: FC<Props> = ({ form }) => {
               { required: true, message: 'Lütfen Teslimat Adresi Giriniz' },
             ]}
           >
-            <TextArea rows={4} />
+            <TextArea rows={4} disabled={isDisabled} />
           </Form.Item>
         </Col>
         <Col span={12} key={5}>
@@ -131,14 +145,17 @@ const CustomerCard: FC<Props> = ({ form }) => {
             ]}
             style={{ width: '100%' }}
           >
-            <TextArea rows={4} disabled={isSameAddress} />
+            <TextArea rows={4} disabled={isSameAddress || isDisabled} />
           </Form.Item>
         </Col>
       </Row>
       <Row gutter={24}>
         <Col span={8} key={0}>
           <Form.Item name="isSameAddress" valuePropName="checked" noStyle>
-            <Checkbox onChange={onAddressChange}>
+            <Checkbox
+              onChange={(e) => onAddressChange(e)}
+              disabled={isDisabled}
+            >
               Fatura adresi için aynı adresi kullan
             </Checkbox>
           </Form.Item>
