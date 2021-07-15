@@ -1,11 +1,12 @@
 import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import { MarbleProduction } from '../src/modules/production';
 import environment from '../src/relay/environment';
 
 const ProductionMarble: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <div>Production Marble</div>
+      <MarbleProduction />
     </RelayEnvironmentProvider>
   );
 };

@@ -1,11 +1,12 @@
 import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import { PaintProduction } from '../src/modules/production';
 import environment from '../src/relay/environment';
 
 const ProductionPaint: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <div>Production Paint</div>
+      <PaintProduction />
     </RelayEnvironmentProvider>
   );
 };

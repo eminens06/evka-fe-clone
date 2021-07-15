@@ -14,10 +14,10 @@ const COLORS: StatusColors = {
   warning: '#FAAD14',
   error: '#FF4D4F',
   success: 'green',
+  pending: '#597EF7',
 };
 
 const Status: FC<Props> = ({ status, text }) => {
-  console.log('Status : ', status);
   return (
     <Row style={{ alignItems: 'center' }}>
       <div
