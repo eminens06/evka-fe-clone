@@ -1,28 +1,91 @@
 import { Breadcrumb, Button, Divider, Form, message, Row } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
+
 import CustomerCard from '../../molecules/CustomerCard';
 import OrderCard from '../../molecules/OrderCard';
 import ProductCard from '../../molecules/ProductCard';
 import CREATE_ORDER, {
   OrdersCreateOrderMutation,
 } from '../../__generated__/OrdersCreateOrderMutation.graphql';
-import { useMutation } from 'relay-hooks';
-import { orderSaveMapper } from '../../mappers';
+import { useMutation, fetchQuery, useRelayEnvironment } from 'relay-hooks';
+import {
+  orderEditMapper,
+  orderSaveMapper,
+  userOrderMapper,
+} from '../../mappers';
 import { useRouter } from 'next/router';
+import USER_ORDER, {
+  OrdersGetUserOrderQuery,
+} from '../../__generated__/OrdersGetUserOrderQuery.graphql';
+import { getUserRoles } from '../auth/utils/session.utils';
+import UPDATE_ORDER, {
+  OrdersUpdateOrderMutation,
+} from '../../__generated__/OrdersUpdateOrderMutation.graphql';
 
 const NormalOrderPage: FunctionComponent = () => {
   const [form] = Form.useForm();
   const router = useRouter();
+  const environment = useRelayEnvironment();
+  const [userRoles, setUserRoles] = useState<string[]>([]);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [productOrderIds, setProductOrderIds] = useState<string[]>([]);
+
+  const [initialValues, setInitialValues] = useState<any>();
+
+  const getOrderDetail = async () => {
+    const { userOrder } = await fetchQuery<OrdersGetUserOrderQuery>(
+      environment,
+      USER_ORDER,
+      {
+        id: router.query.id as string,
+      },
+    );
+
+    if (userOrder) {
+      const mapped = userOrderMapper(userOrder);
+      const mappedIds = userOrder.products.edges.map((item: any) => {
+        return item.node.id;
+      });
+      setProductOrderIds(mappedIds);
+      setInitialValues(mapped);
+    }
+  };
+
+  const isAdmin = useMemo(() => {
+    return userRoles.indexOf('admin') !== -1;
+  }, [userRoles]);
+
+  useEffect(() => {
+    if (router?.query?.id) {
+      setIsEdit(true);
+      const getRoles = async () => {
+        const data = await getUserRoles();
+        setUserRoles(data);
+      };
+      getRoles();
+      getOrderDetail();
+    }
+  }, [router]);
+
   const [createOrder] = useMutation<OrdersCreateOrderMutation>(CREATE_ORDER, {
     onError: (error: any) => {
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Siparişiniz başarıyla oluşturuldu');
+      router.back();
+    },
+  });
+
+  const [updateOrder] = useMutation<OrdersUpdateOrderMutation>(UPDATE_ORDER, {
+    onError: (error: any) => {
+      message.error('Hata! ', error.response.errors[0].message);
+    },
+    onCompleted: (res) => {
+      message.success('Siparişiniz başarıyla güncellendi');
       router.back();
     },
   });
@@ -35,12 +98,25 @@ const NormalOrderPage: FunctionComponent = () => {
       }
     });
     if (saveControl) {
-      const orderData = orderSaveMapper(values);
-      createOrder({
-        variables: {
-          input: { ...orderData },
-        },
-      });
+      if (isEdit) {
+        const orderData = orderEditMapper(
+          values,
+          productOrderIds,
+          router?.query?.id as string,
+        );
+        updateOrder({
+          variables: {
+            input: { ...orderData },
+          },
+        });
+      } else {
+        const orderData = orderSaveMapper(values);
+        createOrder({
+          variables: {
+            input: { ...orderData },
+          },
+        });
+      }
     } else {
       message.error('Lütfen ürün bilgilerini kontrol ediniz');
     }
@@ -54,14 +130,13 @@ const NormalOrderPage: FunctionComponent = () => {
           <Breadcrumb.Item>Normal Sipariş</Breadcrumb.Item>
         </Breadcrumb>
       </Header>
-
       <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
-        onValuesChange={() => console.log(form.getFieldsValue())}
         initialValues={{
           orderDate: moment(),
+          ...initialValues,
         }}
       >
         <Form.List
@@ -77,25 +152,45 @@ const NormalOrderPage: FunctionComponent = () => {
                     field={field}
                     form={form}
                     key={field.fieldKey}
+                    isDisabled={!isAdmin && isEdit}
                   />
                 );
               })}
 
               <Divider>
-                <Button type="primary" shape="circle" onClick={() => add()}>
+                <Button
+                  type="primary"
+                  shape="circle"
+                  onClick={() => add()}
+                  disabled={!isAdmin && isEdit}
+                >
                   <PlusOutlined />
                 </Button>
               </Divider>
             </>
           )}
         </Form.List>
-        <OrderCard form={form} />
-        <CustomerCard form={form} />
+        <OrderCard
+          form={form}
+          initialValues={initialValues}
+          isDisabled={!isAdmin && isEdit}
+        />
+        <CustomerCard
+          form={form}
+          initialValues={initialValues}
+          isDisabled={!isAdmin && isEdit}
+        />
         <Row className="buttons-row">
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Kaydet
-            </Button>
+            {!isAdmin && isEdit ? (
+              <Button type="default" onClick={() => router.back()}>
+                Vazgeç
+              </Button>
+            ) : (
+              <Button type="primary" htmlType="submit">
+                Kaydet
+              </Button>
+            )}
           </Form.Item>
         </Row>
       </Form>

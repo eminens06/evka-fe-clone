@@ -4,6 +4,7 @@ import {
   UserOrderDTO,
   UserOrder,
   UserOrderProductDTO,
+  CustomerDTO,
 } from './modules/orders/types';
 import { User } from './modules/auth/types';
 import { OrdersAllMarketplacesQueryResponse } from './__generated__/OrdersAllMarketplacesQuery.graphql';
@@ -85,6 +86,49 @@ export const orderSaveMapper = (values: any) => {
   return { productList: productList, userOrderInput: userOrderInput };
 };
 
+export const orderEditMapper = (
+  values: any,
+  productOrderIds: string[],
+  orderId: string,
+): any => {
+  let totalPrice = 0;
+  const productList = values.products.map((product: any) => {
+    totalPrice =
+      totalPrice + parseFloat(product.price) * parseFloat(product.count);
+    return {
+      productId: product.productId,
+      price: product.price,
+      orderCount: product.count,
+    };
+  });
+  const userOrderInput = {
+    marketplaceId: JSON.parse(values.marketplaceId).id,
+    commissionRate: values.commissionRate,
+    orderDeliveryTime: values.orderDeliveryTime,
+    orderDate: values.orderDate.toDate(),
+    totalPrice: totalPrice,
+    notes: values.notes,
+    customerInfo: {
+      isCorporate: values.isCorporate,
+      name: values.name,
+      surname: values.surname,
+      tc: values.tc,
+      phoneNumber: values.phoneNumber,
+      deliveryAddress: values.deliveryAddress,
+      invoiceAddress: values.isSameAddress
+        ? values.deliveryAddress
+        : values.invoiceAddress,
+    },
+    marketplaceOrderId: values.marketplaceOrderId,
+    productOrderIds: productOrderIds,
+  };
+  return {
+    productList: productList,
+    userOrderInput: userOrderInput,
+    orderId: orderId,
+  };
+};
+
 const genericTableDataMapper = (data: any, custom?: any): any[] => {
   if (!data) return [];
   let withoutObjName;
@@ -153,7 +197,6 @@ const metadataMapper = (data: MetadataDTO[]): Metadata[] => {
 };
 
 const allProductsMapper = (data: any) => {
-  console.log('--------------------------', data);
   return data.map((item: any) => {
     const metaProducts = item.metaProducts.edges.reduce(
       (acc: any, key: any) => {
@@ -168,7 +211,6 @@ const allProductsMapper = (data: any) => {
       },
       [],
     );
-    console.log(metaProducts);
     return {
       id: item.id,
       name: item.name,
@@ -177,6 +219,38 @@ const allProductsMapper = (data: any) => {
       ...metaProducts,
     };
   });
+};
+
+export const userOrderMapper = (userOrder: any) => {
+  const customer: CustomerDTO = JSON.parse(userOrder?.customerInfo as string);
+  return {
+    commissionRate: userOrder?.commissionRate,
+    notes: userOrder?.notes,
+    tc: customer.tc,
+    name: customer.name,
+    surname: customer.surname,
+    phoneNumber: customer.phone_number,
+    invoiceAddress: customer.invoice_address,
+    deliveryAddress: customer.delivery_address,
+    orderDeliveryTime: userOrder.orderDeliveryTime,
+    marketplaceOrderId: userOrder.marketplaceOrderId,
+    marketplaceId: JSON.stringify(userOrder.marketplace),
+    products: productCardMapper(userOrder.products),
+    isSameAddress: customer.delivery_address === customer.invoice_address,
+    isCorporate: customer.is_corporate,
+  };
+};
+
+const productCardMapper = (data: any) => {
+  const products = data.edges.map((item: any) => {
+    return {
+      sku: item.node.product.sku,
+      count: item.node.orderCount,
+      price: item.node.price,
+      productData: item.node.product,
+    };
+  });
+  return products;
 };
 
 const findMetadata = (

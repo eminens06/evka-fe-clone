@@ -41,7 +41,7 @@ const columns = [
 ];
 
 interface Props {
-  setSelectWithTable: React.Dispatch<React.SetStateAction<React.ReactText>>;
+  setSelectWithTable: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
@@ -71,8 +71,8 @@ const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
       <Table
         rowSelection={{
           type: 'radio',
-          onChange: (selectedRowKeys: React.Key[]) => {
-            setSelectWithTable(selectedRowKeys[0]);
+          onChange: (selectedRowKeys: React.Key[], selectedRows) => {
+            setSelectWithTable({ node: selectedRows[0].data });
           },
         }}
         columns={columns}

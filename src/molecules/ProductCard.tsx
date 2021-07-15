@@ -11,7 +11,7 @@ import {
   Modal,
 } from 'antd';
 import Search from 'antd/lib/input/Search';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
@@ -24,53 +24,88 @@ interface Props {
   remove: () => void;
   field: FormListFieldData;
   form: FormInstance<any>;
+  isDisabled: boolean;
 }
 
-const ProductCard: FC<Props> = ({ remove, field, form }) => {
+const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showAllProducts, setShowAllProducts] = useState<boolean>(false);
+  const [showProductsTable, setShowProductsTable] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<productDTO | null>();
-  const [selectedWithTable, setSelectWithTable] = useState<React.Key>('');
+  const [selectedWithTable, setSelectWithTable] = useState<any>();
   const [error, setError] = useState<boolean>(false);
+
+  const [product, setProduct] = useState<any>(null);
+  const [sku, setSku] = useState<string>();
   const environment = useRelayEnvironment();
 
-  const getProductBySku = async (
-    value: string | React.ReactText | undefined,
-  ) => {
+  const getProductBySku = async () => {
     setIsLoading(true);
     const { allProducts } = await fetchQuery<OrdersAllProductsQuery>(
       environment,
       PRODUCTS_QUERY,
       {
-        bySku: value,
+        bySku: sku,
       },
     );
-
-    if (allProducts && allProducts?.edges.length > 0) {
-      const products = form.getFieldValue('products');
-      products[field.name] = {
-        productId: allProducts.edges[0]?.node?.id,
-        sku: value,
-      };
-      setError(false);
-      setSelectedProduct(allProducts.edges[0]?.node);
-      form.setFieldsValue({ products: products });
-      setIsLoading(false);
+    if (allProducts && allProducts.edges.length === 1) {
+      setProduct(allProducts.edges[0]);
     } else {
       const products = form.getFieldValue('products');
       products[field.name].productId = undefined;
-      setError(true);
       setSelectedProduct(null);
       form.setFieldsValue({ products: products });
       setIsLoading(false);
+      setError(true);
     }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    if (product && product.node?.id) {
+      const products = form.getFieldValue('products');
+      products[field.name] = {
+        productId: product.node?.id,
+        sku: product.node?.sku,
+        price: product.node?.price || undefined,
+        count: product.node?.count || undefined,
+      };
+      setSelectedProduct(product?.node);
+      form.setFieldsValue({ products: products });
+      setIsLoading(false);
+      setError(false);
+    }
+  }, [product]);
+
+  const initProducts = form.getFieldValue('products');
+  if (!product && initProducts[field.name].productData) {
+    setProduct({
+      node: {
+        ...initProducts[field.name],
+        ...initProducts[field.name].productData,
+      },
+    });
+  }
+
+  const onApproveModal = () => {
+    setProduct(selectedWithTable);
+    setShowProductsTable(false);
+  };
+
+  const onCancelModal = () => {
+    setShowProductsTable(false);
   };
 
   return (
     <Card
       title="Ürün Bilgileri"
       extra={
-        <Button onClick={() => remove()} icon={<DeleteOutlined />} danger />
+        <Button
+          onClick={() => remove()}
+          icon={<DeleteOutlined />}
+          danger
+          disabled={isDisabled}
+        />
       }
       bordered={false}
       className="form-card"
@@ -88,8 +123,10 @@ const ProductCard: FC<Props> = ({ remove, field, form }) => {
               allowClear
               enterButton={<CheckCircleOutlined />}
               size="middle"
-              onSearch={(value) => getProductBySku(value)}
+              onSearch={() => getProductBySku()}
+              onChange={(e) => setSku(e.target.value)}
               loading={isLoading}
+              disabled={isDisabled}
             />
           </Form.Item>
           <Form.Item
@@ -101,27 +138,26 @@ const ProductCard: FC<Props> = ({ remove, field, form }) => {
         </Col>
 
         <Col span={4} key={`${field.fieldKey}-2`} className="find-table-btn">
-          <Button type="default" onClick={() => setShowAllProducts(true)}>
+          <Button
+            type="default"
+            onClick={() => setShowProductsTable(true)}
+            disabled={isDisabled}
+          >
             Tablodan Bul
           </Button>
         </Col>
         <Modal
-          visible={showAllProducts}
+          visible={showProductsTable}
           title="Tüm Ürünler"
           width={'70%'}
-          afterClose={() => setSelectWithTable('')}
           footer={[
-            <Button key="back" onClick={() => setShowAllProducts(false)}>
+            <Button key="back" onClick={() => onCancelModal()}>
               Vazgeç
             </Button>,
             <Button
               key="submit"
               type="primary"
-              onClick={() => {
-                getProductBySku(selectedWithTable);
-                setShowAllProducts(false);
-                form.setFieldsValue({ sku: 'asdasdasd' });
-              }}
+              onClick={() => onApproveModal()}
               disabled={!selectedWithTable}
             >
               Kaydet
@@ -166,7 +202,11 @@ const ProductCard: FC<Props> = ({ remove, field, form }) => {
             fieldKey={[field.fieldKey, 'count']}
             rules={[{ required: true, message: 'Lütfen Adet Giriniz' }]}
           >
-            <InputNumber min={1} style={{ width: '100%' }} />
+            <InputNumber
+              min={1}
+              style={{ width: '100%' }}
+              disabled={isDisabled}
+            />
           </Form.Item>
         </Col>
 
@@ -178,7 +218,11 @@ const ProductCard: FC<Props> = ({ remove, field, form }) => {
             fieldKey={[field.fieldKey, 'price']}
             rules={[{ required: true, message: 'Lütfen Fiyat Giriniz' }]}
           >
-            <InputNumber min={0} style={{ width: '100%' }} />
+            <InputNumber
+              min={0}
+              style={{ width: '100%' }}
+              disabled={isDisabled}
+            />
           </Form.Item>
         </Col>
       </Row>

@@ -55,3 +55,12 @@ export type UserOrder = {
   products: OrderProduct[];
   remainingTime: number;
 };
+export interface CustomerDTO {
+  tc: string;
+  name: string;
+  surname?: string;
+  phone_number: string;
+  invoice_address: string;
+  delivery_address: string;
+  is_corporate?: boolean;
+}

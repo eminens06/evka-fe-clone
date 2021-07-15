@@ -9,7 +9,7 @@ import {
   FormInstance,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { STORE_OR_NETWORK, useQuery } from 'relay-hooks';
 import { SingleSelect } from '../atoms';
 import { marketplacesDataMapper } from '../mappers';
@@ -19,9 +19,13 @@ import MARKETPLACES_QUERY, {
 
 interface Props {
   form: FormInstance<any>;
+  initialValues: any;
+  isDisabled?: boolean;
 }
 
-const OrderCard: FC<Props> = ({ form }) => {
+const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
+  useEffect(() => form.resetFields(), [initialValues]);
+
   const { error, data, isLoading } = useQuery<OrdersAllMarketplacesQuery>(
     MARKETPLACES_QUERY,
     {},
@@ -53,6 +57,8 @@ const OrderCard: FC<Props> = ({ form }) => {
             <SingleSelect
               options={marketplaces}
               onChange={onMarketplaceChange}
+              defaultValue={initialValues?.marketplaceId}
+              disabled={isDisabled}
             />
           </Form.Item>
         </Col>
@@ -65,7 +71,7 @@ const OrderCard: FC<Props> = ({ form }) => {
             ]}
             style={{ width: '100%' }}
           >
-            <Input />
+            <Input disabled={isDisabled} />
           </Form.Item>
         </Col>
         <Col span={8} key={3}>
@@ -80,6 +86,7 @@ const OrderCard: FC<Props> = ({ form }) => {
               style={{ width: '100%' }}
               placeholder=""
               format={'DD-MM-YYYY'}
+              disabled={isDisabled}
             />
           </Form.Item>
         </Col>
@@ -99,6 +106,7 @@ const OrderCard: FC<Props> = ({ form }) => {
               max={100}
               formatter={(value) => `${value}%`}
               style={{ width: '100%' }}
+              disabled={isDisabled}
             />
           </Form.Item>
         </Col>
@@ -113,7 +121,7 @@ const OrderCard: FC<Props> = ({ form }) => {
               },
             ]}
           >
-            <InputNumber style={{ width: '100%' }} />
+            <InputNumber style={{ width: '100%' }} disabled={isDisabled} />
           </Form.Item>
         </Col>
       </Row>
@@ -121,7 +129,7 @@ const OrderCard: FC<Props> = ({ form }) => {
       <Row gutter={24}>
         <Col span={24} key={7}>
           <Form.Item name="notes" label="Notlar" style={{ width: '100%' }}>
-            <TextArea rows={4} />
+            <TextArea rows={4} disabled={isDisabled} />
           </Form.Item>
         </Col>
       </Row>

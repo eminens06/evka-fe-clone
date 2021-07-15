@@ -95,6 +95,16 @@ graphql`
 `;
 
 graphql`
+  mutation OrdersUpdateOrderMutation($input: UpdateOrderMutationInput!) {
+    updateOrder(input: $input) {
+      order {
+        id
+      }
+    }
+  }
+`;
+
+graphql`
   query OrdersAllProductsWithoutSkuQuery {
     allProducts {
       edges {
@@ -112,6 +122,52 @@ graphql`
           }
         }
       }
+    }
+  }
+`;
+
+graphql`
+  query OrdersGetUserOrderQuery($id: ID!) {
+    userOrder(id: $id) {
+      id
+      products {
+        edges {
+          node {
+            id
+            orderCount
+            price
+            product {
+              id
+              name
+              productName
+              sku
+              metaProducts {
+                edges {
+                  node {
+                    id
+                    categoryName
+                    materialName
+                    materialId
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      marketplace {
+        id
+        name
+        commissionRate
+        deliveryDate
+      }
+      orderDate
+      totalPrice
+      notes
+      customerInfo
+      commissionRate
+      orderDeliveryTime
+      marketplaceOrderId
     }
   }
 `;
