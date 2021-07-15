@@ -27,3 +27,8 @@ type Column = {
 type Data = Record<string, any>;
 
 type DataSource = Data[];
+
+type ProgressStepValue = {
+  value: WorkshopStatus;
+  text: string;
+};
