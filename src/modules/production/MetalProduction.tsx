@@ -2,8 +2,9 @@ import { Form, Table, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
-import { mainProductionColumns } from './helpers';
-import { WorkshopProps } from './types';
+import StatusModal from '../common/StatusModal';
+import { mainProductionColumns, mainStatusArray } from './helpers';
+import { WorkshopProps, WorkshopStatus } from './types';
 
 const dummyData: any = [];
 const size = 10;
@@ -53,6 +54,10 @@ const MetalProduction: FunctionComponent = () => {
     setIsModalVisible(false);
   };
 
+  const showBluePrint = () => {
+    console.log('Show blue print');
+  };
+
   return (
     <PageContent header={['Üretim', 'Metal Atölyesi']}>
       <div>
@@ -77,6 +82,19 @@ const MetalProduction: FunctionComponent = () => {
             onChange: (page, pageSize) => changePagination(page),
           }}
         />
+        <StatusModal
+          isVisible={true}
+          closeModal={closeModal}
+          header="Ürün Bilgileri"
+          progressSteps={mainStatusArray}
+          status={WorkshopStatus.IN_PRODUCTION}
+          customAction={{
+            onPress: showBluePrint,
+            type: 'bluePrint',
+          }}
+        >
+          <div>SHOW WHATEVER U PASS HERE !! </div>
+        </StatusModal>
       </div>
     </PageContent>
   );

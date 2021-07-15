@@ -1,11 +1,13 @@
 import React from 'react';
 import Status from '../../atoms/Status';
+import { ProgressStepValue } from '../../molecules/types';
 import { WorkshopStatus } from './types';
 
 const WorkshopStatusMapper: Record<WorkshopStatus, Status> = {
   [WorkshopStatus.READY]: 'error',
   [WorkshopStatus.IN_PRODUCTION]: 'warning',
   [WorkshopStatus.RECIEVED]: 'pending',
+  [WorkshopStatus.COMPLETED]: 'success',
 };
 
 export const mainProductionColumns = [
@@ -72,5 +74,20 @@ export const subProductionColumns = [
     render: (value: WorkshopStatus) => {
       return <Status status={WorkshopStatusMapper[value]} text={value} />;
     },
+  },
+];
+
+export const mainStatusArray: ProgressStepValue[] = [
+  {
+    text: 'Üretime Hazır',
+    value: WorkshopStatus.READY,
+  },
+  {
+    text: 'Üretimde',
+    value: WorkshopStatus.IN_PRODUCTION,
+  },
+  {
+    text: 'Tamamlandı',
+    value: WorkshopStatus.COMPLETED,
   },
 ];
