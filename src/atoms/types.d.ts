@@ -3,6 +3,6 @@ interface Option {
   text: string;
 }
 
-type Status = 'warning' | 'error' | 'success';
+type Status = 'warning' | 'error' | 'success' | 'pending';
 
 type StatusTexts = Record<Status, string>;
