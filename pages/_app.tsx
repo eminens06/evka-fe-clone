@@ -1,16 +1,20 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { loadSession } from '../src/modules/auth/utils/session.utils';
 import useAuthState from '../src/modules/auth/utils/UseAuthState.hook';
-import SignInForm from '../src/modules/auth/sign-in/SignInForm.component';
 import PageLayout from '../src/layout/PageLayout';
-import App from '.';
 import SignIn from './signIn';
+import { useRouter } from 'next/router';
 
 const MyApp = ({ Component, pageProps }: AppProps): any => {
   const session = loadSession();
   const state = useAuthState(session);
+  const router = useRouter();
+
+  const withoutLayout = useMemo(() => {
+    return router.route.startsWith('/template');
+  }, [router.route]);
 
   const isAuthenticated = useMemo(() => {
     return state === 'authenticated';
@@ -34,9 +38,13 @@ const MyApp = ({ Component, pageProps }: AppProps): any => {
         <title>EVKA | Evde Kalite!</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <PageLayout>
+      {withoutLayout ? (
         <Component {...pageProps} />
-      </PageLayout>
+      ) : (
+        <PageLayout>
+          <Component {...pageProps} />
+        </PageLayout>
+      )}
     </div>
   );
 };

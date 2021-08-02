@@ -3,18 +3,15 @@ import {
   Form,
   Input,
   Button,
-  Radio,
   Select,
-  Cascader,
   DatePicker,
   InputNumber,
-  TreeSelect,
   Switch,
   Breadcrumb,
   Steps,
   Card,
 } from 'antd';
-import { Header, Content } from 'antd/lib/layout/layout';
+import { Header } from 'antd/lib/layout/layout';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -27,6 +24,7 @@ const KioskPage: FunctionComponent = () => {
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);
   };
+
   return (
     <>
       <Header className="site-layout-sub-header-background">
@@ -39,6 +37,13 @@ const KioskPage: FunctionComponent = () => {
         bordered={false}
         className="content-container"
       >
+        <Button
+          target="_blank"
+          href={`/template?id=VXNlck9yZGVyTm9kZTpmOGU4ZjIwOC1mODRlLTQxNDAtYjBmOC1hZDQwYzJmMzQ5ZWI%3D`}
+          type="primary"
+        >
+          Sablon Olustur
+        </Button>
         <Steps
           size="small"
           current={1}
