@@ -3,11 +3,23 @@ import Status from '../../atoms/Status';
 import { ProgressStepValue } from '../../molecules/types';
 import { WorkshopStatus } from './types';
 
-const WorkshopStatusMapper: Record<WorkshopStatus, Status> = {
-  [WorkshopStatus.READY]: 'error',
-  [WorkshopStatus.IN_PRODUCTION]: 'warning',
-  [WorkshopStatus.RECIEVED]: 'pending',
-  [WorkshopStatus.COMPLETED]: 'success',
+const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
+  [WorkshopStatus.READY]: {
+    text: 'Üretime Hazır',
+    status: 'error',
+  },
+  [WorkshopStatus.IN_PRODUCTION]: {
+    text: 'Üretimde',
+    status: 'warning',
+  },
+  [WorkshopStatus.RECIEVED]: {
+    text: 'Teslim Alındı',
+    status: 'pending',
+  },
+  [WorkshopStatus.COMPLETED]: {
+    text: 'Tamamlandı',
+    status: 'success',
+  },
 };
 
 export const mainProductionColumns = [
@@ -36,7 +48,8 @@ export const mainProductionColumns = [
     title: 'Durum',
     dataIndex: 'status',
     render: (value: WorkshopStatus) => {
-      return <Status status={WorkshopStatusMapper[value]} text={value} />;
+      const { status, text } = WorkshopStatusMapper[value];
+      return <Status status={status} text={text} />;
     },
   },
 ];
@@ -72,7 +85,8 @@ export const subProductionColumns = [
     title: 'Durum',
     dataIndex: 'status',
     render: (value: WorkshopStatus) => {
-      return <Status status={WorkshopStatusMapper[value]} text={value} />;
+      const { status, text } = WorkshopStatusMapper[value];
+      return <Status status={status} text={text} />;
     },
   },
 ];

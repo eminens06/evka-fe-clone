@@ -1,11 +1,12 @@
 import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import { ShipmentInvoiceSummary } from '../src/modules/shipment_invoice';
 import environment from '../src/relay/environment';
 
 const ShipmentSummary: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <div>Shipment Summary</div>
+      <ShipmentInvoiceSummary />
     </RelayEnvironmentProvider>
   );
 };

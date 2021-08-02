@@ -9,12 +9,12 @@ interface Props {
 }
 
 type StatusColors = Record<Status, string>;
-
 const COLORS: StatusColors = {
   warning: '#FAAD14',
   error: '#FF4D4F',
-  success: 'green',
+  success: '#52C41A',
   pending: '#597EF7',
+  none: '#D9D9D9',
 };
 
 const Status: FC<Props> = ({ status, text }) => {
