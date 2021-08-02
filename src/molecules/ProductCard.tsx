@@ -78,7 +78,7 @@ const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
   }, [product]);
 
   const initProducts = form.getFieldValue('products');
-  if (!product && initProducts[field.name].productData) {
+  if (!product && initProducts[field.name]?.productData) {
     setProduct({
       node: {
         ...initProducts[field.name],
