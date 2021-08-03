@@ -128,7 +128,7 @@ const SideMenu: FunctionComponent<Props> = (props) => {
           title="Admin Panel"
         >
           <CustomMenuItem
-            role={Roles.admin + '_outsource'}
+            role={Roles.admin + '_externalService'}
             title="Dış Hizmetler"
           />
           <CustomMenuItem
