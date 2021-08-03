@@ -2,32 +2,24 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
-export type ManagementProductionRelayallProductOrdersQueryVariables = {};
-export type ManagementProductionRelayallProductOrdersQueryResponse = {
+export type ProductionRelaySummaryQueryVariables = {};
+export type ProductionRelaySummaryQueryResponse = {
     readonly allProductByProductOrderStatus: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly notes: string;
+                readonly ayakStatus: string | null;
+                readonly tablaStatus: string | null;
+                readonly fabricStatus: string | null;
+                readonly marbleStatus: string | null;
+                readonly glassStatus: string | null;
                 readonly orderCount: number;
-                readonly id: string;
                 readonly product: {
                     readonly id: string;
                     readonly name: string;
-                    readonly productName: string;
-                    readonly metaProducts: {
-                        readonly edges: ReadonlyArray<{
-                            readonly node: {
-                                readonly categoryName: MetaProductCategoryName;
-                                readonly materialName: string;
-                            } | null;
-                        } | null>;
-                    };
                 } | null;
                 readonly userOrder: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
-                            readonly customerInfo: unknown;
                             readonly marketplaceOrderId: string;
                             readonly marketplace: {
                                 readonly name: string;
@@ -39,39 +31,31 @@ export type ManagementProductionRelayallProductOrdersQueryResponse = {
         } | null>;
     } | null;
 };
-export type ManagementProductionRelayallProductOrdersQuery = {
-    readonly response: ManagementProductionRelayallProductOrdersQueryResponse;
-    readonly variables: ManagementProductionRelayallProductOrdersQueryVariables;
+export type ProductionRelaySummaryQuery = {
+    readonly response: ProductionRelaySummaryQueryResponse;
+    readonly variables: ProductionRelaySummaryQueryVariables;
 };
 
 
 
 /*
-query ManagementProductionRelayallProductOrdersQuery {
-  allProductByProductOrderStatus(statusType: "DF") {
+query ProductionRelaySummaryQuery {
+  allProductByProductOrderStatus(statusType: "A") {
     edges {
       node {
-        notes
+        ayakStatus
+        tablaStatus
+        fabricStatus
+        marbleStatus
+        glassStatus
         orderCount
-        id
         product {
           id
           name
-          productName
-          metaProducts {
-            edges {
-              node {
-                categoryName
-                materialName
-                id
-              }
-            }
-          }
         }
         userOrder {
           edges {
             node {
-              customerInfo
               marketplaceOrderId
               marketplace {
                 name
@@ -81,6 +65,7 @@ query ManagementProductionRelayallProductOrdersQuery {
             }
           }
         }
+        id
       }
     }
   }
@@ -92,66 +77,79 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "statusType",
-    "value": "DF"
+    "value": "A"
   }
 ],
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "notes",
+  "name": "ayakStatus",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderCount",
+  "name": "tablaStatus",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "fabricStatus",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "marbleStatus",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productName",
+  "name": "glassStatus",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "categoryName",
+  "name": "orderCount",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "materialName",
+  "name": "id",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "customerInfo",
+  "name": "name",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ProductNode",
+  "kind": "LinkedField",
+  "name": "product",
+  "plural": false,
+  "selections": [
+    (v7/*: any*/),
+    (v8/*: any*/)
+  ],
+  "storageKey": null
+},
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -163,7 +161,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ManagementProductionRelayallProductOrdersQuery",
+    "name": "ProductionRelaySummaryQuery",
     "selections": [
       {
         "alias": null,
@@ -192,55 +190,10 @@ return {
                   (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ProductNode",
-                    "kind": "LinkedField",
-                    "name": "product",
-                    "plural": false,
-                    "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v5/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "MetaProductNodeConnection",
-                        "kind": "LinkedField",
-                        "name": "metaProducts",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "MetaProductNodeEdge",
-                            "kind": "LinkedField",
-                            "name": "edges",
-                            "plural": true,
-                            "selections": [
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "MetaProductNode",
-                                "kind": "LinkedField",
-                                "name": "node",
-                                "plural": false,
-                                "selections": [
-                                  (v6/*: any*/),
-                                  (v7/*: any*/)
-                                ],
-                                "storageKey": null
-                              }
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -265,8 +218,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v8/*: any*/),
-                              (v9/*: any*/),
+                              (v10/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -275,7 +227,7 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v4/*: any*/)
+                                  (v8/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -295,7 +247,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductByProductOrderStatus(statusType:\"DF\")"
+        "storageKey": "allProductByProductOrderStatus(statusType:\"A\")"
       }
     ],
     "type": "Query"
@@ -304,7 +256,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "ManagementProductionRelayallProductOrdersQuery",
+    "name": "ProductionRelaySummaryQuery",
     "selections": [
       {
         "alias": null,
@@ -333,56 +285,10 @@ return {
                   (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ProductNode",
-                    "kind": "LinkedField",
-                    "name": "product",
-                    "plural": false,
-                    "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v5/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "MetaProductNodeConnection",
-                        "kind": "LinkedField",
-                        "name": "metaProducts",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "MetaProductNodeEdge",
-                            "kind": "LinkedField",
-                            "name": "edges",
-                            "plural": true,
-                            "selections": [
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "MetaProductNode",
-                                "kind": "LinkedField",
-                                "name": "node",
-                                "plural": false,
-                                "selections": [
-                                  (v6/*: any*/),
-                                  (v7/*: any*/),
-                                  (v3/*: any*/)
-                                ],
-                                "storageKey": null
-                              }
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -407,8 +313,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v8/*: any*/),
-                              (v9/*: any*/),
+                              (v10/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -417,12 +322,12 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v4/*: any*/),
-                                  (v3/*: any*/)
+                                  (v8/*: any*/),
+                                  (v7/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v3/*: any*/)
+                              (v7/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -431,7 +336,8 @@ return {
                       }
                     ],
                     "storageKey": null
-                  }
+                  },
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -439,18 +345,18 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductByProductOrderStatus(statusType:\"DF\")"
+        "storageKey": "allProductByProductOrderStatus(statusType:\"A\")"
       }
     ]
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ManagementProductionRelayallProductOrdersQuery",
+    "name": "ProductionRelaySummaryQuery",
     "operationKind": "query",
-    "text": "query ManagementProductionRelayallProductOrdersQuery {\n  allProductByProductOrderStatus(statusType: \"DF\") {\n    edges {\n      node {\n        notes\n        orderCount\n        id\n        product {\n          id\n          name\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelaySummaryQuery {\n  allProductByProductOrderStatus(statusType: \"A\") {\n    edges {\n      node {\n        ayakStatus\n        tablaStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          name\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1368199cfbb4e3fff8c0eaec0ed3d7a1';
+(node as any).hash = '541bdf853b532676812ed4a7f4e9fc1d';
 export default node;

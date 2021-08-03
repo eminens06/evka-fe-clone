@@ -4,7 +4,7 @@ import { ProductionManagment } from './types';
 
 interface Props {
   data: ProductionManagment;
-  onApprove: any;
+  onApprove: (id: string) => void;
   onStorage: any;
   isVisible: boolean;
   closeModal: () => void;
@@ -42,10 +42,10 @@ const ProductOrderSummary: FC<Props> = ({
       width={'70%'}
       onCancel={closeModal}
       footer={[
-        <Button type="primary" onClick={onApprove}>
+        <Button type="primary" onClick={onStorage}>
           Depoda Var
         </Button>,
-        <Button type="primary" onClick={onStorage}>
+        <Button type="primary" onClick={() => onApprove(data.id)}>
           Üretime Gönder
         </Button>,
       ]}

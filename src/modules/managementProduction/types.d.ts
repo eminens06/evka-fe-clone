@@ -17,6 +17,7 @@ type UserOrderSetDTO = {
 export type ProductionManagementDataDTO = {
   notes: string;
   orderCount: number;
+  id: string;
   product: {
     id: string;
     metaProducts: {
@@ -26,7 +27,7 @@ export type ProductionManagementDataDTO = {
     };
     name: string;
   };
-  userorderSet: {
+  userOrder: {
     edges: {
       node: UserOrderSetDTO[];
     };

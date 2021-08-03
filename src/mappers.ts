@@ -15,6 +15,18 @@ import {
   ProductManagmentMetaProduct,
   ProductManagmentMetaProductDTO,
 } from './modules/managementProduction/types';
+import {
+  ProductionMainWorkshopData,
+  ProductionSummary,
+  ProductionSummaryDTO,
+  ProductionWorkshopDataDTO,
+  WorkshopTypes,
+} from './modules/production/types';
+import {
+  MainPartsShortNames,
+  WorkshopStatusNames,
+} from './modules/production/helpers';
+import { ProductionRelayWorkshopQueryResponse } from './__generated__/ProductionRelayWorkshopQuery.graphql';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -336,10 +348,9 @@ const managementProductionMapper = (
         tableMaterial,
       } = findMetadata(newProduct);
 
-      const order = genericTableDataMapper(item, 'userorderSet');
-      console.log('ITEM !! ', item);
+      const order = genericTableDataMapper(item, 'userOrder');
       return {
-        id: product.id,
+        id: item.id,
         orderId: order[0].marketplaceOrderId,
         marketplace: order[0].marketplace.name,
         productName: product.name,
@@ -355,6 +366,97 @@ const managementProductionMapper = (
   );
 };
 
+const productionSummaryMapper = (
+  data: ProductionSummaryDTO[],
+): ProductionSummary[] => {
+  return data.map((item) => {
+    const order = genericTableDataMapper(item, 'userOrder');
+    return {
+      orderId: order[0].marketplaceOrderId,
+      id: item.id,
+      ayakStatus: item.ayakStatus,
+      tablaStatus: item.tablaStatus,
+      fabricStatus: item.fabricStatus,
+      marbleStatus: item.marbleStatus,
+      glassStatus: item.glassStatus,
+      orderCount: item.orderCount,
+      productName: item.product.name,
+    };
+  });
+};
+
+const productionMainPartsMapper = (
+  data: ProductionWorkshopDataDTO[],
+  type: WorkshopTypes.WOOD | WorkshopTypes.METAL,
+) => {
+  const finalRes = data.map((item) => {
+    const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
+    const order = genericTableDataMapper(item, 'userOrder');
+    const itemTypes: any[] = [];
+    metaProducts.forEach((mp) => {
+      if (mp.metaType === MainPartsShortNames[type]) {
+        itemTypes.push({
+          type: mp.categoryName,
+          materialName: mp.materialName,
+        });
+      }
+    });
+    const res: any[] = [];
+    itemTypes.forEach((it) => {
+      res.push({
+        id: item.id,
+        sku: item.product.sku,
+        orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
+        orderCount: item.orderCount,
+        productName: item.product.name,
+        status:
+          type === WorkshopTypes.WOOD ? item.woodStatus : item.metalStatus,
+        type: it.type === 'TB' ? 'Tabla' : 'Ayak',
+        dimensions: {
+          width: item.product.width,
+          height: item.product.height,
+          length: item.product.length,
+        },
+        materialName: it.materialName,
+      });
+    });
+    return res;
+  });
+  const finalValue: ProductionMainWorkshopData[] = [];
+  finalRes.forEach((arr) => {
+    arr?.forEach((arr2) => {
+      finalValue.push(arr2);
+    });
+  });
+  return finalValue;
+};
+
+const productionMateriallMapper = (data: any, type: WorkshopTypes) => {
+  return data.map((item) => {
+    const order = genericTableDataMapper(item, 'userOrder');
+    return {
+      id: item.id,
+      sku: item.product.sku,
+      orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
+      orderCount: item.orderCount,
+      productName: item.product.name,
+      status: item[WorkshopStatusNames[type]],
+    };
+  });
+};
+
+const productionWorkshopMapper = (
+  rawData: ProductionRelayWorkshopQueryResponse,
+  type: WorkshopTypes,
+) => {
+  const data = genericTableDataMapper(rawData);
+  if (type === WorkshopTypes.METAL || type == WorkshopTypes.WOOD) {
+    return productionMainPartsMapper(data, type);
+  } else {
+    return productionMateriallMapper(data, type);
+  }
+};
+
 export default {
   genericTableDataMapper,
   userMapper,
@@ -363,4 +465,6 @@ export default {
   allProductsMapper,
   managementProductionMapper,
   allProductsAdminMapper,
+  productionSummaryMapper,
+  productionWorkshopMapper,
 };

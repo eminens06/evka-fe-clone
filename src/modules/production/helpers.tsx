@@ -1,7 +1,12 @@
 import React from 'react';
 import Status from '../../atoms/Status';
 import { ProgressStepValue } from '../../molecules/types';
-import { WorkshopStatus } from './types';
+import {
+  MainPartsStatus,
+  MaterialStatus,
+  WorkshopStatus,
+  WorkshopTypes,
+} from './types';
 
 const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
   [WorkshopStatus.READY]: {
@@ -22,10 +27,127 @@ const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
   },
 };
 
-export const mainProductionColumns = [
+const MainPartsStatusMapper: Record<MainPartsStatus, StatusObject> = {
+  [MainPartsStatus.READY]: {
+    text: 'Üretime Hazır',
+    status: 'error',
+  },
+  [MainPartsStatus.IN_PRODUCTION]: {
+    text: 'Üretimde',
+    status: 'warning',
+  },
+  [MainPartsStatus.WAITING_PAINT]: {
+    text: 'Boya Bekleniyor',
+    status: 'pending_paint',
+  },
+  [MainPartsStatus.PAINT]: {
+    text: 'Boyada',
+    status: 'pending',
+  },
+  [MainPartsStatus.COMPLETED]: {
+    text: 'Tamamlandı',
+    status: 'success',
+  },
+};
+
+const MaterialStatusMapper: Record<MaterialStatus, StatusObject> = {
+  [MaterialStatus.READY]: {
+    text: 'Üretime Hazır',
+    status: 'error',
+  },
+  [MaterialStatus.IN_PRODUCTION]: {
+    text: 'Üretimde',
+    status: 'warning',
+  },
+  [MaterialStatus.NONE]: {
+    text: 'Üretilmeyecek',
+    status: 'none',
+  },
+  [MaterialStatus.RECIEVED]: {
+    text: 'Teslim Alındı',
+    status: 'pending',
+  },
+  [MaterialStatus.COMPLETED]: {
+    text: 'Tamamlandı',
+    status: 'success',
+  },
+};
+
+export const MainPartsShortNames = {
+  [WorkshopTypes.METAL]: 'MT',
+  [WorkshopTypes.WOOD]: 'WD',
+};
+
+export const WorkshopStatusNames = {
+  [WorkshopTypes.FABRIC]: 'fabricStatus',
+  [WorkshopTypes.GLASS]: 'glassStatus',
+  [WorkshopTypes.METAL]: 'metalStatus',
+  [WorkshopTypes.WOOD]: 'woodStatus',
+  [WorkshopTypes.MARBLE]: 'marbleStatus',
+};
+
+export const summaryColumns = [
   {
     key: 'orderId',
     title: 'Sipariş Id',
+    dataIndex: 'orderId',
+  },
+  {
+    key: 'productName',
+    title: 'Ürün Adı',
+    dataIndex: 'productName',
+  },
+  {
+    key: 'tablaStatus',
+    title: 'Tabla',
+    dataIndex: 'tablaStatus',
+    render: (value: MainPartsStatus) => {
+      const { status, text } = MainPartsStatusMapper[value];
+      return <Status status={status} text={text} />;
+    },
+  },
+  {
+    key: 'ayakStatus',
+    title: 'Ayak',
+    dataIndex: 'ayakStatus',
+    render: (value: MainPartsStatus) => {
+      const { status, text } = MainPartsStatusMapper[value];
+      return <Status status={status} text={text} />;
+    },
+  },
+  {
+    key: 'glassStatus',
+    title: 'Cam',
+    dataIndex: 'glassStatus',
+    render: (value: MaterialStatus) => {
+      const { status, text } = MaterialStatusMapper[value];
+      return <Status status={status} text={text} />;
+    },
+  },
+  {
+    key: 'marble',
+    title: 'Mermer',
+    dataIndex: 'marbleStatus',
+    render: (value: MaterialStatus) => {
+      const { status, text } = MaterialStatusMapper[value];
+      return <Status status={status} text={text} />;
+    },
+  },
+  {
+    key: 'fabricStatus',
+    title: 'Kumaş',
+    dataIndex: 'fabricStatus',
+    render: (value: MaterialStatus) => {
+      const { status, text } = MaterialStatusMapper[value];
+      return <Status status={status} text={text} />;
+    },
+  },
+];
+
+export const mainProductionColumns = [
+  {
+    key: 'orderId',
+    title: 'Sipariş',
     dataIndex: 'orderId',
   },
   {
@@ -69,11 +191,6 @@ export const subProductionColumns = [
     key: 'productName',
     title: 'Ürün Adı',
     dataIndex: 'productName',
-  },
-  {
-    key: 'type',
-    title: 'Ürün Tipi',
-    dataIndex: 'type',
   },
   {
     key: 'sent',

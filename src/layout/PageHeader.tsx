@@ -12,8 +12,8 @@ const PageHeader: FC<Props> = ({ breadcrumb }) => {
   return (
     <Header className="site-layout-sub-header-background">
       <Breadcrumb style={{ marginTop: '22px' }}>
-        {breadcrumb.map((item) => (
-          <Breadcrumb.Item>{item}</Breadcrumb.Item>
+        {breadcrumb.map((item, index) => (
+          <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
         ))}
       </Breadcrumb>
     </Header>

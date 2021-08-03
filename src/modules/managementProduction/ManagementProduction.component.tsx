@@ -1,4 +1,4 @@
-import { Row, Tooltip, Typography } from 'antd';
+import { message, Row, Tooltip, Typography } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
@@ -10,6 +10,10 @@ import GET_MANAGEMENT_PRODUCTION, {
   ManagementProductionRelayallProductOrdersQuery,
 } from '../../__generated__/ManagementProductionRelayallProductOrdersQuery.graphql';
 import ProductOrderSummary from './ProductOrderSummary';
+import { useMutation } from 'relay-hooks';
+import SEND_TO_PRODUCTION, {
+  ManagementProductionRelaySendttoProductionMutation,
+} from '../../__generated__/ManagementProductionRelaySendttoProductionMutation.graphql';
 
 const columns = [
   {
@@ -70,6 +74,28 @@ const ManagementProduction: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<any>();
 
+  const [
+    sendtoProduction,
+  ] = useMutation<ManagementProductionRelaySendttoProductionMutation>(
+    SEND_TO_PRODUCTION,
+    {
+      onError: (error: any) => {
+        console.log('ERROR ! ', error);
+        message.error(
+          'Hata! ',
+          error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
+        );
+      },
+      onCompleted: (res) => {
+        console.log(res);
+        forceFetchQuery({
+          search: '',
+        });
+        message.success('Üretime başarıyla gönderildi');
+      },
+    },
+  );
+
   const {
     data,
     size,
@@ -99,8 +125,14 @@ const ManagementProduction: FunctionComponent = () => {
     setIsModalVisible(false);
   };
 
-  const onApprove = () => {
-    console.log('On Approve !');
+  const onApprove = (id: string) => {
+    sendtoProduction({
+      variables: {
+        input: {
+          productOrderId: id,
+        },
+      },
+    });
   };
 
   const onStorage = () => {
@@ -124,7 +156,7 @@ const ManagementProduction: FunctionComponent = () => {
           }}
           columns={columns}
           dataSource={data}
-          rowKey="name"
+          rowKey="orderId"
           loading={isLoading}
           pagination={{
             total: size,

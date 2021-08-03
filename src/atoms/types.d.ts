@@ -3,7 +3,13 @@ interface Option {
   text: string;
 }
 
-type Status = 'warning' | 'error' | 'success' | 'pending' | 'none';
+type Status =
+  | 'warning'
+  | 'error'
+  | 'success'
+  | 'pending'
+  | 'pending_paint'
+  | 'none';
 
 type StatusObject = {
   text: string;
