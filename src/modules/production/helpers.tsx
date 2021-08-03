@@ -222,3 +222,10 @@ export const mainStatusArray: ProgressStepValue[] = [
     value: WorkshopStatus.COMPLETED,
   },
 ];
+
+export const mainStatusNextButtonText: Record<WorkshopStatus, string> = {
+  [WorkshopStatus.READY]: 'Üretime Gönder',
+  [WorkshopStatus.IN_PRODUCTION]: 'Üretime Tamamla',
+  [WorkshopStatus.RECIEVED]: '',
+  [WorkshopStatus.COMPLETED]: '',
+};

@@ -76,3 +76,17 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation ProductionRelayWorkshopStatusChangeMutation(
+    $input: ChangeOrderStatusesInput!
+  ) {
+    changeOrderStatuses(input: $input) {
+      productOrder {
+        id
+        woodStatus
+        metalStatus
+      }
+    }
+  }
+`;

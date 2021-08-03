@@ -4,6 +4,7 @@ import React, { FC, ReactChild, ReactElement, useMemo } from 'react';
 import ProgressStep from '../../molecules/ProgressStep';
 import { ProgressStepValue } from '../../molecules/types';
 import { WorkshopStatus } from '../production/types';
+import { mainStatusNextButtonText } from '../production/helpers';
 
 type CustomActionTypes = 'revert' | 'bluePrint';
 
@@ -68,6 +69,8 @@ const StatusModal: FC<Props> = ({
     return undefined;
   }, [customAction]);
 
+  const status = modalData.status as WorkshopStatus;
+
   return (
     <Modal
       visible={isVisible}
@@ -77,14 +80,14 @@ const StatusModal: FC<Props> = ({
         <Button key="back" onClick={closeModal}>
           Vazgeç
         </Button>,
-        <Button key="submit" type="primary" onClick={onSubmit}>
-          Kaydet
+        <Button type="primary" onClick={onSubmit}>
+          {mainStatusNextButtonText[status]}
         </Button>,
       ]}
     >
       {isVisible && (
         <>
-          <ProgressStep steps={progressSteps} value={modalData.status} />
+          <ProgressStep steps={progressSteps} value={status} />
           {React.cloneElement(children as ReactElement, { close: closeModal })}
           {customAction && buttonProps && (
             <Row style={{ justifyContent: 'center', marginTop: 20 }}>
