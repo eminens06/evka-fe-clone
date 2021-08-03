@@ -41,7 +41,7 @@ const MyApp = ({ Component, pageProps }: AppProps): any => {
       {withoutLayout ? (
         <Component {...pageProps} />
       ) : (
-        <PageLayout>
+        <PageLayout user={session.user}>
           <Component {...pageProps} />
         </PageLayout>
       )}

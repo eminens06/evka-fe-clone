@@ -10,13 +10,15 @@ import { Layout, Menu, Dropdown, Avatar } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import signOut from '../modules/auth/utils/sign-out';
 import { useRouter } from 'next/router';
+import { User } from '../modules/auth/types';
 const { Header, Content } = Layout;
 
 interface Props {
   children: ReactNode;
+  user: User;
 }
 const PageLayout: FunctionComponent<Props> = (props: Props) => {
-  const { children } = props;
+  const { children, user } = props;
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -50,9 +52,12 @@ const PageLayout: FunctionComponent<Props> = (props: Props) => {
                 marginRight: 10,
               }}
             >
-              DM
+              {user.firstName?.charAt(0)}
+              {user.lastName?.charAt(0)}
             </Avatar>
-            <a style={{ color: 'white' }}>Deniz Muratoglu</a>
+            <a style={{ color: 'white' }}>
+              {`${user.firstName} ${user.lastName}`}
+            </a>
           </div>
         </Dropdown>
       </Header>
