@@ -71,6 +71,7 @@ graphql`
               node {
                 orderCount
                 product {
+                  sku
                   name
                   productName
                   metaInfo

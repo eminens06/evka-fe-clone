@@ -45,11 +45,6 @@ const columns = [
     dataIndex: 'productName',
   },
   {
-    key: 'count',
-    title: 'Üretim Adedi',
-    dataIndex: 'count',
-  },
-  {
     key: 'legMaterial',
     title: 'Ayak Malzemesi',
     dataIndex: 'legMaterial',

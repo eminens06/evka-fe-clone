@@ -7,6 +7,7 @@ type OrderProductDTO = {
       name: string;
       productName: string;
       metaInfo: string;
+      sku: string;
     };
   };
 };
@@ -21,6 +22,7 @@ export type OrderProduct = {
   name: string;
   productName: string;
   metaInfo?: OrderProductMetaInfo;
+  sku: string;
 };
 
 export type UserOrderProductDTO = {

@@ -168,17 +168,29 @@ const userMapper = (data: User[]) => {
 };
 
 const orderProductMapper = (data: UserOrderProductDTO) => {
-  const productArr = data.edges.map((product) => product.node);
-  return productArr.map((item) => {
-    return {
-      count: item.orderCount,
-      name: item.product.name,
-      productName: item.product.name,
-      metaInfo: item.product.metaInfo
-        ? JSON.parse(item.product.metaInfo)
-        : undefined,
-    };
+  const grouped = data.edges.reduce((acc: any, key: any) => {
+    if (acc[key.node.product.sku]) {
+      acc[key.node.product.sku].push(key.node);
+    } else {
+      acc[key.node.product.sku] = [key.node];
+    }
+    return acc;
+  }, []);
+
+  const productArr = Object.keys(grouped).map((key) => {
+    {
+      return {
+        count: grouped[key].length,
+        name: grouped[key][0].product.name,
+        productName: grouped[key][0].product.name,
+        metaInfo: grouped[key][0].product.metaInfo
+          ? JSON.parse(grouped[key][0].product.metaInfo)
+          : undefined,
+        sku: grouped[key][0].product.sku,
+      };
+    }
   });
+  return productArr;
 };
 
 const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
@@ -254,6 +266,25 @@ export const userOrderMapper = (userOrder: any) => {
 };
 
 const productCardMapper = (data: any) => {
+  const grouped = data.edges.reduce((acc: any, key: any) => {
+    if (acc[key.node.product.sku]) {
+      acc[key.node.product.sku].push(key.node);
+    } else {
+      acc[key.node.product.sku] = [key.node];
+    }
+    return acc;
+  }, []);
+
+  const mapped = Object.keys(grouped).map((key) => {
+    return {
+      sku: grouped[key][0].product.sku,
+      count: grouped[key].length,
+      price: grouped[key][0].price,
+      productData: grouped[key][0].product,
+    };
+  });
+
+  return mapped;
   const products = data.edges.map((item: any) => {
     return {
       sku: item.node.product.sku,
@@ -262,7 +293,6 @@ const productCardMapper = (data: any) => {
       productData: item.node.product,
     };
   });
-  return products;
 };
 const allProductsAdminMapper = (data: any) => {
   return data.map((item: any) => {
