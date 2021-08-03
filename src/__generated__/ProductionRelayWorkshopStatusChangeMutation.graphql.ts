@@ -4,7 +4,7 @@
 import { ConcreteRequest } from "relay-runtime";
 export type ChangeOrderStatusesInput = {
     productOrderId: string;
-    workshopType?: string | null;
+    workshopType: string;
     categoryName?: string | null;
     externalServiceIds?: string | null;
     rawMaterial?: string | null;

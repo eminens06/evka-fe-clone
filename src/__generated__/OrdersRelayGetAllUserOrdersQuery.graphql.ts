@@ -21,6 +21,7 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
                         readonly node: {
                             readonly orderCount: number;
                             readonly product: {
+                                readonly sku: string | null;
                                 readonly name: string;
                                 readonly productName: string;
                                 readonly metaInfo: unknown | null;
@@ -59,6 +60,7 @@ query OrdersRelayGetAllUserOrdersQuery {
             node {
               orderCount
               product {
+                sku
                 name
                 productName
                 metaInfo
@@ -135,10 +137,17 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productName",
+  "name": "sku",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "productName",
+  "storageKey": null
+},
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -227,9 +236,10 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v3/*: any*/),
                                   (v8/*: any*/),
-                                  (v9/*: any*/)
+                                  (v3/*: any*/),
+                                  (v9/*: any*/),
+                                  (v10/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -336,9 +346,10 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v3/*: any*/),
                                   (v8/*: any*/),
+                                  (v3/*: any*/),
                                   (v9/*: any*/),
+                                  (v10/*: any*/),
                                   (v1/*: any*/)
                                 ],
                                 "storageKey": null
@@ -369,9 +380,9 @@ return {
     "metadata": {},
     "name": "OrdersRelayGetAllUserOrdersQuery",
     "operationKind": "query",
-    "text": "query OrdersRelayGetAllUserOrdersQuery {\n  allUserOrders {\n    edges {\n      node {\n        notes\n        id\n        totalPrice\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        products {\n          edges {\n            node {\n              orderCount\n              product {\n                name\n                productName\n                metaInfo\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query OrdersRelayGetAllUserOrdersQuery {\n  allUserOrders {\n    edges {\n      node {\n        notes\n        id\n        totalPrice\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        products {\n          edges {\n            node {\n              orderCount\n              product {\n                sku\n                name\n                productName\n                metaInfo\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '3d42c15f15e850fc23e338365362b86b';
+(node as any).hash = 'fd520b95e64d5bc1204b35f431c0260b';
 export default node;
