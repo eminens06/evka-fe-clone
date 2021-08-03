@@ -4,6 +4,7 @@ import GlassProduction from './GlassProduction';
 import PaintProduction from './PaintProduction';
 import MarbleProduction from './MarbleProduction';
 import FabricProduction from './FabricProduction';
+import SummaryProduction from './Summary';
 
 export {
   MetalProduction,
@@ -12,4 +13,5 @@ export {
   PaintProduction,
   MarbleProduction,
   FabricProduction,
+  SummaryProduction,
 };

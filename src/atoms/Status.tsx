@@ -14,7 +14,8 @@ const COLORS: StatusColors = {
   error: '#FF4D4F',
   success: '#52C41A',
   pending: '#597EF7',
-  none: '#D9D9D9',
+  pending_paint: '#D9D9D9',
+  none: '#000000',
 };
 
 const Status: FC<Props> = ({ status, text }) => {

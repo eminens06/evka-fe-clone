@@ -31,8 +31,9 @@ interface Props {
   children: ReactChild;
   header: string;
   progressSteps: ProgressStepValue[];
-  status: WorkshopStatus;
+  modalData: any;
   form?: FormInstance<any>;
+  onChangeStatus: Function;
   customAction?: {
     type: CustomActionTypes;
     onPress: Function;
@@ -47,12 +48,14 @@ const StatusModal: FC<Props> = ({
   children,
   header,
   form,
-  status,
+  modalData,
+  onChangeStatus,
   progressSteps,
   customAction,
 }) => {
   const onSubmit = () => {
     if (form) form.submit();
+    onChangeStatus();
   };
 
   const buttonProps: CustomActionProps | undefined = useMemo(() => {
@@ -79,22 +82,24 @@ const StatusModal: FC<Props> = ({
         </Button>,
       ]}
     >
-      <>
-        <ProgressStep steps={progressSteps} value={status} />
-        {React.cloneElement(children as ReactElement, { close: closeModal })}
-        {customAction && buttonProps && (
-          <Row style={{ justifyContent: 'center', marginTop: 20 }}>
-            <Button
-              {...buttonProps}
-              icon={buttonProps.icon}
-              onClick={buttonProps.onPress}
-              type="primary"
-            >
-              {buttonProps.text}
-            </Button>
-          </Row>
-        )}
-      </>
+      {isVisible && (
+        <>
+          <ProgressStep steps={progressSteps} value={modalData.status} />
+          {React.cloneElement(children as ReactElement, { close: closeModal })}
+          {customAction && buttonProps && (
+            <Row style={{ justifyContent: 'center', marginTop: 20 }}>
+              <Button
+                {...buttonProps}
+                icon={buttonProps.icon}
+                onClick={buttonProps.onPress}
+                type="primary"
+              >
+                {buttonProps.text}
+              </Button>
+            </Row>
+          )}
+        </>
+      )}
     </Modal>
   );
 };

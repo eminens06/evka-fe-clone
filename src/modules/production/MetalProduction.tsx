@@ -1,21 +1,17 @@
-import { Form, Table, Typography } from 'antd';
+import { Table, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
+import useFetchWorkShop from '../../hooks/useFetchWorkshop';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
 import StatusModal from '../common/StatusModal';
 import { mainProductionColumns, mainStatusArray } from './helpers';
-import { WorkshopProps, WorkshopStatus } from './types';
-
-const dummyData: any = [];
-const size = 10;
-const isLoading = false;
+import MainWorkshopDetail from './MainWorkshopDetail';
+import { WorkshopTypes } from './types';
 
 const MetalProduction: FunctionComponent = () => {
   const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalData, setModalData] = useState<WorkshopProps>();
-
-  const [form] = Form.useForm();
+  const [modalData, setModalData] = useState<any>();
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -25,20 +21,11 @@ const MetalProduction: FunctionComponent = () => {
     setPage(page);
   };
 
-  /* const {
-    data,
-    size,
-    isLoading,
-    forceFetchQuery,
-  } = useFetchTablePagination<UsersRelayGetAllUsersQuery>(
-    GET_USERS,
-    {
-      search: '',
-    },
-    mappers.userMapper,
-  ); */
+  const { data, size, isLoading, forceFetchQuery } = useFetchWorkShop(
+    WorkshopTypes.METAL,
+  );
 
-  const onTableClick = (data: WorkshopProps) => {
+  const onTableClick = (data: any) => {
     console.log('Data : ', data);
     setModalData({ ...data });
     openModal();
@@ -48,6 +35,10 @@ const MetalProduction: FunctionComponent = () => {
     /*forceFetchQuery({
       search: value,
     }); */
+  };
+
+  const onChangeStatus = () => {
+    console.log('Change Status ! ');
   };
 
   const closeModal = () => {
@@ -72,8 +63,8 @@ const MetalProduction: FunctionComponent = () => {
             };
           }}
           columns={mainProductionColumns}
-          dataSource={dummyData}
-          rowKey="name"
+          dataSource={data}
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,
@@ -82,19 +73,27 @@ const MetalProduction: FunctionComponent = () => {
             onChange: (page, pageSize) => changePagination(page),
           }}
         />
-        <StatusModal
-          isVisible={true}
-          closeModal={closeModal}
-          header="Ürün Bilgileri"
-          progressSteps={mainStatusArray}
-          status={WorkshopStatus.IN_PRODUCTION}
-          customAction={{
-            onPress: showBluePrint,
-            type: 'bluePrint',
-          }}
-        >
-          <div>SHOW WHATEVER U PASS HERE !! </div>
-        </StatusModal>
+        {modalData && (
+          <StatusModal
+            isVisible={isModalVisible}
+            closeModal={closeModal}
+            onChangeStatus={onChangeStatus}
+            modalData={modalData}
+            header="Parça Bilgileri"
+            progressSteps={mainStatusArray}
+            customAction={{
+              onPress: showBluePrint,
+              type: 'bluePrint',
+            }}
+          >
+            <MainWorkshopDetail
+              productName={modalData.productName}
+              dimensions={modalData.dimensions}
+              type={modalData.type}
+              materialName={modalData.materialName}
+            />
+          </StatusModal>
+        )}
       </div>
     </PageContent>
   );

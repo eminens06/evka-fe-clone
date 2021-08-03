@@ -2,11 +2,12 @@ import { graphql } from 'relay-hooks';
 
 graphql`
   query ManagementProductionRelayallProductOrdersQuery {
-    allProductOrders {
+    allProductByProductOrderStatus(statusType: "DF") {
       edges {
         node {
           notes
           orderCount
+          id
           product {
             id
             name
@@ -32,6 +33,18 @@ graphql`
             }
           }
         }
+      }
+    }
+  }
+`;
+
+graphql`
+  mutation ManagementProductionRelaySendttoProductionMutation(
+    $input: SendToProductionInput!
+  ) {
+    sendToProduction(input: $input) {
+      productOrder {
+        id
       }
     }
   }
