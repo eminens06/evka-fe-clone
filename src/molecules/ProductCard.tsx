@@ -150,6 +150,7 @@ const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
           visible={showProductsTable}
           title="Tüm Ürünler"
           width={'70%'}
+          onCancel={() => onCancelModal()}
           footer={[
             <Button key="back" onClick={() => onCancelModal()}>
               Vazgeç

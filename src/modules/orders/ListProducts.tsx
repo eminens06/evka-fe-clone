@@ -45,7 +45,6 @@ interface Props {
 }
 
 const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
-  const [search, setSearch] = useState<string>();
   const [page, setPage] = useState(1);
   // TODO Organize pagination for larger results
 
@@ -57,17 +56,24 @@ const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
     data,
     size,
     isLoading,
+    forceFetchQuery,
   } = useFetchTablePagination<OrdersAllProductsWithoutSkuQuery>(
     GET_PRODUCTS,
     {
-      first: 10,
+      search: '',
     },
     mappers.allProductsMapper,
   );
 
+  const onSearch = (value: string) => {
+    forceFetchQuery({
+      search: value,
+    });
+  };
+
   return (
     <div>
-      <TableFilter />
+      <TableFilter onSearchComplete={onSearch} />
       <Table
         rowSelection={{
           type: 'radio',
