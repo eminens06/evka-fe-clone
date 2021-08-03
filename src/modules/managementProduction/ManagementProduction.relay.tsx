@@ -2,7 +2,7 @@ import { graphql } from 'relay-hooks';
 
 graphql`
   query ManagementProductionRelayallProductOrdersQuery {
-    allProductOrders(unapprovedProductOrders: "") {
+    allProductOrders {
       edges {
         node {
           notes
@@ -20,7 +20,7 @@ graphql`
               }
             }
           }
-          userorderSet {
+          userOrder {
             edges {
               node {
                 customerInfo

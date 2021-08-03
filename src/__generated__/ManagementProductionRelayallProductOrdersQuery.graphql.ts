@@ -23,7 +23,7 @@ export type ManagementProductionRelayallProductOrdersQueryResponse = {
                         } | null>;
                     };
                 } | null;
-                readonly userorderSet: {
+                readonly userOrder: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
                             readonly customerInfo: unknown;
@@ -47,7 +47,7 @@ export type ManagementProductionRelayallProductOrdersQuery = {
 
 /*
 query ManagementProductionRelayallProductOrdersQuery {
-  allProductOrders(unapprovedProductOrders: "") {
+  allProductOrders {
     edges {
       node {
         notes
@@ -66,7 +66,7 @@ query ManagementProductionRelayallProductOrdersQuery {
             }
           }
         }
-        userorderSet {
+        userOrder {
           edges {
             node {
               customerInfo
@@ -87,70 +87,63 @@ query ManagementProductionRelayallProductOrdersQuery {
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "kind": "Literal",
-    "name": "unapprovedProductOrders",
-    "value": ""
-  }
-],
-v1 = {
+var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "notes",
   "storageKey": null
 },
-v2 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "orderCount",
   "storageKey": null
 },
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "productName",
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "categoryName",
   "storageKey": null
 },
-v7 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "materialName",
   "storageKey": null
 },
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "customerInfo",
   "storageKey": null
 },
-v9 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -166,7 +159,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": null,
         "concreteType": "ProductOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allProductOrders",
@@ -188,8 +181,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
+                  (v0/*: any*/),
                   (v1/*: any*/),
-                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -198,9 +191,9 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
+                      (v2/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -225,8 +218,8 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v6/*: any*/),
-                                  (v7/*: any*/)
+                                  (v5/*: any*/),
+                                  (v6/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -244,7 +237,7 @@ return {
                     "args": null,
                     "concreteType": "UserOrderNodeConnection",
                     "kind": "LinkedField",
-                    "name": "userorderSet",
+                    "name": "userOrder",
                     "plural": false,
                     "selections": [
                       {
@@ -263,8 +256,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
+                              (v7/*: any*/),
                               (v8/*: any*/),
-                              (v9/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -273,7 +266,7 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v4/*: any*/)
+                                  (v3/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -293,7 +286,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductOrders(unapprovedProductOrders:\"\")"
+        "storageKey": null
       }
     ],
     "type": "Query"
@@ -306,7 +299,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": null,
         "concreteType": "ProductOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allProductOrders",
@@ -328,8 +321,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
+                  (v0/*: any*/),
                   (v1/*: any*/),
-                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -338,9 +331,9 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
+                      (v2/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -365,9 +358,9 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
+                                  (v5/*: any*/),
                                   (v6/*: any*/),
-                                  (v7/*: any*/),
-                                  (v3/*: any*/)
+                                  (v2/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -385,7 +378,7 @@ return {
                     "args": null,
                     "concreteType": "UserOrderNodeConnection",
                     "kind": "LinkedField",
-                    "name": "userorderSet",
+                    "name": "userOrder",
                     "plural": false,
                     "selections": [
                       {
@@ -404,8 +397,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
+                              (v7/*: any*/),
                               (v8/*: any*/),
-                              (v9/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -414,12 +407,12 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v4/*: any*/),
-                                  (v3/*: any*/)
+                                  (v3/*: any*/),
+                                  (v2/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v3/*: any*/)
+                              (v2/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -429,7 +422,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v3/*: any*/)
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -437,7 +430,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductOrders(unapprovedProductOrders:\"\")"
+        "storageKey": null
       }
     ]
   },
@@ -446,9 +439,9 @@ return {
     "metadata": {},
     "name": "ManagementProductionRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query ManagementProductionRelayallProductOrdersQuery {\n  allProductOrders(unapprovedProductOrders: \"\") {\n    edges {\n      node {\n        notes\n        orderCount\n        product {\n          id\n          name\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n        }\n        userorderSet {\n          edges {\n            node {\n              customerInfo\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query ManagementProductionRelayallProductOrdersQuery {\n  allProductOrders {\n    edges {\n      node {\n        notes\n        orderCount\n        product {\n          id\n          name\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'de6e0ba387f8b20bffb2146e46ef353e';
+(node as any).hash = 'b77a524e231d9f73e476fe4095158996';
 export default node;

@@ -1,13 +1,14 @@
 import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import ListExternalServices from '../src/modules/admin/externalService/ListExternalServices';
 import environment from '../src/relay/environment';
 
-const AdminOutsource: NextPage = () => {
+const AdminExternalService: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <div>Admin Outsource</div>
+      <ListExternalServices />
     </RelayEnvironmentProvider>
   );
 };
 
-export default AdminOutsource;
+export default AdminExternalService;
