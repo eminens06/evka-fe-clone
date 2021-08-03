@@ -1,14 +1,26 @@
 import { Table, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
-import useFetchWorkShop from '../../hooks/useFetchWorkshop';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
 import StatusModal from '../common/StatusModal';
-import { mainProductionColumns, mainStatusArray } from './helpers';
-import MainWorkshopDetail from './MainWorkshopDetail';
-import { WorkshopTypes } from './types';
+import { mainStatusNextButtonText } from '../production/helpers';
+import { packagingColumns, statusArray, statusNextButtonText } from './helpers';
+import PackagingDetail from './PackagingDetail';
+import { PackageStatus, PackagingTableData } from './types';
 
-const MetalProduction: FunctionComponent = () => {
+const dummyData: PackagingTableData[] = [
+  {
+    orderId: '1',
+    productName: 'asd',
+    remainingDate: '15',
+    isCollectable: true,
+    status: PackageStatus.READY,
+    packageCount: 5,
+    isMonte: true,
+  },
+];
+
+const ListPackaging: FunctionComponent = () => {
   const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<any>();
@@ -20,10 +32,6 @@ const MetalProduction: FunctionComponent = () => {
   const changePagination = (page: number) => {
     setPage(page);
   };
-
-  const { data, size, isLoading, forceFetchQuery } = useFetchWorkShop(
-    WorkshopTypes.WOOD,
-  );
 
   const onTableClick = (data: any) => {
     setModalData({ ...data });
@@ -49,11 +57,11 @@ const MetalProduction: FunctionComponent = () => {
   };
 
   return (
-    <PageContent header={['Üretim', 'Ahşap Atölyesi']}>
+    <PageContent header={['Toplama/Paketleme']}>
       <div>
         <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
-          <Typography.Title level={5}>Ahşap Atölyesi</Typography.Title>
+          <Typography.Title level={5}>Toplama/Paketleme</Typography.Title>
         </div>
         <Table
           onRow={(record, rowIndex) => {
@@ -61,12 +69,11 @@ const MetalProduction: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
-          columns={mainProductionColumns}
-          dataSource={data}
+          columns={packagingColumns}
+          dataSource={dummyData}
           rowKey="id"
-          loading={isLoading}
+          loading={false}
           pagination={{
-            total: size,
             defaultCurrent: 1,
             current: page,
             onChange: (page, pageSize) => changePagination(page),
@@ -79,18 +86,13 @@ const MetalProduction: FunctionComponent = () => {
             onChangeStatus={onChangeStatus}
             modalData={modalData}
             header="Parça Bilgileri"
-            progressSteps={mainStatusArray}
-            customAction={{
-              onPress: showBluePrint,
-              type: 'bluePrint',
-            }}
-            saveTextArray={mainStatusNextButtonText}
+            progressSteps={statusArray}
+            saveTextArray={statusNextButtonText}
           >
-            <MainWorkshopDetail
+            <PackagingDetail
               productName={modalData.productName}
-              dimensions={modalData.dimensions}
-              type={modalData.type}
-              materialName={modalData.materialName}
+              isMonte={modalData.isMonte}
+              packageCount={modalData.packageCount}
             />
           </StatusModal>
         )}
@@ -99,4 +101,4 @@ const MetalProduction: FunctionComponent = () => {
   );
 };
 
-export default MetalProduction;
+export default ListPackaging;

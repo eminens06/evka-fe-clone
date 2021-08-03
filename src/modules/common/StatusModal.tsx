@@ -5,6 +5,7 @@ import ProgressStep from '../../molecules/ProgressStep';
 import { ProgressStepValue } from '../../molecules/types';
 import { WorkshopStatus } from '../production/types';
 import { mainStatusNextButtonText } from '../production/helpers';
+import { PackageStatus } from '../packaging/types';
 
 type CustomActionTypes = 'revert' | 'bluePrint';
 
@@ -41,6 +42,7 @@ interface Props {
     text?: string;
     button?: any;
   };
+  saveTextArray: Record<any, string>;
 }
 
 const StatusModal: FC<Props> = ({
@@ -53,6 +55,7 @@ const StatusModal: FC<Props> = ({
   onChangeStatus,
   progressSteps,
   customAction,
+  saveTextArray,
 }) => {
   const onSubmit = () => {
     if (form) form.submit();
@@ -81,7 +84,7 @@ const StatusModal: FC<Props> = ({
           Vazgeç
         </Button>,
         <Button type="primary" onClick={onSubmit}>
-          {mainStatusNextButtonText[status]}
+          {saveTextArray[status]}
         </Button>,
       ]}
     >

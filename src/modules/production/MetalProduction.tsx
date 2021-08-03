@@ -4,7 +4,11 @@ import useFetchWorkShop from '../../hooks/useFetchWorkshop';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
 import StatusModal from '../common/StatusModal';
-import { mainProductionColumns, mainStatusArray } from './helpers';
+import {
+  mainProductionColumns,
+  mainStatusArray,
+  mainStatusNextButtonText,
+} from './helpers';
 import MainWorkshopDetail from './MainWorkshopDetail';
 import { WorkshopTypes } from './types';
 
@@ -85,6 +89,7 @@ const MetalProduction: FunctionComponent = () => {
               onPress: showBluePrint,
               type: 'bluePrint',
             }}
+            saveTextArray={mainStatusNextButtonText}
           >
             <MainWorkshopDetail
               productName={modalData.productName}
