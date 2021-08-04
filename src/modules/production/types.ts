@@ -155,3 +155,35 @@ export type WorkshopExternalService = {
   phoneNumber: string;
   address: string;
 };
+
+export type PackagingListDTO = {
+  id: string;
+  packagingStatus: string;
+  marbleStatus: string;
+  glassStatus: string;
+  product: {
+    name: string;
+    isCollectable: boolean;
+    packageCount: number;
+    isMonte: boolean;
+  };
+  userOrder: {
+    edges: {
+      node: {
+        marketplaceOrderId: string;
+        marketplace: { name: string };
+      }[];
+    };
+  };
+};
+
+export type PackagingList = {
+  orderId: string;
+  productName: string;
+  remainingDate: string;
+  isCollectable: boolean;
+  status: string;
+  packageCount: number;
+  isMonte: boolean;
+  id: string;
+};

@@ -16,6 +16,8 @@ import {
   ProductManagmentMetaProductDTO,
 } from './modules/managementProduction/types';
 import {
+  PackagingList,
+  PackagingListDTO,
   ProductionMainWorkshopData,
   ProductionMaterialWorkshopData,
   ProductionSummary,
@@ -505,6 +507,22 @@ const productionWorkshopMapper = (
   }
 };
 
+const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
+  return data.map((item) => {
+    const order = genericTableDataMapper(item, 'userOrder');
+    return {
+      orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
+      productName: item.product.name,
+      remainingDate: '15',
+      isCollectable: item.product.isCollectable,
+      status: item.packagingStatus,
+      packageCount: item.product.packageCount,
+      isMonte: item.product.isMonte,
+      id: item.id,
+    };
+  });
+};
+
 export default {
   genericTableDataMapper,
   userMapper,
@@ -516,4 +534,5 @@ export default {
   productionSummaryMapper,
   productionWorkshopMapper,
   externalServiceSelectMapper,
+  packagingListMapper,
 };

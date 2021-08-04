@@ -1,9 +1,17 @@
-import { Table, Typography } from 'antd';
+import { message, Table, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
+import { useMutation } from 'relay-hooks';
+import useFetchTablePagination from '../../hooks/useFetchTableData';
 import PageContent from '../../layout/PageContent';
+import mappers from '../../mappers';
 import TableFilter from '../../molecules/TableFilter';
+import GET_PACKAGE_LIST, {
+  PackagingRelayallProductOrdersQuery,
+} from '../../__generated__/PackagingRelayallProductOrdersQuery.graphql';
+import CHANGE_STATUS, {
+  PackagingRelayChangePackagingStatusMutation,
+} from '../../__generated__/PackagingRelayChangePackagingStatusMutation.graphql';
 import StatusModal from '../common/StatusModal';
-import { mainStatusNextButtonText } from '../production/helpers';
 import { packagingColumns, statusArray, statusNextButtonText } from './helpers';
 import PackagingDetail from './PackagingDetail';
 import { PackageStatus, PackagingTableData } from './types';
@@ -33,6 +41,19 @@ const ListPackaging: FunctionComponent = () => {
     setPage(page);
   };
 
+  const {
+    data,
+    size,
+    isLoading,
+    forceFetchQuery,
+  } = useFetchTablePagination<PackagingRelayallProductOrdersQuery>(
+    GET_PACKAGE_LIST,
+    {
+      search: '',
+    },
+    mappers.packagingListMapper,
+  );
+
   const onTableClick = (data: any) => {
     setModalData({ ...data });
     openModal();
@@ -44,16 +65,37 @@ const ListPackaging: FunctionComponent = () => {
     }); */
   };
 
+  const [
+    changeStatus,
+  ] = useMutation<PackagingRelayChangePackagingStatusMutation>(CHANGE_STATUS, {
+    onError: (error: any) => {
+      message.error('Hata! ', error.response.errors[0].message);
+    },
+    onCompleted: (res) => {
+      console.log(res);
+      message.success('Durum Başarıyla Güncellendi');
+      forceFetchQuery({
+        search: '',
+      });
+      setIsModalVisible(false);
+    },
+  });
+
   const onChangeStatus = () => {
-    console.log('Change Status ! ');
+    if (modalData) {
+      const input = {
+        productOrderId: modalData.id,
+      };
+      changeStatus({
+        variables: {
+          input,
+        },
+      });
+    }
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
-  };
-
-  const showBluePrint = () => {
-    console.log('Show blue print');
   };
 
   return (
@@ -70,10 +112,11 @@ const ListPackaging: FunctionComponent = () => {
             };
           }}
           columns={packagingColumns}
-          dataSource={dummyData}
+          dataSource={data}
           rowKey="id"
-          loading={false}
+          loading={isLoading}
           pagination={{
+            total: size,
             defaultCurrent: 1,
             current: page,
             onChange: (page, pageSize) => changePagination(page),
