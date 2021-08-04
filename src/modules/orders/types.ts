@@ -31,6 +31,7 @@ export type UserOrderProductDTO = {
 
 export enum OrderStatusType {
   DF = 'DF',
+  P = 'P',
 }
 
 export type UserOrderDTO = {

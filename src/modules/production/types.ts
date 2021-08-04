@@ -3,7 +3,7 @@ import { UserOrderSetDTO } from '../managementProduction/types';
 export enum WorkshopStatus {
   READY = 'READY',
   IN_PRODUCTION = 'IN_PRODUCTION',
-  RECIEVED = 'RECIEVED',
+  RECEIVED = 'RECEIVED',
   COMPLETED = 'COMPLETED',
 }
 
@@ -19,7 +19,7 @@ export enum MaterialStatus {
   NONE = 'NONE',
   READY = 'READY',
   IN_PRODUCTION = 'IN_PRODUCTION',
-  RECIEVED = 'RECIEVED',
+  RECEIVED = 'RECEIVED',
   COMPLETED = 'COMPLETED',
 }
 
@@ -70,9 +70,9 @@ export type ProductionWorkshopDataDTO = {
     id: string;
     name: string;
     sku: string;
-    width: string;
-    height: string;
-    length: string;
+    width: number;
+    height: number;
+    length: number;
   };
   metaProdcuts: {
     edges: {
@@ -88,13 +88,21 @@ export type ProductionWorkshopDataDTO = {
       node: UserOrderSetDTO[];
     };
   };
+  externalService?: {
+    edges: {
+      node: {
+        name: string;
+        phoneNumber: string;
+        address: string;
+      };
+    };
+  };
 };
 
 export type ProductionMainWorkshopData = {
   id: string;
   sku: string;
   orderId: string;
-  orderCount: number;
   productName: string;
   status: WorkshopStatus;
   type: 'Ayak' | 'Tabla';
@@ -106,6 +114,21 @@ export type ProductionMainWorkshopData = {
   materialName: string;
 };
 
+export type ProductionMaterialWorkshopData = {
+  id: string;
+  sku: string;
+  orderId: string;
+  productName: string;
+  status: WorkshopStatus;
+  dimensions: {
+    width: number;
+    height: number;
+    length: number;
+  };
+  type: WorkshopTypes;
+  externalServices: WorkshopExternalService[];
+};
+
 export enum WorkshopTypes {
   METAL = 'metal',
   WOOD = 'wood',
@@ -113,3 +136,21 @@ export enum WorkshopTypes {
   FABRIC = 'fabric',
   MARBLE = 'marble',
 }
+
+export type WorkshopExternalServiceParams = {
+  externalServiceIds: string;
+  rawMaterial?: string;
+};
+
+export type WorkshopExternalServiceDTO = {
+  readonly id: string;
+  readonly name: string;
+  readonly phoneNumber: string | null;
+  readonly address: string;
+};
+
+export type WorkshopExternalService = {
+  name: string;
+  phoneNumber: string;
+  address: string;
+};

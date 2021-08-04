@@ -1,9 +1,10 @@
 import { graphql } from 'relay-hooks';
 graphql`
   query ProductionRelaySummaryQuery {
-    allProductByProductOrderStatus(statusType: "A") {
+    allProductByProductOrderStatus(statusType: "P") {
       edges {
         node {
+          id
           ayakStatus
           tablaStatus
           fabricStatus
@@ -71,6 +72,15 @@ graphql`
               }
             }
           }
+          externalService {
+            edges {
+              node {
+                name
+                phoneNumber
+                address
+              }
+            }
+          }
         }
       }
     }
@@ -86,6 +96,22 @@ graphql`
         id
         woodStatus
         metalStatus
+        marbleStatus
+      }
+    }
+  }
+`;
+
+graphql`
+  mutation ProductionRelayResendToProductionMutation(
+    $input: SendReceivedProductToProductionInput!
+  ) {
+    sendReceivedProductToProduction(input: $input) {
+      productOrder {
+        id
+        woodStatus
+        metalStatus
+        marbleStatus
       }
     }
   }

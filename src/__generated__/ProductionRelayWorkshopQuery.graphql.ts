@@ -47,6 +47,15 @@ export type ProductionRelayWorkshopQueryResponse = {
                         } | null;
                     } | null>;
                 };
+                readonly externalService: {
+                    readonly edges: ReadonlyArray<{
+                        readonly node: {
+                            readonly name: string;
+                            readonly phoneNumber: string | null;
+                            readonly address: string;
+                        } | null;
+                    } | null>;
+                };
             } | null;
         } | null>;
     } | null;
@@ -100,6 +109,16 @@ query ProductionRelayWorkshopQuery(
                 name
                 id
               }
+              id
+            }
+          }
+        }
+        externalService {
+          edges {
+            node {
+              name
+              phoneNumber
+              address
               id
             }
           }
@@ -251,6 +270,20 @@ v19 = {
   "kind": "ScalarField",
   "name": "marketplaceOrderId",
   "storageKey": null
+},
+v20 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "phoneNumber",
+  "storageKey": null
+},
+v21 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "address",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -382,6 +415,42 @@ return {
                                 ],
                                 "storageKey": null
                               }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ExternalServiceNodeConnection",
+                    "kind": "LinkedField",
+                    "name": "externalService",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ExternalServiceNodeEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ExternalServiceNode",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v12/*: any*/),
+                              (v20/*: any*/),
+                              (v21/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -543,6 +612,43 @@ return {
                       }
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ExternalServiceNodeConnection",
+                    "kind": "LinkedField",
+                    "name": "externalService",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ExternalServiceNodeEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ExternalServiceNode",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v12/*: any*/),
+                              (v20/*: any*/),
+                              (v21/*: any*/),
+                              (v2/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -560,9 +666,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayWorkshopQuery",
     "operationKind": "query",
-    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n) {\n  allProductOrders(byWorkshopType: $workshopType) {\n    edges {\n      node {\n        id\n        woodStatus\n        metalStatus\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n) {\n  allProductOrders(byWorkshopType: $workshopType) {\n    edges {\n      node {\n        id\n        woodStatus\n        metalStatus\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c732ef47784a81e3471958ae2102f8d9';
+(node as any).hash = '656fe975aa902090d5b92d9c327e7cf6';
 export default node;

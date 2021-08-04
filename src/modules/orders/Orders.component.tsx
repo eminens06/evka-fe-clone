@@ -89,8 +89,12 @@ const columns = [
     key: 'status',
     title: 'Durum',
     dataIndex: 'status',
-    render: (value: OrderStatusType) => {
-      return <Status status="error" text={value} />;
+    render: (value: string) => {
+      if (value === 'Onay Bekleniyor')
+        return <Status status="error" text={value} />;
+      else {
+        return <Typography.Text>{value}</Typography.Text>;
+      }
     },
   },
 ];
