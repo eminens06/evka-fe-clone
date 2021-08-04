@@ -9,7 +9,7 @@ export type PackagingTableData = {
 };
 
 export enum PackageStatus {
-  READY = 'READY',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
+  READY = 'R',
+  IN_PROGRESS = 'I',
+  COMPLETED = 'C',
 }
