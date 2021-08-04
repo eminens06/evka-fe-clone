@@ -35,6 +35,11 @@ const ProductOrderSummary: FC<Props> = ({
     };
   }, [data]);
 
+  const onClickApprove = (id: string) => {
+    onApprove(id);
+    closeModal();
+  };
+
   return (
     <Modal
       visible={isVisible}
@@ -45,7 +50,7 @@ const ProductOrderSummary: FC<Props> = ({
         <Button type="primary" onClick={onStorage}>
           Depoda Var
         </Button>,
-        <Button type="primary" onClick={() => onApprove(data.id)}>
+        <Button type="primary" onClick={() => onClickApprove(data.id)}>
           Üretime Gönder
         </Button>,
       ]}
