@@ -748,6 +748,16 @@
                     "name": "String",
                     "ofType": null
                   }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "byModuleName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
                 }
               ],
               "deprecationReason": null,
@@ -2097,6 +2107,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "packagingStatus",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ProductOrderPackagingStatus",
                   "ofType": null
                 }
               }
@@ -4474,21 +4500,33 @@
           "enumValues": [
             {
               "deprecationReason": null,
-              "description": "Onay Bekliyor",
+              "description": "DEFAULT",
               "isDeprecated": false,
               "name": "DF"
             },
             {
               "deprecationReason": null,
-              "description": "Onayland\u0131",
+              "description": "PRODUCTION",
               "isDeprecated": false,
-              "name": "A"
+              "name": "P"
             },
             {
               "deprecationReason": null,
-              "description": "Uretimde",
+              "description": "COMPLETED",
               "isDeprecated": false,
-              "name": "P"
+              "name": "C"
+            },
+            {
+              "deprecationReason": null,
+              "description": "PACKAGING",
+              "isDeprecated": false,
+              "name": "PP"
+            },
+            {
+              "deprecationReason": null,
+              "description": "DONE",
+              "isDeprecated": false,
+              "name": "D"
             }
           ],
           "fields": null,
@@ -4513,7 +4551,42 @@
           "enumValues": [
             {
               "deprecationReason": null,
-              "description": "DEAFULT",
+              "description": "DEFAULT",
+              "isDeprecated": false,
+              "name": "DF"
+            },
+            {
+              "deprecationReason": null,
+              "description": "READY",
+              "isDeprecated": false,
+              "name": "R"
+            },
+            {
+              "deprecationReason": null,
+              "description": "IN_PROGRESS",
+              "isDeprecated": false,
+              "name": "I"
+            },
+            {
+              "deprecationReason": null,
+              "description": "COMPLETED",
+              "isDeprecated": false,
+              "name": "C"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "ProductOrderPackagingStatus",
+          "possibleTypes": null
+        },
+        {
+          "description": "An enumeration.",
+          "enumValues": [
+            {
+              "deprecationReason": null,
+              "description": "DEFAULT",
               "isDeprecated": false,
               "name": "DF"
             },
@@ -4566,7 +4639,7 @@
           "enumValues": [
             {
               "deprecationReason": null,
-              "description": "DEAFULT",
+              "description": "DEFAULT",
               "isDeprecated": false,
               "name": "DF"
             },
@@ -4901,7 +4974,7 @@
             },
             {
               "deprecationReason": null,
-              "description": "Merble",
+              "description": "Marble",
               "isDeprecated": false,
               "name": "MR"
             },
@@ -4910,6 +4983,12 @@
               "description": "AlSat",
               "isDeprecated": false,
               "name": "AS"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Fabric",
+              "isDeprecated": false,
+              "name": "F"
             }
           ],
           "fields": null,
@@ -5510,6 +5589,60 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "SendToProductionPayload",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "ChangePackagingStatusInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "changePackagingStatus",
+              "type": {
+                "kind": "OBJECT",
+                "name": "ChangePackagingStatusPayload",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "SendReceivedProductToProductionInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "sendReceivedProductToProduction",
+              "type": {
+                "kind": "OBJECT",
+                "name": "SendReceivedProductToProductionPayload",
                 "ofType": null
               }
             },
@@ -6627,6 +6760,20 @@
             {
               "defaultValue": null,
               "description": null,
+              "name": "isComplete",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
               "name": "categoryName",
               "type": {
                 "kind": "SCALAR",
@@ -6738,6 +6885,160 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "SendToProductionInput",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "productOrder",
+              "type": {
+                "kind": "OBJECT",
+                "name": "ProductOrderNode",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "ChangePackagingStatusPayload",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "productOrderId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "ChangePackagingStatusInput",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "productOrder",
+              "type": {
+                "kind": "OBJECT",
+                "name": "ProductOrderNode",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "SendReceivedProductToProductionPayload",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "productOrderId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "workshopType",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "SendReceivedProductToProductionInput",
           "possibleTypes": null
         },
         {

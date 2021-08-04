@@ -58,8 +58,10 @@ const StatusModal: FC<Props> = ({
   saveTextArray,
 }) => {
   const onSubmit = () => {
-    if (form) form.submit();
-    onChangeStatus();
+    if (form && modalData.status === WorkshopStatus.READY) form.submit();
+    else {
+      onChangeStatus();
+    }
   };
 
   const buttonProps: CustomActionProps | undefined = useMemo(() => {

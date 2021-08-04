@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type ExternalServiceModule = "AS" | "GL" | "MR" | "PT" | "%future added value";
+export type ExternalServiceModule = "AS" | "F" | "GL" | "MR" | "PT" | "%future added value";
 export type ExternalServiceRelayGetExternalServiceQueryVariables = {
     search?: string | null;
 };

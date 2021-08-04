@@ -2,20 +2,16 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type ChangeOrderStatusesInput = {
+export type SendReceivedProductToProductionInput = {
     productOrderId: string;
     workshopType: string;
-    isComplete: boolean;
-    categoryName?: string | null;
-    externalServiceIds?: string | null;
-    rawMaterial?: string | null;
     clientMutationId?: string | null;
 };
-export type ProductionRelayWorkshopStatusChangeMutationVariables = {
-    input: ChangeOrderStatusesInput;
+export type ProductionRelayResendToProductionMutationVariables = {
+    input: SendReceivedProductToProductionInput;
 };
-export type ProductionRelayWorkshopStatusChangeMutationResponse = {
-    readonly changeOrderStatuses: {
+export type ProductionRelayResendToProductionMutationResponse = {
+    readonly sendReceivedProductToProduction: {
         readonly productOrder: {
             readonly id: string;
             readonly woodStatus: string | null;
@@ -24,18 +20,18 @@ export type ProductionRelayWorkshopStatusChangeMutationResponse = {
         } | null;
     } | null;
 };
-export type ProductionRelayWorkshopStatusChangeMutation = {
-    readonly response: ProductionRelayWorkshopStatusChangeMutationResponse;
-    readonly variables: ProductionRelayWorkshopStatusChangeMutationVariables;
+export type ProductionRelayResendToProductionMutation = {
+    readonly response: ProductionRelayResendToProductionMutationResponse;
+    readonly variables: ProductionRelayResendToProductionMutationVariables;
 };
 
 
 
 /*
-mutation ProductionRelayWorkshopStatusChangeMutation(
-  $input: ChangeOrderStatusesInput!
+mutation ProductionRelayResendToProductionMutation(
+  $input: SendReceivedProductToProductionInput!
 ) {
-  changeOrderStatuses(input: $input) {
+  sendReceivedProductToProduction(input: $input) {
     productOrder {
       id
       woodStatus
@@ -52,7 +48,7 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "ChangeOrderStatusesInput!"
+    "type": "SendReceivedProductToProductionInput!"
   }
 ],
 v1 = [
@@ -65,9 +61,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "ChangeOrderStatusesPayload",
+    "concreteType": "SendReceivedProductToProductionPayload",
     "kind": "LinkedField",
-    "name": "changeOrderStatuses",
+    "name": "sendReceivedProductToProduction",
     "plural": false,
     "selections": [
       {
@@ -118,7 +114,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ProductionRelayWorkshopStatusChangeMutation",
+    "name": "ProductionRelayResendToProductionMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation"
   },
@@ -126,17 +122,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ProductionRelayWorkshopStatusChangeMutation",
+    "name": "ProductionRelayResendToProductionMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ProductionRelayWorkshopStatusChangeMutation",
+    "name": "ProductionRelayResendToProductionMutation",
     "operationKind": "mutation",
-    "text": "mutation ProductionRelayWorkshopStatusChangeMutation(\n  $input: ChangeOrderStatusesInput!\n) {\n  changeOrderStatuses(input: $input) {\n    productOrder {\n      id\n      woodStatus\n      metalStatus\n      marbleStatus\n    }\n  }\n}\n"
+    "text": "mutation ProductionRelayResendToProductionMutation(\n  $input: SendReceivedProductToProductionInput!\n) {\n  sendReceivedProductToProduction(input: $input) {\n    productOrder {\n      id\n      woodStatus\n      metalStatus\n      marbleStatus\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8568201e6bd1b233aadb557375ff29be';
+(node as any).hash = '1c3ff99707b8761bb687b7491b72833b';
 export default node;

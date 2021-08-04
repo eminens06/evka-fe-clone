@@ -7,6 +7,7 @@ export type ProductionRelaySummaryQueryResponse = {
     readonly allProductByProductOrderStatus: {
         readonly edges: ReadonlyArray<{
             readonly node: {
+                readonly id: string;
                 readonly ayakStatus: string | null;
                 readonly tablaStatus: string | null;
                 readonly fabricStatus: string | null;
@@ -40,9 +41,10 @@ export type ProductionRelaySummaryQuery = {
 
 /*
 query ProductionRelaySummaryQuery {
-  allProductByProductOrderStatus(statusType: "A") {
+  allProductByProductOrderStatus(statusType: "P") {
     edges {
       node {
+        id
         ayakStatus
         tablaStatus
         fabricStatus
@@ -65,7 +67,6 @@ query ProductionRelaySummaryQuery {
             }
           }
         }
-        id
       }
     }
   }
@@ -77,56 +78,56 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "statusType",
-    "value": "A"
+    "value": "P"
   }
 ],
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "ayakStatus",
+  "name": "id",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tablaStatus",
+  "name": "ayakStatus",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "fabricStatus",
+  "name": "tablaStatus",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marbleStatus",
+  "name": "fabricStatus",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "glassStatus",
+  "name": "marbleStatus",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderCount",
+  "name": "glassStatus",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "orderCount",
   "storageKey": null
 },
 v8 = {
@@ -144,7 +145,7 @@ v9 = {
   "name": "product",
   "plural": false,
   "selections": [
-    (v7/*: any*/),
+    (v1/*: any*/),
     (v8/*: any*/)
   ],
   "storageKey": null
@@ -193,6 +194,7 @@ return {
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
+                  (v7/*: any*/),
                   (v9/*: any*/),
                   {
                     "alias": null,
@@ -247,7 +249,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductByProductOrderStatus(statusType:\"A\")"
+        "storageKey": "allProductByProductOrderStatus(statusType:\"P\")"
       }
     ],
     "type": "Query"
@@ -288,6 +290,7 @@ return {
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
+                  (v7/*: any*/),
                   (v9/*: any*/),
                   {
                     "alias": null,
@@ -323,11 +326,11 @@ return {
                                 "plural": false,
                                 "selections": [
                                   (v8/*: any*/),
-                                  (v7/*: any*/)
+                                  (v1/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v7/*: any*/)
+                              (v1/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -336,8 +339,7 @@ return {
                       }
                     ],
                     "storageKey": null
-                  },
-                  (v7/*: any*/)
+                  }
                 ],
                 "storageKey": null
               }
@@ -345,7 +347,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductByProductOrderStatus(statusType:\"A\")"
+        "storageKey": "allProductByProductOrderStatus(statusType:\"P\")"
       }
     ]
   },
@@ -354,9 +356,9 @@ return {
     "metadata": {},
     "name": "ProductionRelaySummaryQuery",
     "operationKind": "query",
-    "text": "query ProductionRelaySummaryQuery {\n  allProductByProductOrderStatus(statusType: \"A\") {\n    edges {\n      node {\n        ayakStatus\n        tablaStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          name\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelaySummaryQuery {\n  allProductByProductOrderStatus(statusType: \"P\") {\n    edges {\n      node {\n        id\n        ayakStatus\n        tablaStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          name\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '541bdf853b532676812ed4a7f4e9fc1d';
+(node as any).hash = '795ab092f8db1073480ebcb3209ae5dc';
 export default node;

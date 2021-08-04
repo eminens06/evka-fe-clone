@@ -17,9 +17,12 @@ import {
 } from './modules/managementProduction/types';
 import {
   ProductionMainWorkshopData,
+  ProductionMaterialWorkshopData,
   ProductionSummary,
   ProductionSummaryDTO,
   ProductionWorkshopDataDTO,
+  WorkshopExternalService,
+  WorkshopExternalServiceDTO,
   WorkshopTypes,
 } from './modules/production/types';
 import {
@@ -285,14 +288,6 @@ const productCardMapper = (data: any) => {
   });
 
   return mapped;
-  const products = data.edges.map((item: any) => {
-    return {
-      sku: item.node.product.sku,
-      count: item.node.orderCount,
-      price: item.node.price,
-      productData: item.node.product,
-    };
-  });
 };
 const allProductsAdminMapper = (data: any) => {
   return data.map((item: any) => {
@@ -304,6 +299,15 @@ const allProductsAdminMapper = (data: any) => {
       name: item.name,
       sku: item.sku,
       ...metaData,
+    };
+  });
+};
+
+const externalServiceSelectMapper = (data: WorkshopExternalServiceDTO[]) => {
+  return data.map((item) => {
+    return {
+      text: item.name,
+      value: item.id,
     };
   });
 };
@@ -437,7 +441,6 @@ const productionMainPartsMapper = (
         id: item.id,
         sku: item.product.sku,
         orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
-        orderCount: item.orderCount,
         productName: item.product.name,
         status:
           type === WorkshopTypes.WOOD ? item.woodStatus : item.metalStatus,
@@ -461,16 +464,30 @@ const productionMainPartsMapper = (
   return finalValue;
 };
 
-const productionMateriallMapper = (data: any, type: WorkshopTypes) => {
+const productionMaterialMapper = (
+  data: ProductionWorkshopDataDTO[],
+  type: WorkshopTypes,
+): ProductionMaterialWorkshopData[] => {
   return data.map((item) => {
     const order = genericTableDataMapper(item, 'userOrder');
+    const services: WorkshopExternalService[] = genericTableDataMapper(
+      item,
+      'externalService',
+    );
     return {
       id: item.id,
       sku: item.product.sku,
       orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
       orderCount: item.orderCount,
       productName: item.product.name,
+      type: type,
+      dimensions: {
+        width: item.product.width,
+        height: item.product.height,
+        length: item.product.length,
+      },
       status: item[WorkshopStatusNames[type]],
+      externalServices: services || [],
     };
   });
 };
@@ -483,7 +500,7 @@ const productionWorkshopMapper = (
   if (type === WorkshopTypes.METAL || type == WorkshopTypes.WOOD) {
     return productionMainPartsMapper(data, type);
   } else {
-    return productionMateriallMapper(data, type);
+    return productionMaterialMapper(data, type);
   }
 };
 
@@ -497,4 +514,5 @@ export default {
   allProductsAdminMapper,
   productionSummaryMapper,
   productionWorkshopMapper,
+  externalServiceSelectMapper,
 };

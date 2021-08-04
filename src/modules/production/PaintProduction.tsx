@@ -2,7 +2,7 @@ import { Form, Table, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
-import { subProductionColumns } from './helpers';
+import { materialProductionColumns } from './helpers';
 import { WorkshopProps } from './types';
 
 const dummyData: any = [];
@@ -66,7 +66,7 @@ const PaintProduction: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
-          columns={subProductionColumns}
+          columns={materialProductionColumns}
           dataSource={dummyData}
           rowKey="name"
           loading={isLoading}

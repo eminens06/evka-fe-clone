@@ -1,17 +1,43 @@
-import { Table, Typography } from 'antd';
+import { message, Table, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
+import { useMutation } from 'relay-hooks';
 import useFetchWorkShop from '../../hooks/useFetchWorkshop';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
+import CHANGE_STATUS, {
+  ProductionRelayWorkshopStatusChangeMutation,
+} from '../../__generated__/ProductionRelayWorkshopStatusChangeMutation.graphql';
 import StatusModal from '../common/StatusModal';
-import { mainProductionColumns, mainStatusArray } from './helpers';
+import {
+  mainProductionColumns,
+  mainStatusArray,
+  mainWorkshopNextButtonText,
+} from './helpers';
 import MainWorkshopDetail from './MainWorkshopDetail';
-import { WorkshopTypes } from './types';
+import {
+  ProductionMainWorkshopData,
+  WorkshopStatus,
+  WorkshopTypes,
+} from './types';
 
 const MetalProduction: FunctionComponent = () => {
   const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalData, setModalData] = useState<any>();
+  const [modalData, setModalData] = useState<ProductionMainWorkshopData>();
+
+  const [
+    changeStatus,
+  ] = useMutation<ProductionRelayWorkshopStatusChangeMutation>(CHANGE_STATUS, {
+    onError: (error: any) => {
+      message.error('Hata! ', error.response.errors[0].message);
+    },
+    onCompleted: (res) => {
+      console.log(res);
+      message.success('Durum Başarıyla Güncellendi');
+      forceFetchQuery();
+      setIsModalVisible(false);
+    },
+  });
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -37,7 +63,19 @@ const MetalProduction: FunctionComponent = () => {
   };
 
   const onChangeStatus = () => {
-    console.log('Change Status ! ');
+    if (modalData) {
+      const input = {
+        productOrderId: modalData.id,
+        workshopType: WorkshopTypes.WOOD,
+        isComplete: modalData.status === WorkshopStatus.IN_PRODUCTION,
+        categoryName: modalData.type.toLowerCase(),
+      };
+      changeStatus({
+        variables: {
+          input,
+        },
+      });
+    }
   };
 
   const closeModal = () => {
@@ -84,7 +122,7 @@ const MetalProduction: FunctionComponent = () => {
               onPress: showBluePrint,
               type: 'bluePrint',
             }}
-            saveTextArray={mainStatusNextButtonText}
+            saveTextArray={mainWorkshopNextButtonText}
           >
             <MainWorkshopDetail
               productName={modalData.productName}

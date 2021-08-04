@@ -17,7 +17,7 @@ const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
     text: 'Üretimde',
     status: 'warning',
   },
-  [WorkshopStatus.RECIEVED]: {
+  [WorkshopStatus.RECEIVED]: {
     text: 'Teslim Alındı',
     status: 'pending',
   },
@@ -63,7 +63,7 @@ const MaterialStatusMapper: Record<MaterialStatus, StatusObject> = {
     text: 'Üretilmeyecek',
     status: 'none',
   },
-  [MaterialStatus.RECIEVED]: {
+  [MaterialStatus.RECEIVED]: {
     text: 'Teslim Alındı',
     status: 'pending',
   },
@@ -78,7 +78,7 @@ export const MainPartsShortNames = {
   [WorkshopTypes.WOOD]: 'WD',
 };
 
-export const WorkshopStatusNames = {
+export const WorkshopStatusNames: Record<WorkshopTypes, string> = {
   [WorkshopTypes.FABRIC]: 'fabricStatus',
   [WorkshopTypes.GLASS]: 'glassStatus',
   [WorkshopTypes.METAL]: 'metalStatus',
@@ -176,7 +176,7 @@ export const mainProductionColumns = [
   },
 ];
 
-export const subProductionColumns = [
+export const materialProductionColumns = [
   {
     key: 'orderId',
     title: 'Sipariş Id',
@@ -223,9 +223,24 @@ export const mainStatusArray: ProgressStepValue[] = [
   },
 ];
 
-export const mainStatusNextButtonText: Record<WorkshopStatus, string> = {
+export const materialStatusArray: ProgressStepValue[] = [
+  ...mainStatusArray,
+  {
+    text: 'Teslim Alındı',
+    value: WorkshopStatus.RECEIVED,
+  },
+];
+
+export const mainWorkshopNextButtonText: Record<WorkshopStatus, string> = {
   [WorkshopStatus.READY]: 'Üretime Gönder',
   [WorkshopStatus.IN_PRODUCTION]: 'Üretime Tamamla',
-  [WorkshopStatus.RECIEVED]: '',
+  [WorkshopStatus.RECEIVED]: '',
+  [WorkshopStatus.COMPLETED]: '',
+};
+
+export const materialWorkshopNextButtonText: Record<WorkshopStatus, string> = {
+  [WorkshopStatus.READY]: 'Gönder',
+  [WorkshopStatus.IN_PRODUCTION]: 'Teslim Al',
+  [WorkshopStatus.RECEIVED]: 'Tamamlandı',
   [WorkshopStatus.COMPLETED]: '',
 };

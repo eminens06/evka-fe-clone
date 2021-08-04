@@ -1,13 +1,12 @@
 import { Card, Col, Row, Typography } from 'antd';
 import React, { FC, useMemo } from 'react';
-import { WorkshopTypes } from './types';
 
 interface Props {
   productName: string;
   dimensions: {
-    width: string;
-    height: string;
-    length: string;
+    width: number;
+    height: number;
+    length: number;
   };
   type: 'Tabla' | 'Ayak';
   materialName: string;
