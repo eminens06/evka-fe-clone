@@ -1,10 +1,11 @@
-import React, { FC, ReactChild } from 'react';
-import { Card, Table as AntTable, Typography } from 'antd';
+import React, { FC } from 'react';
+import { Table as AntTable, Typography } from 'antd';
 import {
   ColumnsType,
   TablePaginationConfig,
   TableProps as AntdTableProps,
 } from 'antd/lib/table';
+import { DataSource } from './types';
 
 const { Title } = Typography;
 
@@ -20,7 +21,7 @@ interface Props {
 }
 
 const Table: FC<Props> = (props) => {
-  return <AntTable {...props} />;
+  return <AntTable {...props} key={props.rowKey} />;
 };
 
 export default Table;

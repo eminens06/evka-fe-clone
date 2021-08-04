@@ -101,7 +101,7 @@ const MetalProduction: FunctionComponent = () => {
           }}
           columns={mainProductionColumns}
           dataSource={data}
-          rowKey="id"
+          rowKey="rowKey"
           loading={isLoading}
           pagination={{
             total: size,

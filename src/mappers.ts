@@ -436,9 +436,10 @@ const productionMainPartsMapper = (
       }
     });
     const res: any[] = [];
-    itemTypes.forEach((it) => {
+    itemTypes.forEach((it, index) => {
       res.push({
         id: item.id,
+        rowKey: `${item.id}-${index}`,
         sku: item.product.sku,
         orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
         productName: item.product.name,

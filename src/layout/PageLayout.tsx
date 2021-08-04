@@ -33,7 +33,7 @@ const PageLayout: FunctionComponent<Props> = (props: Props) => {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={handleSignOut} icon={<LogoutOutlined />}>
+      <Menu.Item onClick={handleSignOut} icon={<LogoutOutlined />} key="logout">
         Çıkış Yap
       </Menu.Item>
     </Menu>

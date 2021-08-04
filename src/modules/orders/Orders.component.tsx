@@ -14,12 +14,7 @@ import GET_USER_ORDERS, {
 } from '../../__generated__/OrdersRelayGetAllUserOrdersQuery.graphql';
 import { OrderProduct, OrderStatusType } from './types';
 
-const OrderStatus = {
-  [OrderStatusType.DF]: {
-    text: 'Onay Bekleniyor',
-    status: 'error' as Status,
-  },
-};
+const READY_STATUS = 'Onay Bekliyor';
 
 const columns = [
   {
@@ -90,8 +85,7 @@ const columns = [
     title: 'Durum',
     dataIndex: 'status',
     render: (value: string) => {
-      if (value === 'Onay Bekleniyor')
-        return <Status status="error" text={value} />;
+      if (value === READY_STATUS) return <Status status="error" text={value} />;
       else {
         return <Typography.Text>{value}</Typography.Text>;
       }
@@ -146,7 +140,7 @@ const OrdersPage: FunctionComponent = () => {
           }}
           columns={columns}
           dataSource={data}
-          rowKey="name"
+          rowKey="orderId"
           loading={isLoading}
           pagination={{
             total: size,

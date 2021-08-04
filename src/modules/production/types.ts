@@ -112,6 +112,7 @@ export type ProductionMainWorkshopData = {
     length: number;
   };
   materialName: string;
+  rowKey: string;
 };
 
 export type ProductionMaterialWorkshopData = {

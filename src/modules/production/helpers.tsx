@@ -233,7 +233,7 @@ export const materialStatusArray: ProgressStepValue[] = [
 
 export const mainWorkshopNextButtonText: Record<WorkshopStatus, string> = {
   [WorkshopStatus.READY]: 'Üretime Gönder',
-  [WorkshopStatus.IN_PRODUCTION]: 'Üretime Tamamla',
+  [WorkshopStatus.IN_PRODUCTION]: 'Üretimi Tamamla',
   [WorkshopStatus.RECEIVED]: '',
   [WorkshopStatus.COMPLETED]: '',
 };
