@@ -34,6 +34,10 @@ export const ModuleOptions = [
     text: 'Boya Atölyesi',
   },
   {
+    value: ModuleType.F,
+    text: 'Kumaş Atölyesi',
+  },
+  {
     value: ModuleType.AS,
     text: 'Al-Sat',
   },

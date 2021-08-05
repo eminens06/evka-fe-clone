@@ -10,6 +10,7 @@ import RESEND_STATUS, {
 import CHANGE_STATUS, {
   ProductionRelayWorkshopStatusChangeMutation,
 } from '../../__generated__/ProductionRelayWorkshopStatusChangeMutation.graphql';
+import { ModuleType } from '../admin/externalService/types';
 import StatusModal from '../common/StatusModal';
 import {
   materialProductionColumns,
@@ -174,6 +175,7 @@ const MarbleProduction: FunctionComponent = () => {
               status={modalData.status}
               workshopType={modalData.type}
               serviceInfo={modalData.externalServices}
+              moduleName={ModuleType.MR}
             />
           </StatusModal>
         )}

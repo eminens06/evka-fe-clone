@@ -1,8 +1,11 @@
 import { graphql } from 'relay-hooks';
 
 graphql`
-  query ExternalServiceRelayGetExternalServiceQuery($search: String) {
-    allExternalServices(superSearch: $search) {
+  query ExternalServiceRelayGetExternalServiceQuery(
+    $search: String
+    $byModuleName: String
+  ) {
+    allExternalServices(superSearch: $search, byModuleName: $byModuleName) {
       edges {
         node {
           id

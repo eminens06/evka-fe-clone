@@ -7,17 +7,20 @@ import mappers from '../../mappers';
 import GET_EXTERNAL_SERVICES, {
   ExternalServiceRelayGetExternalServiceQuery,
 } from '../../__generated__/ExternalServiceRelayGetExternalServiceQuery.graphql';
+import { ModuleType } from '../admin/externalService/types';
 
 interface Props {
   form: any;
   saveForm: any;
   withRawMaterial: boolean;
+  moduleName?: ModuleType;
 }
 
 const AddOutSourceServiceForm: FC<Props> = ({
   form,
   saveForm,
   withRawMaterial,
+  moduleName,
 }) => {
   const onFormFinish = (values: any) => {
     console.log('On Form Finish ', values);
@@ -33,6 +36,7 @@ const AddOutSourceServiceForm: FC<Props> = ({
     GET_EXTERNAL_SERVICES,
     {
       search: '',
+      byModuleName: moduleName,
     },
     mappers.externalServiceSelectMapper,
   );
