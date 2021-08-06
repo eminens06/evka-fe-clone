@@ -224,10 +224,21 @@ export const mainStatusArray: ProgressStepValue[] = [
 ];
 
 export const materialStatusArray: ProgressStepValue[] = [
-  ...mainStatusArray,
+  {
+    text: 'Üretime Hazır',
+    value: WorkshopStatus.READY,
+  },
+  {
+    text: 'Üretimde',
+    value: WorkshopStatus.IN_PRODUCTION,
+  },
   {
     text: 'Teslim Alındı',
     value: WorkshopStatus.RECEIVED,
+  },
+  {
+    text: 'Tamamlandı',
+    value: WorkshopStatus.COMPLETED,
   },
 ];
 

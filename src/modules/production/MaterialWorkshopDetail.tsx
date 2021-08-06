@@ -2,6 +2,7 @@ import { Card, Col, Form, FormInstance, Row, Typography } from 'antd';
 import React, { FC } from 'react';
 import { SingleSelect } from '../../atoms';
 import { RoleOptions } from '../../layout/roles';
+import { ModuleType } from '../admin/externalService/types';
 import AddOutSourceServiceForm from './AddOutsourceServiceForm';
 import {
   WorkshopExternalService,
@@ -21,6 +22,7 @@ interface Props {
   onFormSubmit: Function;
   form?: FormInstance<any>;
   serviceInfo: WorkshopExternalService[];
+  moduleName?: ModuleType;
 }
 
 const MaterialWorkshopDetail: FC<Props> = ({
@@ -31,6 +33,7 @@ const MaterialWorkshopDetail: FC<Props> = ({
   onFormSubmit,
   workshopType,
   serviceInfo,
+  moduleName,
 }) => {
   const getDimensionsText = () => {
     return `En: ${dimensions.width} cm / Yükseklik: ${dimensions.height} cm / Uzunluk: ${dimensions.length} cm`;
@@ -54,16 +57,23 @@ const MaterialWorkshopDetail: FC<Props> = ({
                     workshopType === WorkshopTypes.MARBLE ||
                     workshopType === WorkshopTypes.FABRIC
                   }
+                  moduleName={moduleName}
                 />
               ) : (
                 <Row gutter={24}>
                   {serviceInfo.map((info, index) => {
                     return (
-                      <Row gutter={24} key={`service_info_${index}`}>
+                      <Row
+                        gutter={24}
+                        key={`service_info_${index}`}
+                        style={{ width: '100%' }}
+                      >
                         <Col span={24}>
                           <Typography.Text strong>{info.name}</Typography.Text>
                           <br></br>
-                          <Typography.Text>{info.phoneNumber}</Typography.Text>
+                          <Typography.Text>
+                            {info.phoneNumber}as
+                          </Typography.Text>
                           <br></br>
                           <br></br>
                         </Col>

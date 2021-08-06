@@ -3,4 +3,5 @@ export enum ModuleType {
   PT = 'PT',
   MR = 'MR',
   AS = 'AS',
+  F = 'F',
 }

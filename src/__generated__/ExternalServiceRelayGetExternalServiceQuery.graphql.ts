@@ -5,6 +5,7 @@ import { ConcreteRequest } from "relay-runtime";
 export type ExternalServiceModule = "AS" | "F" | "GL" | "MR" | "PT" | "%future added value";
 export type ExternalServiceRelayGetExternalServiceQueryVariables = {
     search?: string | null;
+    byModuleName?: string | null;
 };
 export type ExternalServiceRelayGetExternalServiceQueryResponse = {
     readonly allExternalServices: {
@@ -29,8 +30,9 @@ export type ExternalServiceRelayGetExternalServiceQuery = {
 /*
 query ExternalServiceRelayGetExternalServiceQuery(
   $search: String
+  $byModuleName: String
 ) {
-  allExternalServices(superSearch: $search) {
+  allExternalServices(superSearch: $search, byModuleName: $byModuleName) {
     edges {
       node {
         id
@@ -51,12 +53,23 @@ var v0 = [
     "kind": "LocalArgument",
     "name": "search",
     "type": "String"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "byModuleName",
+    "type": "String"
   }
 ],
 v1 = [
   {
     "alias": null,
     "args": [
+      {
+        "kind": "Variable",
+        "name": "byModuleName",
+        "variableName": "byModuleName"
+      },
       {
         "kind": "Variable",
         "name": "superSearch",
@@ -150,9 +163,9 @@ return {
     "metadata": {},
     "name": "ExternalServiceRelayGetExternalServiceQuery",
     "operationKind": "query",
-    "text": "query ExternalServiceRelayGetExternalServiceQuery(\n  $search: String\n) {\n  allExternalServices(superSearch: $search) {\n    edges {\n      node {\n        id\n        name\n        phoneNumber\n        address\n        module\n      }\n    }\n  }\n}\n"
+    "text": "query ExternalServiceRelayGetExternalServiceQuery(\n  $search: String\n  $byModuleName: String\n) {\n  allExternalServices(superSearch: $search, byModuleName: $byModuleName) {\n    edges {\n      node {\n        id\n        name\n        phoneNumber\n        address\n        module\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c1ea3d1b9a6a934b183112cfa44d60ec';
+(node as any).hash = '64ebbc1833bdcef349b43efb14c0a1d5';
 export default node;
