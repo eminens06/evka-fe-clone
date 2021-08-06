@@ -1,6 +1,7 @@
-import { Table, Typography } from 'antd';
+import { Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
+import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
 import { dummyShipmentData } from './helpers';
 
@@ -46,16 +47,11 @@ const columns = [
 ];
 
 const ShipmentOrder: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<any>();
 
   const openModal = () => {
     setIsModalVisible(true);
-  };
-
-  const changePagination = (page: number) => {
-    setPage(page);
   };
 
   /* const {
@@ -108,9 +104,6 @@ const ShipmentOrder: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
       </div>

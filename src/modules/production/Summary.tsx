@@ -1,8 +1,9 @@
-import { Table, Typography } from 'antd';
+import { Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
 import PageContent from '../../layout/PageContent';
 import mappers from '../../mappers';
+import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
 import GET_PRODUCTION_SUMMARY, {
   ProductionRelaySummaryQuery,
@@ -10,12 +11,6 @@ import GET_PRODUCTION_SUMMARY, {
 import { summaryColumns } from './helpers';
 
 const ProductionSummary: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
-
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
-
   const {
     data,
     size,
@@ -47,9 +42,6 @@ const ProductionSummary: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
       </div>

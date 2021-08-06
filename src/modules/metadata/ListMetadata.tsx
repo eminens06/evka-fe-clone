@@ -1,4 +1,4 @@
-import { Button, Col, Form, Row, Table, Typography } from 'antd';
+import { Button, Col, Form, Row, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useMemo, useState } from 'react';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
@@ -12,6 +12,7 @@ import { Metadata, MetadataType } from './types';
 import AddEditCard from '../common/AddEditCard';
 import { SingleSelect } from '../../atoms';
 import MetadataForm from './MetadataForm';
+import Table from '../../molecules/Table';
 
 export const MetadataText: Record<MetadataType, string> = {
   [MetadataType.CT]: 'Kategori',
@@ -46,7 +47,6 @@ export interface MetadataFormProps extends Metadata {
 const ListMetadata: FunctionComponent = () => {
   const [category, setCategory] = useState<MetadataType>(MetadataType.CA);
   const [modalData, setModalData] = useState<MetadataFormProps>();
-  const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [form] = Form.useForm();
@@ -69,10 +69,6 @@ const ListMetadata: FunctionComponent = () => {
       },
     ];
   }, [category]);
-
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
 
   const {
     data,
@@ -146,9 +142,6 @@ const ListMetadata: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
         <AddEditCard

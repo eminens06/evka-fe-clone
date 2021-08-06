@@ -57,11 +57,6 @@ const columns = [
 ];
 
 const ManagementProduction: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
-
   const openModal = () => {
     setIsModalVisible(true);
   };
@@ -155,9 +150,6 @@ const ManagementProduction: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
         <ProductOrderSummary

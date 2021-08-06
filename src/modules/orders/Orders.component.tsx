@@ -95,12 +95,6 @@ const columns = [
 
 const OrdersPage: FunctionComponent = () => {
   const router = useRouter();
-
-  const [page, setPage] = useState(1);
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
-
   const {
     data,
     size,
@@ -144,9 +138,6 @@ const OrdersPage: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
       </div>

@@ -1,4 +1,4 @@
-import { Button, Form, Table, Typography } from 'antd';
+import { Button, Form, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
@@ -10,6 +10,7 @@ import GET_USERS, {
 } from '../../../__generated__/UsersRelayGetAllUsersQuery.graphql';
 import AddEditCard from '../../common/AddEditCard';
 import UserForm from './UserForm';
+import Table from '../../../molecules/Table';
 
 const columns = [
   {
@@ -38,7 +39,6 @@ export interface UserProps {
 }
 
 const ListUsers: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<UserProps>();
 
@@ -46,10 +46,6 @@ const ListUsers: FunctionComponent = () => {
 
   const openModal = () => {
     setIsModalVisible(true);
-  };
-
-  const changePagination = (page: number) => {
-    setPage(page);
   };
 
   const {
@@ -108,9 +104,6 @@ const ListUsers: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
         <AddEditCard

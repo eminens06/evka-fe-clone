@@ -1,10 +1,11 @@
-import { Table, Typography } from 'antd';
+import { Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
 import { InvoiceStatus, ShipmentStatus } from './types';
 import Status from '../../atoms/Status';
 import { InvoiceStatusMapper, ShipmentStatusMapper } from './helpers';
+import Table from '../../molecules/Table';
 
 const dummyData: any = [];
 const isLoading = false;
@@ -47,12 +48,6 @@ const columns = [
 ];
 
 const Summary: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
-
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
-
   /* const {
     data,
     size,
@@ -86,9 +81,6 @@ const Summary: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
       </div>

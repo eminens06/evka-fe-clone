@@ -1,4 +1,4 @@
-import { Button, Row, Table, Tooltip, Typography } from 'antd';
+import { Button, Row, Tooltip, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { CaretRightOutlined, WarningOutlined } from '@ant-design/icons';
 import PageContent from '../../layout/PageContent';
@@ -6,6 +6,7 @@ import TableFilter from '../../molecules/TableFilter';
 import { ShipmentManagementData } from './types';
 import { dummyManagmentData } from './helpers';
 import TableProductDetail from '../../molecules/TableProductDetail';
+import Table from '../../molecules/Table';
 
 const isLoading = false;
 const size = 10;
@@ -63,12 +64,7 @@ const columns = [
 ];
 
 const ShipmentManagement: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
   const [selected, setSelected] = useState<ShipmentManagementData[]>([]);
-
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
 
   const sendShipment = () => {
     console.log('Send shipment');
@@ -128,9 +124,6 @@ const ShipmentManagement: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
       </div>
