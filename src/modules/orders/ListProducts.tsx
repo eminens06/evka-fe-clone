@@ -1,7 +1,7 @@
-import { Table } from 'antd';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
 import mappers from '../../mappers';
+import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
 import GET_PRODUCTS, {
   OrdersAllProductsWithoutSkuQuery,
@@ -45,13 +45,6 @@ interface Props {
 }
 
 const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
-  const [page, setPage] = useState(1);
-  // TODO Organize pagination for larger results
-
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
-
   const {
     data,
     size,
@@ -87,9 +80,6 @@ const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
         loading={isLoading}
         pagination={{
           total: size,
-          defaultCurrent: 1,
-          current: page,
-          onChange: (page, pageSize) => changePagination(page),
         }}
       />
     </div>

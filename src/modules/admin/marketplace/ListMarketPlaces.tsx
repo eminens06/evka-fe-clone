@@ -1,4 +1,4 @@
-import { Button, Form, Table, Typography } from 'antd';
+import { Button, Form, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
@@ -9,6 +9,7 @@ import GET_MARKETPLACES, {
 import useFetchTablePagination from '../../../hooks/useFetchTableData';
 import AddEditCard from '../../common/AddEditCard';
 import MarketPlaceForm from './MarketPlaceForm';
+import Table from '../../../molecules/Table';
 
 const columns = [
   {
@@ -29,7 +30,6 @@ const columns = [
 ];
 
 const ListMarketPlaces: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
   const [modalData, setModalData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -37,10 +37,6 @@ const ListMarketPlaces: FunctionComponent = () => {
 
   const openModal = () => {
     setIsModalVisible(true);
-  };
-
-  const changePagination = (page: number) => {
-    setPage(page);
   };
 
   const {
@@ -97,9 +93,6 @@ const ListMarketPlaces: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
         <AddEditCard

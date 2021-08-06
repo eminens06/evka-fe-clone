@@ -19,6 +19,8 @@ const settings = {
   M2_PER_SQFT: 10.764,
   section_container_height: 40,
   empty_search_text: "We don't have any results matching your query.",
+  pageSizeOptions: ['10', '25', '50', '100'],
+  pageSize: 25,
 };
 
 export default settings;

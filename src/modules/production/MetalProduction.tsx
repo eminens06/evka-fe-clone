@@ -1,8 +1,9 @@
-import { message, Table, Typography } from 'antd';
+import { message, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import useFetchWorkShop from '../../hooks/useFetchWorkshop';
 import PageContent from '../../layout/PageContent';
+import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
 import CHANGE_STATUS, {
   ProductionRelayWorkshopStatusChangeMutation,
@@ -21,7 +22,6 @@ import {
 } from './types';
 
 const MetalProduction: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<ProductionMainWorkshopData>();
 
@@ -42,10 +42,6 @@ const MetalProduction: FunctionComponent = () => {
 
   const openModal = () => {
     setIsModalVisible(true);
-  };
-
-  const changePagination = (page: number) => {
-    setPage(page);
   };
 
   const { data, size, isLoading, forceFetchQuery } = useFetchWorkShop(
@@ -109,9 +105,6 @@ const MetalProduction: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
         {modalData && (

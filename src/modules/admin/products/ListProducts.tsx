@@ -1,4 +1,4 @@
-import { Button, Form, Table, Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
@@ -8,6 +8,7 @@ import mappers from '../../../mappers';
 import GET_PRODUCTS, {
   ProductsRelayGetProductsQuery,
 } from '../../../__generated__/ProductsRelayGetProductsQuery.graphql';
+import Table from '../../../molecules/Table';
 
 const columns = [
   {
@@ -43,12 +44,6 @@ const columns = [
 ];
 
 const ListProducts: FunctionComponent = () => {
-  const [page, setPage] = useState(1);
-
-  const changePagination = (page: number) => {
-    setPage(page);
-  };
-
   const {
     data,
     size,
@@ -100,9 +95,6 @@ const ListProducts: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
-            defaultCurrent: 1,
-            current: page,
-            onChange: (page, pageSize) => changePagination(page),
           }}
         />
       </div>

@@ -44,9 +44,15 @@ export const packagingColumns = [
     title: 'Toplama Durumu',
     dataIndex: 'isCollectable',
     render: (value: boolean) => {
-      const { status, text } = StatusMapper[
-        value ? PackageStatus.COMPLETED : PackageStatus.READY
-      ];
+      const { status, text } = value
+        ? {
+            status: 'success' as Status,
+            text: 'Toplanacak',
+          }
+        : {
+            status: 'error' as Status,
+            text: 'Toplanmayacak',
+          };
       return <Status status={status} text={text} />;
     },
   },
