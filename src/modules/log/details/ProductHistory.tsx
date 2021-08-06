@@ -91,6 +91,7 @@ const ProductHistory: FC<Props> = ({ id }) => {
 
   return (
     <Table
+      preventExport
       columns={columns}
       dataSource={data}
       rowKey="id"

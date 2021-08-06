@@ -14,6 +14,7 @@ import mappers from '../../mappers';
 import { OrderProduct } from '../orders/types';
 import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
 import settings from '../../settings';
+import excelFormatter from '../../utils/excelFormatter';
 
 const columns = [
   {
@@ -93,6 +94,8 @@ const Summary: FunctionComponent = () => {
           <Typography.Title level={5}>Sevkiyat / Fatura Özeti</Typography.Title>
         </div>
         <Table
+          exportFormatter={excelFormatter.shipmentInvoice}
+          fileName="sevkiyat_fatura_ozeti"
           columns={columns}
           dataSource={data}
           rowKey="id"

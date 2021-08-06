@@ -5,6 +5,7 @@ import PageContent from '../../layout/PageContent';
 import mappers from '../../mappers';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import excelFormatter from '../../utils/excelFormatter';
 import GET_PRODUCTION_SUMMARY, {
   ProductionRelaySummaryQuery,
 } from '../../__generated__/ProductionRelaySummaryQuery.graphql';
@@ -36,6 +37,8 @@ const ProductionSummary: FunctionComponent = () => {
           <Typography.Title level={5}>Üretim Özeti</Typography.Title>
         </div>
         <Table
+          exportFormatter={excelFormatter.productionSummary}
+          fileName="uretim_ozeti"
           columns={summaryColumns}
           dataSource={data}
           rowKey="id"

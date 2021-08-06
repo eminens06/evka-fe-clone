@@ -6,6 +6,7 @@ import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import excelFormatter from '../../utils/excelFormatter';
 import CHANGE_STATUS, {
   ProductionRelayWorkshopStatusChangeMutation,
 } from '../../__generated__/ProductionRelayWorkshopStatusChangeMutation.graphql';
@@ -99,6 +100,8 @@ const MetalProduction: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          exportFormatter={excelFormatter.mainProduction}
+          fileName="metal_atolyesi"
           columns={mainProductionColumns}
           dataSource={data}
           rowKey="rowKey"

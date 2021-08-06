@@ -6,6 +6,7 @@ import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import excelFormatter from '../../utils/excelFormatter';
 import RESEND_STATUS, {
   ProductionRelayResendToProductionMutation,
 } from '../../__generated__/ProductionRelayResendToProductionMutation.graphql';
@@ -139,8 +140,10 @@ const MarbleProduction: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          exportFormatter={excelFormatter.materialProduction}
           columns={materialProductionColumns}
           dataSource={data}
+          fileName="mermer_atolyesi"
           rowKey="id"
           loading={isLoading}
           pagination={{

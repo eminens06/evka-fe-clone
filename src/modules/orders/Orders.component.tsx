@@ -15,6 +15,7 @@ import GET_USER_ORDERS, {
 import { OrderProduct, OrderTypes, UserOrder } from './types';
 import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
 import settings from '../../settings';
+import excelFormatter from '../../utils/excelFormatter';
 
 const READY_STATUS = 'Onay Bekliyor';
 
@@ -132,7 +133,9 @@ const OrdersPage: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          exportFormatter={excelFormatter.orders}
           columns={columns}
+          fileName="acik_siparisler"
           dataSource={data}
           rowKey="orderId"
           loading={isLoading}

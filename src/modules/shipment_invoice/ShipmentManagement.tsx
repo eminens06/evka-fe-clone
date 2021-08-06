@@ -176,6 +176,7 @@ const ShipmentManagement: FunctionComponent = () => {
           </Button>
         </div>
         <Table
+          fileName="sevkiyata_hazir"
           rowSelection={rowSelection}
           expandable={expandable}
           columns={columns}

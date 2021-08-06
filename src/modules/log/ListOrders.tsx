@@ -99,6 +99,7 @@ const ListOrders: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          fileName="log_siparisler"
           columns={columns}
           dataSource={data}
           rowKey="id"
