@@ -15,7 +15,7 @@ const { Header, Content } = Layout;
 
 interface Props {
   children: ReactNode;
-  user: User;
+  user?: User;
 }
 const PageLayout: FunctionComponent<Props> = (props: Props) => {
   const { children, user } = props;
@@ -52,11 +52,11 @@ const PageLayout: FunctionComponent<Props> = (props: Props) => {
                 marginRight: 10,
               }}
             >
-              {user.firstName?.charAt(0)}
-              {user.lastName?.charAt(0)}
+              {user?.firstName?.charAt(0)}
+              {user?.lastName?.charAt(0)}
             </Avatar>
             <a style={{ color: 'white' }}>
-              {`${user.firstName} ${user.lastName}`}
+              {`${user?.firstName} ${user?.lastName}`}
             </a>
           </div>
         </Dropdown>

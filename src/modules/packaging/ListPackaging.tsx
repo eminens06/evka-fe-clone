@@ -14,19 +14,6 @@ import CHANGE_STATUS, {
 import StatusModal from '../common/StatusModal';
 import { packagingColumns, statusArray, statusNextButtonText } from './helpers';
 import PackagingDetail from './PackagingDetail';
-import { PackageStatus, PackagingTableData } from './types';
-
-const dummyData: PackagingTableData[] = [
-  {
-    orderId: '1',
-    productName: 'asd',
-    remainingDate: '15',
-    isCollectable: true,
-    status: PackageStatus.READY,
-    packageCount: 5,
-    isMonte: true,
-  },
-];
 
 const ListPackaging: FunctionComponent = () => {
   const [page, setPage] = useState(1);

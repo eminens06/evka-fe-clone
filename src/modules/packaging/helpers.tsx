@@ -10,7 +10,7 @@ const StatusMapper: Record<PackageStatus, StatusObject> = {
   },
   [PackageStatus.IN_PROGRESS]: {
     text: 'Paketlemede',
-    status: 'error',
+    status: 'warning',
   },
   [PackageStatus.COMPLETED]: {
     text: 'Tamamlandı',
@@ -68,7 +68,7 @@ export const statusArray: ProgressStepValue[] = [
   },
   {
     text: 'Paketleniyor',
-    value: 'IN',
+    value: PackageStatus.IN_PROGRESS,
   },
   {
     text: 'Paketleme Tamamlandı',
