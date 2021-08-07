@@ -1,11 +1,9 @@
-import { Button, ButtonProps, FormInstance, Modal, Row } from 'antd';
+import { Button, ButtonProps, FormInstance, Modal, Row, Tag } from 'antd';
 import { FilePdfOutlined, CaretRightOutlined } from '@ant-design/icons';
 import React, { FC, ReactChild, ReactElement, useMemo } from 'react';
 import ProgressStep from '../../molecules/ProgressStep';
 import { ProgressStepValue } from '../../molecules/types';
 import { WorkshopStatus } from '../production/types';
-import { mainStatusNextButtonText } from '../production/helpers';
-import { PackageStatus } from '../packaging/types';
 
 type CustomActionTypes = 'revert' | 'bluePrint';
 
@@ -75,7 +73,7 @@ const StatusModal: FC<Props> = ({
   }, [customAction]);
 
   const status = modalData.status as WorkshopStatus;
-
+  console.log(modalData);
   return (
     <Modal
       visible={isVisible}
@@ -94,6 +92,11 @@ const StatusModal: FC<Props> = ({
         <>
           <ProgressStep steps={progressSteps} value={status} />
           {React.cloneElement(children as ReactElement, { close: closeModal })}
+          {modalData.notes && (
+            <Tag color="red" className="note-tag">
+              {modalData.notes}
+            </Tag>
+          )}
           {customAction && buttonProps && (
             <Row style={{ justifyContent: 'center', marginTop: 20 }}>
               <Button

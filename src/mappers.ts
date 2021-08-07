@@ -397,6 +397,7 @@ const managementProductionMapper = (
         category,
         count: item.orderCount,
         notes: item.notes,
+        orderType: order[0].orderType,
         subCategory,
         legMaterial,
         tableMaterial,
@@ -457,6 +458,8 @@ const productionMainPartsMapper = (
           length: item.product.length,
         },
         materialName: it.materialName,
+        orderType: order[0].orderType,
+        notes: item.notes,
       });
     });
     return res;
@@ -494,6 +497,8 @@ const productionMaterialMapper = (
       },
       status: item[WorkshopStatusNames[type]],
       externalServices: services || [],
+      orderType: order[0].orderType,
+      notes: item.notes,
     };
   });
 };

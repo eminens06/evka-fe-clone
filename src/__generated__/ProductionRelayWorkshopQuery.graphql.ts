@@ -4,6 +4,7 @@
 import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
 export type MetaProductMetaType = "DF" | "F" | "G" | "M" | "MT" | "WD" | "%future added value";
+export type UserOrderOrderType = "N" | "NR" | "SP" | "ST" | "%future added value";
 export type ProductionRelayWorkshopQueryVariables = {
     workshopType?: string | null;
 };
@@ -20,6 +21,7 @@ export type ProductionRelayWorkshopQueryResponse = {
                 readonly marbleStatus: string | null;
                 readonly glassStatus: string | null;
                 readonly orderCount: number;
+                readonly notes: string;
                 readonly product: {
                     readonly id: string;
                     readonly sku: string | null;
@@ -40,6 +42,7 @@ export type ProductionRelayWorkshopQueryResponse = {
                 readonly userOrder: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
+                            readonly orderType: UserOrderOrderType;
                             readonly marketplaceOrderId: string;
                             readonly marketplace: {
                                 readonly name: string;
@@ -83,6 +86,7 @@ query ProductionRelayWorkshopQuery(
         marbleStatus
         glassStatus
         orderCount
+        notes
         product {
           id
           sku
@@ -104,6 +108,7 @@ query ProductionRelayWorkshopQuery(
         userOrder {
           edges {
             node {
+              orderType
               marketplaceOrderId
               marketplace {
                 name
@@ -212,73 +217,87 @@ v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "sku",
+  "name": "notes",
   "storageKey": null
 },
 v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "sku",
   "storageKey": null
 },
 v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "width",
+  "name": "name",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "height",
+  "name": "width",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "length",
+  "name": "height",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "categoryName",
+  "name": "length",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "materialName",
+  "name": "categoryName",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "metaType",
+  "name": "materialName",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marketplaceOrderId",
+  "name": "metaType",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "phoneNumber",
+  "name": "orderType",
   "storageKey": null
 },
 v21 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "marketplaceOrderId",
+  "storageKey": null
+},
+v22 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "phoneNumber",
+  "storageKey": null
+},
+v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -325,6 +344,7 @@ return {
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -334,11 +354,11 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
-                      (v11/*: any*/),
                       (v12/*: any*/),
                       (v13/*: any*/),
                       (v14/*: any*/),
                       (v15/*: any*/),
+                      (v16/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -363,9 +383,9 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v16/*: any*/),
                                   (v17/*: any*/),
-                                  (v18/*: any*/)
+                                  (v18/*: any*/),
+                                  (v19/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -402,7 +422,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v19/*: any*/),
+                              (v20/*: any*/),
+                              (v21/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -411,7 +432,7 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v12/*: any*/)
+                                  (v13/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -448,9 +469,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v12/*: any*/),
-                              (v20/*: any*/),
-                              (v21/*: any*/)
+                              (v13/*: any*/),
+                              (v22/*: any*/),
+                              (v23/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -511,6 +532,7 @@ return {
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -520,11 +542,11 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
-                      (v11/*: any*/),
                       (v12/*: any*/),
                       (v13/*: any*/),
                       (v14/*: any*/),
                       (v15/*: any*/),
+                      (v16/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -549,9 +571,9 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v16/*: any*/),
                                   (v17/*: any*/),
                                   (v18/*: any*/),
+                                  (v19/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
@@ -589,7 +611,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v19/*: any*/),
+                              (v20/*: any*/),
+                              (v21/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -598,7 +621,7 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v12/*: any*/),
+                                  (v13/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
@@ -637,9 +660,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v12/*: any*/),
-                              (v20/*: any*/),
-                              (v21/*: any*/),
+                              (v13/*: any*/),
+                              (v22/*: any*/),
+                              (v23/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -666,9 +689,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayWorkshopQuery",
     "operationKind": "query",
-    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n) {\n  allProductOrders(byWorkshopType: $workshopType) {\n    edges {\n      node {\n        id\n        woodStatus\n        metalStatus\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n) {\n  allProductOrders(byWorkshopType: $workshopType) {\n    edges {\n      node {\n        id\n        woodStatus\n        metalStatus\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '656fe975aa902090d5b92d9c327e7cf6';
+(node as any).hash = 'bd30903eecc2e599bb701ae9430db16b';
 export default node;

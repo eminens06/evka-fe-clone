@@ -14,6 +14,8 @@ import { useMutation } from 'relay-hooks';
 import SEND_TO_PRODUCTION, {
   ManagementProductionRelaySendttoProductionMutation,
 } from '../../__generated__/ManagementProductionRelaySendttoProductionMutation.graphql';
+import { OrderTypes } from '../orders/types';
+import { RowClass } from '../production/types';
 
 const columns = [
   {
@@ -150,6 +152,9 @@ const ManagementProduction: FunctionComponent = () => {
           loading={isLoading}
           pagination={{
             total: size,
+          }}
+          rowClassName={(record: { orderType: OrderTypes }) => {
+            return RowClass[record.orderType];
           }}
         />
         <ProductOrderSummary

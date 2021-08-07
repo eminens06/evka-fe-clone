@@ -7,6 +7,8 @@ import {
 } from 'antd/lib/table';
 import { DataSource } from './types';
 import settings from '../settings';
+import { OrderTypes } from '../modules/orders/types';
+import { RowClass } from '../modules/production/types';
 
 const { Title } = Typography;
 
@@ -21,6 +23,8 @@ interface Props {
   rowKey?: string;
   loading?: boolean;
   pagination: TablePaginationConfig;
+  rowClassName: any;
+  customRow: any;
 }
 
 const Table: FC<Props> = (props) => {
@@ -43,6 +47,9 @@ const Table: FC<Props> = (props) => {
         pageSize,
         onChange: changePagination,
         pageSizeOptions: settings.pageSizeOptions,
+      }}
+      rowClassName={(record: { orderType: OrderTypes }) => {
+        return RowClass[record.orderType];
       }}
     />
   );
