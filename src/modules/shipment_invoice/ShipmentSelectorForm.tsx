@@ -9,9 +9,7 @@ import {
   Tabs,
   Table,
 } from 'antd';
-import React, { FC, useEffect, useState } from 'react';
-import { DeleteOutlined } from '@ant-design/icons';
-import { useMutation } from 'relay-hooks';
+import React, { FC, useState } from 'react';
 import { SingleSelect } from '../../atoms';
 import { CompanyOptions, ShippingTypeOptions } from '../../utils/enums';
 import {
@@ -59,7 +57,12 @@ const ShipmentSelectorForm: FC<ExternalServiceProps> = (props) => {
   return (
     <Tabs defaultActiveKey="1" centered>
       <TabPane tab="Siparişler" key="1">
-        <Table columns={columns} dataSource={modalData} size="small" />
+        <Table
+          rowKey="orderId"
+          columns={columns}
+          dataSource={modalData}
+          size="small"
+        />
       </TabPane>
       <TabPane tab="Sevk Bilgileri" key="2">
         <Form

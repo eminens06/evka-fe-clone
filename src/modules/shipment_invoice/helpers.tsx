@@ -109,7 +109,7 @@ export const dummyShipmentData: ShipmentData[] = [
     remainingTime: 5,
     customer: 'Berkay Yılmaz',
     marketplace: 'Trendyol',
-    cargoNo: '-',
+    cargoNo: '',
     shipmentType: 'Kargo',
     company: 'Aras Kargo',
   },
