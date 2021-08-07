@@ -1,7 +1,7 @@
 export type PackagingTableData = {
   orderId: string;
   productName: string;
-  remainingDate: string;
+  remainingDate: number;
   isCollectable: boolean;
   status: PackageStatus;
   packageCount: number;

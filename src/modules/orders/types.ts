@@ -1,4 +1,5 @@
 import { MetadataType } from '../metadata/types';
+import moment from 'moment';
 
 type OrderProductDTO = {
   node: {
@@ -46,6 +47,7 @@ export type UserOrderDTO = {
   totalPrice: number;
   products: UserOrderProductDTO;
   orderType: OrderTypes;
+  estimatedDeliveryDate: moment.Moment;
 };
 
 export type UserOrder = {

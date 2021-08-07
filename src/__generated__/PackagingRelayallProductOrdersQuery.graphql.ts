@@ -19,6 +19,7 @@ export type PackagingRelayallProductOrdersQueryResponse = {
                 readonly userOrder: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
+                            readonly estimatedDeliveryDate: unknown | null;
                             readonly marketplaceOrderId: string;
                             readonly marketplace: {
                                 readonly name: string;
@@ -54,6 +55,7 @@ query PackagingRelayallProductOrdersQuery {
         userOrder {
           edges {
             node {
+              estimatedDeliveryDate
               marketplaceOrderId
               marketplace {
                 name
@@ -120,6 +122,13 @@ v6 = {
   "storageKey": null
 },
 v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "estimatedDeliveryDate",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -199,6 +208,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v7/*: any*/),
+                              (v8/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -305,6 +315,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v7/*: any*/),
+                              (v8/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -344,9 +355,9 @@ return {
     "metadata": {},
     "name": "PackagingRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query PackagingRelayallProductOrdersQuery {\n  allProductByProductOrderStatus(statusType: \"PP\") {\n    edges {\n      node {\n        packagingStatus\n        id\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query PackagingRelayallProductOrdersQuery {\n  allProductByProductOrderStatus(statusType: \"PP\") {\n    edges {\n      node {\n        packagingStatus\n        id\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              estimatedDeliveryDate\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '36051acf119ec127d07275d8644a0e2b';
+(node as any).hash = '43347781308e6c8994fe896e3f5e8dc4';
 export default node;

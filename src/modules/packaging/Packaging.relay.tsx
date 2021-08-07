@@ -16,6 +16,7 @@ graphql`
           userOrder {
             edges {
               node {
+                estimatedDeliveryDate
                 marketplaceOrderId
                 marketplace {
                   name
