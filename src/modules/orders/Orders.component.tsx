@@ -12,9 +12,15 @@ import mappers from '../../mappers';
 import GET_USER_ORDERS, {
   OrdersRelayGetAllUserOrdersQuery,
 } from '../../__generated__/OrdersRelayGetAllUserOrdersQuery.graphql';
-import { OrderProduct, OrderStatusType } from './types';
+import { OrderProduct, OrderStatusType, OrderTypes, UserOrder } from './types';
 
 const READY_STATUS = 'Onay Bekliyor';
+
+const routing: Record<OrderTypes, string> = {
+  NR: '/normal_order',
+  SP: '/custom_order',
+  ST: '/#',
+};
 
 const columns = [
   {
@@ -108,8 +114,11 @@ const OrdersPage: FunctionComponent = () => {
     mappers.orderListMapper,
   );
 
-  const onTableClick = (record: any) => {
-    router.push({ pathname: '/normal_order', query: { id: record.id } });
+  const onTableClick = (record: UserOrder) => {
+    router.push({
+      pathname: routing[record.orderType],
+      query: { id: record.id },
+    });
   };
 
   const onSearch = (value: string) => {

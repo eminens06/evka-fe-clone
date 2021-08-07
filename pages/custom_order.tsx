@@ -2,12 +2,13 @@ import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import environment from '../src/relay/environment';
 import React from 'react';
-import { CustomOrderPage } from '../src/modules/orders';
+import { CreateEditOrder } from '../src/modules/orders';
+import { OrderTypes } from '../src/modules/orders/types';
 
 const NormalOrder: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <CustomOrderPage />
+      <CreateEditOrder orderType={OrderTypes.CUSTOM} />
     </RelayEnvironmentProvider>
   );
 };

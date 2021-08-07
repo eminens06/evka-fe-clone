@@ -20,14 +20,29 @@ import PRODUCTS_QUERY, {
 } from '../__generated__/OrdersAllProductsQuery.graphql';
 import { metaProductsDTO, productDTO } from './types';
 import ListProducts from '../modules/orders/ListProducts';
+import { OrderTypes } from '../modules/orders/types';
+import TextArea from 'antd/lib/input/TextArea';
 interface Props {
   remove: () => void;
   field: FormListFieldData;
   form: FormInstance<any>;
   isDisabled: boolean;
+  orderType: OrderTypes;
 }
 
-const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
+const offset: Record<OrderTypes, number> = {
+  NR: 12,
+  SP: 0,
+  ST: 0,
+};
+
+const ProductCard: FC<Props> = ({
+  remove,
+  field,
+  form,
+  isDisabled,
+  orderType,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showProductsTable, setShowProductsTable] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<productDTO | null>();
@@ -69,6 +84,7 @@ const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
         sku: product.node?.sku,
         price: product.node?.price || undefined,
         count: product.node?.count || undefined,
+        notes: product.node?.notes || '',
       };
       setSelectedProduct(product?.node);
       form.setFieldsValue({ products: products });
@@ -195,7 +211,20 @@ const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
         </Row>
       )}
       <Row gutter={24}>
-        <Col span={6} offset={12} key={`${field.fieldKey}-3`}>
+        {orderType === 'SP' && (
+          <Col span={12} key={`${field.fieldKey}-3`}>
+            <Form.Item
+              {...field}
+              label="Notlar"
+              name={[field.name, 'notes']}
+              fieldKey={[field.fieldKey, 'notes']}
+              rules={[{ required: true, message: 'Lütfen Not Giriniz' }]}
+            >
+              <TextArea rows={1} disabled={isDisabled} />
+            </Form.Item>
+          </Col>
+        )}
+        <Col span={6} offset={offset[orderType]} key={`${field.fieldKey}-4`}>
           <Form.Item
             {...field}
             label="Adet"
@@ -211,7 +240,7 @@ const ProductCard: FC<Props> = ({ remove, field, form, isDisabled }) => {
           </Form.Item>
         </Col>
 
-        <Col span={6} key={`${field.fieldKey}-4`}>
+        <Col span={6} key={`${field.fieldKey}-5`}>
           <Form.Item
             {...field}
             label="Birim Fiyat"

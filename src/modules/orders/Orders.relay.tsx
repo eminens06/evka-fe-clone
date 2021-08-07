@@ -60,6 +60,7 @@ graphql`
           notes
           id
           totalPrice
+          orderType
           marketplace {
             name
           }
@@ -70,6 +71,8 @@ graphql`
             edges {
               node {
                 orderCount
+                type
+                notes
                 product {
                   sku
                   name
@@ -137,6 +140,7 @@ graphql`
             id
             orderCount
             price
+            notes
             product {
               id
               name

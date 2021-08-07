@@ -1639,6 +1639,22 @@
             {
               "args": [],
               "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "orderType",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "UserOrderOrderType",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
               "name": "shipmentStatus",
@@ -3104,6 +3120,22 @@
               }
             },
             {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "paintType",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "MetaProductPaintType",
+                  "ofType": null
+                }
+              }
+            },
+            {
               "args": [
                 {
                   "defaultValue": null,
@@ -3253,6 +3285,24 @@
             },
             {
               "deprecationReason": null,
+              "description": "Fabric",
+              "isDeprecated": false,
+              "name": "F"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Marble",
+              "isDeprecated": false,
+              "name": "M"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Glass",
+              "isDeprecated": false,
+              "name": "G"
+            },
+            {
+              "deprecationReason": null,
               "description": "Default",
               "isDeprecated": false,
               "name": "DF"
@@ -3263,6 +3313,35 @@
           "interfaces": null,
           "kind": "ENUM",
           "name": "MetaProductMetaType",
+          "possibleTypes": null
+        },
+        {
+          "description": "An enumeration.",
+          "enumValues": [
+            {
+              "deprecationReason": null,
+              "description": "Default",
+              "isDeprecated": false,
+              "name": "DF"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Metal",
+              "isDeprecated": false,
+              "name": "MT"
+            },
+            {
+              "deprecationReason": null,
+              "description": "Wood",
+              "isDeprecated": false,
+              "name": "WD"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "MetaProductPaintType",
           "possibleTypes": null
         },
         {
@@ -4610,12 +4689,6 @@
             },
             {
               "deprecationReason": null,
-              "description": "PAINT",
-              "isDeprecated": false,
-              "name": "P"
-            },
-            {
-              "deprecationReason": null,
               "description": "RECEIVED",
               "isDeprecated": false,
               "name": "RR"
@@ -4660,12 +4733,6 @@
               "description": "IN_PRODUCTION",
               "isDeprecated": false,
               "name": "I"
-            },
-            {
-              "deprecationReason": null,
-              "description": "PAINT",
-              "isDeprecated": false,
-              "name": "P"
             },
             {
               "deprecationReason": null,
@@ -4996,6 +5063,41 @@
           "interfaces": null,
           "kind": "ENUM",
           "name": "ExternalServiceModule",
+          "possibleTypes": null
+        },
+        {
+          "description": "An enumeration.",
+          "enumValues": [
+            {
+              "deprecationReason": null,
+              "description": "NORMAL",
+              "isDeprecated": false,
+              "name": "NR"
+            },
+            {
+              "deprecationReason": null,
+              "description": "SPECIAL",
+              "isDeprecated": false,
+              "name": "SP"
+            },
+            {
+              "deprecationReason": null,
+              "description": "STORE",
+              "isDeprecated": false,
+              "name": "ST"
+            },
+            {
+              "deprecationReason": null,
+              "description": "NEW",
+              "isDeprecated": false,
+              "name": "N"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "UserOrderOrderType",
           "possibleTypes": null
         },
         {
@@ -7421,6 +7523,16 @@
             {
               "defaultValue": null,
               "description": null,
+              "name": "type",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
               "name": "totalPrice",
               "type": {
                 "kind": "SCALAR",
@@ -7530,6 +7642,16 @@
                   "name": "ID",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "orderType",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             }
           ],
@@ -7733,6 +7855,16 @@
             {
               "defaultValue": null,
               "description": null,
+              "name": "type",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
               "name": "totalPrice",
               "type": {
                 "kind": "SCALAR",
@@ -7842,6 +7974,16 @@
                   "name": "ID",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "orderType",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             {
