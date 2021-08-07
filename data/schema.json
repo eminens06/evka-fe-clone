@@ -2406,21 +2406,6 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-<<<<<<< HEAD
-              "name": "woodStatus",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-=======
->>>>>>> 51e9b5d (Add paint workshop)
               "name": "metalStatus",
               "type": {
                 "kind": "SCALAR",
