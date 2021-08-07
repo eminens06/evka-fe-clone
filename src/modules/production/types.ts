@@ -1,4 +1,5 @@
 import { UserOrderSetDTO } from '../managementProduction/types';
+import { OrderTypes } from '../orders/types';
 
 export enum WorkshopStatus {
   READY = 'READY',
@@ -66,6 +67,7 @@ export type ProductionWorkshopDataDTO = {
   marbleStatus: string;
   glassStatus: string;
   orderCount: number;
+  notes: string;
   product: {
     id: string;
     name: string;
@@ -186,4 +188,10 @@ export type PackagingList = {
   packageCount: number;
   isMonte: boolean;
   id: string;
+};
+
+export const RowClass: Record<OrderTypes, string> = {
+  NR: '',
+  SP: 'custom-row',
+  ST: '',
 };

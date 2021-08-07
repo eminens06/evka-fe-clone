@@ -14,6 +14,8 @@ import { useMutation } from 'relay-hooks';
 import SEND_TO_PRODUCTION, {
   ManagementProductionRelaySendttoProductionMutation,
 } from '../../__generated__/ManagementProductionRelaySendttoProductionMutation.graphql';
+import { OrderTypes } from '../orders/types';
+import { RowClass } from '../production/types';
 
 const columns = [
   {

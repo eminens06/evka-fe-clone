@@ -45,6 +45,7 @@ graphql`
           marbleStatus
           glassStatus
           orderCount
+          notes
           product {
             id
             sku
@@ -65,6 +66,7 @@ graphql`
           userOrder {
             edges {
               node {
+                orderType
                 marketplaceOrderId
                 marketplace {
                   name

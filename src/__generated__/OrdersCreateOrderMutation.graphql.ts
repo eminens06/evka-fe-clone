@@ -28,6 +28,7 @@ export type UserOrderCreateInput = {
     commissionRate?: number | null;
     orderDeliveryTime?: number | null;
     orderDate?: unknown | null;
+    type?: string | null;
     totalPrice?: number | null;
     notes?: string | null;
     invoiceDate?: unknown | null;
@@ -39,6 +40,7 @@ export type UserOrderCreateInput = {
     marketplaceOrderId?: string | null;
     completedDate?: unknown | null;
     productOrderIds?: Array<string | null> | null;
+    orderType?: string | null;
 };
 export type CustomerInfo = {
     isCorporate?: boolean | null;

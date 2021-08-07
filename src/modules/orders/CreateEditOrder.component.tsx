@@ -24,8 +24,14 @@ import { getUserRoles } from '../auth/utils/session.utils';
 import UPDATE_ORDER, {
   OrdersUpdateOrderMutation,
 } from '../../__generated__/OrdersUpdateOrderMutation.graphql';
+import { OrderTypes } from './types';
 
-const NormalOrderPage: FunctionComponent = () => {
+interface Props {
+  orderType: OrderTypes;
+}
+
+const CreateEditOrder: FunctionComponent<Props> = (props) => {
+  const { orderType } = props;
   const [form] = Form.useForm();
   const router = useRouter();
   const environment = useRelayEnvironment();
@@ -97,10 +103,11 @@ const NormalOrderPage: FunctionComponent = () => {
         saveControl = false;
       }
     });
+    values.orderType = orderType;
     if (saveControl) {
       if (isEdit) {
         const orderData = orderEditMapper(
-          values,
+          { values },
           productOrderIds,
           router?.query?.id as string,
         );
@@ -153,6 +160,7 @@ const NormalOrderPage: FunctionComponent = () => {
                     form={form}
                     key={field.fieldKey}
                     isDisabled={!isAdmin && isEdit}
+                    orderType={orderType}
                   />
                 );
               })}
@@ -198,4 +206,4 @@ const NormalOrderPage: FunctionComponent = () => {
   );
 };
 
-export default NormalOrderPage;
+export default CreateEditOrder;

@@ -1,5 +1,6 @@
 import { Record } from 'relay-runtime';
 import { MetadataType, MetadataType } from '../metadata/types';
+import { OrderTypes } from '../orders/types';
 
 export type ProductManagmentMetaProductDTO = {
   categoryName: MetadataType;
@@ -55,4 +56,5 @@ export type ProductionManagment = {
   subCategory: string;
   legMaterial: string;
   tableMaterial: string;
+  orderType: OrderTypes;
 };

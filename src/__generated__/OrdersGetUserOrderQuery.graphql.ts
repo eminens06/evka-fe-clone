@@ -15,6 +15,7 @@ export type OrdersGetUserOrderQueryResponse = {
                     readonly id: string;
                     readonly orderCount: number;
                     readonly price: number;
+                    readonly notes: string;
                     readonly product: {
                         readonly id: string;
                         readonly name: string;
@@ -68,6 +69,7 @@ query OrdersGetUserOrderQuery(
           id
           orderCount
           price
+          notes
           product {
             id
             name
@@ -124,17 +126,24 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "notes",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "commissionRate",
   "storageKey": null
 },
-v4 = [
+v5 = [
   {
     "alias": null,
     "args": [
@@ -189,6 +198,7 @@ v4 = [
                     "name": "price",
                     "storageKey": null
                   },
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -198,7 +208,7 @@ v4 = [
                     "plural": false,
                     "selections": [
                       (v1/*: any*/),
-                      (v2/*: any*/),
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -289,8 +299,8 @@ v4 = [
         "plural": false,
         "selections": [
           (v1/*: any*/),
-          (v2/*: any*/),
           (v3/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -315,13 +325,7 @@ v4 = [
         "name": "totalPrice",
         "storageKey": null
       },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "notes",
-        "storageKey": null
-      },
+      (v2/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -329,7 +333,7 @@ v4 = [
         "name": "customerInfo",
         "storageKey": null
       },
-      (v3/*: any*/),
+      (v4/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -354,7 +358,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "OrdersGetUserOrderQuery",
-    "selections": (v4/*: any*/),
+    "selections": (v5/*: any*/),
     "type": "Query"
   },
   "kind": "Request",
@@ -362,16 +366,16 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "OrdersGetUserOrderQuery",
-    "selections": (v4/*: any*/)
+    "selections": (v5/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "OrdersGetUserOrderQuery",
     "operationKind": "query",
-    "text": "query OrdersGetUserOrderQuery(\n  $id: ID!\n) {\n  userOrder(id: $id) {\n    id\n    products {\n      edges {\n        node {\n          id\n          orderCount\n          price\n          product {\n            id\n            name\n            productName\n            sku\n            metaProducts {\n              edges {\n                node {\n                  id\n                  categoryName\n                  materialName\n                  materialId\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n    marketplace {\n      id\n      name\n      commissionRate\n      deliveryDate\n    }\n    orderDate\n    totalPrice\n    notes\n    customerInfo\n    commissionRate\n    orderDeliveryTime\n    marketplaceOrderId\n  }\n}\n"
+    "text": "query OrdersGetUserOrderQuery(\n  $id: ID!\n) {\n  userOrder(id: $id) {\n    id\n    products {\n      edges {\n        node {\n          id\n          orderCount\n          price\n          notes\n          product {\n            id\n            name\n            productName\n            sku\n            metaProducts {\n              edges {\n                node {\n                  id\n                  categoryName\n                  materialName\n                  materialId\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n    marketplace {\n      id\n      name\n      commissionRate\n      deliveryDate\n    }\n    orderDate\n    totalPrice\n    notes\n    customerInfo\n    commissionRate\n    orderDeliveryTime\n    marketplaceOrderId\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd85ad8ff7a27a94a95e73556b3e7fc56';
+(node as any).hash = '0f75a94c1d96866b785debdfb063b02a';
 export default node;

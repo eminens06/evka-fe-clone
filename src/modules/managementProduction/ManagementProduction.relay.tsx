@@ -25,6 +25,7 @@ graphql`
             edges {
               node {
                 customerInfo
+                orderType
                 marketplaceOrderId
                 marketplace {
                   name

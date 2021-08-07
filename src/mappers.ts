@@ -78,6 +78,7 @@ export const orderSaveMapper = (values: any) => {
       productId: product.productId,
       price: product.price,
       orderCount: product.count,
+      notes: product.notes,
     };
   });
   const userOrderInput = {
@@ -99,6 +100,7 @@ export const orderSaveMapper = (values: any) => {
         : values.invoiceAddress,
     },
     marketplaceOrderId: values.marketplaceOrderId,
+    orderType: values.orderType,
   };
   return { productList: productList, userOrderInput: userOrderInput };
 };
@@ -211,6 +213,7 @@ const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
       price: order.totalPrice,
       products: orderProductMapper(order.products),
       remainingTime: 12,
+      orderType: order.orderType,
     };
   });
 };
@@ -286,9 +289,9 @@ const productCardMapper = (data: any) => {
       count: grouped[key].length,
       price: grouped[key][0].price,
       productData: grouped[key][0].product,
+      notes: grouped[key][0].notes,
     };
   });
-
   return mapped;
 };
 const allProductsAdminMapper = (data: any) => {
@@ -394,6 +397,7 @@ const managementProductionMapper = (
         category,
         count: item.orderCount,
         notes: item.notes,
+        orderType: order[0].orderType,
         subCategory,
         legMaterial,
         tableMaterial,
@@ -454,6 +458,8 @@ const productionMainPartsMapper = (
           length: item.product.length,
         },
         materialName: it.materialName,
+        orderType: order[0].orderType,
+        notes: item.notes,
       });
     });
     return res;
@@ -491,6 +497,8 @@ const productionMaterialMapper = (
       },
       status: item[WorkshopStatusNames[type]],
       externalServices: services || [],
+      orderType: order[0].orderType,
+      notes: item.notes,
     };
   });
 };

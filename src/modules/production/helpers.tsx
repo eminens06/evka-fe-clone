@@ -1,3 +1,5 @@
+import { Row, Tooltip, Typography } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import Status from '../../atoms/Status';
 import { ProgressStepValue } from '../../molecules/types';
@@ -149,6 +151,19 @@ export const mainProductionColumns = [
     key: 'orderId',
     title: 'Sipariş',
     dataIndex: 'orderId',
+    render: (value: any, order: any) => {
+      if (order.notes) {
+        return (
+          <Row className="note">
+            <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
+              <Typography.Text>{`${value}  `}</Typography.Text>
+              <InfoCircleOutlined />
+            </Tooltip>
+          </Row>
+        );
+      }
+      return value;
+    },
   },
   {
     key: 'sku',

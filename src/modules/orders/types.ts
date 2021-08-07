@@ -45,6 +45,7 @@ export type UserOrderDTO = {
   orderStatus: OrderStatusType;
   totalPrice: number;
   products: UserOrderProductDTO;
+  orderType: OrderTypes;
 };
 
 export type UserOrder = {
@@ -57,6 +58,7 @@ export type UserOrder = {
   price: number;
   products: OrderProduct[];
   remainingTime: number;
+  orderType: OrderTypes;
 };
 export interface CustomerDTO {
   tc: string;
@@ -66,4 +68,10 @@ export interface CustomerDTO {
   invoice_address: string;
   delivery_address: string;
   is_corporate?: boolean;
+}
+
+export enum OrderTypes {
+  NORMAL = 'NR',
+  CUSTOM = 'SP',
+  STORE = 'ST',
 }

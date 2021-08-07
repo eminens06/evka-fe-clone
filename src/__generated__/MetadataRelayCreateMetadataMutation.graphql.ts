@@ -3,7 +3,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
-export type MetaProductMetaType = "DF" | "MT" | "WD" | "%future added value";
+export type MetaProductMetaType = "DF" | "F" | "G" | "M" | "MT" | "WD" | "%future added value";
 export type CreateMetaProductMutationInput = {
     metaProductInput?: MetaProductCreateInput | null;
     clientMutationId?: string | null;
