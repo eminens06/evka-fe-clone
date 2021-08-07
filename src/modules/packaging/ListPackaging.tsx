@@ -55,7 +55,6 @@ const ListPackaging: FunctionComponent = () => {
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery({
         search: '',

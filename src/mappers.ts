@@ -342,19 +342,15 @@ const findMetadata = (
   product.forEach((pr) => {
     switch (pr.categoryName) {
       case MetadataType.CT:
-        console.log('Category : ', pr);
         metaData['category'] = pr.materialName;
         return;
       case MetadataType.CA:
-        console.log('Sub Category : ', pr);
         metaData['subCategory'] = pr.materialName;
         return;
       case MetadataType.TB:
-        console.log('Tabla : ', pr);
         metaData['tableMaterial'] = pr.materialName;
         return;
       case MetadataType.AY:
-        console.log('Ayak : ', pr);
         metaData['legMaterial'] = pr.materialName;
         return;
       default:
@@ -369,19 +365,15 @@ const findMetadataWithType = (product: any[]): ProductManagmentMetaProduct => {
   product.forEach((pr) => {
     switch (pr.type) {
       case 'Kategori':
-        console.log('Category : ', pr);
         metaData['category'] = pr.materialName;
         return;
       case 'Alt Kategori':
-        console.log('Sub Category : ', pr);
         metaData['subCategory'] = pr.materialName;
         return;
       case 'Tabla':
-        console.log('Tabla : ', pr);
         metaData['tableMaterial'] = pr.materialName;
         return;
       case 'Ayak':
-        console.log('Ayak : ', pr);
         metaData['legMaterial'] = pr.materialName;
         return;
       default:
@@ -461,14 +453,19 @@ const productionMainPartsMapper = (
     });
     const res: any[] = [];
     itemTypes.forEach((it, index) => {
+      let status = undefined;
+      if (it.type === 'TB') {
+        status = item.tablaStatus;
+      } else if (it.type === 'AY') {
+        status = item.ayakStatus;
+      }
       res.push({
         id: item.id,
         rowKey: `${item.id}-${index}`,
         sku: item.product.sku,
         orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
         productName: item.product.name,
-        status:
-          type === WorkshopTypes.WOOD ? item.woodStatus : item.metalStatus,
+        status: status,
         type: it.type === 'TB' ? 'Tabla' : 'Ayak',
         dimensions: {
           width: item.product.width,
@@ -521,13 +518,76 @@ const productionMaterialMapper = (
   });
 };
 
+const productionPaintMapper = (
+  data: ProductionWorkshopDataDTO[],
+  type: WorkshopTypes.WOOD_PAINT | WorkshopTypes.METAL_PAINT,
+) => {
+  const finalRes = data.map((item) => {
+    const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
+    const order = genericTableDataMapper(item, 'userOrder');
+    const services: WorkshopExternalService[] = genericTableDataMapper(
+      item,
+      'externalService',
+    );
+    const itemTypes: any[] = [];
+    metaProducts.forEach((mp) => {
+      if (mp.paintType === MainPartsShortNames[type]) {
+        itemTypes.push({
+          type: mp.categoryName,
+          materialName: mp.materialName,
+        });
+      }
+    });
+    const res: any[] = [];
+    itemTypes.forEach((it, index) => {
+      let status = undefined;
+      if (it.type === 'TB') {
+        status = item.tablaPaintStatus;
+      } else if (it.type === 'AY') {
+        status = item.ayakPaintStatus;
+      }
+      res.push({
+        id: item.id,
+        rowKey: `${item.id}-${index}`,
+        sku: item.product.sku,
+        orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
+        productName: item.product.name,
+        status: status,
+        externalServices: services || [],
+        type: it.type === 'TB' ? 'Tabla' : 'Ayak',
+        dimensions: {
+          width: item.product.width,
+          height: item.product.height,
+          length: item.product.length,
+        },
+        materialName: it.materialName,
+        orderType: order[0].orderType,
+        notes: item.notes,
+      });
+    });
+    return res;
+  });
+  const finalValue: ProductionMainWorkshopData[] = [];
+  finalRes.forEach((arr) => {
+    arr?.forEach((arr2) => {
+      finalValue.push(arr2);
+    });
+  });
+  return finalValue;
+};
+
 const productionWorkshopMapper = (
   rawData: ProductionRelayWorkshopQueryResponse,
   type: WorkshopTypes,
 ) => {
   const data = genericTableDataMapper(rawData);
-  if (type === WorkshopTypes.METAL || type == WorkshopTypes.WOOD) {
+  if (type === WorkshopTypes.METAL || type === WorkshopTypes.WOOD) {
     return productionMainPartsMapper(data, type);
+  } else if (
+    type === WorkshopTypes.METAL_PAINT ||
+    type === WorkshopTypes.WOOD_PAINT
+  ) {
+    return productionPaintMapper(data, type);
   } else {
     return productionMaterialMapper(data, type);
   }
@@ -550,6 +610,7 @@ const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
 };
 
 export default {
+  productionPaintMapper,
   genericTableDataMapper,
   userMapper,
   orderListMapper,

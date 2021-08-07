@@ -73,7 +73,6 @@ const StatusModal: FC<Props> = ({
   }, [customAction]);
 
   const status = modalData.status as WorkshopStatus;
-  console.log(modalData);
   return (
     <Modal
       visible={isVisible}

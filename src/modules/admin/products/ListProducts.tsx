@@ -57,8 +57,6 @@ const ListProducts: FunctionComponent = () => {
     mappers.allProductsAdminMapper,
   );
 
-  console.log('Data !! ', data);
-
   const onSearch = (value: string) => {
     forceFetchQuery({
       search: value,

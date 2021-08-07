@@ -9,6 +9,7 @@ export type UpdateExternalServiceInput = {
     phoneNumber?: string | null;
     module?: string | null;
     address?: string | null;
+    isRawMaterial?: boolean | null;
     clientMutationId?: string | null;
 };
 export type ExternalServiceRelayUpdateExternalServiceMutationVariables = {

@@ -38,6 +38,7 @@ const MaterialWorkshopDetail: FC<Props> = ({
   const getDimensionsText = () => {
     return `En: ${dimensions.width} cm / Yükseklik: ${dimensions.height} cm / Uzunluk: ${dimensions.length} cm`;
   };
+
   return (
     <Row gutter={24}>
       <Col span={24}>

@@ -9,7 +9,6 @@ function useTablePagination(
     currentSize === page.limit
       ? page.index * currentSize + 1
       : page.index * page.limit - 1;
-  console.log('Total ! ', total);
   return {
     onChange: (index, pageSize = page.limit): void =>
       requestPageChange({

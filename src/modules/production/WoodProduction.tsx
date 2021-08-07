@@ -32,7 +32,6 @@ const MetalProduction: FunctionComponent = () => {
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery();
       setIsModalVisible(false);
@@ -62,9 +61,8 @@ const MetalProduction: FunctionComponent = () => {
     if (modalData) {
       const input = {
         productOrderId: modalData.id,
-        workshopType: WorkshopTypes.WOOD,
-        isComplete: modalData.status === WorkshopStatus.IN_PRODUCTION,
         categoryName: modalData.type.toLowerCase(),
+        isComplete: modalData.status === WorkshopStatus.IN_PRODUCTION,
       };
       changeStatus({
         variables: {
@@ -103,7 +101,7 @@ const MetalProduction: FunctionComponent = () => {
             total: size,
           }}
         />
-        {modalData && (
+        {modalData && modalData?.status !== WorkshopStatus.IN_PAINT && (
           <StatusModal
             isVisible={isModalVisible}
             closeModal={closeModal}

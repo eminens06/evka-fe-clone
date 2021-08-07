@@ -14,9 +14,6 @@ export type ProductionRelayResendToProductionMutationResponse = {
     readonly sendReceivedProductToProduction: {
         readonly productOrder: {
             readonly id: string;
-            readonly woodStatus: string | null;
-            readonly metalStatus: string | null;
-            readonly marbleStatus: string | null;
         } | null;
     } | null;
 };
@@ -34,9 +31,6 @@ mutation ProductionRelayResendToProductionMutation(
   sendReceivedProductToProduction(input: $input) {
     productOrder {
       id
-      woodStatus
-      metalStatus
-      marbleStatus
     }
   }
 }
@@ -80,27 +74,6 @@ v1 = [
             "kind": "ScalarField",
             "name": "id",
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "woodStatus",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "metalStatus",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "marbleStatus",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -130,9 +103,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayResendToProductionMutation",
     "operationKind": "mutation",
-    "text": "mutation ProductionRelayResendToProductionMutation(\n  $input: SendReceivedProductToProductionInput!\n) {\n  sendReceivedProductToProduction(input: $input) {\n    productOrder {\n      id\n      woodStatus\n      metalStatus\n      marbleStatus\n    }\n  }\n}\n"
+    "text": "mutation ProductionRelayResendToProductionMutation(\n  $input: SendReceivedProductToProductionInput!\n) {\n  sendReceivedProductToProduction(input: $input) {\n    productOrder {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1c3ff99707b8761bb687b7491b72833b';
+(node as any).hash = '1774f868b5d637c89d8f94c212ee21c0';
 export default node;

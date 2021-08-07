@@ -5,6 +5,8 @@ import { ConcreteRequest } from "relay-runtime";
 export type UpdateOrderMutationInput = {
     productList?: Array<ProductOrderCreateInput | null> | null;
     userOrderInput?: UserOrderCreateInput | null;
+    invoiceNo?: string | null;
+    invoiceDate?: unknown | null;
     orderId: string;
     clientMutationId?: string | null;
 };

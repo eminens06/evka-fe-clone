@@ -23,7 +23,6 @@ const AddOutSourceServiceForm: FC<Props> = ({
   moduleName,
 }) => {
   const onFormFinish = (values: any) => {
-    console.log('On Form Finish ', values);
     saveForm(values);
   };
 

@@ -39,7 +39,6 @@ const FabricProduction: FunctionComponent = () => {
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery();
       setIsModalVisible(false);
@@ -53,7 +52,6 @@ const FabricProduction: FunctionComponent = () => {
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Geri gönderme başarılı');
       forceFetchQuery();
       setIsModalVisible(false);

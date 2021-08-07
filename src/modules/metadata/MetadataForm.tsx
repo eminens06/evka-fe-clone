@@ -43,7 +43,6 @@ const MetadataForm: FC<MetadataProps> = (props) => {
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Metadata başarıyla oluşturuldu');
         props.onSuccess();
         props.close();
@@ -55,14 +54,12 @@ const MetadataForm: FC<MetadataProps> = (props) => {
     UPDATE_METADATA,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Metadata başarıyla güncellendi');
         props.onSuccess();
         props.close();
@@ -74,14 +71,12 @@ const MetadataForm: FC<MetadataProps> = (props) => {
     DELETE_METADATA,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Metadata başarıyla silindi');
         props.onSuccess();
         props.close();
@@ -92,8 +87,6 @@ const MetadataForm: FC<MetadataProps> = (props) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
   const onFormFinish = (values: any) => {
-    console.log('Values : ', values);
-    console.log('Finish Form');
     if (initialValues) {
       updateMetadata({
         variables: {

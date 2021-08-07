@@ -2206,33 +2206,25 @@
             {
               "args": [],
               "deprecationReason": null,
-              "description": "",
+              "description": null,
               "isDeprecated": false,
               "name": "tablaPaintStatus",
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "ProductOrderTablaPaintStatus",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             {
               "args": [],
               "deprecationReason": null,
-              "description": "",
+              "description": null,
               "isDeprecated": false,
               "name": "ayakPaintStatus",
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "ProductOrderAyakPaintStatus",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             {
@@ -2414,6 +2406,7 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
+<<<<<<< HEAD
               "name": "woodStatus",
               "type": {
                 "kind": "SCALAR",
@@ -2426,6 +2419,8 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
+=======
+>>>>>>> 51e9b5d (Add paint workshop)
               "name": "metalStatus",
               "type": {
                 "kind": "SCALAR",
@@ -4661,100 +4656,6 @@
           "possibleTypes": null
         },
         {
-          "description": "An enumeration.",
-          "enumValues": [
-            {
-              "deprecationReason": null,
-              "description": "DEFAULT",
-              "isDeprecated": false,
-              "name": "DF"
-            },
-            {
-              "deprecationReason": null,
-              "description": "NONE",
-              "isDeprecated": false,
-              "name": "N"
-            },
-            {
-              "deprecationReason": null,
-              "description": "READY",
-              "isDeprecated": false,
-              "name": "R"
-            },
-            {
-              "deprecationReason": null,
-              "description": "IN_PRODUCTION",
-              "isDeprecated": false,
-              "name": "I"
-            },
-            {
-              "deprecationReason": null,
-              "description": "RECEIVED",
-              "isDeprecated": false,
-              "name": "RR"
-            },
-            {
-              "deprecationReason": null,
-              "description": "COMPLETED",
-              "isDeprecated": false,
-              "name": "C"
-            }
-          ],
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "kind": "ENUM",
-          "name": "ProductOrderTablaPaintStatus",
-          "possibleTypes": null
-        },
-        {
-          "description": "An enumeration.",
-          "enumValues": [
-            {
-              "deprecationReason": null,
-              "description": "DEFAULT",
-              "isDeprecated": false,
-              "name": "DF"
-            },
-            {
-              "deprecationReason": null,
-              "description": "NONE",
-              "isDeprecated": false,
-              "name": "N"
-            },
-            {
-              "deprecationReason": null,
-              "description": "READY",
-              "isDeprecated": false,
-              "name": "R"
-            },
-            {
-              "deprecationReason": null,
-              "description": "IN_PRODUCTION",
-              "isDeprecated": false,
-              "name": "I"
-            },
-            {
-              "deprecationReason": null,
-              "description": "RECEIVED",
-              "isDeprecated": false,
-              "name": "RR"
-            },
-            {
-              "deprecationReason": null,
-              "description": "COMPLETED",
-              "isDeprecated": false,
-              "name": "C"
-            }
-          ],
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "kind": "ENUM",
-          "name": "ProductOrderAyakPaintStatus",
-          "possibleTypes": null
-        },
-        {
           "description": null,
           "enumValues": null,
           "fields": [
@@ -4940,6 +4841,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "isRawMaterial",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
                   "ofType": null
                 }
               }
@@ -6702,6 +6619,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "isRawMaterial",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },

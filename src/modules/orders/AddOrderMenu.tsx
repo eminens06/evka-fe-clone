@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 const AddOrderMenu: FC = () => {
   const router = useRouter();
   const handleMenuClick = ({ key }) => {
-    console.log(key);
     router.push('/' + key);
   };
 

@@ -68,7 +68,6 @@ const ShipmentOrder: FunctionComponent = () => {
   ); */
 
   const onTableClick = (data: any) => {
-    console.log('Data : ', data);
     setModalData({ ...data });
     openModal();
   };
