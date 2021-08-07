@@ -1,4 +1,4 @@
-import { Button, Row, Tooltip, Typography } from 'antd';
+import { Button, Form, Row, Tooltip, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { CaretRightOutlined, WarningOutlined } from '@ant-design/icons';
 import PageContent from '../../layout/PageContent';
@@ -7,6 +7,8 @@ import { ShipmentManagementData } from './types';
 import { dummyManagmentData } from './helpers';
 import TableProductDetail from '../../molecules/TableProductDetail';
 import Table from '../../molecules/Table';
+import AddEditCard from '../common/AddEditCard';
+import ShipmentSelectorForm from './ShipmentSelectorForm';
 
 const isLoading = false;
 const size = 10;
@@ -65,9 +67,12 @@ const columns = [
 
 const ShipmentManagement: FunctionComponent = () => {
   const [selected, setSelected] = useState<ShipmentManagementData[]>([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [form] = Form.useForm();
 
   const sendShipment = () => {
-    console.log('Send shipment');
+    openModal();
   };
 
   const rowSelection = {
@@ -98,6 +103,18 @@ const ShipmentManagement: FunctionComponent = () => {
     }); */
   };
 
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const addNewUser = () => {
+    openModal();
+  };
+
   return (
     <PageContent header={['Sevkiyat/Fatura']}>
       <div>
@@ -126,6 +143,18 @@ const ShipmentManagement: FunctionComponent = () => {
             total: size,
           }}
         />
+        <AddEditCard
+          isVisible={isModalVisible}
+          closeModal={closeModal}
+          header="Sevk Bilgileri"
+          form={form}
+        >
+          <ShipmentSelectorForm
+            form={form}
+            onSuccess={() => onSearch('')}
+            modalData={selected}
+          />
+        </AddEditCard>
       </div>
     </PageContent>
   );

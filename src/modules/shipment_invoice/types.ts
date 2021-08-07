@@ -39,6 +39,7 @@ export type ShipmentManagementData = {
 };
 
 type ShipmentType = 'Nakliyat' | 'Kargo';
+export type ShipmentTypeValue = 'SH' | 'CR';
 
 export type ShipmentData = {
   orderId: string;
@@ -48,4 +49,14 @@ export type ShipmentData = {
   cargoNo: string;
   shipmentType: ShipmentType;
   company: string;
+};
+
+export type ShippingTypeOption = {
+  text: ShipmentType;
+  value: ShipmentTypeValue;
+};
+
+export type CargoTypeOption = {
+  text: string;
+  value: string;
 };
