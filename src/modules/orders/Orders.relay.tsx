@@ -58,6 +58,7 @@ graphql`
       edges {
         node {
           notes
+          estimatedDeliveryDate
           id
           totalPrice
           orderType

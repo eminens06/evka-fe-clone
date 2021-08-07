@@ -182,7 +182,7 @@ export type PackagingListDTO = {
 export type PackagingList = {
   orderId: string;
   productName: string;
-  remainingDate: string;
+  remainingDate: number;
   isCollectable: boolean;
   status: string;
   packageCount: number;

@@ -32,6 +32,7 @@ import {
   WorkshopStatusNames,
 } from './modules/production/helpers';
 import { ProductionRelayWorkshopQueryResponse } from './__generated__/ProductionRelayWorkshopQuery.graphql';
+import moment from 'moment';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -207,8 +208,16 @@ const orderProductMapper = (data: UserOrderProductDTO) => {
   return productArr;
 };
 
+const getRemainingDate = (estimatedDeliveryDate: moment.Moment) => {
+  return moment().diff(moment(estimatedDeliveryDate), 'days') * -1 + 1;
+};
+
 const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
   return data.map((order) => {
+    console.log(order.estimatedDeliveryDate);
+    console.log(
+      moment().diff(moment(order.estimatedDeliveryDate), 'days') * -1,
+    );
     const { name, surname } = JSON.parse(order.customerInfo);
     return {
       customer: `${name} ${surname || ''}`,
@@ -219,7 +228,7 @@ const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
       status: order.orderStatus,
       price: order.totalPrice,
       products: orderProductMapper(order.products),
-      remainingTime: 12,
+      remainingTime: getRemainingDate(order.estimatedDeliveryDate),
       orderType: order.orderType,
     };
   });
@@ -530,7 +539,7 @@ const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
     return {
       orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
       productName: item.product.name,
-      remainingDate: '15',
+      remainingDate: getRemainingDate(order[0].estimatedDeliveryDate),
       isCollectable: item.product.isCollectable,
       status: item.packagingStatus,
       packageCount: item.product.packageCount,
