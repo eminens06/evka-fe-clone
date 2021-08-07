@@ -1,13 +1,15 @@
 import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import { CreateEditOrder } from '../src/modules/orders';
+import { OrderTypes } from '../src/modules/orders/types';
 import environment from '../src/relay/environment';
 
-const Oem: NextPage = () => {
+const OemOrder: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <div>OEM</div>
+      <CreateEditOrder orderType={OrderTypes.STORE} />
     </RelayEnvironmentProvider>
   );
 };
 
-export default Oem;
+export default OemOrder;
