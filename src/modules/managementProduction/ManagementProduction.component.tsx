@@ -153,9 +153,6 @@ const ManagementProduction: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
-          rowClassName={(record: { orderType: OrderTypes }) => {
-            return RowClass[record.orderType];
-          }}
         />
         <ProductOrderSummary
           data={modalData}

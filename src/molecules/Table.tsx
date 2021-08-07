@@ -23,8 +23,6 @@ interface Props {
   rowKey?: string;
   loading?: boolean;
   pagination: TablePaginationConfig;
-  rowClassName: any;
-  customRow: any;
 }
 
 const Table: FC<Props> = (props) => {
