@@ -8,7 +8,7 @@ import TableFilter from '../../molecules/TableFilter';
 import GET_METADATA, {
   MetadataRelayAllMetadataQuery,
 } from '../../__generated__/MetadataRelayAllMetadataQuery.graphql';
-import { Metadata, MetadataType } from './types';
+import { Metadata, MetadataType, MetaWorkshopType } from './types';
 import AddEditCard from '../common/AddEditCard';
 import { SingleSelect } from '../../atoms';
 import MetadataForm from './MetadataForm';
@@ -40,8 +40,25 @@ export const CategoryOptions = [
   },
 ];
 
+export const WorkshopOptions = [
+  {
+    value: MetaWorkshopType.MT,
+    text: 'Metal',
+  },
+  {
+    value: MetaWorkshopType.WD,
+    text: 'Ahşap',
+  },
+  {
+    value: MetaWorkshopType.DF,
+    text: 'Yok',
+  },
+];
+
 export interface MetadataFormProps extends Metadata {
   category: MetadataType;
+  metaType?: MetaWorkshopType;
+  paintType?: MetaWorkshopType;
 }
 
 const ListMetadata: FunctionComponent = () => {
@@ -56,6 +73,30 @@ const ListMetadata: FunctionComponent = () => {
   };
 
   const columns = useMemo(() => {
+    if (category === MetadataType.AY || category === MetadataType.TB) {
+      return [
+        {
+          key: 'material',
+          title: MetadataText[category],
+          dataIndex: 'material',
+        },
+        {
+          key: 'number',
+          title: 'No',
+          dataIndex: 'number',
+        },
+        {
+          key: 'paintType',
+          title: 'Boya Tipi',
+          dataIndex: 'paintType',
+        },
+        {
+          key: 'metaType',
+          title: 'Atölye Tipi',
+          dataIndex: 'materialType',
+        },
+      ];
+    }
     return [
       {
         key: 'material',
