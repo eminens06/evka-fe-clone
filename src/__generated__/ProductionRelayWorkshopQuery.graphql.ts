@@ -4,6 +4,7 @@
 import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
 export type MetaProductMetaType = "DF" | "F" | "G" | "M" | "MT" | "WD" | "%future added value";
+export type MetaProductPaintType = "DF" | "MT" | "WD" | "%future added value";
 export type UserOrderOrderType = "N" | "NR" | "SP" | "ST" | "%future added value";
 export type ProductionRelayWorkshopQueryVariables = {
     workshopType?: string | null;
@@ -13,13 +14,13 @@ export type ProductionRelayWorkshopQueryResponse = {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
-                readonly woodStatus: string | null;
-                readonly metalStatus: string | null;
                 readonly tablaStatus: string | null;
                 readonly ayakStatus: string | null;
                 readonly fabricStatus: string | null;
                 readonly marbleStatus: string | null;
                 readonly glassStatus: string | null;
+                readonly ayakPaintStatus: string | null;
+                readonly tablaPaintStatus: string | null;
                 readonly orderCount: number;
                 readonly notes: string;
                 readonly product: {
@@ -35,6 +36,7 @@ export type ProductionRelayWorkshopQueryResponse = {
                                 readonly categoryName: MetaProductCategoryName;
                                 readonly materialName: string;
                                 readonly metaType: MetaProductMetaType;
+                                readonly paintType: MetaProductPaintType;
                             } | null;
                         } | null>;
                     };
@@ -78,13 +80,13 @@ query ProductionRelayWorkshopQuery(
     edges {
       node {
         id
-        woodStatus
-        metalStatus
         tablaStatus
         ayakStatus
         fabricStatus
         marbleStatus
         glassStatus
+        ayakPaintStatus
+        tablaPaintStatus
         orderCount
         notes
         product {
@@ -100,6 +102,7 @@ query ProductionRelayWorkshopQuery(
                 categoryName
                 materialName
                 metaType
+                paintType
                 id
               }
             }
@@ -161,49 +164,49 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "woodStatus",
+  "name": "tablaStatus",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "metalStatus",
+  "name": "ayakStatus",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tablaStatus",
+  "name": "fabricStatus",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "ayakStatus",
+  "name": "marbleStatus",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "fabricStatus",
+  "name": "glassStatus",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marbleStatus",
+  "name": "ayakPaintStatus",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "glassStatus",
+  "name": "tablaPaintStatus",
   "storageKey": null
 },
 v10 = {
@@ -280,24 +283,31 @@ v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderType",
+  "name": "paintType",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marketplaceOrderId",
+  "name": "orderType",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "phoneNumber",
+  "name": "marketplaceOrderId",
   "storageKey": null
 },
 v23 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "phoneNumber",
+  "storageKey": null
+},
+v24 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -385,7 +395,8 @@ return {
                                 "selections": [
                                   (v17/*: any*/),
                                   (v18/*: any*/),
-                                  (v19/*: any*/)
+                                  (v19/*: any*/),
+                                  (v20/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -422,8 +433,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v20/*: any*/),
                               (v21/*: any*/),
+                              (v22/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -470,8 +481,8 @@ return {
                             "plural": false,
                             "selections": [
                               (v13/*: any*/),
-                              (v22/*: any*/),
-                              (v23/*: any*/)
+                              (v23/*: any*/),
+                              (v24/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -574,6 +585,7 @@ return {
                                   (v17/*: any*/),
                                   (v18/*: any*/),
                                   (v19/*: any*/),
+                                  (v20/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
@@ -611,8 +623,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v20/*: any*/),
                               (v21/*: any*/),
+                              (v22/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -661,8 +673,8 @@ return {
                             "plural": false,
                             "selections": [
                               (v13/*: any*/),
-                              (v22/*: any*/),
                               (v23/*: any*/),
+                              (v24/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -689,9 +701,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayWorkshopQuery",
     "operationKind": "query",
-    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n) {\n  allProductOrders(byWorkshopType: $workshopType) {\n    edges {\n      node {\n        id\n        woodStatus\n        metalStatus\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n) {\n  allProductOrders(byWorkshopType: $workshopType) {\n    edges {\n      node {\n        id\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        ayakPaintStatus\n        tablaPaintStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                paintType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'bd30903eecc2e599bb701ae9430db16b';
+(node as any).hash = '50226c7d6d3f89eb434525e5b46f5d15';
 export default node;

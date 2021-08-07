@@ -6,14 +6,16 @@ export enum WorkshopStatus {
   IN_PRODUCTION = 'IN_PRODUCTION',
   RECEIVED = 'RECEIVED',
   COMPLETED = 'COMPLETED',
+  IN_PAINT = 'IN_PAINT',
 }
 
 export enum MainPartsStatus {
   READY = 'READY',
   IN_PRODUCTION = 'IN_PRODUCTION',
   WAITING_PAINT = 'WAITING_PAINT',
-  PAINT = 'PAINT',
+  IN_PAINT = 'IN_PAINT',
   COMPLETED = 'COMPLETED',
+  NONE = 'NONE',
 }
 
 export enum MaterialStatus {
@@ -22,6 +24,11 @@ export enum MaterialStatus {
   IN_PRODUCTION = 'IN_PRODUCTION',
   RECEIVED = 'RECEIVED',
   COMPLETED = 'COMPLETED',
+}
+
+export enum PaintTypes {
+  WOOD = 'WD',
+  METAL = 'MT',
 }
 
 export interface WorkshopProps {}
@@ -59,10 +66,10 @@ export type ProductionSummary = {
 
 export type ProductionWorkshopDataDTO = {
   id: string;
-  woodStatus: string;
-  metalStatus: string;
   tablaStatus: string;
   ayakStatus: string;
+  tablaPaintStatus: string;
+  ayakPaintStatus: string;
   fabricStatus: string;
   marbleStatus: string;
   glassStatus: string;
@@ -138,6 +145,8 @@ export enum WorkshopTypes {
   GLASS = 'glass',
   FABRIC = 'fabric',
   MARBLE = 'marble',
+  METAL_PAINT = 'metal_paint',
+  WOOD_PAINT = 'wood_paint',
 }
 
 export type WorkshopExternalServiceParams = {

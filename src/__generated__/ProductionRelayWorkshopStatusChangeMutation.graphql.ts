@@ -4,7 +4,7 @@
 import { ConcreteRequest } from "relay-runtime";
 export type ChangeOrderStatusesInput = {
     productOrderId: string;
-    workshopType: string;
+    workshopType?: string | null;
     isComplete: boolean;
     categoryName?: string | null;
     externalServiceIds?: string | null;
@@ -18,8 +18,6 @@ export type ProductionRelayWorkshopStatusChangeMutationResponse = {
     readonly changeOrderStatuses: {
         readonly productOrder: {
             readonly id: string;
-            readonly woodStatus: string | null;
-            readonly metalStatus: string | null;
             readonly marbleStatus: string | null;
         } | null;
     } | null;
@@ -38,8 +36,6 @@ mutation ProductionRelayWorkshopStatusChangeMutation(
   changeOrderStatuses(input: $input) {
     productOrder {
       id
-      woodStatus
-      metalStatus
       marbleStatus
     }
   }
@@ -89,20 +85,6 @@ v1 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "woodStatus",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "metalStatus",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
             "name": "marbleStatus",
             "storageKey": null
           }
@@ -134,9 +116,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayWorkshopStatusChangeMutation",
     "operationKind": "mutation",
-    "text": "mutation ProductionRelayWorkshopStatusChangeMutation(\n  $input: ChangeOrderStatusesInput!\n) {\n  changeOrderStatuses(input: $input) {\n    productOrder {\n      id\n      woodStatus\n      metalStatus\n      marbleStatus\n    }\n  }\n}\n"
+    "text": "mutation ProductionRelayWorkshopStatusChangeMutation(\n  $input: ChangeOrderStatusesInput!\n) {\n  changeOrderStatuses(input: $input) {\n    productOrder {\n      id\n      marbleStatus\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8568201e6bd1b233aadb557375ff29be';
+(node as any).hash = 'fa81992f194886d0e56ef62486dba7ad';
 export default node;

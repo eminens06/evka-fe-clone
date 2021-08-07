@@ -66,7 +66,6 @@ const UserForm: FC<UserFormProps> = (props) => {
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Kullanıcı başarıyla oluşturuldu');
       props.onSuccess();
       props.close();
@@ -75,14 +74,12 @@ const UserForm: FC<UserFormProps> = (props) => {
 
   const [updateUser] = useMutation<UsersRelayUpdateUserMutation>(UPDATE_USER, {
     onError: (error: any) => {
-      console.log('ERROR ! ', error);
       message.error(
         'Hata! ',
         error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
       );
     },
     onCompleted: (res) => {
-      console.log(res);
       message.success('Kullanıcı başarıyla güncellendi');
       props.onSuccess();
       props.close();
@@ -93,14 +90,12 @@ const UserForm: FC<UserFormProps> = (props) => {
     DELETE_USER,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Kullanıcı başarıyla silindi');
         props.onSuccess();
         props.close();
@@ -117,7 +112,6 @@ const UserForm: FC<UserFormProps> = (props) => {
         values.password === PASSWORD_MAPPER ? undefined : values.password,
       id: formattedInitialValues?.id,
     };
-    console.log('Final values : ', finalValues);
     if (initialValues) {
       updateUser({
         variables: {

@@ -27,6 +27,10 @@ const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
     text: 'Tamamlandı',
     status: 'success',
   },
+  [WorkshopStatus.IN_PAINT]: {
+    text: 'Boyada',
+    status: 'none',
+  },
 };
 
 const MainPartsStatusMapper: Record<MainPartsStatus, StatusObject> = {
@@ -42,13 +46,17 @@ const MainPartsStatusMapper: Record<MainPartsStatus, StatusObject> = {
     text: 'Boya Bekleniyor',
     status: 'pending_paint',
   },
-  [MainPartsStatus.PAINT]: {
+  [MainPartsStatus.IN_PAINT]: {
     text: 'Boyada',
     status: 'pending',
   },
   [MainPartsStatus.COMPLETED]: {
     text: 'Tamamlandı',
     status: 'success',
+  },
+  [MainPartsStatus.NONE]: {
+    text: 'Üretilmeyecek',
+    status: 'none',
   },
 };
 
@@ -78,6 +86,8 @@ const MaterialStatusMapper: Record<MaterialStatus, StatusObject> = {
 export const MainPartsShortNames = {
   [WorkshopTypes.METAL]: 'MT',
   [WorkshopTypes.WOOD]: 'WD',
+  [WorkshopTypes.METAL_PAINT]: 'MT',
+  [WorkshopTypes.WOOD_PAINT]: 'WD',
 };
 
 export const WorkshopStatusNames: Record<WorkshopTypes, string> = {
@@ -86,6 +96,8 @@ export const WorkshopStatusNames: Record<WorkshopTypes, string> = {
   [WorkshopTypes.METAL]: 'metalStatus',
   [WorkshopTypes.WOOD]: 'woodStatus',
   [WorkshopTypes.MARBLE]: 'marbleStatus',
+  [WorkshopTypes.METAL_PAINT]: '',
+  [WorkshopTypes.WOOD_PAINT]: '',
 };
 
 export const summaryColumns = [
@@ -262,6 +274,7 @@ export const mainWorkshopNextButtonText: Record<WorkshopStatus, string> = {
   [WorkshopStatus.IN_PRODUCTION]: 'Üretimi Tamamla',
   [WorkshopStatus.RECEIVED]: '',
   [WorkshopStatus.COMPLETED]: '',
+  [WorkshopStatus.IN_PAINT]: '',
 };
 
 export const materialWorkshopNextButtonText: Record<WorkshopStatus, string> = {
@@ -269,4 +282,5 @@ export const materialWorkshopNextButtonText: Record<WorkshopStatus, string> = {
   [WorkshopStatus.IN_PRODUCTION]: 'Teslim Al',
   [WorkshopStatus.RECEIVED]: 'Tamamlandı',
   [WorkshopStatus.COMPLETED]: '',
+  [WorkshopStatus.IN_PAINT]: '',
 };

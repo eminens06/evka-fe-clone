@@ -72,14 +72,12 @@ const ManagementProduction: FunctionComponent = () => {
     SEND_TO_PRODUCTION,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         forceFetchQuery({
           search: '',
         });
@@ -102,7 +100,6 @@ const ManagementProduction: FunctionComponent = () => {
   );
 
   const onTableClick = (data: any) => {
-    console.log('Data : ', data);
     setModalData({ ...data });
     openModal();
   };

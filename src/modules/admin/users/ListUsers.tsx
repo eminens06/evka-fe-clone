@@ -62,7 +62,6 @@ const ListUsers: FunctionComponent = () => {
   );
 
   const onTableClick = (data: UserProps) => {
-    console.log('Data : ', data);
     setModalData({ ...data });
     openModal();
   };

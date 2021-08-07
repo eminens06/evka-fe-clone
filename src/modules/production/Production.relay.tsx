@@ -37,13 +37,13 @@ graphql`
       edges {
         node {
           id
-          woodStatus
-          metalStatus
           tablaStatus
           ayakStatus
           fabricStatus
           marbleStatus
           glassStatus
+          ayakPaintStatus
+          tablaPaintStatus
           orderCount
           notes
           product {
@@ -59,6 +59,7 @@ graphql`
                   categoryName
                   materialName
                   metaType
+                  paintType
                 }
               }
             }
@@ -96,8 +97,6 @@ graphql`
     changeOrderStatuses(input: $input) {
       productOrder {
         id
-        woodStatus
-        metalStatus
         marbleStatus
       }
     }
@@ -111,9 +110,6 @@ graphql`
     sendReceivedProductToProduction(input: $input) {
       productOrder {
         id
-        woodStatus
-        metalStatus
-        marbleStatus
       }
     }
   }

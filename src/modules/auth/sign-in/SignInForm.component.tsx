@@ -19,13 +19,11 @@ const SignInForm: NextPage = () => {
 
   const [tokenAuth] = useMutation<SignInFormRelayMutation>(TOKEN_AUTH, {
     onError: (addErrors: any) => {
-      console.log(addErrors);
       if (addErrors.message === 'Please enter valid credentials') {
         message.error('Kullanıcı adı veya şifre hatalıdır');
       }
     },
     onCompleted: (res) => {
-      console.log(res);
       window.location.reload();
     },
   });
@@ -38,7 +36,6 @@ const SignInForm: NextPage = () => {
 
   const onFinish = (values: any) => {
     //TODO: kullanici girisi istegi atilacak
-    console.log('Success:', values);
 
     tokenAuth({
       variables: {

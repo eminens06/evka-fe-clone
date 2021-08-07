@@ -54,7 +54,6 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Dış hizmet başarıyla oluşturuldu');
         props.onSuccess();
         props.close();
@@ -68,14 +67,12 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
     UPDATE_EXTERNALSERVICE,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Dış hizmet başarıyla güncellendi');
         props.onSuccess();
         props.close();
@@ -89,14 +86,12 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
     DELETE_EXTERNALSERVICE,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Dış hizmet başarıyla silindi');
         props.onSuccess();
         props.close();

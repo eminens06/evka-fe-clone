@@ -29,7 +29,6 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Pazaryeri başarıyla oluşturuldu');
         props.onSuccess();
         props.close();
@@ -43,14 +42,12 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
     UPDATE_MARKETPLACE,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Pazaryeri başarıyla güncellendi');
         props.onSuccess();
         props.close();
@@ -64,14 +61,12 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
     DELETE_MARKETPLACE,
     {
       onError: (error: any) => {
-        console.log('ERROR ! ', error);
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
-        console.log(res);
         message.success('Pazaryeri başarıyla silindi');
         props.onSuccess();
         props.close();
