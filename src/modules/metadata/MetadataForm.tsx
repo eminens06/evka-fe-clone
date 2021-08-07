@@ -1,6 +1,6 @@
 import { Input, Form, Row, Col, message, FormInstance, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { useMutation } from 'relay-hooks';
 import { SingleSelect } from '../../atoms';
 import CREATE_METADATA, {
@@ -9,10 +9,15 @@ import CREATE_METADATA, {
 import UPDATE_METADATA, {
   MetadataRelayUpdateMetadataMutation,
 } from '../../__generated__/MetadataRelayUpdateMetadataMutation.graphql';
-import { CategoryOptions, MetadataFormProps } from './ListMetadata';
+import {
+  CategoryOptions,
+  MetadataFormProps,
+  WorkshopOptions,
+} from './ListMetadata';
 import DELETE_METADATA, {
   MetadataRelayDeleteMetadataMutation,
 } from '../../__generated__/MetadataRelayDeleteMetadataMutation.graphql';
+import { MetadataType } from './types';
 
 export interface MetadataProps {
   initialValues?: MetadataFormProps;
@@ -120,6 +125,13 @@ const MetadataForm: FC<MetadataProps> = (props) => {
     });
   };
 
+  const isMainMaterial = useMemo(() => {
+    return (
+      initialValues?.category === MetadataType.AY ||
+      initialValues?.category === MetadataType.TB
+    );
+  }, [initialValues]);
+
   return (
     <Form
       form={form}
@@ -148,19 +160,51 @@ const MetadataForm: FC<MetadataProps> = (props) => {
           </Form.Item>
         </Col>
       </Row>
-      <Col span={12}>
-        <Form.Item
-          name="category"
-          label="Tipi"
-          rules={[{ required: true, message: 'Zorunlu alan' }]}
-          style={{ width: '100%' }}
-        >
-          <SingleSelect
-            options={CategoryOptions}
-            defaultValue={initialValues?.category}
-          />
-        </Form.Item>
-      </Col>
+      <Row gutter={24}>
+        <Col span={12}>
+          <Form.Item
+            name="category"
+            label="Tipi"
+            rules={[{ required: true, message: 'Zorunlu alan' }]}
+            style={{ width: '100%' }}
+          >
+            <SingleSelect
+              options={CategoryOptions}
+              defaultValue={initialValues?.category}
+            />
+          </Form.Item>
+        </Col>
+        {isMainMaterial && (
+          <Col span={12}>
+            <Form.Item
+              name="metaType"
+              label="Atölye"
+              rules={[{ required: true, message: 'Zorunlu alan' }]}
+              style={{ width: '100%' }}
+            >
+              <SingleSelect
+                options={WorkshopOptions}
+                defaultValue={initialValues?.metaType}
+              />
+            </Form.Item>
+          </Col>
+        )}
+      </Row>
+      {isMainMaterial && (
+        <Col>
+          <Form.Item
+            name="painytype"
+            label="Boya Atölyesi"
+            rules={[{ required: true, message: 'Zorunlu alan' }]}
+            style={{ width: '100%' }}
+          >
+            <SingleSelect
+              options={WorkshopOptions}
+              defaultValue={initialValues?.paintType}
+            />
+          </Form.Item>
+        </Col>
+      )}
       {initialValues && (
         <Row gutter={24}>
           <Col offset={9}>
