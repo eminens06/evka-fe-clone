@@ -102,7 +102,12 @@ export const orderSaveMapper = (values: any) => {
     marketplaceOrderId: values.marketplaceOrderId,
     orderType: values.orderType,
   };
-  return { productList: productList, userOrderInput: userOrderInput };
+  return {
+    productList: productList,
+    userOrderInput: userOrderInput,
+    invoiceNo: values.invoiceNo,
+    invoiceDate: values.invoiceDate,
+  };
 };
 
 export const orderEditMapper = (
@@ -145,6 +150,8 @@ export const orderEditMapper = (
     productList: productList,
     userOrderInput: userOrderInput,
     orderId: orderId,
+    invoiceNo: values.invoiceNo,
+    invoiceDate: values.invoiceDate,
   };
 };
 
@@ -270,6 +277,8 @@ export const userOrderMapper = (userOrder: any) => {
     products: productCardMapper(userOrder.products),
     isSameAddress: customer.delivery_address === customer.invoice_address,
     isCorporate: customer.is_corporate,
+    invoiceDate: userOrder.invoiceDate,
+    invoiceNo: userOrder.invoiceNo,
   };
 };
 

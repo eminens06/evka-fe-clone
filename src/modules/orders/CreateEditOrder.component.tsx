@@ -25,6 +25,7 @@ import UPDATE_ORDER, {
   OrdersUpdateOrderMutation,
 } from '../../__generated__/OrdersUpdateOrderMutation.graphql';
 import { OrderTypes } from './types';
+import InvoiceCard from '../../molecules/InvoiceCard';
 
 interface Props {
   orderType: OrderTypes;
@@ -143,6 +144,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
         onFinish={onFinish}
         initialValues={{
           orderDate: moment(),
+          invoiceDate: moment(),
           ...initialValues,
         }}
       >
@@ -188,6 +190,13 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
           initialValues={initialValues}
           isDisabled={!isAdmin && isEdit}
         />
+        {orderType === 'ST' && (
+          <InvoiceCard
+            form={form}
+            initialValues={initialValues}
+            isDisabled={!isAdmin && isEdit}
+          />
+        )}
         <Row className="buttons-row">
           <Form.Item>
             {!isAdmin && isEdit ? (

@@ -33,7 +33,7 @@ interface Props {
 const offset: Record<OrderTypes, number> = {
   NR: 12,
   SP: 0,
-  ST: 0,
+  ST: 12,
 };
 
 const ProductCard: FC<Props> = ({
