@@ -482,7 +482,8 @@ const productionMainPartsMapper = (
   const finalValue: ProductionMainWorkshopData[] = [];
   finalRes.forEach((arr) => {
     arr?.forEach((arr2) => {
-      finalValue.push(arr2);
+      if (arr2.status !== 'DEFAULT' && arr2.status !== 'COMPLETED')
+        finalValue.push(arr2);
     });
   });
   return finalValue;
