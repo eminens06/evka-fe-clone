@@ -7,16 +7,17 @@ import {
   DatePicker,
   InputNumber,
   FormInstance,
+  Checkbox,
 } from 'antd';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import TextArea from 'antd/lib/input/TextArea';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { STORE_OR_NETWORK, useQuery } from 'relay-hooks';
 import { SingleSelect } from '../atoms';
 import { marketplacesDataMapper } from '../mappers';
 import MARKETPLACES_QUERY, {
   OrdersAllMarketplacesQuery,
 } from '../__generated__/OrdersAllMarketplacesQuery.graphql';
-
 interface Props {
   form: FormInstance<any>;
   initialValues: any;
@@ -25,6 +26,8 @@ interface Props {
 
 const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
   useEffect(() => form.resetFields(), [initialValues]);
+
+  const [isKdvInclude, setIsKdvInclude] = useState<boolean>(false);
 
   const { error, data, isLoading } = useQuery<OrdersAllMarketplacesQuery>(
     MARKETPLACES_QUERY,
@@ -44,6 +47,15 @@ const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
     form.setFieldsValue({ commissionRate: marketplace.commissionRate });
     form.setFieldsValue({ orderDeliveryTime: marketplace.deliveryDate });
   };
+
+  const onChange = (e: CheckboxChangeEvent) => {
+    form.setFieldsValue({ isKdvInclude: e.target.checked });
+    setIsKdvInclude(e.target.checked);
+  };
+
+  useEffect(() => {
+    setIsKdvInclude(initialValues?.isKdvInclude);
+  }, [initialValues]);
 
   return (
     <Card title="Sipariş Bilgileri" bordered={false} className="form-card">
@@ -124,10 +136,21 @@ const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
             <InputNumber style={{ width: '100%' }} disabled={isDisabled} />
           </Form.Item>
         </Col>
+        <Col span={8} key={7}>
+          <Form.Item name="isKdvInclude" label="KDV Durumu">
+            <Checkbox
+              disabled={isDisabled}
+              checked={isKdvInclude}
+              onChange={(e) => onChange(e)}
+            >
+              KDV Dahil
+            </Checkbox>
+          </Form.Item>
+        </Col>
       </Row>
 
       <Row gutter={24}>
-        <Col span={24} key={7}>
+        <Col span={24} key={8}>
           <Form.Item name="notes" label="Notlar" style={{ width: '100%' }}>
             <TextArea rows={4} disabled={isDisabled} />
           </Form.Item>

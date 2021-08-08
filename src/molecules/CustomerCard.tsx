@@ -19,6 +19,11 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
     initialValues?.isSameAddress || false,
   );
 
+  useEffect(() => {
+    setIsCorporate(initialValues?.isCorporate);
+    setIsSameAddress(initialValues?.isSameAddress);
+  }, [initialValues]);
+
   const individualCustomer = (
     <Row gutter={24}>
       <Col span={6} key={1}>
@@ -109,8 +114,12 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
     <Card title="Müşteri Bilgileri" bordered={false} className="form-card">
       <Row gutter={24}>
         <Col span={8} key={0}>
-          <Form.Item name="isCorporate" valuePropName="checked" noStyle>
-            <Checkbox onChange={(e) => onChange(e)} disabled={isDisabled}>
+          <Form.Item name="isCorporate" noStyle>
+            <Checkbox
+              checked={isCorporate}
+              onChange={(e) => onChange(e)}
+              disabled={isDisabled}
+            >
               Kurumsal Müşteri{' '}
             </Checkbox>
           </Form.Item>

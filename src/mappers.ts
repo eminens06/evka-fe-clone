@@ -33,6 +33,11 @@ import {
 } from './modules/production/helpers';
 import { ProductionRelayWorkshopQueryResponse } from './__generated__/ProductionRelayWorkshopQuery.graphql';
 import moment from 'moment';
+import {
+  ProductOrderStatusType,
+  ShipmentTableDTO,
+  ShipmentTableProduct,
+} from './modules/shipment_invoice/types';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -102,6 +107,7 @@ export const orderSaveMapper = (values: any) => {
     },
     marketplaceOrderId: values.marketplaceOrderId,
     orderType: values.orderType,
+    isKdvInclude: values.isKdvInclude,
   };
   return {
     productList: productList,
@@ -146,6 +152,7 @@ export const orderEditMapper = (
     },
     marketplaceOrderId: values.marketplaceOrderId,
     productOrderIds: productOrderIds,
+    isKdvInclude: values.isKdvInclude,
   };
   return {
     productList: productList,
@@ -288,6 +295,7 @@ export const userOrderMapper = (userOrder: any) => {
     isCorporate: customer.is_corporate,
     invoiceDate: userOrder.invoiceDate,
     invoiceNo: userOrder.invoiceNo,
+    isKdvInclude: userOrder.isKdvInclude,
   };
 };
 
@@ -610,6 +618,42 @@ const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
     };
   });
 };
+const getTableProducts = (products: ShipmentTableProduct[]) => {
+  return products.map((product) => {
+    return {
+      name: product.product.name,
+      status: ProductOrderStatusType[product.productOrderStatus],
+    };
+  });
+};
+
+export const getProductDesi = (products: ShipmentTableProduct[]): string => {
+  let desi = 0;
+  products.map((product) => {
+    const { width, height, length } = product.product;
+    const hacim = width * height * length;
+    desi = desi + hacim / 3000000;
+  });
+  return desi.toFixed(2);
+};
+
+const shipmentListDataMapper = (data: ShipmentTableDTO[]) => {
+  return data.map((item) => {
+    const { name, surname } = JSON.parse(item.customerInfo);
+    const products = genericTableDataMapper(item, 'products');
+
+    return {
+      id: item.id,
+      orderId: item.marketplaceOrderId,
+      remainingTime: getRemainingDate(item.estimatedDeliveryDate),
+      customer: `${name} ${surname || ''}`,
+      marketplace: item.marketplace.name,
+      desi: getProductDesi(products),
+      completed: item.orderStatus,
+      tableProduct: getTableProducts(products),
+    };
+  });
+};
 
 export default {
   productionPaintMapper,
@@ -624,4 +668,5 @@ export default {
   productionWorkshopMapper,
   externalServiceSelectMapper,
   packagingListMapper,
+  shipmentListDataMapper,
 };

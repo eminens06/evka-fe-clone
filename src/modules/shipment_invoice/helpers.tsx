@@ -1,3 +1,4 @@
+import { ProductOrderStatusType } from '../packaging/types';
 import {
   InvoiceStatus,
   ManagementProductStatus,

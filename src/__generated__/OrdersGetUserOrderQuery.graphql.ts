@@ -48,6 +48,7 @@ export type OrdersGetUserOrderQueryResponse = {
         readonly commissionRate: number;
         readonly orderDeliveryTime: number;
         readonly marketplaceOrderId: string;
+        readonly isKdvInclude: boolean;
     } | null;
 };
 export type OrdersGetUserOrderQuery = {
@@ -102,6 +103,7 @@ query OrdersGetUserOrderQuery(
     commissionRate
     orderDeliveryTime
     marketplaceOrderId
+    isKdvInclude
   }
 }
 */
@@ -347,6 +349,13 @@ v5 = [
         "kind": "ScalarField",
         "name": "marketplaceOrderId",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "isKdvInclude",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -373,9 +382,9 @@ return {
     "metadata": {},
     "name": "OrdersGetUserOrderQuery",
     "operationKind": "query",
-    "text": "query OrdersGetUserOrderQuery(\n  $id: ID!\n) {\n  userOrder(id: $id) {\n    id\n    products {\n      edges {\n        node {\n          id\n          orderCount\n          price\n          notes\n          product {\n            id\n            name\n            productName\n            sku\n            metaProducts {\n              edges {\n                node {\n                  id\n                  categoryName\n                  materialName\n                  materialId\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n    marketplace {\n      id\n      name\n      commissionRate\n      deliveryDate\n    }\n    orderDate\n    totalPrice\n    notes\n    customerInfo\n    commissionRate\n    orderDeliveryTime\n    marketplaceOrderId\n  }\n}\n"
+    "text": "query OrdersGetUserOrderQuery(\n  $id: ID!\n) {\n  userOrder(id: $id) {\n    id\n    products {\n      edges {\n        node {\n          id\n          orderCount\n          price\n          notes\n          product {\n            id\n            name\n            productName\n            sku\n            metaProducts {\n              edges {\n                node {\n                  id\n                  categoryName\n                  materialName\n                  materialId\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n    marketplace {\n      id\n      name\n      commissionRate\n      deliveryDate\n    }\n    orderDate\n    totalPrice\n    notes\n    customerInfo\n    commissionRate\n    orderDeliveryTime\n    marketplaceOrderId\n    isKdvInclude\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0f75a94c1d96866b785debdfb063b02a';
+(node as any).hash = 'aefb4edb6d2a46a49554e09d7b14da3b';
 export default node;

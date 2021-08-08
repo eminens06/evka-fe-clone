@@ -1,8 +1,10 @@
 import { Col, Row, Typography } from 'antd';
 import React, { FC } from 'react';
 import Status from '../atoms/Status';
-import { ManagementProductMapper } from '../modules/shipment_invoice/helpers';
-import { ShipmentManagementTableProduct } from '../modules/shipment_invoice/types';
+import {
+  ShipmentManagementTableProduct,
+  ShipmentTableStatusMapper,
+} from '../modules/shipment_invoice/types';
 
 interface Props {
   values: ShipmentManagementTableProduct[];
@@ -19,8 +21,8 @@ const TableProductDetail: FC<Props> = ({ values }) => {
             </Col>
             <Col span={4}>
               <Status
-                status={ManagementProductMapper[status].status}
-                text={ManagementProductMapper[status].text}
+                status={ShipmentTableStatusMapper[status].status}
+                text={ShipmentTableStatusMapper[status].text}
               />
             </Col>
           </Row>

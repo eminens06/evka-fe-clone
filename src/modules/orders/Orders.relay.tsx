@@ -174,6 +174,7 @@ graphql`
       commissionRate
       orderDeliveryTime
       marketplaceOrderId
+      isKdvInclude
     }
   }
 `;
