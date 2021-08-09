@@ -6753,13 +6753,9 @@
               "isDeprecated": false,
               "name": "userOrder",
               "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "UserOrderNode",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "UserOrderNode",
+                "ofType": null
               }
             },
             {
@@ -6841,13 +6837,9 @@
               "isDeprecated": false,
               "name": "userOrder",
               "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "UserOrderNode",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "UserOrderNode",
+                "ofType": null
               }
             },
             {

@@ -103,7 +103,7 @@ const ShipmentManagement: FunctionComponent = () => {
     {
       status: 'R',
     },
-    mappers.shipmentListDataMapper,
+    mappers.shipmentManagementMapper,
   );
 
   const onSearch = (value: string) => {

@@ -37,6 +37,8 @@ import {
   ProductOrderStatusType,
   ShipmentTableDTO,
   ShipmentTableProduct,
+  ShipmentType,
+  ShipmentTypeValue,
 } from './modules/shipment_invoice/types';
 
 export const metaDataMapper = (data: any) => {
@@ -637,7 +639,7 @@ export const getProductDesi = (products: ShipmentTableProduct[]): string => {
   return desi.toFixed(2);
 };
 
-const shipmentListDataMapper = (data: ShipmentTableDTO[]) => {
+const shipmentManagementMapper = (data: ShipmentTableDTO[]) => {
   return data.map((item) => {
     const { name, surname } = JSON.parse(item.customerInfo);
     const products = genericTableDataMapper(item, 'products');
@@ -655,6 +657,29 @@ const shipmentListDataMapper = (data: ShipmentTableDTO[]) => {
   });
 };
 
+const shipmentOrderMapper = (data: ShipmentTableDTO[]) => {
+  const shipmentTypeMapper: Record<ShipmentTypeValue, ShipmentType> = {
+    S: 'Nakliyat',
+    C: 'Kargo',
+  };
+  return data.map((item) => {
+    const { name, surname } = JSON.parse(item.customerInfo);
+
+    return {
+      id: item.id,
+      orderId: item.marketplaceOrderId,
+      remainingTime: getRemainingDate(item.estimatedDeliveryDate),
+      customer: `${name} ${surname || ''}`,
+      marketplace: item.marketplace.name,
+      completed: item.orderStatus,
+      cargoChaseNumber:
+        item.cargoChaseNumber === 0 ? '' : item.cargoChaseNumber?.toString(),
+      shipmentType: shipmentTypeMapper[item.shipmentType],
+      shipmentCompanyName: item.shipmentCompanyName,
+    };
+  });
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -668,5 +693,6 @@ export default {
   productionWorkshopMapper,
   externalServiceSelectMapper,
   packagingListMapper,
-  shipmentListDataMapper,
+  shipmentManagementMapper,
+  shipmentOrderMapper,
 };

@@ -3,6 +3,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type ProductOrderProductOrderStatus = "C" | "D" | "DF" | "P" | "PP" | "%future added value";
+export type UserOrderShipmentType = "C" | "D" | "S" | "%future added value";
 export type ShipmentRelayGetAllUserOrdersQueryVariables = {
     status?: string | null;
 };
@@ -18,6 +19,9 @@ export type ShipmentRelayGetAllUserOrdersQueryResponse = {
                 readonly marketplace: {
                     readonly name: string;
                 } | null;
+                readonly shipmentType: UserOrderShipmentType;
+                readonly shipmentCompanyName: string;
+                readonly cargoChaseNumber: number;
                 readonly products: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
@@ -59,6 +63,9 @@ query ShipmentRelayGetAllUserOrdersQuery(
           name
           id
         }
+        shipmentType
+        shipmentCompanyName
+        cargoChaseNumber
         products {
           edges {
             node {
@@ -143,31 +150,52 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productOrderStatus",
+  "name": "shipmentType",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "sku",
+  "name": "shipmentCompanyName",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "width",
+  "name": "cargoChaseNumber",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "length",
+  "name": "productOrderStatus",
   "storageKey": null
 },
 v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "sku",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v14 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "length",
+  "storageKey": null
+},
+v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -222,6 +250,9 @@ return {
                     ],
                     "storageKey": null
                   },
+                  (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -246,7 +277,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v8/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -256,10 +287,10 @@ return {
                                 "plural": false,
                                 "selections": [
                                   (v7/*: any*/),
-                                  (v9/*: any*/),
-                                  (v10/*: any*/),
-                                  (v11/*: any*/),
-                                  (v12/*: any*/)
+                                  (v12/*: any*/),
+                                  (v13/*: any*/),
+                                  (v14/*: any*/),
+                                  (v15/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -332,6 +363,9 @@ return {
                     ],
                     "storageKey": null
                   },
+                  (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -356,7 +390,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v8/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -366,10 +400,10 @@ return {
                                 "plural": false,
                                 "selections": [
                                   (v7/*: any*/),
-                                  (v9/*: any*/),
-                                  (v10/*: any*/),
-                                  (v11/*: any*/),
                                   (v12/*: any*/),
+                                  (v13/*: any*/),
+                                  (v14/*: any*/),
+                                  (v15/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
@@ -400,9 +434,9 @@ return {
     "metadata": {},
     "name": "ShipmentRelayGetAllUserOrdersQuery",
     "operationKind": "query",
-    "text": "query ShipmentRelayGetAllUserOrdersQuery(\n  $status: String\n) {\n  allUserOrders(byShipmentStatus: $status) {\n    edges {\n      node {\n        id\n        orderStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        customerInfo\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                sku\n                width\n                length\n                height\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentRelayGetAllUserOrdersQuery(\n  $status: String\n) {\n  allUserOrders(byShipmentStatus: $status) {\n    edges {\n      node {\n        id\n        orderStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        customerInfo\n        marketplace {\n          name\n          id\n        }\n        shipmentType\n        shipmentCompanyName\n        cargoChaseNumber\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                sku\n                width\n                length\n                height\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2d206cdeb246bad260a9c15dab382b31';
+(node as any).hash = 'd311b31053c4e5de9fdd906d1cf45e79';
 export default node;

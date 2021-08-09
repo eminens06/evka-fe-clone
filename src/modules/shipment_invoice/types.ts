@@ -39,7 +39,7 @@ export type ShipmentManagementData = {
   tableProduct: ShipmentManagementTableProduct[];
 };
 
-type ShipmentType = 'Nakliyat' | 'Kargo';
+export type ShipmentType = 'Nakliyat' | 'Kargo';
 export type ShipmentTypeValue = 'S' | 'C';
 
 export type ShipmentFormTypes = {
@@ -120,4 +120,7 @@ export interface ShipmentTableDTO {
   marketplace: { name: string };
   orderStatus: ProductOrderStatusType;
   products: { edges: { node: ShipmentTableProduct[] }[] };
+  cargoChaseNumber?: number;
+  shipmentType: ShipmentTypeValue;
+  shipmentCompanyName?: string;
 }

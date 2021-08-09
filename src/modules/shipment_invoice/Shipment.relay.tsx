@@ -13,6 +13,9 @@ graphql`
           marketplace {
             name
           }
+          shipmentType
+          shipmentCompanyName
+          cargoChaseNumber
           products {
             edges {
               node {
@@ -39,6 +42,26 @@ graphql`
   ) {
     changeShipmentStatus(input: $input) {
       userOrders {
+        id
+      }
+    }
+  }
+`;
+
+graphql`
+  mutation ShipmentRelayAddCargoNoMutation($input: AddCargoChaseNumberInput!) {
+    addCargoChaseNumber(input: $input) {
+      userOrder {
+        id
+      }
+    }
+  }
+`;
+
+graphql`
+  mutation ShipmentRelayAddCargoPriceMutation($input: AddCargoPriceInput!) {
+    addCargoPrice(input: $input) {
+      userOrder {
         id
       }
     }
