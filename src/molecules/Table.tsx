@@ -23,6 +23,7 @@ interface Props {
   rowKey?: string;
   loading?: boolean;
   pagination: TablePaginationConfig;
+  scroll?: { y: number };
 }
 
 const Table: FC<Props> = (props) => {
