@@ -1,14 +1,23 @@
-import { Button, Form, Row, Tooltip, Typography } from 'antd';
+import { Button, Form, message, Row, Tooltip, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { CaretRightOutlined, WarningOutlined } from '@ant-design/icons';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
-import { ShipmentManagementData } from './types';
+import { ShipmentFormTypes, ShipmentManagementData } from './types';
 import { dummyManagmentData } from './helpers';
 import TableProductDetail from '../../molecules/TableProductDetail';
 import Table from '../../molecules/Table';
 import AddEditCard from '../common/AddEditCard';
 import ShipmentSelectorForm from './ShipmentSelectorForm';
+import GET_ORDERS, {
+  ShipmentRelayGetAllUserOrdersQuery,
+} from '../../__generated__/ShipmentRelayGetAllUserOrdersQuery.graphql';
+import useFetchTablePagination from '../../hooks/useFetchTableData';
+import mappers from '../../mappers';
+import CHANGE_STATUS, {
+  ShipmentRelayStatusChangeMutation,
+} from '../../__generated__/ShipmentRelayStatusChangeMutation.graphql';
+import { useMutation } from 'relay-hooks';
 
 const isLoading = false;
 const size = 10;
@@ -84,24 +93,40 @@ const ShipmentManagement: FunctionComponent = () => {
     },
   };
 
-  /* const {
+  const {
     data,
     size,
     isLoading,
     forceFetchQuery,
-  } = useFetchTablePagination<UsersRelayGetAllUsersQuery>(
-    GET_USERS,
+  } = useFetchTablePagination<ShipmentRelayGetAllUserOrdersQuery>(
+    GET_ORDERS,
     {
-      search: '',
+      status: 'R',
     },
-    mappers.userMapper,
-  ); */
+    mappers.shipmentManagementMapper,
+  );
 
   const onSearch = (value: string) => {
     /*forceFetchQuery({
       search: value,
     }); */
   };
+
+  const [changeStatus] = useMutation<ShipmentRelayStatusChangeMutation>(
+    CHANGE_STATUS,
+    {
+      onError: (error: any) => {
+        message.error('Hata! ', error.response.errors[0].message);
+      },
+      onCompleted: (res) => {
+        message.success('Durum Başarıyla Güncellendi');
+        forceFetchQuery({
+          status: 'R',
+        });
+        setIsModalVisible(false);
+      },
+    },
+  );
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -111,8 +136,17 @@ const ShipmentManagement: FunctionComponent = () => {
     setIsModalVisible(false);
   };
 
-  const addNewUser = () => {
-    openModal();
+  const onChangeStatus = (values: ShipmentFormTypes) => {
+    const input = {
+      userOrderIds: selected.map((order) => order.id),
+      shipmentType: values.shipmentType,
+      shipmentCompanyName: values.shipmentCompanyName,
+    };
+    changeStatus({
+      variables: {
+        input,
+      },
+    });
   };
 
   return (
@@ -136,7 +170,7 @@ const ShipmentManagement: FunctionComponent = () => {
           rowSelection={rowSelection}
           expandable={expandable}
           columns={columns}
-          dataSource={dummyManagmentData}
+          dataSource={data}
           rowKey="orderId"
           loading={isLoading}
           pagination={{
@@ -151,7 +185,7 @@ const ShipmentManagement: FunctionComponent = () => {
         >
           <ShipmentSelectorForm
             form={form}
-            onSuccess={() => onSearch('')}
+            onSuccess={(values: ShipmentFormTypes) => onChangeStatus(values)}
             modalData={selected}
           />
         </AddEditCard>

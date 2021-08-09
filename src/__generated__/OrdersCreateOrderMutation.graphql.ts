@@ -15,7 +15,6 @@ export type ProductOrderCreateInput = {
     shipmentId?: string | null;
     type?: string | null;
     orderDate?: unknown | null;
-    isKdvInclude?: boolean | null;
     price?: number | null;
     productOrderStatus?: string | null;
     notes?: string | null;
@@ -36,6 +35,7 @@ export type UserOrderCreateInput = {
     invoiceDate?: unknown | null;
     invoiceNo?: number | null;
     shipmentId?: string | null;
+    isKdvInclude?: boolean | null;
     customerInfo?: CustomerInfo | null;
     cargoPrice?: number | null;
     cargoChaseNumber?: number | null;

@@ -30,16 +30,16 @@ export const productMetaData = [
 export const ShippingTypeOptions: ShippingTypeOption[] = [
   {
     text: 'Nakliyat',
-    value: 'SH',
+    value: 'S',
   },
   {
     text: 'Kargo',
-    value: 'CR',
+    value: 'C',
   },
 ];
 
 export const CompanyOptions: Record<ShipmentTypeValue, CargoTypeOption[]> = {
-  SH: [
+  S: [
     {
       text: 'Vivense',
       value: 'vivense',
@@ -61,7 +61,7 @@ export const CompanyOptions: Record<ShipmentTypeValue, CargoTypeOption[]> = {
       value: 'blueGround',
     },
   ],
-  CR: [
+  C: [
     {
       text: 'MNG Kargo',
       value: 'mng',

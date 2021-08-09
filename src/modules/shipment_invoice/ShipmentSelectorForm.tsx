@@ -14,6 +14,7 @@ import { SingleSelect } from '../../atoms';
 import { CompanyOptions, ShippingTypeOptions } from '../../utils/enums';
 import {
   CargoTypeOption,
+  ShipmentFormTypes,
   ShipmentManagementData,
   ShipmentTypeValue,
 } from './types';
@@ -44,11 +45,12 @@ const columns = [
 ];
 
 const ShipmentSelectorForm: FC<ExternalServiceProps> = (props) => {
-  const { form, modalData } = props;
+  const { form, modalData, onSuccess } = props;
   const [companyOptions, setCompanyOptions] = useState<CargoTypeOption[]>([]);
 
-  const onFormFinish = (values: any) => {
+  const onFormFinish = (values: ShipmentFormTypes) => {
     console.log(values);
+    onSuccess(values);
   };
   const onChangeShippingType = (value: ShipmentTypeValue) => {
     form.resetFields(['company']);
@@ -74,7 +76,7 @@ const ShipmentSelectorForm: FC<ExternalServiceProps> = (props) => {
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item
-                name="shippingType"
+                name="shipmentType"
                 label="Sevkiyat Türü"
                 rules={[{ required: true, message: 'Zorunlu alan' }]}
               >
@@ -86,7 +88,7 @@ const ShipmentSelectorForm: FC<ExternalServiceProps> = (props) => {
             </Col>
             <Col span={12}>
               <Form.Item
-                name="company"
+                name="shipmentCompanyName"
                 label="Firma"
                 rules={[{ required: true, message: 'Zorunlu alan' }]}
               >

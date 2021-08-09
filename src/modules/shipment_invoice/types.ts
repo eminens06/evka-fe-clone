@@ -17,7 +17,7 @@ export enum ManagementProductStatus {
 
 export type ShipmentManagementTableProduct = {
   name: string;
-  status: ManagementProductStatus;
+  status: ProductOrderStatusType;
 };
 
 export type ShipmentInvoiceSummaryData = {
@@ -29,6 +29,7 @@ export type ShipmentInvoiceSummaryData = {
 };
 
 export type ShipmentManagementData = {
+  id: string;
   orderId: string;
   remainingTime: number;
   customer: string;
@@ -38,8 +39,13 @@ export type ShipmentManagementData = {
   tableProduct: ShipmentManagementTableProduct[];
 };
 
-type ShipmentType = 'Nakliyat' | 'Kargo';
-export type ShipmentTypeValue = 'SH' | 'CR';
+export type ShipmentType = 'Nakliyat' | 'Kargo';
+export type ShipmentTypeValue = 'S' | 'C';
+
+export type ShipmentFormTypes = {
+  shipmentType: ShipmentTypeValue;
+  shipmentCompanyName: string;
+};
 
 export type ShipmentData = {
   orderId: string;
@@ -60,3 +66,61 @@ export type CargoTypeOption = {
   text: string;
   value: string;
 };
+
+export enum ProductOrderStatusType {
+  DF = 'DEFAULT',
+  P = 'PRODUCTION',
+  C = 'COMPLETED',
+  PP = 'PACKAGING',
+  D = 'DONE',
+}
+export const ShipmentTableStatusMapper: Record<
+  ProductOrderStatusType,
+  StatusObject
+> = {
+  [ProductOrderStatusType.DF]: {
+    text: 'Üretimde',
+    status: 'warning',
+  },
+  [ProductOrderStatusType.P]: {
+    text: 'Üretimde',
+    status: 'warning',
+  },
+  [ProductOrderStatusType.C]: {
+    text: 'Üretim Tamamlandı',
+    status: 'success',
+  },
+  [ProductOrderStatusType.PP]: {
+    text: 'Paketlemede',
+    status: 'pending',
+  },
+  [ProductOrderStatusType.D]: {
+    text: 'Tamamlandı',
+    status: 'success',
+  },
+};
+
+type ProductOrderProductOrderStatus = 'C' | 'D' | 'DF' | 'P' | 'PP';
+
+export interface ShipmentTableProduct {
+  productOrderStatus: ProductOrderProductOrderStatus;
+  product: {
+    name: string;
+    sku: string;
+    width: number;
+    height: number;
+    length: number;
+  };
+}
+export interface ShipmentTableDTO {
+  id: string;
+  customerInfo: string;
+  marketplaceOrderId: string;
+  estimatedDeliveryDate: any;
+  marketplace: { name: string };
+  orderStatus: ProductOrderStatusType;
+  products: { edges: { node: ShipmentTableProduct[] }[] };
+  cargoChaseNumber?: number;
+  shipmentType: ShipmentTypeValue;
+  shipmentCompanyName?: string;
+}

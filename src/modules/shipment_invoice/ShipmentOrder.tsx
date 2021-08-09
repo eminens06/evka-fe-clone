@@ -1,10 +1,21 @@
-import { Form, Typography, Row, Col, Input } from 'antd';
+import { Form, Typography, Row, Col, Input, message } from 'antd';
 import React, { FunctionComponent, useMemo, useState } from 'react';
+import { useMutation } from 'relay-hooks';
+import useFetchTablePagination from '../../hooks/useFetchTableData';
 import PageContent from '../../layout/PageContent';
+import mappers from '../../mappers';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import ADD_CARGO_NO, {
+  ShipmentRelayAddCargoNoMutation,
+} from '../../__generated__/ShipmentRelayAddCargoNoMutation.graphql';
+import ADD_CARGO_PRICE, {
+  ShipmentRelayAddCargoPriceMutation,
+} from '../../__generated__/ShipmentRelayAddCargoPriceMutation.graphql';
+import GET_ORDERS, {
+  ShipmentRelayGetAllUserOrdersQuery,
+} from '../../__generated__/ShipmentRelayGetAllUserOrdersQuery.graphql';
 import AddEditCard from '../common/AddEditCard';
-import { dummyShipmentData } from './helpers';
 
 const size = 10;
 const isLoading = false;
@@ -31,9 +42,9 @@ const columns = [
     dataIndex: 'marketplace',
   },
   {
-    key: 'cargoNo',
-    title: 'Kargo Takip Numarası',
-    dataIndex: 'cargoNo',
+    key: 'cargoChaseNumber',
+    title: 'Kargo Takip No',
+    dataIndex: 'cargoChaseNumber',
   },
   {
     key: 'shipmentType',
@@ -41,11 +52,16 @@ const columns = [
     dataIndex: 'shipmentType',
   },
   {
-    key: 'company',
-    title: 'Şirket Türü',
-    dataIndex: 'company',
+    key: 'shipmentCompanyName',
+    title: 'Firma',
+    dataIndex: 'shipmentCompanyName',
   },
 ];
+
+interface FormValues {
+  cargoChaseNumber: string;
+  cargoPrice: string;
+}
 
 const ShipmentOrder: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -57,21 +73,53 @@ const ShipmentOrder: FunctionComponent = () => {
     setIsModalVisible(true);
   };
 
-  /* const {
+  const {
     data,
     size,
     isLoading,
     forceFetchQuery,
-  } = useFetchTablePagination<UsersRelayGetAllUsersQuery>(
-    GET_USERS,
+  } = useFetchTablePagination<ShipmentRelayGetAllUserOrdersQuery>(
+    GET_ORDERS,
     {
-      search: '',
+      status: 'O',
     },
-    mappers.userMapper,
-  ); */
+    mappers.shipmentOrderMapper,
+  );
+
+  const [addCargoNo] = useMutation<ShipmentRelayAddCargoNoMutation>(
+    ADD_CARGO_NO,
+    {
+      onError: (error: any) => {
+        message.error('Hata! ', error.response.errors[0].message);
+      },
+      onCompleted: (res) => {
+        message.success('Kargo Durumu Başarıyla Güncellendi');
+        forceFetchQuery({
+          status: 'O',
+        });
+        closeModal();
+      },
+    },
+  );
+
+  const [addCargoPrice] = useMutation<ShipmentRelayAddCargoPriceMutation>(
+    ADD_CARGO_PRICE,
+    {
+      onError: (error: any) => {
+        message.error('Hata! ', error.response.errors[0].message);
+      },
+      onCompleted: (res) => {
+        message.success('Kargo Durumu Başarıyla Güncellendi');
+        forceFetchQuery({
+          status: 'O',
+        });
+        closeModal();
+      },
+    },
+  );
 
   const onTableClick = (data: any) => {
-    form.setFieldsValue({ cargoNo: data.cargoNo });
+    form.setFieldsValue({ cargoChaseNumber: data.cargoChaseNumber });
     setModalData({ ...data });
     openModal();
   };
@@ -84,14 +132,36 @@ const ShipmentOrder: FunctionComponent = () => {
 
   const closeModal = () => {
     setIsModalVisible(false);
+    form.resetFields(['cargoChaseNumber', 'cargoPrice']);
   };
 
-  const onFormFinish = (values: any) => {
-    console.log(values);
+  const onFormFinish = (values: FormValues) => {
+    if (values.cargoChaseNumber !== modalData.cargoChaseNumber) {
+      const input = {
+        userOrderId: modalData.id,
+        cargoChaseNumber: values.cargoChaseNumber,
+      };
+      addCargoNo({
+        variables: {
+          input,
+        },
+      });
+    }
+    if (modalData?.cargoChaseNumber !== '' && values?.cargoPrice !== '') {
+      const input = {
+        userOrderId: modalData.id,
+        cargoPrice: values.cargoPrice,
+      };
+      addCargoPrice({
+        variables: {
+          input,
+        },
+      });
+    }
   };
 
   const FormComponent = useMemo(() => {
-    const withPrice = modalData?.cargoNo !== '';
+    const withPrice = modalData?.cargoChaseNumber !== '';
     return (
       <Row gutter={24}>
         {withPrice && (
@@ -108,7 +178,7 @@ const ShipmentOrder: FunctionComponent = () => {
         <Col span={12} offset={withPrice ? 0 : 6}>
           <Form.Item
             label="Kargo Takip No"
-            name="cargoNo"
+            name="cargoChaseNumber"
             rules={[{ required: true, message: 'Zorunlu alan' }]}
           >
             <Input />
@@ -134,7 +204,7 @@ const ShipmentOrder: FunctionComponent = () => {
             };
           }}
           columns={columns}
-          dataSource={dummyShipmentData}
+          dataSource={data}
           rowKey="orderId"
           loading={isLoading}
           pagination={{
