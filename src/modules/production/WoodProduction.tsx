@@ -77,7 +77,11 @@ const MetalProduction: FunctionComponent = () => {
   };
 
   const showBluePrint = () => {
-    console.log('Show blue print');
+    //TODO: replace with real data
+    window.open(
+      '/template?id=VXNlck9yZGVyTm9kZTpmOGU4ZjIwOC1mODRlLTQxNDAtYjBmOC1hZDQwYzJmMzQ5ZWI%3D',
+      '_blank',
+    );
   };
 
   return (
