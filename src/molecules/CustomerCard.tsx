@@ -30,7 +30,13 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
         <Form.Item
           name="name"
           label="Adı"
-          rules={[{ required: true, message: 'Lütfen Müşteri Adı Giriniz' }]}
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp('^[a-zA-ZğüşöçİĞÜŞÖÇ ]+$'),
+              message: 'Geçersiz Müşteri Adı',
+            },
+          ]}
         >
           <Input disabled={isDisabled} />
         </Form.Item>
@@ -39,7 +45,13 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
         <Form.Item
           name="surname"
           label="Soyadı"
-          rules={[{ required: true, message: 'Lütfen Müşteri Soyadı Giriniz' }]}
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp('^[a-zA-ZğüşöçİĞÜŞÖÇ ]+$'),
+              message: 'Geçersiz Müşteri Soyadı',
+            },
+          ]}
         >
           <Input disabled={isDisabled} />
         </Form.Item>
@@ -48,7 +60,13 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
         <Form.Item
           name="tc"
           label="TC Kimlik No"
-          rules={[{ required: true, message: 'Lütfen TC Kimlik No Giriniz' }]}
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp('[0-9]{11}$'),
+              message: 'Geçersiz TC Kimlik No',
+            },
+          ]}
         >
           <Input disabled={isDisabled} />
         </Form.Item>
@@ -58,7 +76,13 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           name="phoneNumber"
           label="Telefon"
           rules={[
-            { required: true, message: 'Lütfen Müşteri Telefonu Giriniz' },
+            {
+              required: true,
+              pattern: new RegExp(
+                '\\+[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}$',
+              ),
+              message: 'Geçersiz Telefon No',
+            },
           ]}
         >
           <Input placeholder="+90 555 123 45 67" disabled={isDisabled} />
@@ -83,7 +107,11 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           name="tc"
           label="Vergi Kimlik No"
           rules={[
-            { required: true, message: 'Lütfen Vergi Kimlik No Giriniz' },
+            {
+              required: true,
+              pattern: new RegExp('[0-9]{10}'),
+              message: 'Geçersiz Vergi Kimlik No',
+            },
           ]}
         >
           <Input disabled={isDisabled} />
@@ -93,7 +121,15 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
         <Form.Item
           name="phoneNumber"
           label="Telefon"
-          rules={[{ required: true, message: 'Lütfen Telefon Giriniz' }]}
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp(
+                '\\+[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}$',
+              ),
+              message: 'Geçersiz Telefon No',
+            },
+          ]}
         >
           <Input placeholder="+90 555 123 45 67" disabled={isDisabled} />
         </Form.Item>
