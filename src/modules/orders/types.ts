@@ -1,5 +1,6 @@
 import { MetadataType } from '../metadata/types';
 import moment from 'moment';
+import { ShipmentTypeValue } from '../shipment_invoice/types';
 
 type OrderProductDTO = {
   node: {
@@ -24,9 +25,11 @@ export type OrderProduct = {
   productName: string;
   metaInfo?: OrderProductMetaInfo;
   sku: string;
+  price?: number;
 };
 
 export type UserOrderProductDTO = {
+  price?: number;
   edges: OrderProductDTO[];
 };
 
@@ -48,6 +51,10 @@ export type UserOrderDTO = {
   products: UserOrderProductDTO;
   orderType: OrderTypes;
   estimatedDeliveryDate: moment.Moment;
+  shipmentCompanyName?: string;
+  shipmentType?: ShipmentTypeValue;
+  invoiceStatus: string;
+  shipmentStatus: string;
 };
 
 export type UserOrder = {

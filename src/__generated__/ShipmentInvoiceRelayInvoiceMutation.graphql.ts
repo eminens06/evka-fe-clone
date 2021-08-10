@@ -2,35 +2,38 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type AddCargoChaseNumberInput = {
+export type InvoiceMutationInput = {
     userOrderId: string;
-    cargoChaseNumber: string;
+    invoiceNo: string;
+    invoiceDate: unknown;
     clientMutationId?: string | null;
 };
-export type ShipmentRelayAddCargoNoMutationVariables = {
-    input: AddCargoChaseNumberInput;
+export type ShipmentInvoiceRelayInvoiceMutationVariables = {
+    input: InvoiceMutationInput;
 };
-export type ShipmentRelayAddCargoNoMutationResponse = {
-    readonly addCargoChaseNumber: {
-        readonly userOrder: {
+export type ShipmentInvoiceRelayInvoiceMutationResponse = {
+    readonly invoiceMutation: {
+        readonly userOrder: ReadonlyArray<{
             readonly id: string;
-        } | null;
+            readonly invoiceStatus: string | null;
+        } | null> | null;
     } | null;
 };
-export type ShipmentRelayAddCargoNoMutation = {
-    readonly response: ShipmentRelayAddCargoNoMutationResponse;
-    readonly variables: ShipmentRelayAddCargoNoMutationVariables;
+export type ShipmentInvoiceRelayInvoiceMutation = {
+    readonly response: ShipmentInvoiceRelayInvoiceMutationResponse;
+    readonly variables: ShipmentInvoiceRelayInvoiceMutationVariables;
 };
 
 
 
 /*
-mutation ShipmentRelayAddCargoNoMutation(
-  $input: AddCargoChaseNumberInput!
+mutation ShipmentInvoiceRelayInvoiceMutation(
+  $input: InvoiceMutationInput!
 ) {
-  addCargoChaseNumber(input: $input) {
+  invoiceMutation(input: $input) {
     userOrder {
       id
+      invoiceStatus
     }
   }
 }
@@ -42,7 +45,7 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "AddCargoChaseNumberInput!"
+    "type": "InvoiceMutationInput!"
   }
 ],
 v1 = [
@@ -55,9 +58,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "AddCargoChaseNumberPayload",
+    "concreteType": "InvoiceMutationPayload",
     "kind": "LinkedField",
-    "name": "addCargoChaseNumber",
+    "name": "invoiceMutation",
     "plural": false,
     "selections": [
       {
@@ -66,13 +69,20 @@ v1 = [
         "concreteType": "UserOrderNode",
         "kind": "LinkedField",
         "name": "userOrder",
-        "plural": false,
+        "plural": true,
         "selections": [
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
             "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "invoiceStatus",
             "storageKey": null
           }
         ],
@@ -87,7 +97,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ShipmentRelayAddCargoNoMutation",
+    "name": "ShipmentInvoiceRelayInvoiceMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation"
   },
@@ -95,17 +105,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ShipmentRelayAddCargoNoMutation",
+    "name": "ShipmentInvoiceRelayInvoiceMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ShipmentRelayAddCargoNoMutation",
+    "name": "ShipmentInvoiceRelayInvoiceMutation",
     "operationKind": "mutation",
-    "text": "mutation ShipmentRelayAddCargoNoMutation(\n  $input: AddCargoChaseNumberInput!\n) {\n  addCargoChaseNumber(input: $input) {\n    userOrder {\n      id\n    }\n  }\n}\n"
+    "text": "mutation ShipmentInvoiceRelayInvoiceMutation(\n  $input: InvoiceMutationInput!\n) {\n  invoiceMutation(input: $input) {\n    userOrder {\n      id\n      invoiceStatus\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5b7ef6d08583f3244d706b65487215ae';
+(node as any).hash = '186ef2eadc8869825cc5f0132f5c279e';
 export default node;

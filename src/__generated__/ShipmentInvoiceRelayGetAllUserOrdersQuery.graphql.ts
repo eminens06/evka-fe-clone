@@ -4,10 +4,10 @@
 import { ConcreteRequest } from "relay-runtime";
 export type ProductOrderProductOrderStatus = "C" | "D" | "DF" | "P" | "PP" | "%future added value";
 export type UserOrderShipmentType = "C" | "D" | "S" | "%future added value";
-export type ShipmentRelayGetAllUserOrdersQueryVariables = {
+export type ShipmentInvoiceRelayGetAllUserOrdersQueryVariables = {
     status?: string | null;
 };
-export type ShipmentRelayGetAllUserOrdersQueryResponse = {
+export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
     readonly allUserOrders: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -40,15 +40,15 @@ export type ShipmentRelayGetAllUserOrdersQueryResponse = {
         } | null>;
     } | null;
 };
-export type ShipmentRelayGetAllUserOrdersQuery = {
-    readonly response: ShipmentRelayGetAllUserOrdersQueryResponse;
-    readonly variables: ShipmentRelayGetAllUserOrdersQueryVariables;
+export type ShipmentInvoiceRelayGetAllUserOrdersQuery = {
+    readonly response: ShipmentInvoiceRelayGetAllUserOrdersQueryResponse;
+    readonly variables: ShipmentInvoiceRelayGetAllUserOrdersQueryVariables;
 };
 
 
 
 /*
-query ShipmentRelayGetAllUserOrdersQuery(
+query ShipmentInvoiceRelayGetAllUserOrdersQuery(
   $status: String
 ) {
   allUserOrders(byShipmentStatus: $status) {
@@ -207,7 +207,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ShipmentRelayGetAllUserOrdersQuery",
+    "name": "ShipmentInvoiceRelayGetAllUserOrdersQuery",
     "selections": [
       {
         "alias": null,
@@ -319,7 +319,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ShipmentRelayGetAllUserOrdersQuery",
+    "name": "ShipmentInvoiceRelayGetAllUserOrdersQuery",
     "selections": [
       {
         "alias": null,
@@ -432,11 +432,11 @@ return {
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ShipmentRelayGetAllUserOrdersQuery",
+    "name": "ShipmentInvoiceRelayGetAllUserOrdersQuery",
     "operationKind": "query",
-    "text": "query ShipmentRelayGetAllUserOrdersQuery(\n  $status: String\n) {\n  allUserOrders(byShipmentStatus: $status) {\n    edges {\n      node {\n        id\n        orderStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        customerInfo\n        marketplace {\n          name\n          id\n        }\n        shipmentType\n        shipmentCompanyName\n        cargoChaseNumber\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                sku\n                width\n                length\n                height\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentInvoiceRelayGetAllUserOrdersQuery(\n  $status: String\n) {\n  allUserOrders(byShipmentStatus: $status) {\n    edges {\n      node {\n        id\n        orderStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        customerInfo\n        marketplace {\n          name\n          id\n        }\n        shipmentType\n        shipmentCompanyName\n        cargoChaseNumber\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                sku\n                width\n                length\n                height\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd311b31053c4e5de9fdd906d1cf45e79';
+(node as any).hash = 'c828e19a67499a2a22d00bd133975033';
 export default node;

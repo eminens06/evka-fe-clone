@@ -39,6 +39,10 @@ import {
   ShipmentTableProduct,
   ShipmentType,
   ShipmentTypeValue,
+  Invoice,
+  InvoiceStatus,
+  ShipmentInvoiceSummaryData,
+  ShipmentStatus,
 } from './modules/shipment_invoice/types';
 
 export const metaDataMapper = (data: any) => {
@@ -211,6 +215,7 @@ const orderProductMapper = (data: UserOrderProductDTO) => {
           ? JSON.parse(grouped[key][0].product.metaInfo)
           : undefined,
         sku: grouped[key][0].product.sku,
+        price: grouped[key][0].price,
       };
     }
   });
@@ -680,11 +685,49 @@ const shipmentOrderMapper = (data: ShipmentTableDTO[]) => {
   });
 };
 
+const invoiceMapper = (data: UserOrderDTO[]): Invoice[] => {
+  return data.map((order) => {
+    const customerInfo = JSON.parse(order.customerInfo);
+    return {
+      customer: `${customerInfo.name} ${customerInfo.surname || ''}`,
+      id: order.id,
+      customerDetail: customerInfo,
+      orderId: order.marketplaceOrderId,
+      notes: order.notes,
+      marketplace: order.marketplace.name,
+      products: orderProductMapper(order.products) || [],
+      shipmentCompany: order.shipmentCompanyName || 'Seçilmedi',
+      shipmentType: order.shipmentType || ' - ',
+    };
+  });
+};
+
+const shipmentInvoiceSummaryMapper = (
+  data: UserOrderDTO[],
+): ShipmentInvoiceSummaryData[] => {
+  return data.map((order) => {
+    console.log('Order : ', order);
+    const { name, surname } = JSON.parse(order.customerInfo);
+    return {
+      customer: `${name} ${surname || ''}`,
+      id: order.id,
+      orderId: order.marketplaceOrderId,
+      notes: order.notes,
+      remainingTime: getRemainingDate(order.estimatedDeliveryDate),
+      shipmentStatus: order.shipmentStatus as ShipmentStatus,
+      invoiceStatus: order.invoiceStatus as InvoiceStatus,
+      products: orderProductMapper(order.products) || [],
+    };
+  });
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
   userMapper,
   orderListMapper,
+  invoiceMapper,
+  shipmentInvoiceSummaryMapper,
   metadataMapper,
   allProductsMapper,
   managementProductionMapper,

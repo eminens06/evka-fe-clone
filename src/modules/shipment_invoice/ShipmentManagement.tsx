@@ -4,23 +4,19 @@ import { CaretRightOutlined, WarningOutlined } from '@ant-design/icons';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
 import { ShipmentFormTypes, ShipmentManagementData } from './types';
-import { dummyManagmentData } from './helpers';
 import TableProductDetail from '../../molecules/TableProductDetail';
 import Table from '../../molecules/Table';
 import AddEditCard from '../common/AddEditCard';
 import ShipmentSelectorForm from './ShipmentSelectorForm';
 import GET_ORDERS, {
-  ShipmentRelayGetAllUserOrdersQuery,
-} from '../../__generated__/ShipmentRelayGetAllUserOrdersQuery.graphql';
+  ShipmentInvoiceRelayGetAllUserOrdersQuery,
+} from '../../__generated__/ShipmentInvoiceRelayGetAllUserOrdersQuery.graphql';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
 import mappers from '../../mappers';
 import CHANGE_STATUS, {
-  ShipmentRelayStatusChangeMutation,
-} from '../../__generated__/ShipmentRelayStatusChangeMutation.graphql';
+  ShipmentInvoiceRelayStatusChangeMutation,
+} from '../../__generated__/ShipmentInvoiceRelayStatusChangeMutation.graphql';
 import { useMutation } from 'relay-hooks';
-
-const isLoading = false;
-const size = 10;
 
 const expandable = {
   expandedRowRender: (record: ShipmentManagementData) => (
@@ -98,7 +94,7 @@ const ShipmentManagement: FunctionComponent = () => {
     size,
     isLoading,
     forceFetchQuery,
-  } = useFetchTablePagination<ShipmentRelayGetAllUserOrdersQuery>(
+  } = useFetchTablePagination<ShipmentInvoiceRelayGetAllUserOrdersQuery>(
     GET_ORDERS,
     {
       status: 'R',
@@ -112,7 +108,7 @@ const ShipmentManagement: FunctionComponent = () => {
     }); */
   };
 
-  const [changeStatus] = useMutation<ShipmentRelayStatusChangeMutation>(
+  const [changeStatus] = useMutation<ShipmentInvoiceRelayStatusChangeMutation>(
     CHANGE_STATUS,
     {
       onError: (error: any) => {

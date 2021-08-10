@@ -1,7 +1,9 @@
+import { CustomerDTO, OrderProduct } from '../orders/types';
+
 export enum ShipmentStatus {
-  READY = 'READY',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
+  READY = 'Sevkiyata Hazır',
+  IN_PROGRESS = 'Sevkiyat Emri Verildi',
+  COMPLETED = 'Sevk Edildi',
 }
 
 export enum InvoiceStatus {
@@ -21,11 +23,14 @@ export type ShipmentManagementTableProduct = {
 };
 
 export type ShipmentInvoiceSummaryData = {
+  id: string;
   orderId: string;
+  products: OrderProduct[];
   remainingTime: number;
   customer: string;
   shipmentStatus: ShipmentStatus;
   invoiceStatus: InvoiceStatus;
+  notes?: string;
 };
 
 export type ShipmentManagementData = {
@@ -124,3 +129,13 @@ export interface ShipmentTableDTO {
   shipmentType: ShipmentTypeValue;
   shipmentCompanyName?: string;
 }
+export type Invoice = {
+  id: string;
+  orderId: string;
+  marketplace: string;
+  shipmentCompany: string;
+  notes?: string;
+  customer: string;
+  customerDetail: CustomerDTO;
+  products: OrderProduct[];
+};
