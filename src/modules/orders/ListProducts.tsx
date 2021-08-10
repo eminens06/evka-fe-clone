@@ -81,6 +81,7 @@ const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
         pagination={{
           total: size,
         }}
+        scroll={{ y: 300 }}
       />
     </div>
   );
