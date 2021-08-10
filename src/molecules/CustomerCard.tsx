@@ -2,6 +2,12 @@ import { Card, Form, Row, Col, Checkbox, Input, FormInstance } from 'antd';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import TextArea from 'antd/lib/input/TextArea';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+import {
+  nameSurnamePattern,
+  phonePattern,
+  tcNoPattern,
+  vergiNo,
+} from '../utils/helpers';
 
 interface Props {
   form: FormInstance<any>;
@@ -33,7 +39,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           rules={[
             {
               required: true,
-              pattern: new RegExp('^[a-zA-ZğüşöçİĞÜŞÖÇ ]+$'),
+              pattern: new RegExp(nameSurnamePattern),
               message: 'Geçersiz Müşteri Adı',
             },
           ]}
@@ -48,7 +54,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           rules={[
             {
               required: true,
-              pattern: new RegExp('^[a-zA-ZğüşöçİĞÜŞÖÇ ]+$'),
+              pattern: new RegExp(nameSurnamePattern),
               message: 'Geçersiz Müşteri Soyadı',
             },
           ]}
@@ -63,7 +69,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           rules={[
             {
               required: true,
-              pattern: new RegExp('[0-9]{11}$'),
+              pattern: new RegExp(tcNoPattern),
               message: 'Geçersiz TC Kimlik No',
             },
           ]}
@@ -78,9 +84,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           rules={[
             {
               required: true,
-              pattern: new RegExp(
-                '\\+[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}$',
-              ),
+              pattern: new RegExp(phonePattern),
               message: 'Geçersiz Telefon No',
             },
           ]}
@@ -109,7 +113,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           rules={[
             {
               required: true,
-              pattern: new RegExp('[0-9]{10}'),
+              pattern: new RegExp(vergiNo),
               message: 'Geçersiz Vergi Kimlik No',
             },
           ]}
@@ -124,9 +128,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           rules={[
             {
               required: true,
-              pattern: new RegExp(
-                '\\+[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}$',
-              ),
+              pattern: new RegExp(phonePattern),
               message: 'Geçersiz Telefon No',
             },
           ]}
