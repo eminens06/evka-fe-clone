@@ -9,6 +9,7 @@ import GET_PRODUCTS, {
   ProductsRelayGetProductsQuery,
 } from '../../../__generated__/ProductsRelayGetProductsQuery.graphql';
 import Table from '../../../molecules/Table';
+import { useRouter } from 'next/router';
 
 const columns = [
   {
@@ -44,6 +45,8 @@ const columns = [
 ];
 
 const ListProducts: FunctionComponent = () => {
+  const router = useRouter();
+
   const {
     data,
     size,
@@ -68,7 +71,10 @@ const ListProducts: FunctionComponent = () => {
   };
 
   const onTableClick = (record: any) => {
-    console.log('On table click', record);
+    router.push({
+      pathname: '/admin_product',
+      query: { id: record.id },
+    });
   };
 
   return (
