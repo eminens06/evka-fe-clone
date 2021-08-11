@@ -54,7 +54,7 @@ graphql`
 
 graphql`
   query OrdersRelayGetAllUserOrdersQuery {
-    allUserOrders {
+    allUserOrders(notCompleted: "") {
       edges {
         node {
           notes

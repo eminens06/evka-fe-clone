@@ -8,25 +8,25 @@ export type ChangeShipmentStatusInput = {
     shipmentCompanyName?: string | null;
     clientMutationId?: string | null;
 };
-export type ShipmentRelayStatusChangeMutationVariables = {
+export type ShipmentInvoiceRelayStatusChangeMutationVariables = {
     input: ChangeShipmentStatusInput;
 };
-export type ShipmentRelayStatusChangeMutationResponse = {
+export type ShipmentInvoiceRelayStatusChangeMutationResponse = {
     readonly changeShipmentStatus: {
         readonly userOrders: ReadonlyArray<{
             readonly id: string;
         } | null> | null;
     } | null;
 };
-export type ShipmentRelayStatusChangeMutation = {
-    readonly response: ShipmentRelayStatusChangeMutationResponse;
-    readonly variables: ShipmentRelayStatusChangeMutationVariables;
+export type ShipmentInvoiceRelayStatusChangeMutation = {
+    readonly response: ShipmentInvoiceRelayStatusChangeMutationResponse;
+    readonly variables: ShipmentInvoiceRelayStatusChangeMutationVariables;
 };
 
 
 
 /*
-mutation ShipmentRelayStatusChangeMutation(
+mutation ShipmentInvoiceRelayStatusChangeMutation(
   $input: ChangeShipmentStatusInput!
 ) {
   changeShipmentStatus(input: $input) {
@@ -88,7 +88,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ShipmentRelayStatusChangeMutation",
+    "name": "ShipmentInvoiceRelayStatusChangeMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation"
   },
@@ -96,17 +96,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ShipmentRelayStatusChangeMutation",
+    "name": "ShipmentInvoiceRelayStatusChangeMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ShipmentRelayStatusChangeMutation",
+    "name": "ShipmentInvoiceRelayStatusChangeMutation",
     "operationKind": "mutation",
-    "text": "mutation ShipmentRelayStatusChangeMutation(\n  $input: ChangeShipmentStatusInput!\n) {\n  changeShipmentStatus(input: $input) {\n    userOrders {\n      id\n    }\n  }\n}\n"
+    "text": "mutation ShipmentInvoiceRelayStatusChangeMutation(\n  $input: ChangeShipmentStatusInput!\n) {\n  changeShipmentStatus(input: $input) {\n    userOrders {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'cd8e1936a6b2bf4530830555f616ba92';
+(node as any).hash = '8593db0371341bfe5f743d5e7b29ffb5';
 export default node;

@@ -1,6 +1,6 @@
 import { Row, Tooltip, Typography } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
@@ -12,7 +12,8 @@ import mappers from '../../mappers';
 import GET_USER_ORDERS, {
   OrdersRelayGetAllUserOrdersQuery,
 } from '../../__generated__/OrdersRelayGetAllUserOrdersQuery.graphql';
-import { OrderProduct, OrderStatusType, OrderTypes, UserOrder } from './types';
+import { OrderProduct, OrderTypes, UserOrder } from './types';
+import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
 
 const READY_STATUS = 'Onay Bekliyor';
 
@@ -66,24 +67,7 @@ const columns = [
     title: 'Ürün(ler)',
     dataIndex: 'products',
     render: (products: OrderProduct[]) => {
-      return products.map((product) => {
-        const { name, productName, count, metaInfo } = product;
-        const text = name || productName;
-        const no = count === 1 ? '' : `x${count}`;
-        const getMetaInfo = () => {
-          if (metaInfo) {
-            return `Ayak: ${metaInfo.AY} \n Tabla: ${metaInfo.TB}`;
-          }
-          return '';
-        };
-        return (
-          <Row>
-            <Tooltip placement="topLeft" title={getMetaInfo}>
-              <Typography>{`${text} ${no}`}</Typography>
-            </Tooltip>
-          </Row>
-        );
-      });
+      return <MultiProductDisplayer products={products} withMetaTooltip />;
     },
   },
   {

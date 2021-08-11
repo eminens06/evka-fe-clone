@@ -2,35 +2,31 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type ProductOrderType = "NR" | "SP" | "%future added value";
 export type UserOrderOrderType = "N" | "NR" | "SP" | "ST" | "%future added value";
-export type OrdersRelayGetAllUserOrdersQueryVariables = {};
-export type OrdersRelayGetAllUserOrdersQueryResponse = {
+export type UserOrderShipmentType = "C" | "D" | "S" | "%future added value";
+export type ShipmentInvoiceRelayInvoiceQueryVariables = {};
+export type ShipmentInvoiceRelayInvoiceQueryResponse = {
     readonly allUserOrders: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly notes: string;
-                readonly estimatedDeliveryDate: unknown | null;
                 readonly id: string;
-                readonly totalPrice: number;
+                readonly notes: string;
                 readonly orderType: UserOrderOrderType;
+                readonly shipmentType: UserOrderShipmentType;
+                readonly shipmentCompanyName: string;
+                readonly customerInfo: unknown;
+                readonly marketplaceOrderId: string;
                 readonly marketplace: {
                     readonly name: string;
                 } | null;
-                readonly customerInfo: unknown;
-                readonly marketplaceOrderId: string;
-                readonly orderStatus: string | null;
                 readonly products: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
-                            readonly orderCount: number;
-                            readonly type: ProductOrderType;
-                            readonly notes: string;
+                            readonly price: number;
                             readonly product: {
-                                readonly sku: string | null;
                                 readonly name: string;
-                                readonly productName: string;
-                                readonly metaInfo: unknown | null;
+                                readonly id: string;
+                                readonly sku: string | null;
                             } | null;
                         } | null;
                     } | null>;
@@ -39,42 +35,37 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
         } | null>;
     } | null;
 };
-export type OrdersRelayGetAllUserOrdersQuery = {
-    readonly response: OrdersRelayGetAllUserOrdersQueryResponse;
-    readonly variables: OrdersRelayGetAllUserOrdersQueryVariables;
+export type ShipmentInvoiceRelayInvoiceQuery = {
+    readonly response: ShipmentInvoiceRelayInvoiceQueryResponse;
+    readonly variables: ShipmentInvoiceRelayInvoiceQueryVariables;
 };
 
 
 
 /*
-query OrdersRelayGetAllUserOrdersQuery {
-  allUserOrders(notCompleted: "") {
+query ShipmentInvoiceRelayInvoiceQuery {
+  allUserOrders(byInvoiceStatus: "R") {
     edges {
       node {
-        notes
-        estimatedDeliveryDate
         id
-        totalPrice
+        notes
         orderType
+        shipmentType
+        shipmentCompanyName
+        customerInfo
+        marketplaceOrderId
         marketplace {
           name
           id
         }
-        customerInfo
-        marketplaceOrderId
-        orderStatus
         products {
           edges {
             node {
-              orderCount
-              type
-              notes
+              price
               product {
-                sku
                 name
-                productName
-                metaInfo
                 id
+                sku
               }
               id
             }
@@ -90,106 +81,91 @@ const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "kind": "Literal",
-    "name": "notCompleted",
-    "value": ""
+    "name": "byInvoiceStatus",
+    "value": "R"
   }
 ],
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "notes",
+  "name": "id",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "estimatedDeliveryDate",
+  "name": "notes",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "orderType",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "totalPrice",
+  "name": "shipmentType",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderType",
+  "name": "shipmentCompanyName",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "customerInfo",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "customerInfo",
+  "name": "marketplaceOrderId",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marketplaceOrderId",
+  "name": "name",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderStatus",
+  "name": "price",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "orderCount",
-  "storageKey": null
-},
-v11 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "type",
-  "storageKey": null
-},
-v12 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "sku",
-  "storageKey": null
-},
-v13 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "productName",
-  "storageKey": null
-},
-v14 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "metaInfo",
+  "concreteType": "ProductNode",
+  "kind": "LinkedField",
+  "name": "product",
+  "plural": false,
+  "selections": [
+    (v8/*: any*/),
+    (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "sku",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 };
 return {
@@ -197,7 +173,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "OrdersRelayGetAllUserOrdersQuery",
+    "name": "ShipmentInvoiceRelayInvoiceQuery",
     "selections": [
       {
         "alias": null,
@@ -228,6 +204,8 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -236,13 +214,10 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/)
+                      (v8/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -267,24 +242,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
-                              (v11/*: any*/),
-                              (v1/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "ProductNode",
-                                "kind": "LinkedField",
-                                "name": "product",
-                                "plural": false,
-                                "selections": [
-                                  (v12/*: any*/),
-                                  (v6/*: any*/),
-                                  (v13/*: any*/),
-                                  (v14/*: any*/)
-                                ],
-                                "storageKey": null
-                              }
+                              (v9/*: any*/),
+                              (v10/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -301,7 +260,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allUserOrders(notCompleted:\"\")"
+        "storageKey": "allUserOrders(byInvoiceStatus:\"R\")"
       }
     ],
     "type": "Query"
@@ -310,7 +269,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "OrdersRelayGetAllUserOrdersQuery",
+    "name": "ShipmentInvoiceRelayInvoiceQuery",
     "selections": [
       {
         "alias": null,
@@ -341,6 +300,8 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -349,14 +310,11 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/),
-                      (v3/*: any*/)
+                      (v8/*: any*/),
+                      (v1/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -381,26 +339,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
+                              (v9/*: any*/),
                               (v10/*: any*/),
-                              (v11/*: any*/),
-                              (v1/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "ProductNode",
-                                "kind": "LinkedField",
-                                "name": "product",
-                                "plural": false,
-                                "selections": [
-                                  (v12/*: any*/),
-                                  (v6/*: any*/),
-                                  (v13/*: any*/),
-                                  (v14/*: any*/),
-                                  (v3/*: any*/)
-                                ],
-                                "storageKey": null
-                              },
-                              (v3/*: any*/)
+                              (v1/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -417,18 +358,18 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allUserOrders(notCompleted:\"\")"
+        "storageKey": "allUserOrders(byInvoiceStatus:\"R\")"
       }
     ]
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "OrdersRelayGetAllUserOrdersQuery",
+    "name": "ShipmentInvoiceRelayInvoiceQuery",
     "operationKind": "query",
-    "text": "query OrdersRelayGetAllUserOrdersQuery {\n  allUserOrders(notCompleted: \"\") {\n    edges {\n      node {\n        notes\n        estimatedDeliveryDate\n        id\n        totalPrice\n        orderType\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        products {\n          edges {\n            node {\n              orderCount\n              type\n              notes\n              product {\n                sku\n                name\n                productName\n                metaInfo\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentInvoiceRelayInvoiceQuery {\n  allUserOrders(byInvoiceStatus: \"R\") {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentCompanyName\n        customerInfo\n        marketplaceOrderId\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              price\n              product {\n                name\n                id\n                sku\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '3fda718d39d9366c8cc7a12eef794ee5';
+(node as any).hash = '3a3c09156e1d3a0bbbfe7aa830f1b102';
 export default node;

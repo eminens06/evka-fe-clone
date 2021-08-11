@@ -36,7 +36,7 @@ export const RoleTexts = {
   [Roles.shipment_invoice]: 'Sevkiyat/Fatura',
   [Roles.shipment_shipmentManagement]: 'Sevkiyat Yönetimi',
   [Roles.shipment_shipmentOrder]: 'Sevkiyat',
-  [Roles.shipment_summary]: 'Sevkiyat Özeti',
+  [Roles.shipment_summary]: 'Sevkiyat/Fatura Özeti',
   [Roles.log]: 'Loglar',
   [Roles.oem]: 'Al-Sat',
   [Roles.orders]: 'Siparişler',
@@ -104,7 +104,7 @@ export const RoleOptions: Option[] = [
     value: Roles.shipment_shipmentOrder,
   },
   {
-    text: 'Sevkiyat Özeti',
+    text: 'Sevkiyat/Fatura Özeti',
     value: Roles.shipment_summary,
   },
   {

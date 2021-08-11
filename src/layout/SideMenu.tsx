@@ -97,7 +97,7 @@ const SideMenu: FunctionComponent<Props> = (props) => {
         >
           <CustomMenuItem
             role={Roles.shipment_summary}
-            title="Sevkiyat Özeti"
+            title="Sevkiyat/Fatura Özeti"
           />
           <CustomMenuItem
             role={Roles.shipment_shipmentManagement}

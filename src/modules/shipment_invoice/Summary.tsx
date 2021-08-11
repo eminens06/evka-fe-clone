@@ -1,15 +1,18 @@
 import { Typography } from 'antd';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
 import { InvoiceStatus, ShipmentStatus } from './types';
 import Status from '../../atoms/Status';
 import { InvoiceStatusMapper, ShipmentStatusMapper } from './helpers';
 import Table from '../../molecules/Table';
-
-const dummyData: any = [];
-const isLoading = false;
-const size = 10;
+import useFetchTablePagination from '../../hooks/useFetchTableData';
+import GET_SUMMARY_LIST, {
+  ShipmentInvoiceRelaySummaryQuery,
+} from '../../__generated__/ShipmentInvoiceRelaySummaryQuery.graphql';
+import mappers from '../../mappers';
+import { OrderProduct } from '../orders/types';
+import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
 
 const columns = [
   {
@@ -18,9 +21,17 @@ const columns = [
     dataIndex: 'orderId',
   },
   {
+    key: 'products',
+    title: 'Ürün(ler)',
+    dataIndex: 'products',
+    render: (products: OrderProduct[]) => {
+      return <MultiProductDisplayer products={products} />;
+    },
+  },
+  {
     key: 'remainingTime',
     title: 'Kalan Süre',
-    dataIndex: 'fullName',
+    dataIndex: 'remainingTime',
   },
   {
     key: 'customer',
@@ -32,6 +43,7 @@ const columns = [
     title: 'Sevk Durumu',
     dataIndex: 'shipmentStatus',
     render: (value: ShipmentStatus) => {
+      console.log('Value : ', value);
       const { text, status } = ShipmentStatusMapper[value];
       return <Status status={status} text={text} />;
     },
@@ -48,18 +60,18 @@ const columns = [
 ];
 
 const Summary: FunctionComponent = () => {
-  /* const {
+  const {
     data,
     size,
     isLoading,
     forceFetchQuery,
-  } = useFetchTablePagination<UsersRelayGetAllUsersQuery>(
-    GET_USERS,
+  } = useFetchTablePagination<ShipmentInvoiceRelaySummaryQuery>(
+    GET_SUMMARY_LIST,
     {
       search: '',
     },
-    mappers.userMapper,
-  ); */
+    mappers.shipmentInvoiceSummaryMapper,
+  );
 
   const onSearch = (value: string) => {
     /*forceFetchQuery({
@@ -76,8 +88,8 @@ const Summary: FunctionComponent = () => {
         </div>
         <Table
           columns={columns}
-          dataSource={dummyData}
-          rowKey="name"
+          dataSource={data}
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,

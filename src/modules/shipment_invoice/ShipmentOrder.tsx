@@ -7,18 +7,15 @@ import mappers from '../../mappers';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
 import ADD_CARGO_NO, {
-  ShipmentRelayAddCargoNoMutation,
-} from '../../__generated__/ShipmentRelayAddCargoNoMutation.graphql';
+  ShipmentInvoiceRelayAddCargoNoMutation,
+} from '../../__generated__/ShipmentInvoiceRelayAddCargoNoMutation.graphql';
 import ADD_CARGO_PRICE, {
-  ShipmentRelayAddCargoPriceMutation,
-} from '../../__generated__/ShipmentRelayAddCargoPriceMutation.graphql';
+  ShipmentInvoiceRelayAddCargoPriceMutation,
+} from '../../__generated__/ShipmentInvoiceRelayAddCargoPriceMutation.graphql';
 import GET_ORDERS, {
-  ShipmentRelayGetAllUserOrdersQuery,
-} from '../../__generated__/ShipmentRelayGetAllUserOrdersQuery.graphql';
+  ShipmentInvoiceRelayGetAllUserOrdersQuery,
+} from '../../__generated__/ShipmentInvoiceRelayGetAllUserOrdersQuery.graphql';
 import AddEditCard from '../common/AddEditCard';
-
-const size = 10;
-const isLoading = false;
 
 const columns = [
   {
@@ -78,7 +75,7 @@ const ShipmentOrder: FunctionComponent = () => {
     size,
     isLoading,
     forceFetchQuery,
-  } = useFetchTablePagination<ShipmentRelayGetAllUserOrdersQuery>(
+  } = useFetchTablePagination<ShipmentInvoiceRelayGetAllUserOrdersQuery>(
     GET_ORDERS,
     {
       status: 'O',
@@ -86,7 +83,7 @@ const ShipmentOrder: FunctionComponent = () => {
     mappers.shipmentOrderMapper,
   );
 
-  const [addCargoNo] = useMutation<ShipmentRelayAddCargoNoMutation>(
+  const [addCargoNo] = useMutation<ShipmentInvoiceRelayAddCargoNoMutation>(
     ADD_CARGO_NO,
     {
       onError: (error: any) => {
@@ -102,21 +99,20 @@ const ShipmentOrder: FunctionComponent = () => {
     },
   );
 
-  const [addCargoPrice] = useMutation<ShipmentRelayAddCargoPriceMutation>(
-    ADD_CARGO_PRICE,
-    {
-      onError: (error: any) => {
-        message.error('Hata! ', error.response.errors[0].message);
-      },
-      onCompleted: (res) => {
-        message.success('Kargo Durumu Başarıyla Güncellendi');
-        forceFetchQuery({
-          status: 'O',
-        });
-        closeModal();
-      },
+  const [
+    addCargoPrice,
+  ] = useMutation<ShipmentInvoiceRelayAddCargoPriceMutation>(ADD_CARGO_PRICE, {
+    onError: (error: any) => {
+      message.error('Hata! ', error.response.errors[0].message);
     },
-  );
+    onCompleted: (res) => {
+      message.success('Kargo Durumu Başarıyla Güncellendi');
+      forceFetchQuery({
+        status: 'O',
+      });
+      closeModal();
+    },
+  });
 
   const onTableClick = (data: any) => {
     form.setFieldsValue({ cargoChaseNumber: data.cargoChaseNumber });
@@ -198,7 +194,7 @@ const ShipmentOrder: FunctionComponent = () => {
           </Typography.Title>
         </div>
         <Table
-          onRow={(record, rowIndex) => {
+          onRow={(record: any) => {
             return {
               onClick: () => onTableClick(record),
             };

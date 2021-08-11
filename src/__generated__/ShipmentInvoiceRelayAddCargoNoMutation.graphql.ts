@@ -2,33 +2,33 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type AddCargoPriceInput = {
+export type AddCargoChaseNumberInput = {
     userOrderId: string;
-    cargoPrice: string;
+    cargoChaseNumber: string;
     clientMutationId?: string | null;
 };
-export type ShipmentRelayAddCargoPriceMutationVariables = {
-    input: AddCargoPriceInput;
+export type ShipmentInvoiceRelayAddCargoNoMutationVariables = {
+    input: AddCargoChaseNumberInput;
 };
-export type ShipmentRelayAddCargoPriceMutationResponse = {
-    readonly addCargoPrice: {
+export type ShipmentInvoiceRelayAddCargoNoMutationResponse = {
+    readonly addCargoChaseNumber: {
         readonly userOrder: {
             readonly id: string;
         } | null;
     } | null;
 };
-export type ShipmentRelayAddCargoPriceMutation = {
-    readonly response: ShipmentRelayAddCargoPriceMutationResponse;
-    readonly variables: ShipmentRelayAddCargoPriceMutationVariables;
+export type ShipmentInvoiceRelayAddCargoNoMutation = {
+    readonly response: ShipmentInvoiceRelayAddCargoNoMutationResponse;
+    readonly variables: ShipmentInvoiceRelayAddCargoNoMutationVariables;
 };
 
 
 
 /*
-mutation ShipmentRelayAddCargoPriceMutation(
-  $input: AddCargoPriceInput!
+mutation ShipmentInvoiceRelayAddCargoNoMutation(
+  $input: AddCargoChaseNumberInput!
 ) {
-  addCargoPrice(input: $input) {
+  addCargoChaseNumber(input: $input) {
     userOrder {
       id
     }
@@ -42,7 +42,7 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "AddCargoPriceInput!"
+    "type": "AddCargoChaseNumberInput!"
   }
 ],
 v1 = [
@@ -55,9 +55,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "AddCargoPricePayload",
+    "concreteType": "AddCargoChaseNumberPayload",
     "kind": "LinkedField",
-    "name": "addCargoPrice",
+    "name": "addCargoChaseNumber",
     "plural": false,
     "selections": [
       {
@@ -87,7 +87,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ShipmentRelayAddCargoPriceMutation",
+    "name": "ShipmentInvoiceRelayAddCargoNoMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation"
   },
@@ -95,17 +95,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ShipmentRelayAddCargoPriceMutation",
+    "name": "ShipmentInvoiceRelayAddCargoNoMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ShipmentRelayAddCargoPriceMutation",
+    "name": "ShipmentInvoiceRelayAddCargoNoMutation",
     "operationKind": "mutation",
-    "text": "mutation ShipmentRelayAddCargoPriceMutation(\n  $input: AddCargoPriceInput!\n) {\n  addCargoPrice(input: $input) {\n    userOrder {\n      id\n    }\n  }\n}\n"
+    "text": "mutation ShipmentInvoiceRelayAddCargoNoMutation(\n  $input: AddCargoChaseNumberInput!\n) {\n  addCargoChaseNumber(input: $input) {\n    userOrder {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8d0e76fe88403467a00afd88e11405ef';
+(node as any).hash = '170ed59addba234bd773d21fdda87229';
 export default node;
