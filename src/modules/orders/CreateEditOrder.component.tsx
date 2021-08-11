@@ -26,6 +26,7 @@ import UPDATE_ORDER, {
 } from '../../__generated__/OrdersUpdateOrderMutation.graphql';
 import { OrderTypes } from './types';
 import InvoiceCard from '../../molecules/InvoiceCard';
+import CancelOrderModal from './CancelOrderModal';
 
 interface Props {
   orderType: OrderTypes;
@@ -39,6 +40,8 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
   const [userRoles, setUserRoles] = useState<string[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [productOrderIds, setProductOrderIds] = useState<string[]>([]);
+
+  const [cancelModalVisible, setCancelModalVisible] = useState(false);
 
   const [initialValues, setInitialValues] = useState<any>();
 
@@ -130,6 +133,10 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
     }
   };
 
+  const openCancelModal = () => {
+    setCancelModalVisible(true);
+  };
+
   return (
     <>
       <Header className="site-layout-sub-header-background">
@@ -197,20 +204,46 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
             isDisabled={!isAdmin && isEdit}
           />
         )}
-        <Row className="buttons-row">
-          <Form.Item>
-            {!isAdmin && isEdit ? (
-              <Button type="default" onClick={() => router.back()}>
-                Vazgeç
-              </Button>
-            ) : (
-              <Button type="primary" htmlType="submit">
-                Kaydet
-              </Button>
-            )}
-          </Form.Item>
+        <Row
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          {isEdit && (
+            <Button
+              type="primary"
+              className="cancel-button"
+              danger
+              onClick={openCancelModal}
+            >
+              İptal Et
+            </Button>
+          )}
+          <Row className="buttons-row">
+            <Form.Item>
+              {!isAdmin && isEdit ? (
+                <Button type="default" onClick={() => router.back()}>
+                  Vazgeç
+                </Button>
+              ) : (
+                <Button type="primary" htmlType="submit">
+                  Kaydet
+                </Button>
+              )}
+            </Form.Item>
+          </Row>
         </Row>
       </Form>
+      {isEdit && initialValues && (
+        <CancelOrderModal
+          isVisible={cancelModalVisible}
+          closeModal={() => setCancelModalVisible(false)}
+          orderId={router?.query?.id}
+          products={initialValues.cancelModalProducts}
+        />
+      )}
     </>
   );
 };

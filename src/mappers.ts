@@ -283,6 +283,32 @@ const allProductsMapper = (data: any) => {
   });
 };
 
+const cancelModalProductMapper = (userOrder: any) => {
+  const products = genericTableDataMapper(userOrder, 'products');
+  if (products.length <= 1) {
+    return [];
+  }
+  const generateName = (metadata: any, productName: any) => {
+    return `${productName}: ${metadata.AY}(Ayak) ${metadata.TB}(Tabla)`;
+  };
+  return products.map((item) => {
+    const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
+    const metaInfo = {
+      AY: undefined,
+      TB: undefined,
+    };
+    metaProducts.forEach((mt) => {
+      if (mt.categoryName === 'TB' || mt.categoryName === 'AY') {
+        metaInfo[mt.categoryName] = mt.materialName;
+      }
+    });
+    return {
+      value: item.id,
+      text: generateName(metaInfo, item.product.name),
+    };
+  });
+};
+
 export const userOrderMapper = (userOrder: any) => {
   const customer: CustomerDTO = JSON.parse(userOrder?.customerInfo as string);
   return {
@@ -298,6 +324,7 @@ export const userOrderMapper = (userOrder: any) => {
     marketplaceOrderId: userOrder.marketplaceOrderId,
     marketplaceId: JSON.stringify(userOrder.marketplace),
     products: productCardMapper(userOrder.products),
+    cancelModalProducts: cancelModalProductMapper(userOrder),
     isSameAddress: customer.delivery_address === customer.invoice_address,
     isCorporate: customer.is_corporate,
     invoiceDate: userOrder.invoiceDate,
