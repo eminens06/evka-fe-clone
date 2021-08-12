@@ -44,6 +44,7 @@ import {
   ShipmentInvoiceSummaryData,
   ShipmentStatus,
 } from './modules/shipment_invoice/types';
+import { TemplateData } from './modules/template/types';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -748,6 +749,27 @@ const shipmentInvoiceSummaryMapper = (
   });
 };
 
+const templateMapper = (data: any): TemplateData => {
+  let ayak = '';
+  let tabla = '';
+  const metaData = genericTableDataMapper(data.product, 'metaProducts');
+  metaData.forEach((mt) => {
+    if (mt.categoryName == 'TB') {
+      tabla = mt.materialName;
+    } else if (mt.categoryName == 'AY') {
+      ayak = mt.materialName;
+    }
+  });
+  return {
+    sku: data.product.sku,
+    name: data.product.name,
+    notes: data.notes === '' ? undefined : data.notes,
+    measure: `${data.product.width} x ${data.product.height} x ${data.product.length} mm`,
+    ayak,
+    tabla,
+  };
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -765,4 +787,5 @@ export default {
   packagingListMapper,
   shipmentManagementMapper,
   shipmentOrderMapper,
+  templateMapper,
 };

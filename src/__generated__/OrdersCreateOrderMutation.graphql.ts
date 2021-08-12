@@ -42,7 +42,7 @@ export type UserOrderCreateInput = {
     marketplaceOrderId?: string | null;
     completedDate?: unknown | null;
     productOrderIds?: Array<string | null> | null;
-    orderType?: string | null;
+    orderType: string;
 };
 export type CustomerInfo = {
     isCorporate?: boolean | null;

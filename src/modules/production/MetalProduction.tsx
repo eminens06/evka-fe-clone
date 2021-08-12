@@ -78,10 +78,9 @@ const MetalProduction: FunctionComponent = () => {
 
   const showBluePrint = () => {
     //TODO: replace with real data
-    window.open(
-      '/template?id=VXNlck9yZGVyTm9kZTpmOGU4ZjIwOC1mODRlLTQxNDAtYjBmOC1hZDQwYzJmMzQ5ZWI%3D',
-      '_blank',
-    );
+    if (modalData) {
+      window.open(`/template?id=${modalData.id}`, '_blank');
+    }
   };
 
   return (
@@ -92,7 +91,7 @@ const MetalProduction: FunctionComponent = () => {
           <Typography.Title level={5}>Metal Atölyesi</Typography.Title>
         </div>
         <Table
-          onRow={(record, rowIndex) => {
+          onRow={(record: ProductionMainWorkshopData) => {
             return {
               onClick: () => onTableClick(record),
             };
