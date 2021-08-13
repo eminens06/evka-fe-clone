@@ -13,10 +13,10 @@ export type ShipmentInvoiceRelayInvoiceMutationVariables = {
 };
 export type ShipmentInvoiceRelayInvoiceMutationResponse = {
     readonly invoiceMutation: {
-        readonly userOrder: ReadonlyArray<{
+        readonly userOrder: {
             readonly id: string;
             readonly invoiceStatus: string | null;
-        } | null> | null;
+        } | null;
     } | null;
 };
 export type ShipmentInvoiceRelayInvoiceMutation = {
@@ -69,7 +69,7 @@ v1 = [
         "concreteType": "UserOrderNode",
         "kind": "LinkedField",
         "name": "userOrder",
-        "plural": true,
+        "plural": false,
         "selections": [
           {
             "alias": null,

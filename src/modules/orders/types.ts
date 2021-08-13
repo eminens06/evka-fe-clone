@@ -19,14 +19,14 @@ type OrderProductMetaInfo = {
   [MetadataType.TB]: string;
 };
 
-export type OrderProduct = {
+export interface OrderProduct {
   count: number;
   name: string;
   productName: string;
   metaInfo?: OrderProductMetaInfo;
   sku: string;
   price?: number;
-};
+}
 
 export type UserOrderProductDTO = {
   price?: number;
