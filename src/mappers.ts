@@ -45,6 +45,13 @@ import {
   ShipmentStatus,
 } from './modules/shipment_invoice/types';
 import { TemplateData } from './modules/template/types';
+import {
+  laborFields,
+  metalFields,
+  otherFields,
+  otherWorkshopFields,
+  woodFields,
+} from './modules/admin/parameters/enums';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -770,6 +777,31 @@ const templateMapper = (data: any): TemplateData => {
   };
 };
 
+const reduceSystemParams = (fields: any, values: any) =>
+  fields.reduce((acc: any, field: any) => {
+    acc[field.name] = values[field.name];
+    return acc;
+  }, {});
+
+const systemParamsSaveMapper = (values: any) => {
+  const metalParams = reduceSystemParams(metalFields, values);
+  const woodParams = reduceSystemParams(woodFields, values);
+  const otherWorkshopParams = reduceSystemParams(otherWorkshopFields, values);
+  const laborParams = reduceSystemParams(laborFields, values);
+  const otherParams = reduceSystemParams(otherFields, values);
+
+  const willSaveData: any = {
+    systemParamInput: {
+      metalParams: metalParams,
+      woodParams: woodParams,
+      otherWorkshopParams: otherWorkshopParams,
+      laborParams: laborParams,
+      otherParams: otherParams,
+    },
+  };
+  return willSaveData;
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -788,4 +820,5 @@ export default {
   shipmentManagementMapper,
   shipmentOrderMapper,
   templateMapper,
+  systemParamsSaveMapper,
 };

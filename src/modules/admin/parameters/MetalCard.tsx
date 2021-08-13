@@ -1,4 +1,4 @@
-import { Card, Form, Row, Col, Input, FormInstance } from 'antd';
+import { Card, Form, Row, Col, Input, FormInstance, InputNumber } from 'antd';
 import React, { FC, useEffect } from 'react';
 import { metalFields } from './enums';
 interface Props {
@@ -19,9 +19,9 @@ const MetalCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
               <Form.Item
                 name={item.name}
                 label={item.label}
-                rules={[{ required: true, message: 'Bu alan boş olamaz.' }]}
+                rules={[{ required: false, message: 'Bu alan boş olamaz.' }]}
               >
-                <Input type="number" disabled={isDisabled} />
+                <InputNumber style={{ width: '100%' }} disabled={isDisabled} />
               </Form.Item>
             </Col>
           );

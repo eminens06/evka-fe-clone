@@ -1,18 +1,48 @@
-import { Breadcrumb, Form, Row, Button } from 'antd';
+import { Breadcrumb, Form, Row, Button, message } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import React, { FunctionComponent, useState } from 'react';
+import { useMutation } from 'relay-hooks';
+import mappers from '../../../mappers';
+import SAVE_PARAMS, {
+  ParametersRelayCreateMutation,
+  SystemParamCreateInput,
+} from '../../../__generated__/ParametersRelayCreateMutation.graphql';
+import {
+  laborFields,
+  metalFields,
+  otherFields,
+  otherWorkshopFields,
+  woodFields,
+} from './enums';
 import LaborCard from './LaborCard';
 import MetalCard from './MetalCard';
 import OtherCard from './OtherCard';
 import OtherWorkshopCard from './OtherWorkshopCard';
+import { SystemFormTypes } from './types';
 import WoodCard from './WoodCard';
 
 const CreateEditParameters: FunctionComponent = () => {
   const [initialValues, setInitialValues] = useState<any>();
 
   const [form] = Form.useForm();
-  const onFinish = () => {
-    console.log('TODO: create update system params');
+
+  const [saveParams] = useMutation<ParametersRelayCreateMutation>(SAVE_PARAMS, {
+    onError: (error: any) => {
+      message.error('Hata! ', error.response.errors[0].message);
+    },
+    onCompleted: (res) => {
+      message.success('Sistem parametreleri kaydedildi.');
+    },
+  });
+
+  const onSave = (values: any) => {
+    const willSaveData = mappers.systemParamsSaveMapper(values);
+
+    saveParams({
+      variables: {
+        input: { ...willSaveData },
+      },
+    });
   };
 
   return (
@@ -23,7 +53,7 @@ const CreateEditParameters: FunctionComponent = () => {
           <Breadcrumb.Item>Sistem Parametreleri</Breadcrumb.Item>
         </Breadcrumb>
       </Header>
-      <Form form={form} layout="vertical" onFinish={onFinish}>
+      <Form form={form} layout="vertical" onFinish={onSave}>
         <MetalCard form={form} initialValues={initialValues} />
         <WoodCard form={form} initialValues={initialValues} />
         <OtherWorkshopCard form={form} initialValues={initialValues} />
