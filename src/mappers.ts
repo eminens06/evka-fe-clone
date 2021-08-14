@@ -45,6 +45,13 @@ import {
   ShipmentStatus,
 } from './modules/shipment_invoice/types';
 import { TemplateData } from './modules/template/types';
+import {
+  laborFields,
+  metalFields,
+  otherFields,
+  otherWorkshopFields,
+  woodFields,
+} from './modules/admin/parameters/enums';
 import { LogOrderTypeTexts } from './modules/log/helpers';
 import {
   HistoryDTO,
@@ -781,6 +788,30 @@ const templateMapper = (data: any): TemplateData => {
   };
 };
 
+const reduceSystemParams = (fields: any, values: any) =>
+  fields.reduce((acc: any, field: any) => {
+    acc[field.name] = values[field.name];
+    return acc;
+  }, {});
+
+const systemParamsSaveMapper = (values: any) => {
+  const metalParams = reduceSystemParams(metalFields, values);
+  const woodParams = reduceSystemParams(woodFields, values);
+  const otherWorkshopParams = reduceSystemParams(otherWorkshopFields, values);
+  const laborParams = reduceSystemParams(laborFields, values);
+  const otherParams = reduceSystemParams(otherFields, values);
+
+  const willSaveData: any = {
+    systemParamInput: {
+      metalParams: metalParams,
+      woodParams: woodParams,
+      otherWorkshopParams: otherWorkshopParams,
+      laborParams: laborParams,
+      otherParams: otherParams,
+    },
+  };
+  return willSaveData;
+};
 const mapLogProducts = (data: any): LogOrderProduct[] => {
   return data.map((item: any) => {
     const externalService = genericTableDataMapper(item, 'externalService');
@@ -846,6 +877,16 @@ const productHistoryMapper = (data: ProductHistoryDTO[]): ProductHistory[] => {
   });
 };
 
+const systemParamMapper = (systemParams: any) => {
+  let returnData = {};
+  Object.keys(systemParams).map((key, index) => {
+    if (key !== 'id') {
+      returnData = { ...returnData, ...systemParams[key] };
+    }
+  });
+  return returnData;
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -864,7 +905,9 @@ export default {
   shipmentManagementMapper,
   shipmentOrderMapper,
   templateMapper,
+  systemParamsSaveMapper,
   logListMapper,
   orderHistoryMapper,
   productHistoryMapper,
+  systemParamMapper,
 };
