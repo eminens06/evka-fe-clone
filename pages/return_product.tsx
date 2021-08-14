@@ -1,14 +1,14 @@
 import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
-import ReturnCancelScreen from '../src/modules/return_cancel';
+import AddReturnProduct from '../src/modules/return_cancel/AddReturnProduct';
 import environment from '../src/relay/environment';
 
-const ReturnCancel: NextPage = () => {
+const ReturnProduct: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <ReturnCancelScreen />
+      <AddReturnProduct />
     </RelayEnvironmentProvider>
   );
 };
 
-export default ReturnCancel;
+export default ReturnProduct;

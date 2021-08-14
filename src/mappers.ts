@@ -910,4 +910,5 @@ export default {
   orderHistoryMapper,
   productHistoryMapper,
   systemParamMapper,
+  cancelModalProductMapper,
 };
