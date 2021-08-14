@@ -43,6 +43,8 @@ export type UserOrderCreateInput = {
     marketplaceOrderId?: string | null;
     completedDate?: unknown | null;
     productOrderIds?: Array<string | null> | null;
+    invoiceAddress?: string | null;
+    deliveryAddress?: string | null;
     orderType: string;
 };
 export type CustomerInfo = {

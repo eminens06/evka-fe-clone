@@ -264,6 +264,8 @@ const metadataMapper = (data: MetadataDTO[]): Metadata[] => {
       id: item.id,
       material: item.materialName,
       number: item.materialId,
+      metaType: item.metaType,
+      paintType: item.paintType,
     };
   });
 };

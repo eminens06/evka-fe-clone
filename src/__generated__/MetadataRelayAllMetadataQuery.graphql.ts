@@ -3,6 +3,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
+export type MetaProductMetaType = "DF" | "F" | "G" | "M" | "MT" | "WD" | "%future added value";
+export type MetaProductPaintType = "DF" | "MT" | "WD" | "%future added value";
 export type MetadataRelayAllMetadataQueryVariables = {
     category?: string | null;
     search?: string | null;
@@ -15,6 +17,8 @@ export type MetadataRelayAllMetadataQueryResponse = {
                 readonly categoryName: MetaProductCategoryName;
                 readonly materialName: string;
                 readonly materialId: number | null;
+                readonly metaType: MetaProductMetaType;
+                readonly paintType: MetaProductPaintType;
             } | null;
         } | null>;
     } | null;
@@ -38,6 +42,8 @@ query MetadataRelayAllMetadataQuery(
         categoryName
         materialName
         materialId
+        metaType
+        paintType
       }
     }
   }
@@ -122,6 +128,20 @@ v1 = [
                 "kind": "ScalarField",
                 "name": "materialId",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "metaType",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "paintType",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -154,9 +174,9 @@ return {
     "metadata": {},
     "name": "MetadataRelayAllMetadataQuery",
     "operationKind": "query",
-    "text": "query MetadataRelayAllMetadataQuery(\n  $category: String\n  $search: String\n) {\n  allMetaProducts(byCategory: $category, superSearch: $search) {\n    edges {\n      node {\n        id\n        categoryName\n        materialName\n        materialId\n      }\n    }\n  }\n}\n"
+    "text": "query MetadataRelayAllMetadataQuery(\n  $category: String\n  $search: String\n) {\n  allMetaProducts(byCategory: $category, superSearch: $search) {\n    edges {\n      node {\n        id\n        categoryName\n        materialName\n        materialId\n        metaType\n        paintType\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e304bb2fe734a15e32a97140cad65220';
+(node as any).hash = '0ed3ad3246a4efe87ad2d8642307e752';
 export default node;

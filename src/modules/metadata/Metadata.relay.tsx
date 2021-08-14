@@ -9,6 +9,8 @@ graphql`
           categoryName
           materialName
           materialId
+          metaType
+          paintType
         }
       }
     }
@@ -25,6 +27,7 @@ graphql`
         materialName
         materialId
         metaType
+        paintType
         id
       }
     }
@@ -41,6 +44,7 @@ graphql`
         materialName
         materialId
         metaType
+        paintType
         id
       }
     }

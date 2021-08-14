@@ -4,6 +4,7 @@
 import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
 export type MetaProductMetaType = "DF" | "F" | "G" | "M" | "MT" | "WD" | "%future added value";
+export type MetaProductPaintType = "DF" | "MT" | "WD" | "%future added value";
 export type CreateMetaProductMutationInput = {
     metaProductInput?: MetaProductCreateInput | null;
     clientMutationId?: string | null;
@@ -13,6 +14,7 @@ export type MetaProductCreateInput = {
     materialName: string;
     materialId: number;
     metaType?: string | null;
+    paintType?: string | null;
 };
 export type MetadataRelayCreateMetadataMutationVariables = {
     input: CreateMetaProductMutationInput;
@@ -24,6 +26,7 @@ export type MetadataRelayCreateMetadataMutationResponse = {
             readonly materialName: string;
             readonly materialId: number | null;
             readonly metaType: MetaProductMetaType;
+            readonly paintType: MetaProductPaintType;
             readonly id: string;
         } | null;
     } | null;
@@ -45,6 +48,7 @@ mutation MetadataRelayCreateMetadataMutation(
       materialName
       materialId
       metaType
+      paintType
       id
     }
   }
@@ -115,6 +119,13 @@ v1 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "paintType",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
             "storageKey": null
           }
@@ -146,9 +157,9 @@ return {
     "metadata": {},
     "name": "MetadataRelayCreateMetadataMutation",
     "operationKind": "mutation",
-    "text": "mutation MetadataRelayCreateMetadataMutation(\n  $input: CreateMetaProductMutationInput!\n) {\n  createMetaProduct(input: $input) {\n    metaProduct {\n      categoryName\n      materialName\n      materialId\n      metaType\n      id\n    }\n  }\n}\n"
+    "text": "mutation MetadataRelayCreateMetadataMutation(\n  $input: CreateMetaProductMutationInput!\n) {\n  createMetaProduct(input: $input) {\n    metaProduct {\n      categoryName\n      materialName\n      materialId\n      metaType\n      paintType\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6a7aee30f3b52abd7391d31d86878837';
+(node as any).hash = '78c6a5efbe54e0b2ac0e7508469a6ee9';
 export default node;

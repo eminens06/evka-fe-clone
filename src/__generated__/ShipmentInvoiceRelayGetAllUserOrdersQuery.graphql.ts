@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type ProductOrderProductOrderStatus = "C" | "CC" | "D" | "DF" | "P" | "PP" | "%future added value";
+export type ProductOrderProductOrderStatus = "C" | "CC" | "D" | "DF" | "P" | "PP" | "RR" | "%future added value";
 export type UserOrderShipmentType = "C" | "D" | "S" | "%future added value";
 export type ShipmentInvoiceRelayGetAllUserOrdersQueryVariables = {
     status?: string | null;

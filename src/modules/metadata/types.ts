@@ -9,6 +9,9 @@ export enum MetaWorkshopType {
   MT = 'MT',
   WD = 'WD',
   DF = 'DF',
+  F = 'F',
+  M = 'M',
+  G = 'G',
 }
 
 export type MetadataDTO = {
