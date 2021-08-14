@@ -206,9 +206,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
         )}
         <Row
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            float: 'left',
           }}
         >
           {isEdit && (
@@ -221,19 +219,19 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
               İptal Et
             </Button>
           )}
-          <Row className="buttons-row">
-            <Form.Item>
-              {!isAdmin && isEdit ? (
-                <Button type="default" onClick={() => router.back()}>
-                  Vazgeç
-                </Button>
-              ) : (
-                <Button type="primary" htmlType="submit">
-                  Kaydet
-                </Button>
-              )}
-            </Form.Item>
-          </Row>
+        </Row>
+        <Row className="buttons-row">
+          <Form.Item>
+            {!isAdmin && isEdit ? (
+              <Button type="default" onClick={() => router.back()}>
+                Vazgeç
+              </Button>
+            ) : (
+              <Button type="primary" htmlType="submit">
+                Kaydet
+              </Button>
+            )}
+          </Form.Item>
         </Row>
       </Form>
       {isEdit && initialValues && (

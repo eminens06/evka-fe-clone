@@ -52,7 +52,7 @@ const CreateEditParameters: FunctionComponent = () => {
   const onSave = (values: any) => {
     const willSaveData = mappers.systemParamsSaveMapper(values);
     if (id !== '') {
-      willSaveData.id = id;
+      willSaveData.systemParamInput.id = id;
     }
     saveParams({
       variables: {
