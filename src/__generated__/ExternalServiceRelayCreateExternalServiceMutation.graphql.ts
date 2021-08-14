@@ -20,6 +20,7 @@ export type ExternalServiceRelayCreateExternalServiceMutationResponse = {
             readonly phoneNumber: string | null;
             readonly module: ExternalServiceModule;
             readonly address: string;
+            readonly isRawMaterial: boolean;
         } | null;
     } | null;
 };
@@ -40,6 +41,7 @@ mutation ExternalServiceRelayCreateExternalServiceMutation(
       phoneNumber
       module
       address
+      isRawMaterial
       id
     }
   }
@@ -89,6 +91,13 @@ v5 = {
   "kind": "ScalarField",
   "name": "address",
   "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isRawMaterial",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -116,7 +125,8 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
-              (v5/*: any*/)
+              (v5/*: any*/),
+              (v6/*: any*/)
             ],
             "storageKey": null
           }
@@ -152,6 +162,7 @@ return {
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
+              (v6/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -172,9 +183,9 @@ return {
     "metadata": {},
     "name": "ExternalServiceRelayCreateExternalServiceMutation",
     "operationKind": "mutation",
-    "text": "mutation ExternalServiceRelayCreateExternalServiceMutation(\n  $input: CreateExternalServiceInput!\n) {\n  createExternalService(input: $input) {\n    externalService {\n      name\n      phoneNumber\n      module\n      address\n      id\n    }\n  }\n}\n"
+    "text": "mutation ExternalServiceRelayCreateExternalServiceMutation(\n  $input: CreateExternalServiceInput!\n) {\n  createExternalService(input: $input) {\n    externalService {\n      name\n      phoneNumber\n      module\n      address\n      isRawMaterial\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '989301c8129b87adf72fb37ff73bb380';
+(node as any).hash = 'e6b93b1269ae2c74309af9d6566d475f';
 export default node;
