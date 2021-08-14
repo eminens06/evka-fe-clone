@@ -12,7 +12,10 @@ export type woodTypes = {
   mdfFireKatsayisi: number;
   mdfLamFiyat: number;
   ahsapKaplamaFiyat: number;
+  ahsapKaplamaFireKatsayisi: number;
   ahsapAstarKaplamaFireKatsayisi: number;
+  ahsapAstarKaplamaFiyat: number;
+  astarBasimFiyati: number;
   papelFiyat: number;
   laminantFiyat: number;
   cumbaFiyat: number;
@@ -22,8 +25,8 @@ export type woodTypes = {
   tornaFiyatKatsayisi: number;
   keresteFiyat: number;
   keresteFireKatsayisi: number;
-  digerKeresteFiyati: number;
-  digerKeresteFireKatsayisi: number;
+  masifPanelFiyati: number;
+  kontraplakFiyati: number;
   keresteKaplamaCilaFiyat: number;
   lakeBoyaFiyat: number;
 };

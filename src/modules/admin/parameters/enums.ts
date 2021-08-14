@@ -59,6 +59,10 @@ export const woodFields = [
     name: 'ahsapAstarKaplamaFireKatsayisi',
   },
   {
+    label: 'Astar Basım Fiyatı (TL/m2)',
+    name: 'astarBasimFiyati',
+  },
+  {
     label: 'Papel Fiyatı (TL/m2)',
     name: 'papelFiyat',
   },
@@ -95,8 +99,12 @@ export const woodFields = [
     name: 'keresteFireKatsayisi',
   },
   {
-    label: 'Diğer Kereste Fiyatı (TL/m3)',
-    name: 'digerKeresteFiyati',
+    label: 'Masif Panel Fiyatı (TL/m2)',
+    name: 'masifPanelFiyati',
+  },
+  {
+    label: 'Kontraplak Fiyatı (TL/m2)',
+    name: 'kontraplakFiyati',
   },
   {
     label: 'Kereste Kaplama Cila Fiyatı (TL/m2)',
