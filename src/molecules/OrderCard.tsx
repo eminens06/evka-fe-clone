@@ -27,7 +27,7 @@ interface Props {
 const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
-  const [isKdvInclude, setIsKdvInclude] = useState<boolean>(false);
+  const [isKdvInclude, setIsKdvInclude] = useState<boolean>(true);
 
   const { error, data, isLoading } = useQuery<OrdersAllMarketplacesQuery>(
     MARKETPLACES_QUERY,
@@ -54,7 +54,7 @@ const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
   };
 
   useEffect(() => {
-    setIsKdvInclude(initialValues?.isKdvInclude);
+    initialValues && setIsKdvInclude(initialValues?.isKdvInclude);
   }, [initialValues]);
 
   return (
