@@ -141,6 +141,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
 
   const onChange = (e: CheckboxChangeEvent) => {
     setIsCorporate(e.target.checked);
+    form.setFieldsValue({ isCorporate: e.target.checked });
   };
 
   const onAddressChange = (e: CheckboxChangeEvent) => {

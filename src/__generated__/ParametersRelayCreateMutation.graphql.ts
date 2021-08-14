@@ -21,8 +21,7 @@ export type MetalParamInput = {
     paslanmazKatsayisi?: number | null;
     bukumFiyat?: number | null;
     statikBoyaKatsayisi?: number | null;
-    eskitmePrincKatsayisi?: number | null;
-    parlakPrincKatsayisi?: number | null;
+    eskitmeParlakPrincKatsayisi?: number | null;
 };
 export type WoodParamInput = {
     mdfFiyat?: number | null;
