@@ -9714,17 +9714,7 @@
             {
               "defaultValue": null,
               "description": null,
-              "name": "eskitmePrincKatsayisi",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "parlakPrincKatsayisi",
+              "name": "eskitmeParlakPrincKatsayisi",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
