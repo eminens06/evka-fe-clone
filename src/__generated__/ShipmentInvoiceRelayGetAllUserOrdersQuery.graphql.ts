@@ -15,7 +15,7 @@ export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
                 readonly orderStatus: string | null;
                 readonly marketplaceOrderId: string;
                 readonly estimatedDeliveryDate: unknown | null;
-                readonly customerInfo: unknown;
+                readonly customerInfo: unknown | null;
                 readonly marketplace: {
                     readonly name: string;
                 } | null;

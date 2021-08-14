@@ -44,7 +44,7 @@ export type OrdersGetUserOrderQueryResponse = {
         readonly orderDate: unknown | null;
         readonly totalPrice: number;
         readonly notes: string;
-        readonly customerInfo: unknown;
+        readonly customerInfo: unknown | null;
         readonly commissionRate: number;
         readonly orderDeliveryTime: number;
         readonly marketplaceOrderId: string;

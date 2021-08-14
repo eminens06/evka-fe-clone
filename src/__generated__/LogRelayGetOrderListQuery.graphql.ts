@@ -19,7 +19,7 @@ export type LogRelayGetOrderListQueryResponse = {
                 readonly orderStatus: string | null;
                 readonly notes: string;
                 readonly totalPrice: number;
-                readonly customerInfo: unknown;
+                readonly customerInfo: unknown | null;
                 readonly marketplaceOrderId: string;
                 readonly marketplace: {
                     readonly name: string;

@@ -14,7 +14,7 @@ export type ShipmentInvoiceRelaySummaryQueryResponse = {
                 readonly orderType: UserOrderOrderType;
                 readonly shipmentType: UserOrderShipmentType;
                 readonly shipmentCompanyName: string;
-                readonly customerInfo: unknown;
+                readonly customerInfo: unknown | null;
                 readonly shipmentStatus: string | null;
                 readonly invoiceStatus: string | null;
                 readonly marketplaceOrderId: string;

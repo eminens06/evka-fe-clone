@@ -17,7 +17,7 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
                 readonly marketplace: {
                     readonly name: string;
                 } | null;
-                readonly customerInfo: unknown;
+                readonly customerInfo: unknown | null;
                 readonly marketplaceOrderId: string;
                 readonly orderStatus: string | null;
                 readonly products: {
