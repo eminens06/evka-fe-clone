@@ -15,7 +15,7 @@ export type SystemParamCreateInput = {
     otherParams?: OtherParamInput | null;
 };
 export type MetalParamInput = {
-    fiyat?: boolean | null;
+    fiyat?: number | null;
     sarfKatsayisi?: number | null;
     fireKatsayisi?: number | null;
     paslanmazKatsayisi?: number | null;
@@ -29,7 +29,9 @@ export type WoodParamInput = {
     mdfFireKatsayisi?: number | null;
     mdfLamFiyat?: number | null;
     ahsapKaplamaFiyat?: number | null;
+    ahsapKaplamaFireKatsayisi?: number | null;
     ahsapAstarKaplamaFireKatsayisi?: number | null;
+    ahsapAstarKaplamaFiyat?: number | null;
     astarBasimFiyati?: number | null;
     papelFiyat?: number | null;
     laminantFiyat?: number | null;
@@ -41,7 +43,8 @@ export type WoodParamInput = {
     keresteFiyat?: number | null;
     keresteFireKatsayisi?: number | null;
     digerKeresteFiyati?: number | null;
-    digerKeresteFireKatsayisi?: number | null;
+    masifPanelFiyati?: number | null;
+    kontraplakFiyati?: number | null;
     keresteKaplamaCilaFiyat?: number | null;
     lakeBoyaFiyat?: number | null;
 };
@@ -85,11 +88,6 @@ export type ParametersRelayCreateMutationResponse = {
     readonly systemParamUpdateCreateMutation: {
         readonly systemParam: {
             readonly id: string;
-            readonly metalParams: unknown | null;
-            readonly woodParams: unknown | null;
-            readonly laborParams: unknown | null;
-            readonly otherWorkshopParams: unknown | null;
-            readonly otherParams: unknown | null;
         } | null;
     } | null;
 };
@@ -107,11 +105,6 @@ mutation ParametersRelayCreateMutation(
   systemParamUpdateCreateMutation(input: $input) {
     systemParam {
       id
-      metalParams
-      woodParams
-      laborParams
-      otherWorkshopParams
-      otherParams
     }
   }
 }
@@ -155,41 +148,6 @@ v1 = [
             "kind": "ScalarField",
             "name": "id",
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "metalParams",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "woodParams",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "laborParams",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "otherWorkshopParams",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "otherParams",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -219,9 +177,9 @@ return {
     "metadata": {},
     "name": "ParametersRelayCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation ParametersRelayCreateMutation(\n  $input: SystemParamMutationInput!\n) {\n  systemParamUpdateCreateMutation(input: $input) {\n    systemParam {\n      id\n      metalParams\n      woodParams\n      laborParams\n      otherWorkshopParams\n      otherParams\n    }\n  }\n}\n"
+    "text": "mutation ParametersRelayCreateMutation(\n  $input: SystemParamMutationInput!\n) {\n  systemParamUpdateCreateMutation(input: $input) {\n    systemParam {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'b1aa8b6572669b566cd7bb0f0c057ee4';
+(node as any).hash = '85e8afb0ecd5f237d10b5a54c45f71c8';
 export default node;

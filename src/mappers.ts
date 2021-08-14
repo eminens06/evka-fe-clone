@@ -45,7 +45,6 @@ import {
   ShipmentStatus,
 } from './modules/shipment_invoice/types';
 import { TemplateData } from './modules/template/types';
-<<<<<<< HEAD
 import {
   laborFields,
   metalFields,
@@ -53,7 +52,6 @@ import {
   otherWorkshopFields,
   woodFields,
 } from './modules/admin/parameters/enums';
-=======
 import { LogOrderTypeTexts } from './modules/log/helpers';
 import {
   HistoryDTO,
@@ -63,7 +61,6 @@ import {
   ProductHistory,
   ProductHistoryDTO,
 } from './modules/log/types';
->>>>>>> main
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -814,7 +811,7 @@ const systemParamsSaveMapper = (values: any) => {
     },
   };
   return willSaveData;
-}
+};
 const mapLogProducts = (data: any): LogOrderProduct[] => {
   return data.map((item: any) => {
     const externalService = genericTableDataMapper(item, 'externalService');
@@ -880,6 +877,16 @@ const productHistoryMapper = (data: ProductHistoryDTO[]): ProductHistory[] => {
   });
 };
 
+const systemParamMapper = (systemParams: any) => {
+  let returnData = {};
+  Object.keys(systemParams).map((key, index) => {
+    if (key !== 'id') {
+      returnData = { ...returnData, ...systemParams[key] };
+    }
+  });
+  return returnData;
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -902,4 +909,5 @@ export default {
   logListMapper,
   orderHistoryMapper,
   productHistoryMapper,
+  systemParamMapper,
 };

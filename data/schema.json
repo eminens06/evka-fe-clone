@@ -20,7 +20,11 @@
             }
           ],
           "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
-          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
+          "locations": [
+            "FIELD",
+            "FRAGMENT_SPREAD",
+            "INLINE_FRAGMENT"
+          ],
           "name": "include"
         },
         {
@@ -41,7 +45,11 @@
             }
           ],
           "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
-          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
+          "locations": [
+            "FIELD",
+            "FRAGMENT_SPREAD",
+            "INLINE_FRAGMENT"
+          ],
           "name": "skip"
         }
       ],
@@ -2399,149 +2407,6 @@
                   "name": "String",
                   "ofType": null
                 }
-              }
-            },
-            {
-              "args": [
-                {
-                  "defaultValue": null,
-                  "description": null,
-                  "name": "offset",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
-                },
-                {
-                  "defaultValue": null,
-                  "description": null,
-                  "name": "before",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                {
-                  "defaultValue": null,
-                  "description": null,
-                  "name": "after",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                {
-                  "defaultValue": null,
-                  "description": null,
-                  "name": "first",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
-                },
-                {
-                  "defaultValue": null,
-                  "description": null,
-                  "name": "last",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
-                }
-              ],
-              "deprecationReason": null,
-              "description": "",
-              "isDeprecated": false,
-              "name": "userorderhistorySet",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "UserOrderHistoryNodeConnection",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-            {
-              "kind": "INTERFACE",
-              "name": "Node",
-              "ofType": null
-            }
-          ],
-          "kind": "OBJECT",
-          "name": "UserOrderNode",
-          "possibleTypes": null
-        },
-        {
-          "description": null,
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "Pagination data for this connection.",
-              "isDeprecated": false,
-              "name": "pageInfo",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "Contains the nodes in this connection.",
-              "isDeprecated": false,
-              "name": "edges",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "ProductOrderNodeEdge",
-                    "ofType": null
-                  }
-                }
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "kind": "OBJECT",
-          "name": "ProductOrderNodeConnection",
-          "possibleTypes": null
-        },
-        {
-          "description": "A Relay edge containing a `ProductOrderNode` and its cursor.",
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "",
-              "isDeprecated": false,
-              "name": "cancelledDate",
-              "type": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
               }
             },
             {
@@ -6140,7 +6005,23 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "createdAt",
+              "name": "password",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "lastLogin",
               "type": {
                 "kind": "SCALAR",
                 "name": "DateTime",
@@ -6150,13 +6031,49 @@
             {
               "args": [],
               "deprecationReason": null,
+              "description": "Designates that this user has all permissions without explicitly assigning them.",
+              "isDeprecated": false,
+              "name": "isSuperuser",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Designates whether the user can log into this admin site.",
+              "isDeprecated": false,
+              "name": "isStaff",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "updatedAt",
+              "name": "dateJoined",
               "type": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
               }
             },
             {
@@ -6180,90 +6097,13 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "metalParams",
-              "type": {
-                "kind": "SCALAR",
-                "name": "JSONString",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "",
-              "isDeprecated": false,
-              "name": "woodParams",
-              "type": {
-                "kind": "SCALAR",
-                "name": "JSONString",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "",
-              "isDeprecated": false,
-              "name": "laborParams",
-              "type": {
-                "kind": "SCALAR",
-                "name": "JSONString",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "",
-              "isDeprecated": false,
-              "name": "otherWorkshopParams",
-              "type": {
-                "kind": "SCALAR",
-                "name": "JSONString",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "",
-              "isDeprecated": false,
-              "name": "otherParams",
-              "type": {
-                "kind": "SCALAR",
-                "name": "JSONString",
-                "ofType": null
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-            {
-              "kind": "INTERFACE",
-              "name": "Node",
-              "ofType": null
-            }
-          ],
-          "kind": "OBJECT",
-          "name": "SystemParamNode",
-          "possibleTypes": null
-        },
-        {
-          "description": null,
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "Pagination data for this connection.",
-              "isDeprecated": false,
-              "name": "pageInfo",
+              "name": "firstName",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               }
@@ -6271,44 +6111,49 @@
             {
               "args": [],
               "deprecationReason": null,
-              "description": "Contains the nodes in this connection.",
+              "description": "",
               "isDeprecated": false,
-              "name": "edges",
+              "name": "lastName",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "SystemParamNodeEdge",
-                    "ofType": null
-                  }
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
                 }
               }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "kind": "OBJECT",
-          "name": "SystemParamNodeConnection",
-          "possibleTypes": null
-        },
-        {
-          "description": "A Relay edge containing a `SystemParamNode` and its cursor.",
-          "enumValues": null,
-          "fields": [
+            },
             {
               "args": [],
               "deprecationReason": null,
-              "description": "The item at the end of the edge",
+              "description": "",
               "isDeprecated": false,
-              "name": "node",
+              "name": "email",
               "type": {
-                "kind": "OBJECT",
-                "name": "SystemParamNode",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "isActive",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
               }
             },
             {
@@ -9662,114 +9507,6 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "ReturnOrderMutationInput",
-          "possibleTypes": null
-        },
-        {
-          "description": null,
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "userOrder",
-              "type": {
-                "kind": "OBJECT",
-                "name": "UserOrderNode",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "clientMutationId",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "kind": "OBJECT",
-          "name": "CancelOrderMutationPayload",
-          "possibleTypes": null
-        },
-        {
-          "description": null,
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "userOrderId",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "cancelledDate",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "DateTime",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "cancelNote",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "productOrderIds",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "clientMutationId",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "CancelOrderMutationInput",
           "possibleTypes": null
         },
         {

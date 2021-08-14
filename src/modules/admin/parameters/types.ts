@@ -5,8 +5,7 @@ export type metalTypes = {
   paslanmazKatsayisi: number;
   bukumFiyat: number;
   statikBoyaKatsayisi: number;
-  eskitmePrincKatsayisi: number;
-  parlakPrincKatsayisi: number;
+  eskitmeParlakPrincKatsayisi: number;
 };
 export type woodTypes = {
   mdfFiyat: number;
@@ -68,4 +67,13 @@ export type SystemFormTypes = {
   laborParams: laborTypes;
   otherWorkshopParams: otherWorkshopTypes;
   otherParams: otherTypes;
+};
+
+export type SystemParamsDTO = {
+  id: string;
+  metalParams: unknown;
+  woodParams: unknown;
+  laborParams: unknown;
+  otherWorkshopParams: unknown;
+  otherParams: unknown;
 };

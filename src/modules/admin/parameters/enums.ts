@@ -24,12 +24,8 @@ export const metalFields: { label: string; name: string }[] = [
     name: 'statikBoyaKatsayisi',
   },
   {
-    label: 'Eskitme Prinç Katsayısı',
-    name: 'eskitmePrincKatsayisi',
-  },
-  {
-    label: 'Parlak Prinç Katsayısı',
-    name: 'parlakPrincKatsayisi',
+    label: 'Eskitme/Parlak Prinç Katsayısı',
+    name: 'eskitmeParlakPrincKatsayisi',
   },
 ];
 
@@ -53,10 +49,6 @@ export const woodFields = [
   {
     label: 'Ahşap Kaplama Fire Katsayısı',
     name: 'ahsapKaplamaFireKatsayisi',
-  },
-  {
-    label: 'Astar Basım Fiyatı (TL/m2)',
-    name: 'ahsapBasimFiyat',
   },
   {
     label: 'Ahşap Astar Kaplama Fiyatı (TL/m2)',
@@ -105,10 +97,6 @@ export const woodFields = [
   {
     label: 'Diğer Kereste Fiyatı (TL/m3)',
     name: 'digerKeresteFiyati',
-  },
-  {
-    label: 'Diğer Kereste Fire Katsayısı',
-    name: 'digerKeresteFireKatsayisi',
   },
   {
     label: 'Kereste Kaplama Cila Fiyatı (TL/m2)',

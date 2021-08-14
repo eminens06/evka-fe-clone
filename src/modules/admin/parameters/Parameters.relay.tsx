@@ -5,11 +5,83 @@ graphql`
     systemParamUpdateCreateMutation(input: $input) {
       systemParam {
         id
-        metalParams
-        woodParams
-        laborParams
-        otherWorkshopParams
-        otherParams
+      }
+    }
+  }
+`;
+
+graphql`
+  query ParametersRelayCreateQuery {
+    allSystemParams {
+      edges {
+        node {
+          id
+          metalParams {
+            fiyat
+            sarfKatsayisi
+            fireKatsayisi
+            paslanmazKatsayisi
+            bukumFiyat
+            statikBoyaKatsayisi
+            eskitmeParlakPrincKatsayisi
+          }
+          woodParams {
+            mdfFiyat
+            mdfFireKatsayisi
+            mdfLamFiyat
+            ahsapKaplamaFiyat
+            ahsapKaplamaFireKatsayisi
+            ahsapAstarKaplamaFireKatsayisi
+            ahsapAstarKaplamaFiyat
+            astarBasimFiyati
+            papelFiyat
+            laminantFiyat
+            cumbaFiyat
+            cumbaFireKatsayisi
+            cumbaIscilik
+            balonFiyat
+            tornaFiyatKatsayisi
+            keresteFiyat
+            keresteFireKatsayisi
+            masifPanelFiyati
+            kontraplakFiyati
+            keresteKaplamaCilaFiyat
+            lakeBoyaFiyat
+          }
+          laborParams {
+            metal
+            tasima
+            toplama
+            ahsap
+            polisaj
+            dosemeIscilikKatsayisi
+            akrilik
+            ambalaj
+            mermer
+          }
+          otherWorkshopParams {
+            mermerFiyat
+            ozelMermerKatsayisi
+            kumasFiyat
+            camFiyat
+            mm4Katsayisi
+            mm10Katsayisi
+            aynaKatsayisi
+          }
+          otherParams {
+            kdv1
+            kdv2
+            kdv3
+            silikon
+            aksesuarFiyatKatsayisi
+            akrilik
+            ambalajMalzeme
+            aliminyumDokumFiyatKatsayisi
+            sivamaFiyatKatsayisi
+            nakliyeFiyat
+            fahisKatsayisi
+          }
+        }
       }
     }
   }
