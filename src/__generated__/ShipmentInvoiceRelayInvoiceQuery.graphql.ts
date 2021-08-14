@@ -14,7 +14,7 @@ export type ShipmentInvoiceRelayInvoiceQueryResponse = {
                 readonly orderType: UserOrderOrderType;
                 readonly shipmentType: UserOrderShipmentType;
                 readonly shipmentCompanyName: string;
-                readonly customerInfo: unknown;
+                readonly customerInfo: unknown | null;
                 readonly marketplaceOrderId: string;
                 readonly marketplace: {
                     readonly name: string;

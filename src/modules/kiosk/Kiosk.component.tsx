@@ -29,7 +29,7 @@ const KioskPage: FunctionComponent = () => {
     <>
       <Header className="site-layout-sub-header-background">
         <Breadcrumb style={{ marginTop: '22px' }}>
-          <Breadcrumb.Item>Ana Sayfa</Breadcrumb.Item>
+          <Breadcrumb.Item>KIOSK</Breadcrumb.Item>
         </Breadcrumb>
       </Header>
       <Card

@@ -13,6 +13,7 @@ graphql`
           phoneNumber
           address
           module
+          isRawMaterial
         }
       }
     }
@@ -29,6 +30,7 @@ graphql`
         phoneNumber
         module
         address
+        isRawMaterial
       }
     }
   }

@@ -28,7 +28,7 @@ export type ManagementProductionRelayallProductOrdersQueryResponse = {
                 readonly userOrder: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
-                            readonly customerInfo: unknown;
+                            readonly customerInfo: unknown | null;
                             readonly orderType: UserOrderOrderType;
                             readonly marketplaceOrderId: string;
                             readonly marketplace: {

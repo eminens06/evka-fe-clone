@@ -16,6 +16,7 @@ export type ExternalServiceRelayGetExternalServiceQueryResponse = {
                 readonly phoneNumber: string | null;
                 readonly address: string;
                 readonly module: ExternalServiceModule;
+                readonly isRawMaterial: boolean;
             } | null;
         } | null>;
     } | null;
@@ -40,6 +41,7 @@ query ExternalServiceRelayGetExternalServiceQuery(
         phoneNumber
         address
         module
+        isRawMaterial
       }
     }
   }
@@ -131,6 +133,13 @@ v1 = [
                 "kind": "ScalarField",
                 "name": "module",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "isRawMaterial",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -163,9 +172,9 @@ return {
     "metadata": {},
     "name": "ExternalServiceRelayGetExternalServiceQuery",
     "operationKind": "query",
-    "text": "query ExternalServiceRelayGetExternalServiceQuery(\n  $search: String\n  $byModuleName: String\n) {\n  allExternalServices(superSearch: $search, byModuleName: $byModuleName) {\n    edges {\n      node {\n        id\n        name\n        phoneNumber\n        address\n        module\n      }\n    }\n  }\n}\n"
+    "text": "query ExternalServiceRelayGetExternalServiceQuery(\n  $search: String\n  $byModuleName: String\n) {\n  allExternalServices(superSearch: $search, byModuleName: $byModuleName) {\n    edges {\n      node {\n        id\n        name\n        phoneNumber\n        address\n        module\n        isRawMaterial\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '64ebbc1833bdcef349b43efb14c0a1d5';
+(node as any).hash = '47c87808ff8e111646eb853792a3548c';
 export default node;

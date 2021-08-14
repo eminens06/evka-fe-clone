@@ -1,4 +1,13 @@
-import { Input, Form, Row, Col, message, FormInstance, Button } from 'antd';
+import {
+  Input,
+  Form,
+  Row,
+  Col,
+  message,
+  FormInstance,
+  Button,
+  Checkbox,
+} from 'antd';
 import React, { FC, useEffect } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from 'relay-hooks';
@@ -177,6 +186,13 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
             rules={[{ required: true, message: 'Zorunlu alan' }]}
           >
             <Input />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row gutter={24}>
+        <Col span={12}>
+          <Form.Item name="isRawMaterial" valuePropName="checked">
+            <Checkbox>Hammaddeci mi?</Checkbox>
           </Form.Item>
         </Col>
       </Row>

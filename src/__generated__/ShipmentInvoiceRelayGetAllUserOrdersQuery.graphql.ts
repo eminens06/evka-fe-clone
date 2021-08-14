@@ -33,14 +33,31 @@ export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
         readonly products: {
           readonly edges: ReadonlyArray<{
             readonly node: {
-              readonly productOrderStatus: ProductOrderProductOrderStatus;
-              readonly product: {
+              readonly id: string;
+              readonly orderStatus: string | null;
+              readonly marketplaceOrderId: string;
+              readonly estimatedDeliveryDate: unknown | null;
+              readonly customerInfo: unknown | null;
+              readonly marketplace: {
                 readonly name: string;
-                readonly sku: string | null;
-                readonly width: number | null;
-                readonly length: number | null;
-                readonly height: number | null;
               } | null;
+              readonly shipmentType: UserOrderShipmentType;
+              readonly shipmentCompanyName: string;
+              readonly cargoChaseNumber: number;
+              readonly products: {
+                readonly edges: ReadonlyArray<{
+                  readonly node: {
+                    readonly productOrderStatus: ProductOrderProductOrderStatus;
+                    readonly product: {
+                      readonly name: string;
+                      readonly sku: string | null;
+                      readonly width: number | null;
+                      readonly length: number | null;
+                      readonly height: number | null;
+                    } | null;
+                  } | null;
+                } | null>;
+              };
             } | null;
           } | null>;
         };

@@ -10,12 +10,22 @@ import GET_EXTERNAL_SERVICES, {
   ExternalServiceRelayGetExternalServiceQuery,
 } from '../../../__generated__/ExternalServiceRelayGetExternalServiceQuery.graphql';
 import Table from '../../../molecules/Table';
+import { ModuleType } from './types';
+import { ModuleTexts } from '../../log/helpers';
 
 const columns = [
   {
     key: 'name',
     title: 'Adı',
     dataIndex: 'name',
+  },
+  {
+    key: 'module',
+    title: 'Hizmet Alanı',
+    dataIndex: 'module',
+    render: (value: ModuleType) => {
+      return ModuleTexts[value];
+    },
   },
   {
     key: 'phoneNumber',
@@ -82,7 +92,7 @@ const ListExternalServices: FunctionComponent = () => {
           </Button>
         </div>
         <Table
-          onRow={(record, rowIndex) => {
+          onRow={(record: any) => {
             return {
               onClick: () => onTableClick(record),
             };

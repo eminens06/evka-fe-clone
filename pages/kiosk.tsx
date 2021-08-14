@@ -7,7 +7,7 @@ import React from 'react';
 const Kiosk: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <KioskPage />
+      <div>Yakında sizlerle olacak ...</div>
     </RelayEnvironmentProvider>
   );
 };

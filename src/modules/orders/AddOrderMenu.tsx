@@ -13,7 +13,7 @@ const AddOrderMenu: FC = () => {
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="normal_order">Normal Sipariş</Menu.Item>
       <Menu.Item key="custom_order">Özel Sipariş</Menu.Item>
-      <Menu.Item key="oem_order">Gel-Al Sipariş</Menu.Item>
+      <Menu.Item key="store_order">Gel-Al Sipariş</Menu.Item>
     </Menu>
   );
 
