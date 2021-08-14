@@ -1,6 +1,6 @@
 import { Input, Form, Row, Col, message, FormInstance, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import { SingleSelect } from '../../atoms';
 import CREATE_METADATA, {
@@ -36,6 +36,10 @@ const mapFormData = (data: any): any => {
 
 const MetadataForm: FC<MetadataProps> = (props) => {
   const { form, initialValues } = props;
+  const [metaCategory, setMetaCategory] = useState<MetadataType | undefined>(
+    initialValues?.category,
+  );
+
   const [createMetadata] = useMutation<MetadataRelayCreateMetadataMutation>(
     CREATE_METADATA,
     {
@@ -49,6 +53,10 @@ const MetadataForm: FC<MetadataProps> = (props) => {
       },
     },
   );
+
+  useEffect(() => {
+    setMetaCategory(initialValues?.category);
+  }, [initialValues]);
 
   const [updateMetadata] = useMutation<MetadataRelayUpdateMetadataMutation>(
     UPDATE_METADATA,
@@ -119,11 +127,8 @@ const MetadataForm: FC<MetadataProps> = (props) => {
   };
 
   const isMainMaterial = useMemo(() => {
-    return (
-      initialValues?.category === MetadataType.AY ||
-      initialValues?.category === MetadataType.TB
-    );
-  }, [initialValues]);
+    return metaCategory === MetadataType.AY || metaCategory === MetadataType.TB;
+  }, [metaCategory]);
 
   return (
     <Form
@@ -164,6 +169,7 @@ const MetadataForm: FC<MetadataProps> = (props) => {
             <SingleSelect
               options={CategoryOptions}
               defaultValue={initialValues?.category}
+              onChange={(value) => setMetaCategory(value)}
             />
           </Form.Item>
         </Col>

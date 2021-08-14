@@ -21,6 +21,15 @@ export const MetadataText: Record<MetadataType, string> = {
   [MetadataType.TB]: 'Tabla',
 };
 
+export const MetaTypeText: Record<MetaWorkshopType, string> = {
+  [MetaWorkshopType.DF]: 'Yok',
+  [MetaWorkshopType.F]: 'Kumaş',
+  [MetaWorkshopType.G]: 'Cam',
+  [MetaWorkshopType.M]: 'Mermer',
+  [MetaWorkshopType.MT]: 'Metal',
+  [MetaWorkshopType.WD]: 'Ahşap',
+};
+
 export const CategoryOptions = [
   {
     value: MetadataType.CT,
@@ -46,12 +55,24 @@ export const WorkshopOptions = [
     text: 'Metal',
   },
   {
+    value: MetaWorkshopType.G,
+    text: 'Cam',
+  },
+  {
     value: MetaWorkshopType.WD,
     text: 'Ahşap',
   },
   {
     value: MetaWorkshopType.DF,
     text: 'Yok',
+  },
+  {
+    value: MetaWorkshopType.M,
+    text: 'Mermer',
+  },
+  {
+    value: MetaWorkshopType.F,
+    text: 'Kumaş',
   },
 ];
 
@@ -89,11 +110,17 @@ const ListMetadata: FunctionComponent = () => {
           key: 'paintType',
           title: 'Boya Tipi',
           dataIndex: 'paintType',
+          render: (value: MetaWorkshopType) => {
+            return MetaTypeText[value];
+          },
         },
         {
           key: 'metaType',
           title: 'Atölye Tipi',
-          dataIndex: 'materialType',
+          dataIndex: 'metaType',
+          render: (value: MetaWorkshopType) => {
+            return MetaTypeText[value];
+          },
         },
       ];
     }
@@ -172,7 +199,7 @@ const ListMetadata: FunctionComponent = () => {
           </Row>
         </div>
         <Table
-          onRow={(record: Metadata, rowIndex) => {
+          onRow={(record: Metadata) => {
             return {
               onClick: () => onTableClick(record),
             };

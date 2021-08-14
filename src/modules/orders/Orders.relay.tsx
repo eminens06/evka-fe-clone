@@ -178,3 +178,14 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation OrdersCancelOrderMutation($input: CancelOrderMutationInput!) {
+    cancelOrderMutation(input: $input) {
+      userOrder {
+        id
+        orderDate
+      }
+    }
+  }
+`;

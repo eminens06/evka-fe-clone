@@ -45,6 +45,7 @@ import {
   ShipmentStatus,
 } from './modules/shipment_invoice/types';
 import { TemplateData } from './modules/template/types';
+<<<<<<< HEAD
 import {
   laborFields,
   metalFields,
@@ -52,6 +53,17 @@ import {
   otherWorkshopFields,
   woodFields,
 } from './modules/admin/parameters/enums';
+=======
+import { LogOrderTypeTexts } from './modules/log/helpers';
+import {
+  HistoryDTO,
+  LogOrderProduct,
+  OrderHistory,
+  OrderLogDetail,
+  ProductHistory,
+  ProductHistoryDTO,
+} from './modules/log/types';
+>>>>>>> main
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -262,6 +274,8 @@ const metadataMapper = (data: MetadataDTO[]): Metadata[] => {
       id: item.id,
       material: item.materialName,
       number: item.materialId,
+      metaType: item.metaType,
+      paintType: item.paintType,
     };
   });
 };
@@ -800,6 +814,70 @@ const systemParamsSaveMapper = (values: any) => {
     },
   };
   return willSaveData;
+}
+const mapLogProducts = (data: any): LogOrderProduct[] => {
+  return data.map((item: any) => {
+    const externalService = genericTableDataMapper(item, 'externalService');
+    return {
+      sku: item.product.sku,
+      name: item.product.name,
+      metaInfo: JSON.parse(item.product.metaInfo),
+      externalService: externalService,
+    };
+  });
+};
+
+const logListMapper = (data: any): OrderLogDetail[] => {
+  return data.map(
+    (order: any): OrderLogDetail => {
+      const customerInfo = JSON.parse(order.customerInfo);
+      return {
+        id: order.id,
+        orderId: order.marketplaceOrderId,
+        marketplace: order.marketplace.name,
+        customer: `${customerInfo.name} ${customerInfo.surname || ''}`,
+        status: order.orderStatus,
+        orderType: LogOrderTypeTexts[order.orderType],
+        orderDate: moment(order.orderDate).format('DD-MM-YYYY'),
+        commissionRate: order.commissionRate,
+        notes: order.notes,
+        totalPrice: order.totalPrice,
+        customerInfo: customerInfo,
+        completedDate: order.completedDate,
+        products: mapLogProducts(genericTableDataMapper(order, 'products')),
+      };
+    },
+  );
+};
+
+const orderHistoryMapper = (data: HistoryDTO[]): OrderHistory[] => {
+  return data.map((item) => {
+    return {
+      id: item.id,
+      date: moment(item.updatedDate).format('DD-MM-YYYY HH:mm:ss'),
+      user: `${item.user.firstName} ${item.user.lastName}`,
+      change: {
+        oldStatus: item.oldStatus,
+        newStatus: item.newStatus,
+      },
+    };
+  });
+};
+
+const productHistoryMapper = (data: ProductHistoryDTO[]): ProductHistory[] => {
+  return data.map((item) => {
+    return {
+      id: item.id,
+      date: moment(item.updatedDate).format('DD-MM-YYYY HH:mm:ss'),
+      user: `${item.user.firstName} ${item.user.lastName}`,
+      change: {
+        oldStatus: item.oldStatus,
+        newStatus: item.newStatus,
+      },
+      type: item.type,
+      module: item.module,
+    };
+  });
 };
 
 export default {
@@ -821,4 +899,7 @@ export default {
   shipmentOrderMapper,
   templateMapper,
   systemParamsSaveMapper,
+  logListMapper,
+  orderHistoryMapper,
+  productHistoryMapper,
 };

@@ -2,38 +2,39 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type InvoiceMutationInput = {
+export type CancelOrderMutationInput = {
     userOrderId: string;
-    invoiceNo: string;
-    invoiceDate: unknown;
+    cancelledDate: unknown;
+    cancelNote?: string | null;
+    productOrderIds?: Array<string | null> | null;
     clientMutationId?: string | null;
 };
-export type ShipmentInvoiceRelayInvoiceMutationVariables = {
-    input: InvoiceMutationInput;
+export type OrdersCancelOrderMutationVariables = {
+    input: CancelOrderMutationInput;
 };
-export type ShipmentInvoiceRelayInvoiceMutationResponse = {
-    readonly invoiceMutation: {
+export type OrdersCancelOrderMutationResponse = {
+    readonly cancelOrderMutation: {
         readonly userOrder: {
             readonly id: string;
-            readonly invoiceStatus: string | null;
+            readonly orderDate: unknown | null;
         } | null;
     } | null;
 };
-export type ShipmentInvoiceRelayInvoiceMutation = {
-    readonly response: ShipmentInvoiceRelayInvoiceMutationResponse;
-    readonly variables: ShipmentInvoiceRelayInvoiceMutationVariables;
+export type OrdersCancelOrderMutation = {
+    readonly response: OrdersCancelOrderMutationResponse;
+    readonly variables: OrdersCancelOrderMutationVariables;
 };
 
 
 
 /*
-mutation ShipmentInvoiceRelayInvoiceMutation(
-  $input: InvoiceMutationInput!
+mutation OrdersCancelOrderMutation(
+  $input: CancelOrderMutationInput!
 ) {
-  invoiceMutation(input: $input) {
+  cancelOrderMutation(input: $input) {
     userOrder {
       id
-      invoiceStatus
+      orderDate
     }
   }
 }
@@ -45,7 +46,7 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "InvoiceMutationInput!"
+    "type": "CancelOrderMutationInput!"
   }
 ],
 v1 = [
@@ -58,9 +59,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "InvoiceMutationPayload",
+    "concreteType": "CancelOrderMutationPayload",
     "kind": "LinkedField",
-    "name": "invoiceMutation",
+    "name": "cancelOrderMutation",
     "plural": false,
     "selections": [
       {
@@ -82,7 +83,7 @@ v1 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "invoiceStatus",
+            "name": "orderDate",
             "storageKey": null
           }
         ],
@@ -97,7 +98,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ShipmentInvoiceRelayInvoiceMutation",
+    "name": "OrdersCancelOrderMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation"
   },
@@ -105,17 +106,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ShipmentInvoiceRelayInvoiceMutation",
+    "name": "OrdersCancelOrderMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ShipmentInvoiceRelayInvoiceMutation",
+    "name": "OrdersCancelOrderMutation",
     "operationKind": "mutation",
-    "text": "mutation ShipmentInvoiceRelayInvoiceMutation(\n  $input: InvoiceMutationInput!\n) {\n  invoiceMutation(input: $input) {\n    userOrder {\n      id\n      invoiceStatus\n    }\n  }\n}\n"
+    "text": "mutation OrdersCancelOrderMutation(\n  $input: CancelOrderMutationInput!\n) {\n  cancelOrderMutation(input: $input) {\n    userOrder {\n      id\n      orderDate\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '186ef2eadc8869825cc5f0132f5c279e';
+(node as any).hash = 'ee534177642ea2b9277e0e6e12d5628b';
 export default node;

@@ -1,8 +1,13 @@
-import { Button, Col, DatePicker, Form, Modal, Row } from 'antd';
+import { Button, Col, DatePicker, Form, message, Modal, Row } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import TextArea from 'antd/lib/input/TextArea';
+import { useRouter } from 'next/router';
 import React, { FC } from 'react';
+import { useMutation } from 'relay-hooks';
 import { SingleSelect } from '../../atoms';
+import CREATE_ORDER_MUTATION, {
+  OrdersCancelOrderMutation,
+} from '../../__generated__/OrdersCancelOrderMutation.graphql';
 
 interface Props {
   isVisible: boolean;
@@ -18,13 +23,37 @@ const CancelOrderModal: FC<Props> = ({
   products,
 }) => {
   const [form] = useForm();
+  const router = useRouter();
   const onSubmit = () => {
     form.submit();
   };
 
+  const [cancelOrder] = useMutation<OrdersCancelOrderMutation>(
+    CREATE_ORDER_MUTATION,
+    {
+      onError: (error: any) => {
+        message.error('Hata! ', error.response.errors[0].message);
+      },
+      onCompleted: (res) => {
+        message.success('Dış hizmet başarıyla oluşturuldu');
+        closeModal();
+        router.back();
+      },
+    },
+  );
+
   const onFinish = (values: any) => {
     console.log('Values : ', { ...values, userOrderId: orderId });
     // TODO ADD MUTATION AND CLOSE MODAL
+    cancelOrder({
+      variables: {
+        input: {
+          ...values,
+          userOrderId: orderId,
+          productOrderIds: values.productOrderIds || [],
+        },
+      },
+    });
   };
 
   return (
@@ -44,7 +73,7 @@ const CancelOrderModal: FC<Props> = ({
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <Row gutter={24}>
           <Col span={24}>
-            <Form.Item label="Notlar" name="cancelNotes">
+            <Form.Item label="Notlar" name="cancelNote">
               <TextArea rows={3} />
             </Form.Item>
           </Col>

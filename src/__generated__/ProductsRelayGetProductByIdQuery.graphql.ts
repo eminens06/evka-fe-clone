@@ -34,8 +34,6 @@ export type ProductsRelayGetProductByIdQueryResponse = {
             readonly paslanmaz: number | null;
             readonly lazer: number | null;
             readonly statikBoya: number | null;
-            readonly eskitmePrinc: number | null;
-            readonly parlakPrinc: number | null;
             readonly bukum: number | null;
         } | null;
         readonly woodAttributes: {
@@ -129,8 +127,6 @@ query ProductsRelayGetProductByIdQuery(
       paslanmaz
       lazer
       statikBoya
-      eskitmePrinc
-      parlakPrinc
       bukum
     }
     woodAttributes {
@@ -367,20 +363,6 @@ v2 = [
             "args": null,
             "kind": "ScalarField",
             "name": "statikBoya",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "eskitmePrinc",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "parlakPrinc",
             "storageKey": null
           },
           {
@@ -777,9 +759,9 @@ return {
     "metadata": {},
     "name": "ProductsRelayGetProductByIdQuery",
     "operationKind": "query",
-    "text": "query ProductsRelayGetProductByIdQuery(\n  $id: ID!\n) {\n  product(id: $id) {\n    id\n    name\n    productName\n    metaProducts {\n      edges {\n        node {\n          id\n          categoryName\n          materialName\n          materialId\n          metaType\n          paintType\n          type\n        }\n      }\n    }\n    isCollectable\n    sku\n    packageCount\n    metalAttributes {\n      profil\n      paslanmaz\n      lazer\n      statikBoya\n      eskitmePrinc\n      parlakPrinc\n      bukum\n    }\n    woodAttributes {\n      mdfLam\n      mdfkp\n      papel\n      laminant\n      cumba\n      balon\n      torna\n      meseKereste\n      kayinKereste\n      hamMdf\n      masifPanel\n      kontplak\n      lake\n      cila\n    }\n    otherAttributes {\n      mermer\n      mermerIscilik\n      mermerFarklari\n      cam4mm\n      cam10mm\n      camAynaFazlalik\n      kumas\n    }\n    other {\n      aliminyumDokum\n      silikonHirdavat\n      sivama\n      ambalajMalzeme\n      aksesuar\n      akrilikTipi\n    }\n    labor {\n      metal\n      tasima\n      toplama\n      ahsapAtolyesi\n      polisaj\n      doseme\n      akrilik\n      ambalaj\n    }\n    isMonte\n    width\n    length\n    height\n    aluminiumPrice\n    sivamaPrice\n    silikonHirdavatPrice\n    aksesuarPrice\n    packingPrice\n    metaInfo\n  }\n}\n"
+    "text": "query ProductsRelayGetProductByIdQuery(\n  $id: ID!\n) {\n  product(id: $id) {\n    id\n    name\n    productName\n    metaProducts {\n      edges {\n        node {\n          id\n          categoryName\n          materialName\n          materialId\n          metaType\n          paintType\n          type\n        }\n      }\n    }\n    isCollectable\n    sku\n    packageCount\n    metalAttributes {\n      profil\n      paslanmaz\n      lazer\n      statikBoya\n      bukum\n    }\n    woodAttributes {\n      mdfLam\n      mdfkp\n      papel\n      laminant\n      cumba\n      balon\n      torna\n      meseKereste\n      kayinKereste\n      hamMdf\n      masifPanel\n      kontplak\n      lake\n      cila\n    }\n    otherAttributes {\n      mermer\n      mermerIscilik\n      mermerFarklari\n      cam4mm\n      cam10mm\n      camAynaFazlalik\n      kumas\n    }\n    other {\n      aliminyumDokum\n      silikonHirdavat\n      sivama\n      ambalajMalzeme\n      aksesuar\n      akrilikTipi\n    }\n    labor {\n      metal\n      tasima\n      toplama\n      ahsapAtolyesi\n      polisaj\n      doseme\n      akrilik\n      ambalaj\n    }\n    isMonte\n    width\n    length\n    height\n    aluminiumPrice\n    sivamaPrice\n    silikonHirdavatPrice\n    aksesuarPrice\n    packingPrice\n    metaInfo\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5d7ec8d51bc3e0b71585b5181ca8aae5';
+(node as any).hash = 'b2443c91c65ffca052d93f6d5d60f937';
 export default node;
