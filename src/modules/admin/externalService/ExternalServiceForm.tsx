@@ -110,10 +110,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
 
   useEffect(() => form.resetFields(), [initialValues]);
 
-  // TODO BACKEND GELINCE RETURN KALDIRILACAK
   const onFormFinish = (values: any) => {
-    console.log('VALUES ! ', values);
-    return;
     if (initialValues) {
       updateExternalService({
         variables: {

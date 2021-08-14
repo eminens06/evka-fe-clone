@@ -60,7 +60,7 @@ graphql`
         cumba
         balon
         torna
-        meseKereste
+        digerKereste
         kayinKereste
         hamMdf
         masifPanel

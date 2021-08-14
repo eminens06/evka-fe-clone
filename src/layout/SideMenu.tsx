@@ -46,7 +46,7 @@ const SideMenu: FunctionComponent<Props> = (props) => {
       <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
         <CustomMenuItem
           role={Roles.kiosk}
-          title="Ana Sayfa"
+          title="KIOSK"
           icon={<DashboardOutlined />}
         />
         <CustomMenuItem
