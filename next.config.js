@@ -11,6 +11,9 @@ const themeVariables = lessToJs(
 );
 
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true
+  },
   env: {
     spaceID: process.env.spaceID,
     accessTokenDelivery: process.env.accessTokenDelivery,
