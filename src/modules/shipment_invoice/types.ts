@@ -10,6 +10,7 @@ export enum InvoiceStatus {
   READY = 'READY',
   COMPLETED = 'COMPLETED',
   NONE = 'NONE',
+  DONE = 'DONE',
 }
 
 export enum ManagementProductStatus {

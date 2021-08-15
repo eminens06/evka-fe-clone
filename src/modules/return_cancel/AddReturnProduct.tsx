@@ -26,9 +26,12 @@ import RETURN_ORDER, {
   ReturnCancelRelayCancelOrderMutation,
 } from '../../__generated__/ReturnCancelRelayCancelOrderMutation.graphql';
 import moment from 'moment';
+import { useRouter } from 'next/router';
 
 const AddReturnProduct: FC = () => {
   const [form] = useForm();
+
+  const router = useRouter();
 
   const [marketplaceOrderId, setMarketplaceOrderId] = useState<string>('');
   const [userOrderId, setUserOrderId] = useState<any>();
@@ -44,6 +47,7 @@ const AddReturnProduct: FC = () => {
       },
       onCompleted: (res) => {
         message.success('Başarıyla iade talebi oluşturuldu');
+        router.back();
       },
     },
   );
@@ -53,7 +57,7 @@ const AddReturnProduct: FC = () => {
       returnOrder({
         variables: {
           input: {
-            productOrderIds: values.productOrderIds,
+            productOrderIds: values.productOrderIds || [],
             returnNote: values.returnNote,
             userOrderId,
             returnedDate: moment(values.returnedDate).toDate(),
@@ -125,10 +129,12 @@ const AddReturnProduct: FC = () => {
               </Form.Item>
             </Col>
             {error && (
-              <Result
-                status="error"
-                title={'Bu pazaryeri sipariş numaralı ürün bulunamadı'}
-              />
+              <Col span={12} offset={4}>
+                <Result
+                  status="error"
+                  title="Teslim edilmiş bu numaralı sipariş bulunamadı"
+                />
+              </Col>
             )}
           </Row>
           <Row gutter={24}>

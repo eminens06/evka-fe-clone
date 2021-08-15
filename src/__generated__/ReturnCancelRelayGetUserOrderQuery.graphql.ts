@@ -3,6 +3,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
+export type ProductOrderProductOrderStatus = "C" | "CC" | "D" | "DF" | "P" | "PP" | "RR" | "%future added value";
 export type ReturnCancelRelayGetUserOrderQueryVariables = {
     id?: string | null;
 };
@@ -14,7 +15,7 @@ export type ReturnCancelRelayGetUserOrderQueryResponse = {
                 readonly marketplace: {
                     readonly name: string;
                 } | null;
-                readonly customerInfo: unknown;
+                readonly customerInfo: unknown | null;
                 readonly products: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
@@ -22,6 +23,7 @@ export type ReturnCancelRelayGetUserOrderQueryResponse = {
                             readonly orderCount: number;
                             readonly price: number;
                             readonly notes: string;
+                            readonly productOrderStatus: ProductOrderProductOrderStatus;
                             readonly product: {
                                 readonly id: string;
                                 readonly name: string;
@@ -72,6 +74,7 @@ query ReturnCancelRelayGetUserOrderQuery(
               orderCount
               price
               notes
+              productOrderStatus
               product {
                 id
                 name
@@ -178,6 +181,13 @@ v5 = {
               "args": null,
               "kind": "ScalarField",
               "name": "notes",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "productOrderStatus",
               "storageKey": null
             },
             {
@@ -391,9 +401,9 @@ return {
     "metadata": {},
     "name": "ReturnCancelRelayGetUserOrderQuery",
     "operationKind": "query",
-    "text": "query ReturnCancelRelayGetUserOrderQuery(\n  $id: String\n) {\n  allUserOrders(byMarketplaceOrderIdStatus: $id) {\n    edges {\n      node {\n        id\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        products {\n          edges {\n            node {\n              id\n              orderCount\n              price\n              notes\n              product {\n                id\n                name\n                productName\n                sku\n                metaProducts {\n                  edges {\n                    node {\n                      id\n                      categoryName\n                      materialName\n                      materialId\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ReturnCancelRelayGetUserOrderQuery(\n  $id: String\n) {\n  allUserOrders(byMarketplaceOrderIdStatus: $id) {\n    edges {\n      node {\n        id\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        products {\n          edges {\n            node {\n              id\n              orderCount\n              price\n              notes\n              productOrderStatus\n              product {\n                id\n                name\n                productName\n                sku\n                metaProducts {\n                  edges {\n                    node {\n                      id\n                      categoryName\n                      materialName\n                      materialId\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '260cf9c2bd8d122d058ff23310c22170';
+(node as any).hash = '788848dac7057e1b12b651ec7d4b3d10';
 export default node;

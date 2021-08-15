@@ -6,10 +6,12 @@ import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
 import { UserOrder } from '../orders/types';
 import { useRouter } from 'next/router';
-
-const data: any[] = [];
-const size = 10;
-const isLoading = false;
+import mappers from '../../mappers';
+import useFetchTablePagination from '../../hooks/useFetchTableData';
+import GET_CANCEL_RETURN, {
+  ReturnCancelListOrdersQuery,
+} from '../../__generated__/ReturnCancelListOrdersQuery.graphql';
+import { ReturnCancelData } from './types';
 
 const columns = [
   {
@@ -36,41 +38,50 @@ const columns = [
     dataIndex: 'marketplace',
   },
   {
-    key: 'price',
-    title: 'Fiyat',
-    dataIndex: 'price',
-  },
-  {
-    key: 'remainingTime',
-    title: 'Kalan Süre',
-    dataIndex: 'remainingTime',
-  },
-  {
     key: 'customer',
     title: 'Müşteri',
     dataIndex: 'customer',
   },
   {
+    key: 'productText',
+    title: 'Ürün',
+    dataIndex: 'productText',
+  },
+  {
     key: 'status',
     title: 'Durum',
     dataIndex: 'status',
+    render: (value: string, order: ReturnCancelData) => {
+      let text = '';
+      if (order.isPartlyCanceled) {
+        text += 'İptal ';
+      }
+      if (order.isPartlyReturned) {
+        text += 'İade ';
+      }
+      if (text === '') {
+        return value;
+      } else {
+        return text + 'Ürün Var';
+      }
+    },
   },
 ];
 
 const ListReturnCancel: FunctionComponent = () => {
   const router = useRouter();
-  /* const {
+  const {
     data,
     size,
     isLoading,
     forceFetchQuery,
-  } = useFetchTablePagination<OrdersRelayGetAllUserOrdersQuery>(
-    GET_USER_ORDERS,
+  } = useFetchTablePagination<ReturnCancelListOrdersQuery>(
+    GET_CANCEL_RETURN,
     {
       search: '',
     },
-    mappers.orderListMapper,
-  ); */
+    mappers.cancelReturnMapper,
+  );
 
   const onTableClick = (record: UserOrder) => {};
 

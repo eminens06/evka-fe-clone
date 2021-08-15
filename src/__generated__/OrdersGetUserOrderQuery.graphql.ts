@@ -3,6 +3,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
+export type ProductOrderProductOrderStatus = "C" | "CC" | "D" | "DF" | "P" | "PP" | "RR" | "%future added value";
 export type OrdersGetUserOrderQueryVariables = {
     id: string;
 };
@@ -16,6 +17,7 @@ export type OrdersGetUserOrderQueryResponse = {
                     readonly orderCount: number;
                     readonly price: number;
                     readonly notes: string;
+                    readonly productOrderStatus: ProductOrderProductOrderStatus;
                     readonly product: {
                         readonly id: string;
                         readonly name: string;
@@ -71,6 +73,7 @@ query OrdersGetUserOrderQuery(
           orderCount
           price
           notes
+          productOrderStatus
           product {
             id
             name
@@ -201,6 +204,13 @@ v5 = [
                     "storageKey": null
                   },
                   (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "productOrderStatus",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -382,9 +392,9 @@ return {
     "metadata": {},
     "name": "OrdersGetUserOrderQuery",
     "operationKind": "query",
-    "text": "query OrdersGetUserOrderQuery(\n  $id: ID!\n) {\n  userOrder(id: $id) {\n    id\n    products {\n      edges {\n        node {\n          id\n          orderCount\n          price\n          notes\n          product {\n            id\n            name\n            productName\n            sku\n            metaProducts {\n              edges {\n                node {\n                  id\n                  categoryName\n                  materialName\n                  materialId\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n    marketplace {\n      id\n      name\n      commissionRate\n      deliveryDate\n    }\n    orderDate\n    totalPrice\n    notes\n    customerInfo\n    commissionRate\n    orderDeliveryTime\n    marketplaceOrderId\n    isKdvInclude\n  }\n}\n"
+    "text": "query OrdersGetUserOrderQuery(\n  $id: ID!\n) {\n  userOrder(id: $id) {\n    id\n    products {\n      edges {\n        node {\n          id\n          orderCount\n          price\n          notes\n          productOrderStatus\n          product {\n            id\n            name\n            productName\n            sku\n            metaProducts {\n              edges {\n                node {\n                  id\n                  categoryName\n                  materialName\n                  materialId\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n    marketplace {\n      id\n      name\n      commissionRate\n      deliveryDate\n    }\n    orderDate\n    totalPrice\n    notes\n    customerInfo\n    commissionRate\n    orderDeliveryTime\n    marketplaceOrderId\n    isKdvInclude\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'aefb4edb6d2a46a49554e09d7b14da3b';
+(node as any).hash = 'fad2a9413264d9ab946ffc44c5d90933';
 export default node;

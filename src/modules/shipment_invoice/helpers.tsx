@@ -13,6 +13,10 @@ export const InvoiceStatusMapper: Record<InvoiceStatus, StatusObject> = {
     text: 'Fatura Kesilmeyecek',
     status: 'none',
   },
+  [InvoiceStatus.DONE]: {
+    text: 'Fatura Kesildi',
+    status: 'success',
+  },
   [InvoiceStatus.COMPLETED]: {
     text: 'Fatura Kesildi',
     status: 'success',

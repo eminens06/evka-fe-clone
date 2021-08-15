@@ -17,6 +17,7 @@ graphql`
                 orderCount
                 price
                 notes
+                productOrderStatus
                 product {
                   id
                   name
@@ -50,6 +51,41 @@ graphql`
       userOrder {
         id
         isPartlyReturned
+      }
+    }
+  }
+`;
+
+graphql`
+  query ReturnCancelListOrdersQuery {
+    allUserOrders(returnCancelOrders: "a") {
+      edges {
+        node {
+          id
+          orderType
+          marketplace {
+            name
+          }
+          customerInfo
+          marketplaceOrderId
+          orderStatus
+          isPartlyCanceled
+          isPartlyReturned
+          products {
+            edges {
+              node {
+                orderCount
+                type
+                notes
+                productOrderStatus
+                product {
+                  sku
+                  name
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
