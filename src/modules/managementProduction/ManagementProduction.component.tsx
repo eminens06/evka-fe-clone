@@ -14,8 +14,9 @@ import { useMutation } from 'relay-hooks';
 import SEND_TO_PRODUCTION, {
   ManagementProductionRelaySendttoProductionMutation,
 } from '../../__generated__/ManagementProductionRelaySendttoProductionMutation.graphql';
-import { OrderTypes } from '../orders/types';
-import { RowClass } from '../production/types';
+import EXIST_IN_STORAGE, {
+  ManagementProductionRelayExistInStorageMutation,
+} from '../../__generated__/ManagementProductionRelayExistInStorageMutation.graphql';
 
 const columns = [
   {
@@ -82,6 +83,28 @@ const ManagementProduction: FunctionComponent = () => {
           search: '',
         });
         message.success('Üretime başarıyla gönderildi');
+        setIsModalVisible(false);
+      },
+    },
+  );
+
+  const [
+    existInStorage,
+  ] = useMutation<ManagementProductionRelayExistInStorageMutation>(
+    EXIST_IN_STORAGE,
+    {
+      onError: (error: any) => {
+        message.error(
+          'Hata! ',
+          error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
+        );
+      },
+      onCompleted: (res) => {
+        forceFetchQuery({
+          search: '',
+        });
+        message.success('Başarıyla Tamamlandı');
+        setIsModalVisible(false);
       },
     },
   );
@@ -124,8 +147,15 @@ const ManagementProduction: FunctionComponent = () => {
     });
   };
 
-  const onStorage = () => {
+  const onStorage = (id: string) => {
     console.log('On Storage !');
+    existInStorage({
+      variables: {
+        input: {
+          productOrderId: id,
+        },
+      },
+    });
   };
 
   return (

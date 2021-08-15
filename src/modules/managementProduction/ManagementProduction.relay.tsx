@@ -50,3 +50,15 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation ManagementProductionRelayExistInStorageMutation(
+    $input: ExistInStorageInput!
+  ) {
+    existInStorage(input: $input) {
+      productOrder {
+        id
+      }
+    }
+  }
+`;
