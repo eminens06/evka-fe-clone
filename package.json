@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "npm run build && next export -o _static",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "relay": "relay-compiler --src ./ --schema ./data/schema.json --language typescript --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' --artifactDirectory ./src/__generated__"
