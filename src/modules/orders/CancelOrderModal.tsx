@@ -35,7 +35,7 @@ const CancelOrderModal: FC<Props> = ({
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
-        message.success('Dış hizmet başarıyla oluşturuldu');
+        message.success('Sipariş İptal Edildi');
         closeModal();
         router.back();
       },

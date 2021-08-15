@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
+export type ProductOrderProductOrderStatus = "C" | "CC" | "D" | "DF" | "P" | "PP" | "RR" | "%future added value";
 export type UserOrderOrderType = "N" | "NR" | "SP" | "ST" | "%future added value";
 export type UserOrderShipmentType = "C" | "D" | "S" | "%future added value";
 export type ShipmentInvoiceRelayInvoiceQueryVariables = {};
@@ -23,6 +24,7 @@ export type ShipmentInvoiceRelayInvoiceQueryResponse = {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
                             readonly price: number;
+                            readonly productOrderStatus: ProductOrderProductOrderStatus;
                             readonly product: {
                                 readonly name: string;
                                 readonly id: string;
@@ -62,6 +64,7 @@ query ShipmentInvoiceRelayInvoiceQuery {
           edges {
             node {
               price
+              productOrderStatus
               product {
                 name
                 id
@@ -149,6 +152,13 @@ v9 = {
   "storageKey": null
 },
 v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "productOrderStatus",
+  "storageKey": null
+},
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "ProductNode",
@@ -243,7 +253,8 @@ return {
                             "plural": false,
                             "selections": [
                               (v9/*: any*/),
-                              (v10/*: any*/)
+                              (v10/*: any*/),
+                              (v11/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -341,6 +352,7 @@ return {
                             "selections": [
                               (v9/*: any*/),
                               (v10/*: any*/),
+                              (v11/*: any*/),
                               (v1/*: any*/)
                             ],
                             "storageKey": null
@@ -367,9 +379,9 @@ return {
     "metadata": {},
     "name": "ShipmentInvoiceRelayInvoiceQuery",
     "operationKind": "query",
-    "text": "query ShipmentInvoiceRelayInvoiceQuery {\n  allUserOrders(byInvoiceStatus: \"R\") {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentCompanyName\n        customerInfo\n        marketplaceOrderId\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              price\n              product {\n                name\n                id\n                sku\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentInvoiceRelayInvoiceQuery {\n  allUserOrders(byInvoiceStatus: \"R\") {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentCompanyName\n        customerInfo\n        marketplaceOrderId\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              price\n              productOrderStatus\n              product {\n                name\n                id\n                sku\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '3a3c09156e1d3a0bbbfe7aa830f1b102';
+(node as any).hash = '1eb48d95d7f195d7ed3e4992d34d7d54';
 export default node;

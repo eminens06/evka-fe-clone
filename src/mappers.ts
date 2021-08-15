@@ -61,6 +61,7 @@ import {
   ProductHistory,
   ProductHistoryDTO,
 } from './modules/log/types';
+import { ReturnCancelData } from './modules/return_cancel/types';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -212,12 +213,16 @@ const userMapper = (data: User[]) => {
   });
 };
 
-const orderProductMapper = (data: UserOrderProductDTO) => {
-  const grouped = data.edges.reduce((acc: any, key: any) => {
-    if (acc[key.node.product.sku]) {
-      acc[key.node.product.sku].push(key.node);
+const orderProductMapper = (data: any) => {
+  const products = genericTableDataMapper(data, 'products').filter(
+    (item) =>
+      item.productOrderStatus !== 'CC' && item.productOrderStatus !== 'RR',
+  );
+  const grouped = products.reduce((acc: any, key: any) => {
+    if (acc[key.product.sku]) {
+      acc[key.product.sku].push(key);
     } else {
-      acc[key.node.product.sku] = [key.node];
+      acc[key.product.sku] = [key];
     }
     return acc;
   }, []);
@@ -258,7 +263,7 @@ const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
       marketplace: order.marketplace.name,
       status: order.orderStatus,
       price: order.totalPrice,
-      products: orderProductMapper(order.products),
+      products: orderProductMapper(order),
       remainingTime: getRemainingDate(order.estimatedDeliveryDate),
       orderType: order.orderType,
     };
@@ -310,7 +315,10 @@ const cancelModalProductMapper = (userOrder: any) => {
   const generateName = (metadata: any, productName: any) => {
     return `${productName}: ${metadata.AY}(Ayak) ${metadata.TB}(Tabla)`;
   };
-  return products.map((item) => {
+  const removedProducts = products.filter(
+    (prd) => prd.productOrderStatus !== 'CC' && prd.productOrderStatus !== 'RR',
+  );
+  return removedProducts.map((item) => {
     const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
     const metaInfo = {
       AY: undefined,
@@ -342,7 +350,7 @@ export const userOrderMapper = (userOrder: any) => {
     orderDeliveryTime: userOrder.orderDeliveryTime,
     marketplaceOrderId: userOrder.marketplaceOrderId,
     marketplaceId: JSON.stringify(userOrder.marketplace),
-    products: productCardMapper(userOrder.products),
+    products: productCardMapper(userOrder),
     cancelModalProducts: cancelModalProductMapper(userOrder),
     isSameAddress: customer.delivery_address === customer.invoice_address,
     isCorporate: customer.is_corporate,
@@ -353,11 +361,15 @@ export const userOrderMapper = (userOrder: any) => {
 };
 
 const productCardMapper = (data: any) => {
-  const grouped = data.edges.reduce((acc: any, key: any) => {
-    if (acc[key.node.product.sku]) {
-      acc[key.node.product.sku].push(key.node);
+  const products = genericTableDataMapper(data, 'products').filter(
+    (item) =>
+      item.productOrderStatus !== 'CC' && item.productOrderStatus !== 'RR',
+  );
+  const grouped = products.reduce((acc: any, key: any) => {
+    if (acc[key.product.sku]) {
+      acc[key.product.sku].push(key);
     } else {
-      acc[key.node.product.sku] = [key.node];
+      acc[key.product.sku] = [key];
     }
     return acc;
   }, []);
@@ -741,7 +753,7 @@ const invoiceMapper = (data: UserOrderDTO[]): Invoice[] => {
       orderId: order.marketplaceOrderId,
       notes: order.notes,
       marketplace: order.marketplace.name,
-      products: orderProductMapper(order.products) || [],
+      products: orderProductMapper(order) || [],
       shipmentCompany: order.shipmentCompanyName || 'Seçilmedi',
       shipmentType: order.shipmentType || ' - ',
     };
@@ -762,7 +774,7 @@ const shipmentInvoiceSummaryMapper = (
       remainingTime: getRemainingDate(order.estimatedDeliveryDate),
       shipmentStatus: order.shipmentStatus as ShipmentStatus,
       invoiceStatus: order.invoiceStatus as InvoiceStatus,
-      products: orderProductMapper(order.products) || [],
+      products: orderProductMapper(order) || [],
     };
   });
 };
@@ -887,6 +899,41 @@ const systemParamMapper = (systemParams: any) => {
   return returnData;
 };
 
+const getPartlyProductText = (order: any) => {
+  const products = genericTableDataMapper(order, 'products');
+  if (products.length === 1) {
+    return 'Tüm Sipariş';
+  }
+  let text = '';
+  products.forEach((product) => {
+    if (product.productOrderStatus === 'CC') {
+      text += `${product.product.name} - İptal\n`;
+    }
+    if (product.productOrderStatus === 'RR') {
+      text += `${product.product.name} - İade\n`;
+    }
+  });
+  return text === '' ? 'Tüm Sipariş' : text;
+};
+
+const cancelReturnMapper = (data: any): ReturnCancelData[] => {
+  return data.map(
+    (order: any): ReturnCancelData => {
+      const customerInfo = JSON.parse(order.customerInfo);
+      return {
+        id: order.id,
+        orderId: order.marketplaceOrderId,
+        marketplace: order.marketplace.name,
+        customer: `${customerInfo.name} ${customerInfo.surname || ''}`,
+        status: order.orderStatus,
+        isPartlyCanceled: order.isPartlyCanceled,
+        isPartlyReturned: order.isPartlyReturned,
+        productText: getPartlyProductText(order),
+      };
+    },
+  );
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -910,4 +957,6 @@ export default {
   orderHistoryMapper,
   productHistoryMapper,
   systemParamMapper,
+  cancelModalProductMapper,
+  cancelReturnMapper,
 };

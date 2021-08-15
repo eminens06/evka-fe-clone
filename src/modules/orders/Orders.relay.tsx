@@ -54,7 +54,7 @@ graphql`
 
 graphql`
   query OrdersRelayGetAllUserOrdersQuery {
-    allUserOrders(notCompleted: "") {
+    allUserOrders(notCompleted: "a") {
       edges {
         node {
           notes
@@ -74,6 +74,7 @@ graphql`
                 orderCount
                 type
                 notes
+                productOrderStatus
                 product {
                   sku
                   name
@@ -142,6 +143,7 @@ graphql`
             orderCount
             price
             notes
+            productOrderStatus
             product {
               id
               name

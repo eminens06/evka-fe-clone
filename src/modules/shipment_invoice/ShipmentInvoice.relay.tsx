@@ -19,6 +19,7 @@ graphql`
             edges {
               node {
                 price
+                productOrderStatus
                 product {
                   name
                   id
@@ -126,6 +127,7 @@ graphql`
           products {
             edges {
               node {
+                productOrderStatus
                 product {
                   name
                   id
