@@ -31,6 +31,11 @@ graphql`
             firstName
             lastName
           }
+          productOrder {
+            product {
+              name
+            }
+          }
           module
           type
         }

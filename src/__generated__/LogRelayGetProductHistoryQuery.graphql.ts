@@ -16,6 +16,11 @@ export type LogRelayGetProductHistoryQueryResponse = {
                     readonly firstName: string;
                     readonly lastName: string;
                 } | null;
+                readonly productOrder: {
+                    readonly product: {
+                        readonly name: string;
+                    } | null;
+                } | null;
                 readonly module: string;
                 readonly type: string;
             } | null;
@@ -42,6 +47,13 @@ query LogRelayGetProductHistoryQuery(
         user {
           firstName
           lastName
+          id
+        }
+        productOrder {
+          product {
+            name
+            id
+          }
           id
         }
         module
@@ -108,17 +120,24 @@ v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "module",
+  "name": "name",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "module",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -172,8 +191,31 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v7/*: any*/),
-                  (v8/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ProductOrderNode",
+                    "kind": "LinkedField",
+                    "name": "productOrder",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ProductNode",
+                        "kind": "LinkedField",
+                        "name": "product",
+                        "plural": false,
+                        "selections": [
+                          (v7/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  (v8/*: any*/),
+                  (v9/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -229,13 +271,38 @@ return {
                     "selections": [
                       (v5/*: any*/),
                       (v6/*: any*/),
-                      (v9/*: any*/)
+                      (v10/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v7/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ProductOrderNode",
+                    "kind": "LinkedField",
+                    "name": "productOrder",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ProductNode",
+                        "kind": "LinkedField",
+                        "name": "product",
+                        "plural": false,
+                        "selections": [
+                          (v7/*: any*/),
+                          (v10/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      (v10/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
                   (v8/*: any*/),
-                  (v9/*: any*/)
+                  (v9/*: any*/),
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -252,9 +319,9 @@ return {
     "metadata": {},
     "name": "LogRelayGetProductHistoryQuery",
     "operationKind": "query",
-    "text": "query LogRelayGetProductHistoryQuery(\n  $id: String\n) {\n  allProductOrderHistories(byUserOrderId: $id) {\n    edges {\n      node {\n        updatedDate\n        oldStatus\n        newStatus\n        user {\n          firstName\n          lastName\n          id\n        }\n        module\n        type\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query LogRelayGetProductHistoryQuery(\n  $id: String\n) {\n  allProductOrderHistories(byUserOrderId: $id) {\n    edges {\n      node {\n        updatedDate\n        oldStatus\n        newStatus\n        user {\n          firstName\n          lastName\n          id\n        }\n        productOrder {\n          product {\n            name\n            id\n          }\n          id\n        }\n        module\n        type\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '89e742ef508ff1b0a2eee0e9a9724e34';
+(node as any).hash = '9aa56a8faea1939186d3623cd1fb32f7';
 export default node;

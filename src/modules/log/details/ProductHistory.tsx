@@ -23,9 +23,37 @@ const columns = [
     dataIndex: 'user',
   },
   {
+    key: 'product',
+    title: 'Ürün Adı',
+    dataIndex: 'product',
+  },
+  {
     key: 'module',
     title: 'Birim',
     dataIndex: 'module',
+    render: (value: string) => {
+      switch (value) {
+        case 'ayak':
+          return 'Ayak';
+        case 'Wood-boya':
+        case 'WD-boya':
+          return 'Ahşap Boya Atölyesi';
+        case 'Metal-boya':
+        case 'MT-boya':
+          return 'Metal Boya Atölyesi';
+        case 'MT':
+          return 'Metal Atölyesi';
+        case 'WD':
+          return 'Ahşap Atölyesi';
+        case 'Fabric':
+          return 'Kumaş Atölyesi';
+        case 'Glass':
+        case 'Cam':
+          return 'Cam Atölyesi';
+        default:
+          return value;
+      }
+    },
   },
   {
     key: 'type',

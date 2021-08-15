@@ -895,6 +895,7 @@ const productHistoryMapper = (data: ProductHistoryDTO[]): ProductHistory[] => {
       },
       type: item.type,
       module: item.module,
+      product: item.productOrder.product.name,
     };
   });
 };

@@ -46,6 +46,11 @@ export interface HistoryDTO {
 export interface ProductHistoryDTO extends HistoryDTO {
   module: string;
   type: string;
+  productOrder: {
+    product: {
+      name: string;
+    };
+  };
 }
 
 export interface OrderHistory {
@@ -58,4 +63,5 @@ export interface OrderHistory {
 export interface ProductHistory extends OrderHistory {
   module: string;
   type: string;
+  product: string;
 }
