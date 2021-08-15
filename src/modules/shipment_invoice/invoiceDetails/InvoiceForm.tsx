@@ -1,5 +1,5 @@
 import { Row, Col, Form, Input, DatePicker, FormInstance, Card } from 'antd';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 interface Props {
   form: FormInstance<any>;
@@ -10,6 +10,8 @@ const InvoiceForm: FC<Props> = ({ form, onSubmit }) => {
   const onFormFinish = (values: any) => {
     onSubmit(values);
   };
+
+  useEffect(() => form.resetFields());
 
   return (
     <Form form={form} name="basic" layout="vertical" onFinish={onFormFinish}>

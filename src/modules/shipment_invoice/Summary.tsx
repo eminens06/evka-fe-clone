@@ -74,9 +74,9 @@ const Summary: FunctionComponent = () => {
   );
 
   const onSearch = (value: string) => {
-    /*forceFetchQuery({
+    forceFetchQuery({
       search: value,
-    }); */
+    });
   };
 
   return (

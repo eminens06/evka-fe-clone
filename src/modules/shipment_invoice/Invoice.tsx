@@ -94,9 +94,9 @@ const Invoice: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
-    /*forceFetchQuery({
+    forceFetchQuery({
       search: value,
-    }); */
+    });
   };
 
   const closeModal = () => {

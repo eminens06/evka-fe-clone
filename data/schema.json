@@ -59,9 +59,7 @@
       "queryType": {
         "name": "Query"
       },
-      "subscriptionType": {
-        "name": "Subscription"
-      },
+      "subscriptionType": null,
       "types": [
         {
           "description": null,
@@ -345,6 +343,16 @@
                     "name": "String",
                     "ofType": null
                   }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "superSearch",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
                 }
               ],
               "deprecationReason": null,
@@ -423,6 +431,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "byWorkshopType",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "superSearch",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -15147,40 +15165,6 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "DeleteImageGroupMutationInput",
-          "possibleTypes": null
-        },
-        {
-          "description": null,
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [
-                {
-                  "defaultValue": null,
-                  "description": null,
-                  "name": "id",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "ID",
-                    "ofType": null
-                  }
-                }
-              ],
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "appUserUpdated",
-              "type": {
-                "kind": "OBJECT",
-                "name": "AppUserNode",
-                "ofType": null
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "kind": "OBJECT",
-          "name": "Subscription",
           "possibleTypes": null
         },
         {

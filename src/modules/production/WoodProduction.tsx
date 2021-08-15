@@ -52,9 +52,7 @@ const MetalProduction: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
-    /*forceFetchQuery({
-      search: value,
-    }); */
+    forceFetchQuery(value);
   };
 
   const onChangeStatus = () => {

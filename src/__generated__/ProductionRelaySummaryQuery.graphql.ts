@@ -2,7 +2,9 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type ProductionRelaySummaryQueryVariables = {};
+export type ProductionRelaySummaryQueryVariables = {
+    search?: string | null;
+};
 export type ProductionRelaySummaryQueryResponse = {
     readonly allProductByProductOrderStatus: {
         readonly edges: ReadonlyArray<{
@@ -40,8 +42,10 @@ export type ProductionRelaySummaryQuery = {
 
 
 /*
-query ProductionRelaySummaryQuery {
-  allProductByProductOrderStatus(statusType: "P") {
+query ProductionRelaySummaryQuery(
+  $search: String
+) {
+  allProductByProductOrderStatus(statusType: "P", superSearch: $search) {
     edges {
       node {
         id
@@ -76,68 +80,81 @@ query ProductionRelaySummaryQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search",
+    "type": "String"
+  }
+],
+v1 = [
+  {
     "kind": "Literal",
     "name": "statusType",
     "value": "P"
+  },
+  {
+    "kind": "Variable",
+    "name": "superSearch",
+    "variableName": "search"
   }
 ],
-v1 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "ayakStatus",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "tablaStatus",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "fabricStatus",
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "marbleStatus",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "glassStatus",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "orderCount",
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "ProductNode",
@@ -145,12 +162,12 @@ v9 = {
   "name": "product",
   "plural": false,
   "selections": [
-    (v1/*: any*/),
-    (v8/*: any*/)
+    (v2/*: any*/),
+    (v9/*: any*/)
   ],
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -159,14 +176,14 @@ v10 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ProductionRelaySummaryQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "ProductOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allProductByProductOrderStatus",
@@ -188,14 +205,14 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
-                  (v9/*: any*/),
+                  (v8/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -220,7 +237,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -229,7 +246,7 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v8/*: any*/)
+                                  (v9/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -249,20 +266,20 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductByProductOrderStatus(statusType:\"P\")"
+        "storageKey": null
       }
     ],
     "type": "Query"
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ProductionRelaySummaryQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "ProductOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allProductByProductOrderStatus",
@@ -284,14 +301,14 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
-                  (v9/*: any*/),
+                  (v8/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -316,7 +333,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -325,12 +342,12 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v8/*: any*/),
-                                  (v1/*: any*/)
+                                  (v9/*: any*/),
+                                  (v2/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v1/*: any*/)
+                              (v2/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -347,7 +364,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allProductByProductOrderStatus(statusType:\"P\")"
+        "storageKey": null
       }
     ]
   },
@@ -356,9 +373,9 @@ return {
     "metadata": {},
     "name": "ProductionRelaySummaryQuery",
     "operationKind": "query",
-    "text": "query ProductionRelaySummaryQuery {\n  allProductByProductOrderStatus(statusType: \"P\") {\n    edges {\n      node {\n        id\n        ayakStatus\n        tablaStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          name\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelaySummaryQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"P\", superSearch: $search) {\n    edges {\n      node {\n        id\n        ayakStatus\n        tablaStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        orderCount\n        product {\n          id\n          name\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '795ab092f8db1073480ebcb3209ae5dc';
+(node as any).hash = '4d38fa4eb19b84cf56dc6015aae8f268';
 export default node;

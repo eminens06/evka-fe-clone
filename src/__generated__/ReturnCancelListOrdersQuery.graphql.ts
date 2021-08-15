@@ -5,7 +5,9 @@ import { ConcreteRequest } from "relay-runtime";
 export type ProductOrderProductOrderStatus = "C" | "CC" | "D" | "DF" | "P" | "PP" | "RR" | "%future added value";
 export type ProductOrderType = "NR" | "SP" | "%future added value";
 export type UserOrderOrderType = "N" | "NR" | "SP" | "ST" | "%future added value";
-export type ReturnCancelListOrdersQueryVariables = {};
+export type ReturnCancelListOrdersQueryVariables = {
+    search?: string | null;
+};
 export type ReturnCancelListOrdersQueryResponse = {
     readonly allUserOrders: {
         readonly edges: ReadonlyArray<{
@@ -46,8 +48,10 @@ export type ReturnCancelListOrdersQuery = {
 
 
 /*
-query ReturnCancelListOrdersQuery {
-  allUserOrders(returnCancelOrders: "a") {
+query ReturnCancelListOrdersQuery(
+  $search: String
+) {
+  allUserOrders(returnCancelOrders: "a", superSearch: $search) {
     edges {
       node {
         id
@@ -86,96 +90,109 @@ query ReturnCancelListOrdersQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search",
+    "type": "String"
+  }
+],
+v1 = [
+  {
     "kind": "Literal",
     "name": "returnCancelOrders",
     "value": "a"
+  },
+  {
+    "kind": "Variable",
+    "name": "superSearch",
+    "variableName": "search"
   }
 ],
-v1 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "orderType",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "customerInfo",
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "marketplaceOrderId",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "orderStatus",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "isPartlyCanceled",
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "isPartlyReturned",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "orderCount",
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "notes",
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "productOrderStatus",
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -184,14 +201,14 @@ v13 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ReturnCancelListOrdersQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "UserOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allUserOrders",
@@ -213,8 +230,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -223,15 +240,15 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -256,10 +273,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v9/*: any*/),
                               (v10/*: any*/),
                               (v11/*: any*/),
                               (v12/*: any*/),
+                              (v13/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -268,8 +285,8 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v13/*: any*/),
-                                  (v3/*: any*/)
+                                  (v14/*: any*/),
+                                  (v4/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -289,20 +306,20 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allUserOrders(returnCancelOrders:\"a\")"
+        "storageKey": null
       }
     ],
     "type": "Query"
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ReturnCancelListOrdersQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "UserOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allUserOrders",
@@ -324,8 +341,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -334,16 +351,16 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
-                      (v1/*: any*/)
+                      (v4/*: any*/),
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -368,10 +385,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v9/*: any*/),
                               (v10/*: any*/),
                               (v11/*: any*/),
                               (v12/*: any*/),
+                              (v13/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -380,13 +397,13 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v13/*: any*/),
-                                  (v3/*: any*/),
-                                  (v1/*: any*/)
+                                  (v14/*: any*/),
+                                  (v4/*: any*/),
+                                  (v2/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v1/*: any*/)
+                              (v2/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -403,7 +420,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allUserOrders(returnCancelOrders:\"a\")"
+        "storageKey": null
       }
     ]
   },
@@ -412,9 +429,9 @@ return {
     "metadata": {},
     "name": "ReturnCancelListOrdersQuery",
     "operationKind": "query",
-    "text": "query ReturnCancelListOrdersQuery {\n  allUserOrders(returnCancelOrders: \"a\") {\n    edges {\n      node {\n        id\n        orderType\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        isPartlyCanceled\n        isPartlyReturned\n        products {\n          edges {\n            node {\n              orderCount\n              type\n              notes\n              productOrderStatus\n              product {\n                sku\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ReturnCancelListOrdersQuery(\n  $search: String\n) {\n  allUserOrders(returnCancelOrders: \"a\", superSearch: $search) {\n    edges {\n      node {\n        id\n        orderType\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        isPartlyCanceled\n        isPartlyReturned\n        products {\n          edges {\n            node {\n              orderCount\n              type\n              notes\n              productOrderStatus\n              product {\n                sku\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '3fbe688db6b7ac74f89e98cc92c41084';
+(node as any).hash = '27f7711714a061776c44b426aa335ecd';
 export default node;

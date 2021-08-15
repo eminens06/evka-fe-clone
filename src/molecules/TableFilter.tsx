@@ -24,7 +24,7 @@ const TableFilter: FC<Props> = ({ onSearchComplete }) => {
           <Search
             placeholder="Tabloda Ara"
             onSearch={onSearch}
-            style={{ width: 200 }}
+            style={{ width: 300 }}
           />
         </Col>
       </Row>

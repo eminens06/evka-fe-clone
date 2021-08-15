@@ -86,8 +86,6 @@ const ListOrders: FunctionComponent = () => {
     });
   };
 
-  console.log('Data ! ', data);
-
   return (
     <PageContent header={['Sipariş Geçmişi ve Loglar']}>
       <div>
@@ -103,7 +101,7 @@ const ListOrders: FunctionComponent = () => {
           }}
           columns={columns}
           dataSource={data}
-          rowKey="orderId"
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,

@@ -2,7 +2,9 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type OrdersAllProductsWithoutSkuQueryVariables = {};
+export type OrdersAllProductsWithoutSkuQueryVariables = {
+    search?: string | null;
+};
 export type OrdersAllProductsWithoutSkuQueryResponse = {
     readonly allProducts: {
         readonly edges: ReadonlyArray<{
@@ -30,8 +32,10 @@ export type OrdersAllProductsWithoutSkuQuery = {
 
 
 /*
-query OrdersAllProductsWithoutSkuQuery {
-  allProducts {
+query OrdersAllProductsWithoutSkuQuery(
+  $search: String
+) {
+  allProducts(superSearch: $search) {
     edges {
       node {
         id
@@ -53,35 +57,50 @@ query OrdersAllProductsWithoutSkuQuery {
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search",
+    "type": "String"
+  }
+],
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "superSearch",
+    "variableName": "search"
+  }
+],
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v1 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v2 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "sku",
   "storageKey": null
 },
-v3 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "materialName",
   "storageKey": null
 },
-v4 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -90,14 +109,14 @@ v4 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "OrdersAllProductsWithoutSkuQuery",
     "selections": [
       {
         "alias": null,
-        "args": null,
+        "args": (v1/*: any*/),
         "concreteType": "ProductNodeConnection",
         "kind": "LinkedField",
         "name": "allProducts",
@@ -119,9 +138,9 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
-                  (v1/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -146,8 +165,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v3/*: any*/),
-                              (v4/*: any*/)
+                              (v5/*: any*/),
+                              (v6/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -171,13 +190,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "OrdersAllProductsWithoutSkuQuery",
     "selections": [
       {
         "alias": null,
-        "args": null,
+        "args": (v1/*: any*/),
         "concreteType": "ProductNodeConnection",
         "kind": "LinkedField",
         "name": "allProducts",
@@ -199,9 +218,9 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
-                  (v1/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -226,9 +245,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v3/*: any*/),
-                              (v4/*: any*/),
-                              (v0/*: any*/)
+                              (v5/*: any*/),
+                              (v6/*: any*/),
+                              (v2/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -254,9 +273,9 @@ return {
     "metadata": {},
     "name": "OrdersAllProductsWithoutSkuQuery",
     "operationKind": "query",
-    "text": "query OrdersAllProductsWithoutSkuQuery {\n  allProducts {\n    edges {\n      node {\n        id\n        name\n        sku\n        metaProducts {\n          edges {\n            node {\n              materialName\n              type\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query OrdersAllProductsWithoutSkuQuery(\n  $search: String\n) {\n  allProducts(superSearch: $search) {\n    edges {\n      node {\n        id\n        name\n        sku\n        metaProducts {\n          edges {\n            node {\n              materialName\n              type\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a0df053409a2c8f14e66afaf13e6dfc7';
+(node as any).hash = 'a91e031e1e1142e791e40abdf8ee9e3a';
 export default node;

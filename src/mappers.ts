@@ -1,11 +1,6 @@
 import { Roles, RoleTexts } from './layout/roles';
 import { MetadataDTO, Metadata, MetadataType } from './modules/metadata/types';
-import {
-  UserOrderDTO,
-  UserOrder,
-  UserOrderProductDTO,
-  CustomerDTO,
-} from './modules/orders/types';
+import { UserOrderDTO, UserOrder, CustomerDTO } from './modules/orders/types';
 import { User } from './modules/auth/types';
 import { OrdersAllMarketplacesQueryResponse } from './__generated__/OrdersAllMarketplacesQuery.graphql';
 import { productMetaData } from './utils/enums';
@@ -29,6 +24,7 @@ import {
 } from './modules/production/types';
 import {
   MainPartsShortNames,
+  MaterialTypeShortName,
   WorkshopStatusNames,
 } from './modules/production/helpers';
 import { ProductionRelayWorkshopQueryResponse } from './__generated__/ProductionRelayWorkshopQuery.graphql';
@@ -572,6 +568,19 @@ const productionMaterialMapper = (
       item,
       'externalService',
     );
+    const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
+    let categoryName = undefined;
+    metaProducts.forEach((mt) => {
+      if (mt.metaType === MaterialTypeShortName[type]) {
+        categoryName = mt.categoryName;
+      }
+    });
+
+    let finalCategoryName;
+    if (categoryName) {
+      finalCategoryName = categoryName === 'TB' ? 'tabla' : 'ayak';
+    }
+
     return {
       id: item.id,
       sku: item.product.sku,
@@ -584,6 +593,7 @@ const productionMaterialMapper = (
         height: item.product.height,
         length: item.product.length,
       },
+      categoryName: finalCategoryName,
       status: item[WorkshopStatusNames[type]],
       externalServices: services || [],
       orderType: order[0].orderType,

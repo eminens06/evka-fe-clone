@@ -57,8 +57,8 @@ graphql`
 `;
 
 graphql`
-  query ReturnCancelListOrdersQuery {
-    allUserOrders(returnCancelOrders: "a") {
+  query ReturnCancelListOrdersQuery($search: String) {
+    allUserOrders(returnCancelOrders: "a", superSearch: $search) {
       edges {
         node {
           id

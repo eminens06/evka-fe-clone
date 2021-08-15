@@ -53,8 +53,8 @@ graphql`
 `;
 
 graphql`
-  query OrdersRelayGetAllUserOrdersQuery {
-    allUserOrders(notCompleted: "a") {
+  query OrdersRelayGetAllUserOrdersQuery($search: String) {
+    allUserOrders(notCompleted: "a", superSearch: $search) {
       edges {
         node {
           notes
@@ -111,8 +111,8 @@ graphql`
 `;
 
 graphql`
-  query OrdersAllProductsWithoutSkuQuery {
-    allProducts {
+  query OrdersAllProductsWithoutSkuQuery($search: String) {
+    allProducts(superSearch: $search) {
       edges {
         node {
           id

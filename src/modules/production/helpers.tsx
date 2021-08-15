@@ -90,6 +90,12 @@ export const MainPartsShortNames = {
   [WorkshopTypes.WOOD_PAINT]: 'WD',
 };
 
+export const MaterialTypeShortName = {
+  [WorkshopTypes.FABRIC]: 'F',
+  [WorkshopTypes.GLASS]: 'G',
+  [WorkshopTypes.MARBLE]: 'M',
+};
+
 export const WorkshopStatusNames: Record<WorkshopTypes, string> = {
   [WorkshopTypes.FABRIC]: 'fabricStatus',
   [WorkshopTypes.GLASS]: 'glassStatus',
@@ -223,6 +229,15 @@ export const materialProductionColumns = [
     key: 'sent',
     title: 'Gönderilen',
     dataIndex: 'sent',
+    render: (value: any, product: any) => {
+      const services = product.externalServices.filter(
+        (service: any) => !service.isRawMaterial,
+      );
+      if (services.length > 0) {
+        return services[0].name;
+      }
+      return value;
+    },
   },
   {
     key: 'status',

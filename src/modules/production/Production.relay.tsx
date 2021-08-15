@@ -1,7 +1,7 @@
 import { graphql } from 'relay-hooks';
 graphql`
-  query ProductionRelaySummaryQuery {
-    allProductByProductOrderStatus(statusType: "P") {
+  query ProductionRelaySummaryQuery($search: String) {
+    allProductByProductOrderStatus(statusType: "P", superSearch: $search) {
       edges {
         node {
           id
@@ -32,8 +32,8 @@ graphql`
 `;
 
 graphql`
-  query ProductionRelayWorkshopQuery($workshopType: String) {
-    allProductOrders(byWorkshopType: $workshopType) {
+  query ProductionRelayWorkshopQuery($workshopType: String, $search: String) {
+    allProductOrders(byWorkshopType: $workshopType, superSearch: $search) {
       edges {
         node {
           id
@@ -78,6 +78,7 @@ graphql`
           externalService {
             edges {
               node {
+                isRawMaterial
                 name
                 phoneNumber
                 address

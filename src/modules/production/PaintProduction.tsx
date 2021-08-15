@@ -76,9 +76,7 @@ const PaintProduction: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
-    /* forceFetchQuery({
-      search: value,
-    }); */
+    forceFetchQuery(value);
   };
 
   const onChangeStatus = (externalServices?: WorkshopExternalServiceParams) => {
@@ -107,7 +105,7 @@ const PaintProduction: FunctionComponent = () => {
         variables: {
           input: {
             productOrderId: modalData.id,
-            workshopType: WorkshopTypes.MARBLE,
+            workshopType: `${modalData.type.toLowerCase()}_paint`,
           },
         },
       });

@@ -84,11 +84,10 @@ const ListReturnCancel: FunctionComponent = () => {
   );
 
   const onTableClick = (record: UserOrder) => {};
-
   const onSearch = (value: string) => {
-    /* forceFetchQuery({
+    forceFetchQuery({
       search: value,
-    }); */
+    });
   };
 
   return (

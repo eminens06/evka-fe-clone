@@ -28,13 +28,14 @@ function useFetchWorkShop(workshopType: WorkshopTypes) {
 
   const environment = useRelayEnvironment();
 
-  const forceFetchQuery = async () => {
+  const forceFetchQuery = async (search?: string) => {
     setLoading(true);
     const res = await fetchQuery<ProductionRelayWorkshopQuery>(
       environment,
       GET_WORKSHOP_DATA,
       {
         workshopType,
+        search,
       },
     );
     setLoading(false);

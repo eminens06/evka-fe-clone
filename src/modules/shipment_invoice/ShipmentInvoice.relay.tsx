@@ -1,8 +1,8 @@
 import { graphql } from 'relay-hooks';
 
 graphql`
-  query ShipmentInvoiceRelayInvoiceQuery {
-    allUserOrders(byInvoiceStatus: "R") {
+  query ShipmentInvoiceRelayInvoiceQuery($search: String) {
+    allUserOrders(byInvoiceStatus: "R", superSearch: $search) {
       edges {
         node {
           id
@@ -35,8 +35,11 @@ graphql`
 `;
 
 graphql`
-  query ShipmentInvoiceRelayGetAllUserOrdersQuery($status: String) {
-    allUserOrders(byShipmentStatus: $status) {
+  query ShipmentInvoiceRelayGetAllUserOrdersQuery(
+    $status: String
+    $search: String
+  ) {
+    allUserOrders(byShipmentStatus: $status, superSearch: $search) {
       edges {
         node {
           id
@@ -107,8 +110,8 @@ graphql`
 `;
 
 graphql`
-  query ShipmentInvoiceRelaySummaryQuery {
-    allUserOrders(byOrderStatus: "S") {
+  query ShipmentInvoiceRelaySummaryQuery($search: String) {
+    allUserOrders(byOrderStatus: "S", superSearch: $search) {
       edges {
         node {
           id

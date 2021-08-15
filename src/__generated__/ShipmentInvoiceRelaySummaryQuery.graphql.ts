@@ -5,7 +5,9 @@ import { ConcreteRequest } from "relay-runtime";
 export type ProductOrderProductOrderStatus = "C" | "CC" | "D" | "DF" | "P" | "PP" | "RR" | "%future added value";
 export type UserOrderOrderType = "N" | "NR" | "SP" | "ST" | "%future added value";
 export type UserOrderShipmentType = "C" | "D" | "S" | "%future added value";
-export type ShipmentInvoiceRelaySummaryQueryVariables = {};
+export type ShipmentInvoiceRelaySummaryQueryVariables = {
+    search?: string | null;
+};
 export type ShipmentInvoiceRelaySummaryQueryResponse = {
     readonly allUserOrders: {
         readonly edges: ReadonlyArray<{
@@ -47,8 +49,10 @@ export type ShipmentInvoiceRelaySummaryQuery = {
 
 
 /*
-query ShipmentInvoiceRelaySummaryQuery {
-  allUserOrders(byOrderStatus: "S") {
+query ShipmentInvoiceRelaySummaryQuery(
+  $search: String
+) {
+  allUserOrders(byOrderStatus: "S", superSearch: $search) {
     edges {
       node {
         id
@@ -87,96 +91,109 @@ query ShipmentInvoiceRelaySummaryQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search",
+    "type": "String"
+  }
+],
+v1 = [
+  {
     "kind": "Literal",
     "name": "byOrderStatus",
     "value": "S"
+  },
+  {
+    "kind": "Variable",
+    "name": "superSearch",
+    "variableName": "search"
   }
 ],
-v1 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "notes",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "orderType",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "shipmentType",
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "shipmentCompanyName",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "customerInfo",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "shipmentStatus",
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "invoiceStatus",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "marketplaceOrderId",
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "estimatedDeliveryDate",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "productOrderStatus",
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "ProductNode",
@@ -184,8 +201,8 @@ v13 = {
   "name": "product",
   "plural": false,
   "selections": [
-    (v11/*: any*/),
-    (v1/*: any*/),
+    (v12/*: any*/),
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -198,14 +215,14 @@ v13 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ShipmentInvoiceRelaySummaryQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "UserOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allUserOrders",
@@ -227,7 +244,6 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
@@ -237,6 +253,7 @@ return {
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -245,7 +262,7 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v11/*: any*/)
+                      (v12/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -273,8 +290,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v12/*: any*/),
-                              (v13/*: any*/)
+                              (v13/*: any*/),
+                              (v14/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -291,20 +308,20 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allUserOrders(byOrderStatus:\"S\")"
+        "storageKey": null
       }
     ],
     "type": "Query"
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ShipmentInvoiceRelaySummaryQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "UserOrderNodeConnection",
         "kind": "LinkedField",
         "name": "allUserOrders",
@@ -326,7 +343,6 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
@@ -336,6 +352,7 @@ return {
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -344,8 +361,8 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v11/*: any*/),
-                      (v1/*: any*/)
+                      (v12/*: any*/),
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -373,9 +390,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v12/*: any*/),
                               (v13/*: any*/),
-                              (v1/*: any*/)
+                              (v14/*: any*/),
+                              (v2/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -392,7 +409,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "allUserOrders(byOrderStatus:\"S\")"
+        "storageKey": null
       }
     ]
   },
@@ -401,9 +418,9 @@ return {
     "metadata": {},
     "name": "ShipmentInvoiceRelaySummaryQuery",
     "operationKind": "query",
-    "text": "query ShipmentInvoiceRelaySummaryQuery {\n  allUserOrders(byOrderStatus: \"S\") {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentCompanyName\n        customerInfo\n        shipmentStatus\n        invoiceStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                id\n                sku\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentInvoiceRelaySummaryQuery(\n  $search: String\n) {\n  allUserOrders(byOrderStatus: \"S\", superSearch: $search) {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentCompanyName\n        customerInfo\n        shipmentStatus\n        invoiceStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                id\n                sku\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ef411891c4829516628cc7ed91933647';
+(node as any).hash = '987fba4b309da90e8d2c9f17b91689d8';
 export default node;

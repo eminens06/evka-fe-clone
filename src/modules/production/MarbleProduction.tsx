@@ -72,9 +72,7 @@ const MarbleProduction: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
-    /*forceFetchQuery({
-      search: value,
-    }); */
+    forceFetchQuery(value);
   };
 
   const onChangeStatus = (externalServices?: WorkshopExternalServiceParams) => {
@@ -86,6 +84,7 @@ const MarbleProduction: FunctionComponent = () => {
           modalData.status === WorkshopStatus.IN_PRODUCTION ||
           modalData.status === WorkshopStatus.RECEIVED,
         ...externalServices,
+        categoryName: modalData.categoryName,
       };
       changeStatus({
         variables: {
@@ -126,7 +125,7 @@ const MarbleProduction: FunctionComponent = () => {
           <Typography.Title level={5}>Mermer Atölyesi</Typography.Title>
         </div>
         <Table
-          onRow={(record, rowIndex) => {
+          onRow={(record: ProductionMaterialWorkshopData) => {
             return {
               onClick: () => onTableClick(record),
             };

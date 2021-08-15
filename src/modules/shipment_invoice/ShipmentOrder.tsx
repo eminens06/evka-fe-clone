@@ -121,9 +121,10 @@ const ShipmentOrder: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
-    /*forceFetchQuery({
+    forceFetchQuery({
       search: value,
-    }); */
+      status: 'O',
+    });
   };
 
   const closeModal = () => {

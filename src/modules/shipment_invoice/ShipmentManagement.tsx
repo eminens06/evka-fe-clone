@@ -103,9 +103,10 @@ const ShipmentManagement: FunctionComponent = () => {
   );
 
   const onSearch = (value: string) => {
-    /*forceFetchQuery({
+    forceFetchQuery({
+      status: 'R',
       search: value,
-    }); */
+    });
   };
 
   const [changeStatus] = useMutation<ShipmentInvoiceRelayStatusChangeMutation>(
