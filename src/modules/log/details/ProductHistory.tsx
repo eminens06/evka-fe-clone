@@ -80,7 +80,6 @@ const ProductHistory: FC<Props> = ({ id }) => {
     data,
     size,
     isLoading,
-    forceFetchQuery,
   } = useFetchTablePagination<LogRelayGetProductHistoryQuery>(
     GET_PRODUCT_HISTORY,
     {
@@ -90,7 +89,6 @@ const ProductHistory: FC<Props> = ({ id }) => {
     mappers.productHistoryMapper,
   );
 
-  console.log('Product history data : ', data);
   return (
     <Table
       columns={columns}
