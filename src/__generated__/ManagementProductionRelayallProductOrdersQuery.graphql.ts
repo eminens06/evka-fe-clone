@@ -36,6 +36,7 @@ export type ManagementProductionRelayallProductOrdersQueryResponse = {
                             readonly marketplace: {
                                 readonly name: string;
                             } | null;
+                            readonly estimatedDeliveryDate: unknown | null;
                         } | null;
                     } | null>;
                 };
@@ -84,6 +85,7 @@ query ManagementProductionRelayallProductOrdersQuery(
                 name
                 id
               }
+              estimatedDeliveryDate
               id
             }
           }
@@ -183,6 +185,13 @@ v11 = {
   "args": null,
   "kind": "ScalarField",
   "name": "marketplaceOrderId",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "estimatedDeliveryDate",
   "storageKey": null
 };
 return {
@@ -306,7 +315,8 @@ return {
                                   (v5/*: any*/)
                                 ],
                                 "storageKey": null
-                              }
+                              },
+                              (v12/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -451,6 +461,7 @@ return {
                                 ],
                                 "storageKey": null
                               },
+                              (v12/*: any*/),
                               (v4/*: any*/)
                             ],
                             "storageKey": null
@@ -477,9 +488,9 @@ return {
     "metadata": {},
     "name": "ManagementProductionRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query ManagementProductionRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"DF\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        orderCount\n        id\n        product {\n          id\n          name\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ManagementProductionRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"DF\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        orderCount\n        id\n        product {\n          id\n          name\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'b947e00e3d07408d62d9136d96c1ca38';
+(node as any).hash = '390b0012619b0f1894aac14d8c94a888';
 export default node;

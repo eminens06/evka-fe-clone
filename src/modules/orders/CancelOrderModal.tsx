@@ -61,6 +61,7 @@ const CancelOrderModal: FC<Props> = ({
       visible={isVisible}
       title={'Sipariş İptal'}
       width={'70%'}
+      onCancel={closeModal}
       footer={[
         <Button key="back" onClick={closeModal}>
           Vazgeç

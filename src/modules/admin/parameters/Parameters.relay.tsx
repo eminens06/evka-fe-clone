@@ -44,6 +44,7 @@ graphql`
             keresteFiyat
             keresteFireKatsayisi
             masifPanelFiyati
+            digerKeresteFiyati
             kontraplakFiyati
             keresteKaplamaCilaFiyat
             lakeBoyaFiyat

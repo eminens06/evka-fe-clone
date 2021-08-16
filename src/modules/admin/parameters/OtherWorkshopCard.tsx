@@ -26,7 +26,11 @@ const OtherWorkshopCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
                 label={item.label}
                 rules={[{ required: false, message: 'Bu alan boş olamaz.' }]}
               >
-                <InputNumber style={{ width: '100%' }} disabled={isDisabled} />
+                <InputNumber
+                  style={{ width: '100%' }}
+                  disabled={isDisabled}
+                  decimalSeparator=","
+                />
               </Form.Item>
             </Col>
           );

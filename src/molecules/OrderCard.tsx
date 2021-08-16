@@ -119,6 +119,7 @@ const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
               formatter={(value) => `${value}%`}
               style={{ width: '100%' }}
               disabled={isDisabled}
+              decimalSeparator=","
             />
           </Form.Item>
         </Col>
@@ -133,7 +134,11 @@ const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
               },
             ]}
           >
-            <InputNumber style={{ width: '100%' }} disabled={isDisabled} />
+            <InputNumber
+              style={{ width: '100%' }}
+              disabled={isDisabled}
+              decimalSeparator=","
+            />
           </Form.Item>
         </Col>
         <Col span={8} key={7}>
