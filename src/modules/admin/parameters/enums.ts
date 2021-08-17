@@ -99,6 +99,10 @@ export const woodFields = [
     name: 'keresteFireKatsayisi',
   },
   {
+    label: 'Diger Kereste Fiyatı (TL/m3)',
+    name: 'digerKeresteFiyati',
+  },
+  {
     label: 'Masif Panel Fiyatı (TL/m2)',
     name: 'masifPanelFiyati',
   },

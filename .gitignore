@@ -30,3 +30,4 @@ yarn-error.log*
 .env.production.local
 _static
 .idea/*
+src/relay/environment.ts

@@ -194,6 +194,11 @@ export const mainProductionColumns = [
     dataIndex: 'productName',
   },
   {
+    key: 'remainingTime',
+    title: 'Kalan Süre',
+    dataIndex: 'remainingTime',
+  },
+  {
     key: 'type',
     title: 'Ürün Tipi',
     dataIndex: 'type',
@@ -224,6 +229,11 @@ export const materialProductionColumns = [
     key: 'productName',
     title: 'Ürün Adı',
     dataIndex: 'productName',
+  },
+  {
+    key: 'remainingTime',
+    title: 'Kalan Süre',
+    dataIndex: 'remainingTime',
   },
   {
     key: 'sent',
@@ -285,7 +295,7 @@ export const materialStatusArray: ProgressStepValue[] = [
 ];
 
 export const mainWorkshopNextButtonText: Record<WorkshopStatus, string> = {
-  [WorkshopStatus.READY]: 'Üretime Gönder',
+  [WorkshopStatus.READY]: 'Üretime Başla',
   [WorkshopStatus.IN_PRODUCTION]: 'Üretimi Tamamla',
   [WorkshopStatus.RECEIVED]: '',
   [WorkshopStatus.COMPLETED]: '',

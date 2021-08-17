@@ -48,6 +48,11 @@ const columns = [
     dataIndex: 'productName',
   },
   {
+    key: 'remainingTime',
+    title: 'Kalan Süre',
+    dataIndex: 'remainingTime',
+  },
+  {
     key: 'legMaterial',
     title: 'Ayak Malzemesi',
     dataIndex: 'legMaterial',

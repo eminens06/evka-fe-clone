@@ -246,10 +246,6 @@ const getRemainingDate = (estimatedDeliveryDate: moment.Moment) => {
 
 const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
   return data.map((order) => {
-    console.log(order.estimatedDeliveryDate);
-    console.log(
-      moment().diff(moment(order.estimatedDeliveryDate), 'days') * -1,
-    );
     const { name, surname } = JSON.parse(order.customerInfo);
     return {
       customer: `${name} ${surname || ''}`,
@@ -480,6 +476,7 @@ const managementProductionMapper = (
         subCategory,
         legMaterial,
         tableMaterial,
+        remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
       };
     },
   );
@@ -533,6 +530,7 @@ const productionMainPartsMapper = (
         rowKey: `${item.id}-${index}`,
         sku: item.product.sku,
         orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
+        remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
         productName: item.product.name,
         status: status,
         type: it.type === 'TB' ? 'Tabla' : 'Ayak',
@@ -585,6 +583,7 @@ const productionMaterialMapper = (
       id: item.id,
       sku: item.product.sku,
       orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
+      remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
       orderCount: item.orderCount,
       productName: item.product.name,
       type: type,
@@ -635,6 +634,7 @@ const productionPaintMapper = (
         rowKey: `${item.id}-${index}`,
         sku: item.product.sku,
         orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
+        remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
         productName: item.product.name,
         status: status,
         externalServices: services || [],

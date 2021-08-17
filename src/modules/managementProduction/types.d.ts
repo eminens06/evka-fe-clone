@@ -57,4 +57,5 @@ export type ProductionManagment = {
   legMaterial: string;
   tableMaterial: string;
   orderType: OrderTypes;
+  remainingTime: number;
 };

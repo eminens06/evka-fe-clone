@@ -30,6 +30,7 @@ graphql`
                 marketplace {
                   name
                 }
+                estimatedDeliveryDate
               }
             }
           }

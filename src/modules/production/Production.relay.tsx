@@ -69,6 +69,7 @@ graphql`
               node {
                 orderType
                 marketplaceOrderId
+                estimatedDeliveryDate
                 marketplace {
                   name
                 }

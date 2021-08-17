@@ -236,6 +236,7 @@ const ProductCard: FC<Props> = ({
               min={1}
               style={{ width: '100%' }}
               disabled={isDisabled}
+              decimalSeparator=","
             />
           </Form.Item>
         </Col>
@@ -252,6 +253,7 @@ const ProductCard: FC<Props> = ({
               min={0}
               style={{ width: '100%' }}
               disabled={isDisabled}
+              decimalSeparator=","
             />
           </Form.Item>
         </Col>

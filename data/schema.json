@@ -7157,6 +7157,18 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
+              "name": "digerKeresteFiyati",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
               "name": "kontraplakFiyati",
               "type": {
                 "kind": "SCALAR",

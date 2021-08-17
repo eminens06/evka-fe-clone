@@ -26,6 +26,7 @@ export type woodTypes = {
   keresteFiyat: number;
   keresteFireKatsayisi: number;
   masifPanelFiyati: number;
+  digerKeresteFiyati: number;
   kontraplakFiyati: number;
   keresteKaplamaCilaFiyat: number;
   lakeBoyaFiyat: number;

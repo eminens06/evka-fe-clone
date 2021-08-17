@@ -47,6 +47,7 @@ export type ProductionRelayWorkshopQueryResponse = {
                         readonly node: {
                             readonly orderType: UserOrderOrderType;
                             readonly marketplaceOrderId: string;
+                            readonly estimatedDeliveryDate: unknown | null;
                             readonly marketplace: {
                                 readonly name: string;
                             } | null;
@@ -116,6 +117,7 @@ query ProductionRelayWorkshopQuery(
             node {
               orderType
               marketplaceOrderId
+              estimatedDeliveryDate
               marketplace {
                 name
                 id
@@ -319,17 +321,24 @@ v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isRawMaterial",
+  "name": "estimatedDeliveryDate",
   "storageKey": null
 },
 v24 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "phoneNumber",
+  "name": "isRawMaterial",
   "storageKey": null
 },
 v25 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "phoneNumber",
+  "storageKey": null
+},
+v26 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -457,6 +466,7 @@ return {
                             "selections": [
                               (v21/*: any*/),
                               (v22/*: any*/),
+                              (v23/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -502,10 +512,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v23/*: any*/),
-                              (v13/*: any*/),
                               (v24/*: any*/),
-                              (v25/*: any*/)
+                              (v13/*: any*/),
+                              (v25/*: any*/),
+                              (v26/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -648,6 +658,7 @@ return {
                             "selections": [
                               (v21/*: any*/),
                               (v22/*: any*/),
+                              (v23/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -695,10 +706,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v23/*: any*/),
-                              (v13/*: any*/),
                               (v24/*: any*/),
+                              (v13/*: any*/),
                               (v25/*: any*/),
+                              (v26/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -725,9 +736,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayWorkshopQuery",
     "operationKind": "query",
-    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n  $search: String\n) {\n  allProductOrders(byWorkshopType: $workshopType, superSearch: $search) {\n    edges {\n      node {\n        id\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        ayakPaintStatus\n        tablaPaintStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                paintType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              isRawMaterial\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n  $search: String\n) {\n  allProductOrders(byWorkshopType: $workshopType, superSearch: $search) {\n    edges {\n      node {\n        id\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        ayakPaintStatus\n        tablaPaintStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                paintType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              estimatedDeliveryDate\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              isRawMaterial\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ad8c029d8a8ea632b511113330a44c4e';
+(node as any).hash = '723179f3ea3ac672237962e1d44c9262';
 export default node;

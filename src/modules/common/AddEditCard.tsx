@@ -26,6 +26,7 @@ const AddEditCard: FC<Props> = ({
       visible={isVisible}
       title={header}
       width={'70%'}
+      onCancel={closeModal}
       footer={[
         <Button key="back" onClick={closeModal}>
           Vazgeç

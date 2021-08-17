@@ -68,7 +68,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           label="TC Kimlik No"
           rules={[
             {
-              required: true,
+              required: false,
               pattern: new RegExp(tcNoPattern),
               message: 'Geçersiz TC Kimlik No',
             },
@@ -83,7 +83,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           label="Telefon"
           rules={[
             {
-              required: true,
+              required: false,
               pattern: new RegExp(phonePattern),
               message: 'Geçersiz Telefon No',
             },
@@ -112,7 +112,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           label="Vergi Kimlik No"
           rules={[
             {
-              required: true,
+              required: false,
               pattern: new RegExp(vergiNo),
               message: 'Geçersiz Vergi Kimlik No',
             },
@@ -127,7 +127,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
           label="Telefon"
           rules={[
             {
-              required: true,
+              required: false,
               pattern: new RegExp(phonePattern),
               message: 'Geçersiz Telefon No',
             },
@@ -159,7 +159,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
               onChange={(e) => onChange(e)}
               disabled={isDisabled}
             >
-              Kurumsal Müşteri{' '}
+              Kurumsal Müşteri
             </Checkbox>
           </Form.Item>
         </Col>
@@ -183,7 +183,7 @@ const CustomerCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
             label="Fatura Adresi"
             rules={[
               {
-                required: !isSameAddress,
+                required: false,
                 message: 'Lütfen Fatura Adresi Giriniz',
               },
             ]}
