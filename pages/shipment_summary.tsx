@@ -1,3 +1,4 @@
+import React from 'react';
 import { NextPage } from 'next';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import { ShipmentInvoiceSummary } from '../src/modules/shipment_invoice';

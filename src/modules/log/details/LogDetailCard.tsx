@@ -1,5 +1,4 @@
-import { Button, Tabs } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
+import { Button, Tabs, Modal } from 'antd';
 import React, { FC } from 'react';
 import { OrderLogDetail } from '../types';
 import OrderHistory from './OrderHistory';
