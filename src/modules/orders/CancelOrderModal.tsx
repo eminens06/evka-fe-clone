@@ -43,7 +43,6 @@ const CancelOrderModal: FC<Props> = ({
   );
 
   const onFinish = (values: any) => {
-    console.log('Values : ', { ...values, userOrderId: orderId });
     // TODO ADD MUTATION AND CLOSE MODAL
     cancelOrder({
       variables: {

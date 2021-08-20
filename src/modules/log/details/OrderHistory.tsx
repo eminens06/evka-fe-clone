@@ -52,8 +52,6 @@ const OrderHistory: FC<Props> = ({ id }) => {
     mappers.orderHistoryMapper,
   );
 
-  console.log('Order history data : ', data);
-
   return (
     <Table
       columns={columns}
