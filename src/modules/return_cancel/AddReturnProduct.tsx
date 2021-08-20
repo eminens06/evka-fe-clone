@@ -27,6 +27,7 @@ import RETURN_ORDER, {
 } from '../../__generated__/ReturnCancelRelayCancelOrderMutation.graphql';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
 
 const AddReturnProduct: FC = () => {
   const [form] = useForm();
@@ -38,14 +39,17 @@ const AddReturnProduct: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [products, setProducts] = useState<any>([]);
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [returnOrder] = useMutation<ReturnCancelRelayCancelOrderMutation>(
     RETURN_ORDER,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Başarıyla iade talebi oluşturuldu');
         router.back();
       },
@@ -54,6 +58,7 @@ const AddReturnProduct: FC = () => {
 
   const onFormFinish = (values: any) => {
     if (userOrderId) {
+      openLoader();
       returnOrder({
         variables: {
           input: {
@@ -189,6 +194,7 @@ const AddReturnProduct: FC = () => {
           </Form.Item>
         </Row>
       </Form>
+      {loader}
     </>
   );
 };

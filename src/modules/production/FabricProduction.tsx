@@ -2,6 +2,7 @@ import { message, Typography, Form } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import useFetchWorkShop from '../../hooks/useFetchWorkshop';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
@@ -29,6 +30,7 @@ import {
 const FabricProduction: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<ProductionMaterialWorkshopData>();
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [form] = Form.useForm();
 
@@ -36,9 +38,11 @@ const FabricProduction: FunctionComponent = () => {
     changeStatus,
   ] = useMutation<ProductionRelayWorkshopStatusChangeMutation>(CHANGE_STATUS, {
     onError: (error: any) => {
+      closeLoader();
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery();
       setIsModalVisible(false);
@@ -49,9 +53,11 @@ const FabricProduction: FunctionComponent = () => {
     resendToProduction,
   ] = useMutation<ProductionRelayResendToProductionMutation>(RESEND_STATUS, {
     onError: (error: any) => {
+      closeLoader();
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Geri gönderme başarılı');
       forceFetchQuery();
       setIsModalVisible(false);
@@ -77,6 +83,7 @@ const FabricProduction: FunctionComponent = () => {
 
   const onChangeStatus = (externalServices?: WorkshopExternalServiceParams) => {
     if (modalData) {
+      openLoader();
       const input = {
         productOrderId: modalData.id,
         workshopType: WorkshopTypes.FABRIC,
@@ -99,7 +106,8 @@ const FabricProduction: FunctionComponent = () => {
   };
 
   const reSendToProduction = () => {
-    if (modalData)
+    if (modalData) {
+      openLoader();
       resendToProduction({
         variables: {
           input: {
@@ -108,6 +116,7 @@ const FabricProduction: FunctionComponent = () => {
           },
         },
       });
+    }
   };
 
   const onSave = (values: any) => {
@@ -169,6 +178,7 @@ const FabricProduction: FunctionComponent = () => {
             />
           </StatusModal>
         )}
+        {loader}
       </div>
     </PageContent>
   );
