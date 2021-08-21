@@ -773,8 +773,10 @@ const invoiceMapper = (data: UserOrderDTO[]): Invoice[] => {
 const shipmentInvoiceSummaryMapper = (
   data: UserOrderDTO[],
 ): ShipmentInvoiceSummaryData[] => {
-  return data.map((order) => {
-    console.log('Order : ', order);
+  // TODO: Burayı kaldır şimdilik summary düzelsin diye yaptığımız birşey bu
+  const filteredData = data.filter((item) => item.invoiceStatus !== 'Default');
+
+  return filteredData.map((order) => {
     const { name, surname } = JSON.parse(order.customerInfo);
     return {
       customer: `${name} ${surname || ''}`,
@@ -927,6 +929,19 @@ const getPartlyProductText = (order: any) => {
   return text === '' ? 'Tüm Sipariş' : text;
 };
 
+const getCancelReturnNote = (cancelNote: string, returnNote: string) => {
+  if (cancelNote !== '' && returnNote !== '') {
+    return `İptal: ${cancelNote}, İade: ${returnNote}`;
+  }
+  if (cancelNote !== '') {
+    return cancelNote;
+  }
+  if (returnNote !== '') {
+    return returnNote;
+  }
+  return '';
+};
+
 const cancelReturnMapper = (data: any): ReturnCancelData[] => {
   return data.map(
     (order: any): ReturnCancelData => {
@@ -940,6 +955,7 @@ const cancelReturnMapper = (data: any): ReturnCancelData[] => {
         isPartlyCanceled: order.isPartlyCanceled,
         isPartlyReturned: order.isPartlyReturned,
         productText: getPartlyProductText(order),
+        note: getCancelReturnNote(order.cancelNote, order.returnNote),
       };
     },
   );

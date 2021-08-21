@@ -7,4 +7,5 @@ export type ReturnCancelData = {
   isPartlyReturned: boolean;
   isPartlyCanceled: boolean;
   productText: string;
+  note: string;
 };

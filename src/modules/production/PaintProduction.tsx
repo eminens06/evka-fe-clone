@@ -51,7 +51,7 @@ const PaintProduction: FunctionComponent = () => {
       closeLoader();
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery();
-      setIsModalVisible(false);
+      closeModal();
     },
   });
 
@@ -66,7 +66,7 @@ const PaintProduction: FunctionComponent = () => {
       closeLoader();
       message.success('Geri gönderme başarılı');
       forceFetchQuery();
-      setIsModalVisible(false);
+      closeModal();
     },
   });
 
