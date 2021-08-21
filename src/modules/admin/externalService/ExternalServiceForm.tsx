@@ -22,6 +22,7 @@ import UPDATE_EXTERNALSERVICE, {
 import DELETE_EXTERNALSERVICE, {
   ExternalServiceRelayDeleteExternalServiceMutation,
 } from '../../../__generated__/ExternalServiceRelayDeleteExternalServiceMutation.graphql';
+import useFullPageLoader from '../../../hooks/useFullPageLoader';
 
 export interface ExternalServiceProps {
   initialValues?: any;
@@ -54,15 +55,19 @@ export const ModuleOptions = [
 
 const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
   const { form, initialValues } = props;
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
+
   const [
     createExternalService,
   ] = useMutation<ExternalServiceRelayCreateExternalServiceMutation>(
     CREATE_EXTERNALSERVICE,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Dış hizmet başarıyla oluşturuldu');
         props.onSuccess();
         props.close();
@@ -76,12 +81,14 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
     UPDATE_EXTERNALSERVICE,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Dış hizmet başarıyla güncellendi');
         props.onSuccess();
         props.close();
@@ -95,12 +102,14 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
     DELETE_EXTERNALSERVICE,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Dış hizmet başarıyla silindi');
         props.onSuccess();
         props.close();
@@ -111,6 +120,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
   const onFormFinish = (values: any) => {
+    openLoader();
     if (initialValues) {
       updateExternalService({
         variables: {
@@ -127,6 +137,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
   };
 
   const onPressDelete = () => {
+    openLoader();
     const id = initialValues.id;
     if (!id) return;
     deleteExternalService({
@@ -210,6 +221,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
           </Col>
         </Row>
       )}
+      {loader}
     </Form>
   );
 };

@@ -27,6 +27,7 @@ import UPDATE_ORDER, {
 import { OrderTypes } from './types';
 import InvoiceCard from '../../molecules/InvoiceCard';
 import CancelOrderModal from './CancelOrderModal';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
 
 interface Props {
   orderType: OrderTypes;
@@ -45,6 +46,8 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
 
   const [initialValues, setInitialValues] = useState<any>();
 
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
+
   const getOrderDetail = async () => {
     const { userOrder } = await fetchQuery<OrdersGetUserOrderQuery>(
       environment,
@@ -62,6 +65,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
       setProductOrderIds(mappedIds);
       setInitialValues(mapped);
     }
+    closeLoader();
   };
 
   const isAdmin = useMemo(() => {
@@ -70,6 +74,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
 
   useEffect(() => {
     if (router?.query?.id) {
+      openLoader();
       setIsEdit(true);
       const getRoles = async () => {
         const data = await getUserRoles();
@@ -242,6 +247,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
           products={initialValues.cancelModalProducts}
         />
       )}
+      {loader}
     </>
   );
 };

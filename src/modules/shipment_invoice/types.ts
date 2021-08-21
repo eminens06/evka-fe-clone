@@ -77,6 +77,7 @@ export enum ProductOrderStatusType {
   DF = 'DEFAULT',
   P = 'PRODUCTION',
   C = 'COMPLETED',
+  CC = 'CANCELED',
   PP = 'PACKAGING',
   D = 'DONE',
 }
@@ -103,6 +104,10 @@ export const ShipmentTableStatusMapper: Record<
   [ProductOrderStatusType.D]: {
     text: 'Tamamlandı',
     status: 'success',
+  },
+  [ProductOrderStatusType.CC]: {
+    text: 'İptal Edildi',
+    status: 'error',
   },
 };
 

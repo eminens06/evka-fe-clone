@@ -20,6 +20,14 @@ export enum Roles {
   admin = 'admin',
 }
 
+export const RolesMapper: Record<string, string> = {
+  normal_order: 'orders',
+  store_order: 'orders',
+  custom_order: 'orders',
+  return_cancel: 'return_cancel',
+  return_product: 'return_cancel',
+};
+
 export const RoleTexts = {
   [Roles.admin]: 'Admin',
   [Roles.kiosk]: 'Kiosk',

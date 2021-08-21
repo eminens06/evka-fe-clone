@@ -21,6 +21,7 @@ const settings = {
   empty_search_text: "We don't have any results matching your query.",
   pageSizeOptions: ['10', '25', '50', '100'],
   pageSize: 25,
+  remainingTimeLevel: 0,
 };
 
 export default settings;

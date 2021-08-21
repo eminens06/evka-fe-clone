@@ -1,6 +1,8 @@
+import { Typography } from 'antd';
 import React from 'react';
 import Status from '../../atoms/Status';
 import { ProgressStepValue } from '../../molecules/types';
+import settings from '../../settings';
 import { PackageStatus } from './types';
 
 const StatusMapper: Record<PackageStatus, StatusObject> = {
@@ -30,9 +32,15 @@ export const packagingColumns = [
     dataIndex: 'productName',
   },
   {
-    key: 'remainingDate',
+    key: 'remainingTime',
     title: 'Kalan Süre',
-    dataIndex: 'remainingDate',
+    dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'packageCount',

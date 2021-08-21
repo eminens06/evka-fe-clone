@@ -2,10 +2,12 @@ import { Form, Typography, Row, Col, Input, message } from 'antd';
 import React, { FunctionComponent, useMemo, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import mappers from '../../mappers';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import settings from '../../settings';
 import ADD_CARGO_NO, {
   ShipmentInvoiceRelayAddCargoNoMutation,
 } from '../../__generated__/ShipmentInvoiceRelayAddCargoNoMutation.graphql';
@@ -27,6 +29,12 @@ const columns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'customer',
@@ -63,6 +71,7 @@ interface FormValues {
 const ShipmentOrder: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<any>();
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [form] = Form.useForm();
 
@@ -87,9 +96,11 @@ const ShipmentOrder: FunctionComponent = () => {
     ADD_CARGO_NO,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Kargo Durumu Başarıyla Güncellendi');
         forceFetchQuery({
           status: 'O',
@@ -103,9 +114,11 @@ const ShipmentOrder: FunctionComponent = () => {
     addCargoPrice,
   ] = useMutation<ShipmentInvoiceRelayAddCargoPriceMutation>(ADD_CARGO_PRICE, {
     onError: (error: any) => {
+      closeLoader();
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Kargo Durumu Başarıyla Güncellendi');
       forceFetchQuery({
         status: 'O',
@@ -133,6 +146,7 @@ const ShipmentOrder: FunctionComponent = () => {
   };
 
   const onFormFinish = (values: FormValues) => {
+    openLoader();
     if (values.cargoChaseNumber !== modalData.cargoChaseNumber) {
       const input = {
         userOrderId: modalData.id,
@@ -224,6 +238,7 @@ const ShipmentOrder: FunctionComponent = () => {
             {FormComponent}
           </Form>
         </AddEditCard>
+        {loader}
       </div>
     </PageContent>
   );

@@ -7,7 +7,6 @@ import {
 } from 'relay-runtime';
 import { ajax } from 'rxjs/ajax';
 import { saveSession } from '../modules/auth/utils/session.utils';
-import settings from '../settings';
 import { getOrRefreshToken } from '../modules/auth/utils/session.utils';
 
 const oneMinute = 60 * 1000;
@@ -63,7 +62,11 @@ async function fetchQuery(
     };
   }
   return ajax
-    .post("https://evka-backend-gbwnb.ondigitalocean.app/graphql/", body, headers)
+    .post(
+      'https://evka-backend-gbwnb.ondigitalocean.app/graphql/',
+      body,
+      headers,
+    )
     .toPromise()
     .then((response: any) => {
       if (response.status !== 200) {
