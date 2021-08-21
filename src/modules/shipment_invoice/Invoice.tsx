@@ -30,7 +30,6 @@ const columns = [
     title: 'Ürün(ler)',
     dataIndex: 'products',
     render: (products: OrderProduct[]) => {
-      console.log('Products : ', products);
       return <MultiProductDisplayer products={products} />;
     },
   },

@@ -43,7 +43,6 @@ const columns = [
     title: 'Sevk Durumu',
     dataIndex: 'shipmentStatus',
     render: (value: ShipmentStatus) => {
-      console.log('Value : ', value);
       const { text, status } = ShipmentStatusMapper[value];
       return <Status status={status} text={text} />;
     },

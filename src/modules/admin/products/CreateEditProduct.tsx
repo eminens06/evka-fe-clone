@@ -35,7 +35,6 @@ const CreateEditProduct: FunctionComponent = () => {
 
   useEffect(() => {
     if (router?.query?.id) {
-      console.log(router?.query?.id);
       getProductDetail();
     }
   }, [router]);
