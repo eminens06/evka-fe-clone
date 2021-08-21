@@ -98,6 +98,7 @@ const ProductHistory: FC<Props> = ({ id }) => {
       pagination={{
         total: size,
       }}
+      scroll={{ y: 300 }}
     />
   );
 };

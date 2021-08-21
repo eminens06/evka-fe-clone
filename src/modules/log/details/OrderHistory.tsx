@@ -61,6 +61,7 @@ const OrderHistory: FC<Props> = ({ id }) => {
       pagination={{
         total: size,
       }}
+      scroll={{ y: 300 }}
     />
   );
 };
