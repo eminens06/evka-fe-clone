@@ -7,6 +7,7 @@ import PageContent from '../../layout/PageContent';
 import mappers from '../../mappers';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import settings from '../../settings';
 import ADD_CARGO_NO, {
   ShipmentInvoiceRelayAddCargoNoMutation,
 } from '../../__generated__/ShipmentInvoiceRelayAddCargoNoMutation.graphql';
@@ -28,6 +29,12 @@ const columns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'customer',

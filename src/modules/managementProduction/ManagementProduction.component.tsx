@@ -18,6 +18,7 @@ import EXIST_IN_STORAGE, {
   ManagementProductionRelayExistInStorageMutation,
 } from '../../__generated__/ManagementProductionRelayExistInStorageMutation.graphql';
 import useFullPageLoader from '../../hooks/useFullPageLoader';
+import settings from '../../settings';
 
 const columns = [
   {
@@ -52,6 +53,12 @@ const columns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'legMaterial',

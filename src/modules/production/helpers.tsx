@@ -9,6 +9,7 @@ import {
   WorkshopStatus,
   WorkshopTypes,
 } from './types';
+import settings from '../../settings';
 
 const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
   [WorkshopStatus.READY]: {
@@ -197,6 +198,12 @@ export const mainProductionColumns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'type',
@@ -234,6 +241,12 @@ export const materialProductionColumns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'sent',

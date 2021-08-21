@@ -13,6 +13,7 @@ import GET_SUMMARY_LIST, {
 import mappers from '../../mappers';
 import { OrderProduct } from '../orders/types';
 import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
+import settings from '../../settings';
 
 const columns = [
   {
@@ -32,6 +33,12 @@ const columns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'customer',
