@@ -23,6 +23,7 @@ import { UserProps } from './ListUsers';
 import DELETE_USER, {
   UsersRelayDeleteMarketplaceMutation,
 } from '../../../__generated__/UsersRelayDeleteMarketplaceMutation.graphql';
+import useFullPageLoader from '../../../hooks/useFullPageLoader';
 
 const PASSWORD_MAPPER = '**********';
 
@@ -61,11 +62,15 @@ export const mapFormData = (data: UserProps | undefined): any => {
 
 const UserForm: FC<UserFormProps> = (props) => {
   const { form, initialValues } = props;
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
+
   const [createUser] = useMutation<UsersRelayCreateUserMutation>(CREATE_USER, {
     onError: (error: any) => {
+      closeLoader();
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Kullanıcı başarıyla oluşturuldu');
       props.onSuccess();
       props.close();
@@ -74,12 +79,14 @@ const UserForm: FC<UserFormProps> = (props) => {
 
   const [updateUser] = useMutation<UsersRelayUpdateUserMutation>(UPDATE_USER, {
     onError: (error: any) => {
+      closeLoader();
       message.error(
         'Hata! ',
         error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
       );
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Kullanıcı başarıyla güncellendi');
       props.onSuccess();
       props.close();
@@ -90,12 +97,14 @@ const UserForm: FC<UserFormProps> = (props) => {
     DELETE_USER,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Kullanıcı başarıyla silindi');
         props.onSuccess();
         props.close();
@@ -106,6 +115,7 @@ const UserForm: FC<UserFormProps> = (props) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
   const onFormFinish = (values: any) => {
+    openLoader();
     const finalValues = {
       ...values,
       password:
@@ -132,6 +142,7 @@ const UserForm: FC<UserFormProps> = (props) => {
   };
 
   const onPressDelete = () => {
+    openLoader();
     const id = formattedInitialValues?.id;
     if (!id) return;
     deleteUser({
@@ -220,6 +231,7 @@ const UserForm: FC<UserFormProps> = (props) => {
           </Col>
         </Row>
       )}
+      {loader}
     </Form>
   );
 };

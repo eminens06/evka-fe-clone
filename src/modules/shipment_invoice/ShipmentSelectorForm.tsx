@@ -39,7 +39,6 @@ const ShipmentSelectorForm: FC<ExternalServiceProps> = (props) => {
   const [companyOptions, setCompanyOptions] = useState<CargoTypeOption[]>([]);
 
   const onFormFinish = (values: ShipmentFormTypes) => {
-    console.log(values);
     onSuccess(values);
   };
   const onChangeShippingType = (value: ShipmentTypeValue) => {

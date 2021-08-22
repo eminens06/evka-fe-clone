@@ -48,6 +48,11 @@ const columns = [
     dataIndex: 'productText',
   },
   {
+    key: 'note',
+    title: 'Not',
+    dataIndex: 'note',
+  },
+  {
     key: 'status',
     title: 'Durum',
     dataIndex: 'status',

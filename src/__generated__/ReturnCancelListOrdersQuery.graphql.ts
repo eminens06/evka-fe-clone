@@ -22,6 +22,8 @@ export type ReturnCancelListOrdersQueryResponse = {
                 readonly orderStatus: string | null;
                 readonly isPartlyCanceled: boolean;
                 readonly isPartlyReturned: boolean;
+                readonly cancelNote: string;
+                readonly returnNote: string;
                 readonly products: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
@@ -65,6 +67,8 @@ query ReturnCancelListOrdersQuery(
         orderStatus
         isPartlyCanceled
         isPartlyReturned
+        cancelNote
+        returnNote
         products {
           edges {
             node {
@@ -168,31 +172,45 @@ v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderCount",
+  "name": "cancelNote",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "returnNote",
   "storageKey": null
 },
 v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "notes",
+  "name": "orderCount",
   "storageKey": null
 },
 v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productOrderStatus",
+  "name": "type",
   "storageKey": null
 },
 v14 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "notes",
+  "storageKey": null
+},
+v15 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "productOrderStatus",
+  "storageKey": null
+},
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -249,6 +267,8 @@ return {
                   (v7/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -273,10 +293,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
-                              (v11/*: any*/),
                               (v12/*: any*/),
                               (v13/*: any*/),
+                              (v14/*: any*/),
+                              (v15/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -285,7 +305,7 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v14/*: any*/),
+                                  (v16/*: any*/),
                                   (v4/*: any*/)
                                 ],
                                 "storageKey": null
@@ -361,6 +381,8 @@ return {
                   (v7/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -385,10 +407,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
-                              (v11/*: any*/),
                               (v12/*: any*/),
                               (v13/*: any*/),
+                              (v14/*: any*/),
+                              (v15/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -397,7 +419,7 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v14/*: any*/),
+                                  (v16/*: any*/),
                                   (v4/*: any*/),
                                   (v2/*: any*/)
                                 ],
@@ -429,9 +451,9 @@ return {
     "metadata": {},
     "name": "ReturnCancelListOrdersQuery",
     "operationKind": "query",
-    "text": "query ReturnCancelListOrdersQuery(\n  $search: String\n) {\n  allUserOrders(returnCancelOrders: \"a\", superSearch: $search) {\n    edges {\n      node {\n        id\n        orderType\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        isPartlyCanceled\n        isPartlyReturned\n        products {\n          edges {\n            node {\n              orderCount\n              type\n              notes\n              productOrderStatus\n              product {\n                sku\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ReturnCancelListOrdersQuery(\n  $search: String\n) {\n  allUserOrders(returnCancelOrders: \"a\", superSearch: $search) {\n    edges {\n      node {\n        id\n        orderType\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        isPartlyCanceled\n        isPartlyReturned\n        cancelNote\n        returnNote\n        products {\n          edges {\n            node {\n              orderCount\n              type\n              notes\n              productOrderStatus\n              product {\n                sku\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '27f7711714a061776c44b426aa335ecd';
+(node as any).hash = '782285fd4be265e7364dc63fe2b63775';
 export default node;

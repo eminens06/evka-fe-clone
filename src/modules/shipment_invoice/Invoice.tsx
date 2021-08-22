@@ -2,6 +2,7 @@ import { Form, message, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import mappers from '../../mappers';
 import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
@@ -29,7 +30,6 @@ const columns = [
     title: 'Ürün(ler)',
     dataIndex: 'products',
     render: (products: OrderProduct[]) => {
-      console.log('Products : ', products);
       return <MultiProductDisplayer products={products} />;
     },
   },
@@ -53,6 +53,7 @@ const columns = [
 const Invoice: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<InvoiceType>();
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [form] = Form.useForm();
 
@@ -64,9 +65,11 @@ const Invoice: FunctionComponent = () => {
     INVOICE_MUTATION,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Pazaryeri başarıyla oluşturuldu');
         forceFetchQuery({ search: '' });
         setIsModalVisible(false);
@@ -104,9 +107,8 @@ const Invoice: FunctionComponent = () => {
   };
 
   const onFormFinish = (values: any) => {
-    console.log('ABCDEFG !!! ', values);
-    console.log('DATE !! ', values.invoiceDate.toDate());
-    if (modalData)
+    if (modalData) {
+      openLoader();
       completeInvoice({
         variables: {
           input: {
@@ -116,6 +118,7 @@ const Invoice: FunctionComponent = () => {
           },
         },
       });
+    }
   };
 
   return (
@@ -153,6 +156,7 @@ const Invoice: FunctionComponent = () => {
             />
           </AddEditCard>
         )}
+        {loader}
       </div>
     </PageContent>
   );

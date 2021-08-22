@@ -2,6 +2,7 @@ import { message, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import useFetchWorkShop from '../../hooks/useFetchWorkshop';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
@@ -24,14 +25,17 @@ import {
 const MetalProduction: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<ProductionMainWorkshopData>();
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [
     changeStatus,
   ] = useMutation<ProductionRelayWorkshopStatusChangeMutation>(CHANGE_STATUS, {
     onError: (error: any) => {
+      closeLoader();
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery();
       setIsModalVisible(false);
@@ -57,6 +61,7 @@ const MetalProduction: FunctionComponent = () => {
 
   const onChangeStatus = () => {
     if (modalData) {
+      openLoader();
       const input = {
         productOrderId: modalData.id,
         categoryName: modalData.type.toLowerCase(),
@@ -124,6 +129,7 @@ const MetalProduction: FunctionComponent = () => {
             />
           </StatusModal>
         )}
+        {loader}
       </div>
     </PageContent>
   );

@@ -2,6 +2,7 @@ import { Breadcrumb, Form, Row, Button, message } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { fetchQuery, useMutation, useRelayEnvironment } from 'relay-hooks';
+import useFullPageLoader from '../../../hooks/useFullPageLoader';
 import mappers from '../../../mappers';
 import SAVE_PARAMS, {
   ParametersRelayCreateMutation,
@@ -20,6 +21,7 @@ const CreateEditParameters: FunctionComponent = () => {
 
   const [initialValues, setInitialValues] = useState<any>();
   const [id, setId] = useState<string>('');
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [form] = Form.useForm();
 
@@ -33,23 +35,29 @@ const CreateEditParameters: FunctionComponent = () => {
     if (systemParams) {
       setId(systemParams.id);
       setInitialValues(mappers.systemParamMapper(systemParams));
+      closeLoader();
     }
   };
 
   useEffect(() => {
+    openLoader();
     getSystemParams();
   }, []);
+
   const [saveParams] = useMutation<ParametersRelayCreateMutation>(SAVE_PARAMS, {
     onError: (error: any) => {
+      closeLoader();
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Sistem parametreleri kaydedildi.');
       getSystemParams();
     },
   });
 
   const onSave = (values: any) => {
+    openLoader();
     const willSaveData = mappers.systemParamsSaveMapper(values);
     if (id !== '') {
       willSaveData.systemParamInput.id = id;
@@ -87,6 +95,7 @@ const CreateEditParameters: FunctionComponent = () => {
             </Button>
           </Form.Item>
         </Row>
+        {loader}
       </Form>
     </>
   );

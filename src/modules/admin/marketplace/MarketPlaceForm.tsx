@@ -11,6 +11,7 @@ import UPDATE_MARKETPLACE, {
 import DELETE_MARKETPLACE, {
   MarketplaceRelayDeleteMarketplaceMutation,
 } from '../../../__generated__/MarketplaceRelayDeleteMarketplaceMutation.graphql';
+import useFullPageLoader from '../../../hooks/useFullPageLoader';
 
 export interface MarketPlaceProps {
   initialValues?: any;
@@ -20,15 +21,19 @@ export interface MarketPlaceProps {
 
 const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
   const { form, initialValues } = props;
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
+
   const [
     createMarketplace,
   ] = useMutation<MarketplaceRelayCreateMarketplaceMutation>(
     CREATE_MARKETPLACE,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Pazaryeri başarıyla oluşturuldu');
         props.onSuccess();
         props.close();
@@ -42,12 +47,14 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
     UPDATE_MARKETPLACE,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Pazaryeri başarıyla güncellendi');
         props.onSuccess();
         props.close();
@@ -61,12 +68,14 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
     DELETE_MARKETPLACE,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Pazaryeri başarıyla silindi');
         props.onSuccess();
         props.close();
@@ -77,6 +86,7 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
   const onFormFinish = (values: any) => {
+    openLoader();
     if (initialValues) {
       updateMarketPlace({
         variables: {
@@ -93,6 +103,7 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
   };
 
   const onPressDelete = () => {
+    openLoader();
     const id = initialValues.id;
     if (!id) return;
     deleteMarketPlace({
@@ -155,6 +166,7 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
           </Col>
         </Row>
       )}
+      {loader}
     </Form>
   );
 };

@@ -14,6 +14,7 @@ import GET_USER_ORDERS, {
 } from '../../__generated__/OrdersRelayGetAllUserOrdersQuery.graphql';
 import { OrderProduct, OrderTypes, UserOrder } from './types';
 import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
+import settings from '../../settings';
 
 const READY_STATUS = 'Onay Bekliyor';
 
@@ -56,6 +57,12 @@ const columns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'customer',

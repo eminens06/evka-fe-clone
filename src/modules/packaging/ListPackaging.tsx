@@ -2,6 +2,7 @@ import { message, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import mappers from '../../mappers';
 import Table from '../../molecules/Table';
@@ -19,6 +20,7 @@ import PackagingDetail from './PackagingDetail';
 const ListPackaging: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<any>();
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -52,9 +54,11 @@ const ListPackaging: FunctionComponent = () => {
     changeStatus,
   ] = useMutation<PackagingRelayChangePackagingStatusMutation>(CHANGE_STATUS, {
     onError: (error: any) => {
+      closeLoader();
       message.error('Hata! ', error.response.errors[0].message);
     },
     onCompleted: (res) => {
+      closeLoader();
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery({
         search: '',
@@ -65,6 +69,7 @@ const ListPackaging: FunctionComponent = () => {
 
   const onChangeStatus = () => {
     if (modalData) {
+      openLoader();
       const input = {
         productOrderId: modalData.id,
       };
@@ -118,6 +123,7 @@ const ListPackaging: FunctionComponent = () => {
             />
           </StatusModal>
         )}
+        {loader}
       </div>
     </PageContent>
   );

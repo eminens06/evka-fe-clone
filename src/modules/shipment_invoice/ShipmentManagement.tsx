@@ -17,6 +17,8 @@ import CHANGE_STATUS, {
   ShipmentInvoiceRelayStatusChangeMutation,
 } from '../../__generated__/ShipmentInvoiceRelayStatusChangeMutation.graphql';
 import { useMutation } from 'relay-hooks';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
+import settings from '../../settings';
 
 const expandable = {
   expandedRowRender: (record: ShipmentManagementData) => (
@@ -52,6 +54,12 @@ const columns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'customer',
@@ -73,6 +81,7 @@ const columns = [
 const ShipmentManagement: FunctionComponent = () => {
   const [selected, setSelected] = useState<ShipmentManagementData[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [form] = Form.useForm();
 
@@ -113,9 +122,11 @@ const ShipmentManagement: FunctionComponent = () => {
     CHANGE_STATUS,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
+        closeLoader();
         message.success('Durum Başarıyla Güncellendi');
         forceFetchQuery({
           status: 'R',
@@ -134,6 +145,7 @@ const ShipmentManagement: FunctionComponent = () => {
   };
 
   const onChangeStatus = (values: ShipmentFormTypes) => {
+    openLoader();
     const input = {
       userOrderIds: selected.map((order) => order.id),
       shipmentType: values.shipmentType,
@@ -186,6 +198,7 @@ const ShipmentManagement: FunctionComponent = () => {
             modalData={selected}
           />
         </AddEditCard>
+        {loader}
       </div>
     </PageContent>
   );

@@ -71,6 +71,8 @@ graphql`
           orderStatus
           isPartlyCanceled
           isPartlyReturned
+          cancelNote
+          returnNote
           products {
             edges {
               node {

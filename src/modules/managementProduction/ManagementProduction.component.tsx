@@ -17,6 +17,8 @@ import SEND_TO_PRODUCTION, {
 import EXIST_IN_STORAGE, {
   ManagementProductionRelayExistInStorageMutation,
 } from '../../__generated__/ManagementProductionRelayExistInStorageMutation.graphql';
+import useFullPageLoader from '../../hooks/useFullPageLoader';
+import settings from '../../settings';
 
 const columns = [
   {
@@ -51,6 +53,12 @@ const columns = [
     key: 'remainingTime',
     title: 'Kalan Süre',
     dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
   },
   {
     key: 'legMaterial',
@@ -71,6 +79,7 @@ const ManagementProduction: FunctionComponent = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<any>();
+  const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [
     sendtoProduction,
@@ -78,12 +87,14 @@ const ManagementProduction: FunctionComponent = () => {
     SEND_TO_PRODUCTION,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
+        closeLoader();
         forceFetchQuery({
           search: '',
         });
@@ -99,12 +110,14 @@ const ManagementProduction: FunctionComponent = () => {
     EXIST_IN_STORAGE,
     {
       onError: (error: any) => {
+        closeLoader();
         message.error(
           'Hata! ',
           error?.response?.errors[0]?.message || 'Bilinmeyen bir hata oluştu',
         );
       },
       onCompleted: (res) => {
+        closeLoader();
         forceFetchQuery({
           search: '',
         });
@@ -143,6 +156,7 @@ const ManagementProduction: FunctionComponent = () => {
   };
 
   const onApprove = (id: string) => {
+    openLoader();
     sendtoProduction({
       variables: {
         input: {
@@ -153,7 +167,7 @@ const ManagementProduction: FunctionComponent = () => {
   };
 
   const onStorage = (id: string) => {
-    console.log('On Storage !');
+    openLoader();
     existInStorage({
       variables: {
         input: {
@@ -193,6 +207,7 @@ const ManagementProduction: FunctionComponent = () => {
           isVisible={isModalVisible}
           closeModal={() => setIsModalVisible(false)}
         />
+        {loader}
       </div>
     </PageContent>
   );
