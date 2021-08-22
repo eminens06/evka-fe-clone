@@ -49,6 +49,7 @@ export const deleteSession = (): void => {
 
 export async function getOrRefreshToken(): Promise<string | null> {
   const session = loadSession();
+
   if (session && session.token) {
     if (isTokenExpired(session.token)) {
       let response;
