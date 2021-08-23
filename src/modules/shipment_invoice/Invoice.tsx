@@ -45,7 +45,7 @@ const columns = [
   },
   {
     key: 'shipmentCompany',
-    title: 'Sevkiyat Türü',
+    title: 'Sevkiyat Firması',
     dataIndex: 'shipmentCompany',
   },
 ];
