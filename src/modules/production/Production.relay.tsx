@@ -83,6 +83,7 @@ graphql`
                 name
                 phoneNumber
                 address
+                module
               }
             }
           }

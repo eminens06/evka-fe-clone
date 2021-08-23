@@ -42,8 +42,10 @@ const columns = [
         case 'MT-boya':
           return 'Metal Boya Atölyesi';
         case 'MT':
+        case 'Metal':
           return 'Metal Atölyesi';
         case 'WD':
+        case 'Wood':
           return 'Ahşap Atölyesi';
         case 'Fabric':
           return 'Kumaş Atölyesi';

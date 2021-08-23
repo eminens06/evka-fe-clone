@@ -6,13 +6,17 @@ import {
   fetchQuery,
 } from 'relay-hooks';
 import mappers from '../mappers';
+import { ModuleType } from '../modules/admin/externalService/types';
 import { WorkshopTypes } from '../modules/production/types';
 import GET_WORKSHOP_DATA, {
   ProductionRelayWorkshopQuery,
   ProductionRelayWorkshopQueryResponse,
 } from '../__generated__/ProductionRelayWorkshopQuery.graphql';
 
-function useFetchWorkShop(workshopType: WorkshopTypes) {
+function useFetchWorkShop(
+  workshopType: WorkshopTypes,
+  moduleType?: ModuleType,
+) {
   const { data, isLoading } = useQuery<ProductionRelayWorkshopQuery>(
     GET_WORKSHOP_DATA,
     { workshopType },
@@ -39,7 +43,9 @@ function useFetchWorkShop(workshopType: WorkshopTypes) {
       },
     );
     setLoading(false);
-    setTableData(mappers.productionWorkshopMapper(res, workshopType));
+    setTableData(
+      mappers.productionWorkshopMapper(res, workshopType, moduleType),
+    );
   };
 
   useEffect(() => {
@@ -48,7 +54,9 @@ function useFetchWorkShop(workshopType: WorkshopTypes) {
 
   useEffect(() => {
     if (data) {
-      setTableData(mappers.productionWorkshopMapper(data, workshopType));
+      setTableData(
+        mappers.productionWorkshopMapper(data, workshopType, moduleType),
+      );
     }
   }, [data]);
 

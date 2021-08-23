@@ -70,6 +70,7 @@ const FabricProduction: FunctionComponent = () => {
 
   const { data, size, isLoading, forceFetchQuery } = useFetchWorkShop(
     WorkshopTypes.FABRIC,
+    ModuleType.F,
   );
 
   const onTableClick = (data: any) => {
