@@ -60,6 +60,9 @@ graphql`
           customerInfo
           orderStatus
           marketplaceOrderId
+          invoiceDate
+          invoiceNo
+          isKdvInclude
           marketplace {
             name
           }

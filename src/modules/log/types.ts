@@ -29,6 +29,7 @@ export type OrderLogDetail = {
   customerInfo: CustomerDTO;
   customer: string;
   orderId: string;
+  invoiceInfo: string;
   products: LogOrderProduct[];
 };
 
