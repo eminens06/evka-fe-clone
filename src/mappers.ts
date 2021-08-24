@@ -59,6 +59,7 @@ import {
 } from './modules/log/types';
 import { ReturnCancelData } from './modules/return_cancel/types';
 import { ModuleType } from './modules/admin/externalService/types';
+import { Oem } from './modules/oem/types';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -984,6 +985,21 @@ const cancelReturnMapper = (data: any): ReturnCancelData[] => {
   );
 };
 
+const oemMapper = (data: any[]): Oem[] => {
+  return data.map((item) => {
+    const order = genericTableDataMapper(item, 'userOrder');
+    return {
+      id: item.id,
+      sku: item.product.sku,
+      productName: item.product.name,
+      orderId: order[0].marketplaceOrderId,
+      marketplace: order[0].marketplace.name,
+      purchasePrice: item.purchasePrice,
+      remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
+    };
+  });
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1009,4 +1025,5 @@ export default {
   systemParamMapper,
   cancelModalProductMapper,
   cancelReturnMapper,
+  oemMapper,
 };
