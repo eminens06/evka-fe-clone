@@ -1,13 +1,15 @@
 import { NextPage } from 'next';
+import React from 'react';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import Oem from '../src/modules/oem';
 import environment from '../src/relay/environment';
 
-const AdminMarketplaces: NextPage = () => {
+const OemPage: NextPage = () => {
   return (
     <RelayEnvironmentProvider environment={environment}>
-      <div> Yapım aşamasında</div>
+      <Oem />
     </RelayEnvironmentProvider>
   );
 };
 
-export default AdminMarketplaces;
+export default OemPage;

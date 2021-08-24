@@ -2,38 +2,35 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type ProductOrderProductOrderStatus = "AS" | "C" | "CC" | "D" | "DF" | "P" | "PP" | "RR" | "%future added value";
-export type UserOrderShipmentType = "C" | "D" | "S" | "%future added value";
-export type ShipmentInvoiceRelayGetAllUserOrdersQueryVariables = {
-    status?: string | null;
+export type ExternalServiceModule = "AS" | "F" | "GL" | "MR" | "PT" | "%future added value";
+export type OemRelayGetListQueryVariables = {
     search?: string | null;
 };
-export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
-    readonly allUserOrders: {
+export type OemRelayGetListQueryResponse = {
+    readonly allProductByProductOrderStatus: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
-                readonly orderStatus: string | null;
-                readonly marketplaceOrderId: string;
-                readonly estimatedDeliveryDate: unknown | null;
-                readonly customerInfo: unknown | null;
-                readonly marketplace: {
+                readonly product: {
                     readonly name: string;
+                    readonly sku: string | null;
                 } | null;
-                readonly shipmentType: UserOrderShipmentType;
-                readonly shipmentCompanyName: string;
-                readonly cargoChaseNumber: string | null;
-                readonly products: {
+                readonly externalService: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
-                            readonly productOrderStatus: ProductOrderProductOrderStatus;
-                            readonly product: {
+                            readonly name: string;
+                            readonly module: ExternalServiceModule;
+                        } | null;
+                    } | null>;
+                };
+                readonly userOrder: {
+                    readonly edges: ReadonlyArray<{
+                        readonly node: {
+                            readonly marketplaceOrderId: string;
+                            readonly marketplace: {
                                 readonly name: string;
-                                readonly sku: string | null;
-                                readonly width: number | null;
-                                readonly length: number | null;
-                                readonly height: number | null;
                             } | null;
+                            readonly estimatedDeliveryDate: unknown | null;
                         } | null;
                     } | null>;
                 };
@@ -41,45 +38,44 @@ export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
         } | null>;
     } | null;
 };
-export type ShipmentInvoiceRelayGetAllUserOrdersQuery = {
-    readonly response: ShipmentInvoiceRelayGetAllUserOrdersQueryResponse;
-    readonly variables: ShipmentInvoiceRelayGetAllUserOrdersQueryVariables;
+export type OemRelayGetListQuery = {
+    readonly response: OemRelayGetListQueryResponse;
+    readonly variables: OemRelayGetListQueryVariables;
 };
 
 
 
 /*
-query ShipmentInvoiceRelayGetAllUserOrdersQuery(
-  $status: String
+query OemRelayGetListQuery(
   $search: String
 ) {
-  allUserOrders(byShipmentStatus: $status, superSearch: $search) {
+  allProductByProductOrderStatus(statusType: "AS", superSearch: $search) {
     edges {
       node {
         id
-        orderStatus
-        marketplaceOrderId
-        estimatedDeliveryDate
-        customerInfo
-        marketplace {
+        product {
           name
+          sku
           id
         }
-        shipmentType
-        shipmentCompanyName
-        cargoChaseNumber
-        products {
+        externalService {
           edges {
             node {
-              productOrderStatus
-              product {
+              name
+              module
+              id
+            }
+          }
+        }
+        userOrder {
+          edges {
+            node {
+              marketplaceOrderId
+              marketplace {
                 name
-                sku
-                width
-                length
-                height
                 id
               }
+              estimatedDeliveryDate
               id
             }
           }
@@ -95,21 +91,15 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "status",
-    "type": "String"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
     "name": "search",
     "type": "String"
   }
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "byShipmentStatus",
-    "variableName": "status"
+    "kind": "Literal",
+    "name": "statusType",
+    "value": "AS"
   },
   {
     "kind": "Variable",
@@ -128,91 +118,35 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderStatus",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marketplaceOrderId",
+  "name": "sku",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "estimatedDeliveryDate",
+  "name": "module",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "customerInfo",
+  "name": "marketplaceOrderId",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "shipmentType",
-  "storageKey": null
-},
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "shipmentCompanyName",
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "cargoChaseNumber",
-  "storageKey": null
-},
-v11 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "productOrderStatus",
-  "storageKey": null
-},
-v12 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "sku",
-  "storageKey": null
-},
-v13 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "width",
-  "storageKey": null
-},
-v14 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "length",
-  "storageKey": null
-},
-v15 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "height",
+  "name": "estimatedDeliveryDate",
   "storageKey": null
 };
 return {
@@ -220,20 +154,20 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ShipmentInvoiceRelayGetAllUserOrdersQuery",
+    "name": "OemRelayGetListQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UserOrderNodeConnection",
+        "concreteType": "ProductOrderNodeConnection",
         "kind": "LinkedField",
-        "name": "allUserOrders",
+        "name": "allProductByProductOrderStatus",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "UserOrderNodeEdge",
+            "concreteType": "ProductOrderNodeEdge",
             "kind": "LinkedField",
             "name": "edges",
             "plural": true,
@@ -241,43 +175,37 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "UserOrderNode",
+                "concreteType": "ProductOrderNode",
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "MarketPlaceNode",
+                    "concreteType": "ProductNode",
                     "kind": "LinkedField",
-                    "name": "marketplace",
+                    "name": "product",
                     "plural": false,
                     "selections": [
-                      (v7/*: any*/)
+                      (v3/*: any*/),
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v8/*: any*/),
-                  (v9/*: any*/),
-                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "ProductOrderNodeConnection",
+                    "concreteType": "ExternalServiceNodeConnection",
                     "kind": "LinkedField",
-                    "name": "products",
+                    "name": "externalService",
                     "plural": false,
                     "selections": [
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "ProductOrderNodeEdge",
+                        "concreteType": "ExternalServiceNodeEdge",
                         "kind": "LinkedField",
                         "name": "edges",
                         "plural": true,
@@ -285,28 +213,60 @@ return {
                           {
                             "alias": null,
                             "args": null,
-                            "concreteType": "ProductOrderNode",
+                            "concreteType": "ExternalServiceNode",
                             "kind": "LinkedField",
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v11/*: any*/),
+                              (v3/*: any*/),
+                              (v5/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "UserOrderNodeConnection",
+                    "kind": "LinkedField",
+                    "name": "userOrder",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "UserOrderNodeEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "UserOrderNode",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v6/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "ProductNode",
+                                "concreteType": "MarketPlaceNode",
                                 "kind": "LinkedField",
-                                "name": "product",
+                                "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/),
-                                  (v12/*: any*/),
-                                  (v13/*: any*/),
-                                  (v14/*: any*/),
-                                  (v15/*: any*/)
+                                  (v3/*: any*/)
                                 ],
                                 "storageKey": null
-                              }
+                              },
+                              (v7/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -332,20 +292,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ShipmentInvoiceRelayGetAllUserOrdersQuery",
+    "name": "OemRelayGetListQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UserOrderNodeConnection",
+        "concreteType": "ProductOrderNodeConnection",
         "kind": "LinkedField",
-        "name": "allUserOrders",
+        "name": "allProductByProductOrderStatus",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "UserOrderNodeEdge",
+            "concreteType": "ProductOrderNodeEdge",
             "kind": "LinkedField",
             "name": "edges",
             "plural": true,
@@ -353,44 +313,38 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "UserOrderNode",
+                "concreteType": "ProductOrderNode",
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "MarketPlaceNode",
+                    "concreteType": "ProductNode",
                     "kind": "LinkedField",
-                    "name": "marketplace",
+                    "name": "product",
                     "plural": false,
                     "selections": [
-                      (v7/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/),
                       (v2/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v8/*: any*/),
-                  (v9/*: any*/),
-                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "ProductOrderNodeConnection",
+                    "concreteType": "ExternalServiceNodeConnection",
                     "kind": "LinkedField",
-                    "name": "products",
+                    "name": "externalService",
                     "plural": false,
                     "selections": [
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "ProductOrderNodeEdge",
+                        "concreteType": "ExternalServiceNodeEdge",
                         "kind": "LinkedField",
                         "name": "edges",
                         "plural": true,
@@ -398,29 +352,62 @@ return {
                           {
                             "alias": null,
                             "args": null,
-                            "concreteType": "ProductOrderNode",
+                            "concreteType": "ExternalServiceNode",
                             "kind": "LinkedField",
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v11/*: any*/),
+                              (v3/*: any*/),
+                              (v5/*: any*/),
+                              (v2/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "UserOrderNodeConnection",
+                    "kind": "LinkedField",
+                    "name": "userOrder",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "UserOrderNodeEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "UserOrderNode",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v6/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "ProductNode",
+                                "concreteType": "MarketPlaceNode",
                                 "kind": "LinkedField",
-                                "name": "product",
+                                "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/),
-                                  (v12/*: any*/),
-                                  (v13/*: any*/),
-                                  (v14/*: any*/),
-                                  (v15/*: any*/),
+                                  (v3/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
                               },
+                              (v7/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -445,11 +432,11 @@ return {
   "params": {
     "id": null,
     "metadata": {},
-    "name": "ShipmentInvoiceRelayGetAllUserOrdersQuery",
+    "name": "OemRelayGetListQuery",
     "operationKind": "query",
-    "text": "query ShipmentInvoiceRelayGetAllUserOrdersQuery(\n  $status: String\n  $search: String\n) {\n  allUserOrders(byShipmentStatus: $status, superSearch: $search) {\n    edges {\n      node {\n        id\n        orderStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        customerInfo\n        marketplace {\n          name\n          id\n        }\n        shipmentType\n        shipmentCompanyName\n        cargoChaseNumber\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                sku\n                width\n                length\n                height\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query OemRelayGetListQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"AS\", superSearch: $search) {\n    edges {\n      node {\n        id\n        product {\n          name\n          sku\n          id\n        }\n        externalService {\n          edges {\n            node {\n              name\n              module\n              id\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '14c3a32da81817253ef7a6757af3f6c2';
+(node as any).hash = 'e3fa376d27d3ff865e32835720f57588';
 export default node;

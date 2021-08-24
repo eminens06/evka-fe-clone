@@ -22,7 +22,7 @@ export type LogRelayGetOrderListQueryResponse = {
                 readonly customerInfo: unknown | null;
                 readonly marketplaceOrderId: string;
                 readonly invoiceDate: unknown | null;
-                readonly invoiceNo: number;
+                readonly invoiceNo: string | null;
                 readonly isKdvInclude: boolean;
                 readonly marketplace: {
                     readonly name: string;
