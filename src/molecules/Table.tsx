@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { Table as AntTable, Typography } from 'antd';
 import {
   ColumnsType,
@@ -9,6 +9,9 @@ import { DataSource } from './types';
 import settings from '../settings';
 import { OrderTypes } from '../modules/orders/types';
 import { RowClass } from '../modules/production/types';
+import { ExportTableButton } from 'ant-table-extensions';
+import { FileExcelOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const { Title } = Typography;
 
@@ -24,6 +27,9 @@ interface Props {
   loading?: boolean;
   pagination: TablePaginationConfig;
   scroll?: { y: number };
+  exportFormatter?: any;
+  fileName?: string;
+  preventExport?: boolean;
 }
 
 const Table: FC<Props> = (props) => {
@@ -35,22 +41,47 @@ const Table: FC<Props> = (props) => {
     if (pgSize) setPageSize(pgSize);
   };
 
+  const fileName = useMemo(() => {
+    const main = props.fileName || 'tablo';
+    return `${main}_${moment().format('DD-MM-YYYY')}`;
+  }, [props.fileName]);
+
+  const exportableDataSource = useMemo(() => {
+    if (props.exportFormatter) {
+      return props.exportFormatter(props.dataSource);
+    }
+    return props.dataSource;
+  }, [props.dataSource, props.exportFormatter]);
+
   return (
-    <AntTable
-      {...props}
-      key={props.rowKey}
-      pagination={{
-        ...props.pagination,
-        defaultCurrent: 1,
-        current: currentPage,
-        pageSize,
-        onChange: changePagination,
-        pageSizeOptions: settings.pageSizeOptions,
-      }}
-      rowClassName={(record: { orderType: OrderTypes }) => {
-        return RowClass[record.orderType];
-      }}
-    />
+    <>
+      {!props.preventExport && (
+        <ExportTableButton
+          dataSource={exportableDataSource}
+          columns={props.columns}
+          fileName={fileName}
+          btnProps={{ type: 'primary', icon: <FileExcelOutlined /> }}
+        >
+          İndir
+        </ExportTableButton>
+      )}
+      <AntTable
+        {...props}
+        key={props.rowKey}
+        pagination={{
+          ...props.pagination,
+          defaultCurrent: 1,
+          current: currentPage,
+          pageSize,
+          onChange: changePagination,
+          pageSizeOptions: settings.pageSizeOptions,
+        }}
+        style={{ marginTop: 10 }}
+        rowClassName={(record: { orderType: OrderTypes }) => {
+          return RowClass[record.orderType];
+        }}
+      />
+    </>
   );
 };
 

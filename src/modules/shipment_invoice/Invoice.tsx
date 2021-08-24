@@ -134,6 +134,7 @@ const Invoice: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          fileName="fatura_listesi"
           columns={columns}
           dataSource={data}
           rowKey="id"

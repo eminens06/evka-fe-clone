@@ -214,6 +214,7 @@ const ShipmentOrder: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          fileName="sevkiyat"
           columns={columns}
           dataSource={data}
           rowKey="orderId"

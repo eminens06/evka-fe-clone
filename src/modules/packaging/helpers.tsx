@@ -5,7 +5,7 @@ import { ProgressStepValue } from '../../molecules/types';
 import settings from '../../settings';
 import { PackageStatus } from './types';
 
-const StatusMapper: Record<PackageStatus, StatusObject> = {
+export const StatusMapper: Record<PackageStatus, StatusObject> = {
   [PackageStatus.READY]: {
     text: 'Paketlemeye Hazır',
     status: 'error',

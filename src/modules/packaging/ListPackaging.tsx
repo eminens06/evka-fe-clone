@@ -7,6 +7,7 @@ import PageContent from '../../layout/PageContent';
 import mappers from '../../mappers';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import excelFormatter from '../../utils/excelFormatter';
 import GET_PACKAGE_LIST, {
   PackagingRelayallProductOrdersQuery,
 } from '../../__generated__/PackagingRelayallProductOrdersQuery.graphql';
@@ -93,13 +94,15 @@ const ListPackaging: FunctionComponent = () => {
           <Typography.Title level={5}>Toplama/Paketleme</Typography.Title>
         </div>
         <Table
-          onRow={(record, rowIndex) => {
+          onRow={(record: any) => {
             return {
               onClick: () => onTableClick(record),
             };
           }}
+          exportFormatter={excelFormatter.packaging}
           columns={packagingColumns}
           dataSource={data}
+          fileName="paketleme"
           rowKey="id"
           loading={isLoading}
           pagination={{

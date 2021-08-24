@@ -16,6 +16,7 @@ export enum MainPartsStatus {
   IN_PAINT = 'IN_PAINT',
   COMPLETED = 'COMPLETED',
   NONE = 'NONE',
+  DEFAULT = 'DEFAULT',
 }
 
 export enum MaterialStatus {

@@ -74,6 +74,7 @@ const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
             setSelectWithTable({ node: selectedRows[0].data });
           },
         }}
+        preventExport
         columns={columns}
         dataSource={data}
         rowKey="sku"

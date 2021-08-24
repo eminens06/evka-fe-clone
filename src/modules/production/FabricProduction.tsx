@@ -6,6 +6,7 @@ import useFullPageLoader from '../../hooks/useFullPageLoader';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import excelFormatter from '../../utils/excelFormatter';
 import RESEND_STATUS, {
   ProductionRelayResendToProductionMutation,
 } from '../../__generated__/ProductionRelayResendToProductionMutation.graphql';
@@ -139,6 +140,8 @@ const FabricProduction: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          exportFormatter={excelFormatter.materialProduction}
+          fileName="kumas_atolyesi"
           columns={materialProductionColumns}
           dataSource={data}
           rowKey="id"

@@ -192,6 +192,7 @@ const ManagementProduction: FunctionComponent = () => {
               onClick: () => onTableClick(record),
             };
           }}
+          fileName="uretim_yonetimi"
           columns={columns}
           dataSource={data}
           rowKey="orderId"

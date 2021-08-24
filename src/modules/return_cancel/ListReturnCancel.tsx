@@ -112,6 +112,7 @@ const ListReturnCancel: FunctionComponent = () => {
             };
           }}
           columns={columns}
+          fileName="iptal_iade"
           dataSource={data}
           rowKey="id"
           loading={isLoading}

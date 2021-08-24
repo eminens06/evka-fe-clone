@@ -11,7 +11,7 @@ import {
 } from './types';
 import settings from '../../settings';
 
-const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
+export const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
   [WorkshopStatus.READY]: {
     text: 'Üretime Hazır',
     status: 'error',
@@ -34,7 +34,7 @@ const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
   },
 };
 
-const MainPartsStatusMapper: Record<MainPartsStatus, StatusObject> = {
+export const MainPartsStatusMapper: Record<MainPartsStatus, StatusObject> = {
   [MainPartsStatus.READY]: {
     text: 'Üretime Hazır',
     status: 'error',
@@ -59,9 +59,13 @@ const MainPartsStatusMapper: Record<MainPartsStatus, StatusObject> = {
     text: 'Üretilmeyecek',
     status: 'none',
   },
+  [MainPartsStatus.DEFAULT]: {
+    text: 'Üretilmeyecek',
+    status: 'none',
+  },
 };
 
-const MaterialStatusMapper: Record<MaterialStatus, StatusObject> = {
+export const MaterialStatusMapper: Record<MaterialStatus, StatusObject> = {
   [MaterialStatus.READY]: {
     text: 'Üretime Hazır',
     status: 'error',
