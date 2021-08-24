@@ -71,6 +71,7 @@ const MarbleProduction: FunctionComponent = () => {
 
   const { data, size, isLoading, forceFetchQuery } = useFetchWorkShop(
     WorkshopTypes.MARBLE,
+    ModuleType.MR,
   );
 
   const onTableClick = (data: any) => {

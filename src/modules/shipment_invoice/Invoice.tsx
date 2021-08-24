@@ -45,7 +45,7 @@ const columns = [
   },
   {
     key: 'shipmentCompany',
-    title: 'Sevkiyat Türü',
+    title: 'Sevkiyat Firması',
     dataIndex: 'shipmentCompany',
   },
 ];
@@ -70,7 +70,7 @@ const Invoice: FunctionComponent = () => {
       },
       onCompleted: (res) => {
         closeLoader();
-        message.success('Pazaryeri başarıyla oluşturuldu');
+        message.success('Fatura başarıyla oluşturuldu');
         forceFetchQuery({ search: '' });
         setIsModalVisible(false);
         setModalData(undefined);

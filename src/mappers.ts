@@ -58,6 +58,7 @@ import {
   ProductHistoryDTO,
 } from './modules/log/types';
 import { ReturnCancelData } from './modules/return_cancel/types';
+import { ModuleType } from './modules/admin/externalService/types';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -559,13 +560,17 @@ const productionMainPartsMapper = (
 const productionMaterialMapper = (
   data: ProductionWorkshopDataDTO[],
   type: WorkshopTypes,
+  moduleType?: ModuleType,
 ): ProductionMaterialWorkshopData[] => {
   return data.map((item) => {
     const order = genericTableDataMapper(item, 'userOrder');
-    const services: WorkshopExternalService[] = genericTableDataMapper(
+    let services: WorkshopExternalService[] = genericTableDataMapper(
       item,
       'externalService',
     );
+    if (moduleType) {
+      services = services.filter((service) => service.module === moduleType);
+    }
     const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
     let categoryName = undefined;
     metaProducts.forEach((mt) => {
@@ -664,6 +669,7 @@ const productionPaintMapper = (
 const productionWorkshopMapper = (
   rawData: ProductionRelayWorkshopQueryResponse,
   type: WorkshopTypes,
+  moduleType?: ModuleType,
 ) => {
   const data = genericTableDataMapper(rawData);
   if (type === WorkshopTypes.METAL || type === WorkshopTypes.WOOD) {
@@ -674,7 +680,7 @@ const productionWorkshopMapper = (
   ) {
     return productionPaintMapper(data, type);
   } else {
-    return productionMaterialMapper(data, type);
+    return productionMaterialMapper(data, type, moduleType);
   }
 };
 
@@ -849,6 +855,18 @@ const mapLogProducts = (data: any): LogOrderProduct[] => {
 };
 
 const logListMapper = (data: any): OrderLogDetail[] => {
+  const getInvoiceInfo = (isAval: boolean, date: any, number: string) => {
+    if (!isAval) {
+      return 'Fatura Kesilmeyecek';
+    }
+
+    if (number && date) {
+      return `${moment(date).format('DD-MM-YYYY')} - ${number}`;
+    }
+
+    return 'Kesilmedi';
+  };
+
   return data.map(
     (order: any): OrderLogDetail => {
       const customerInfo = JSON.parse(order.customerInfo);
@@ -863,6 +881,11 @@ const logListMapper = (data: any): OrderLogDetail[] => {
         commissionRate: order.commissionRate,
         notes: order.notes,
         totalPrice: order.totalPrice,
+        invoiceInfo: getInvoiceInfo(
+          order.isKdvInclude,
+          order.orderDate,
+          order.invoiceNo,
+        ),
         customerInfo: customerInfo,
         completedDate: order.completedDate,
         products: mapLogProducts(genericTableDataMapper(order, 'products')),

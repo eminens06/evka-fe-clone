@@ -71,6 +71,7 @@ const GlassProduction: FunctionComponent = () => {
 
   const { data, size, isLoading, forceFetchQuery } = useFetchWorkShop(
     WorkshopTypes.GLASS,
+    ModuleType.GL,
   );
 
   const onTableClick = (data: any) => {
