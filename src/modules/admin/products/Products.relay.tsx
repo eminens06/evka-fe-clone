@@ -50,6 +50,7 @@ graphql`
         paslanmaz
         lazer
         statikBoya
+        parlakEskitmePrinc
         bukum
       }
       woodAttributes {

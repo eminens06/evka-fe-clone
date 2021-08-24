@@ -713,6 +713,16 @@ const getTableProducts = (products: ShipmentTableProduct[]) => {
   });
 };
 
+export const getDesi = (
+  width: number,
+  height: number,
+  length: number,
+): string => {
+  const hacim = width * height * length;
+  const desi = hacim / 3000000;
+  return desi.toFixed(2);
+};
+
 export const getProductDesi = (products: ShipmentTableProduct[]): string => {
   let desi = 0;
   products.map((product) => {
@@ -1003,6 +1013,58 @@ const oemMapper = (data: any[]): Oem[] => {
     };
   });
 };
+const metaDataOptionMapper = (data: any) => {
+  return data.edges
+    .map((metaData: any) => {
+      return {
+        text: metaData.node.materialName,
+        value: metaData.node.id,
+      };
+    })
+    .sort((a: any, b: any) => {
+      return a.text.localeCompare(b.text);
+    });
+};
+
+const metaAttributesMapper = (product: any) => {
+  const metaData: ProductManagmentMetaProduct = {};
+  product.forEach((pr: any) => {
+    switch (pr.type) {
+      case 'Kategori':
+        metaData['category'] = pr.id;
+        return;
+      case 'Alt Kategori':
+        metaData['subCategory'] = pr.id;
+        return;
+      case 'Tabla':
+        metaData['tabla'] = pr.id;
+        return;
+      case 'Ayak':
+        metaData['ayak'] = pr.id;
+        return;
+      default:
+        return;
+    }
+  });
+  return metaData;
+};
+
+const productAttributesMapper = (data: any) => {
+  const metaData = genericTableDataMapper(data, 'metaProducts');
+
+  return {
+    ...data,
+    ...data.labor,
+    ...data.metalAttributes,
+    ...data.other,
+    ...data.otherAttributes,
+    ...data.woodAttributes,
+    ...metaAttributesMapper(metaData),
+    isMonte: data.isMonte ? 'monte' : 'demonte',
+    isCollectable: data.isCollectable ? 'toplanacak' : 'toplanmayacak',
+    desi: getDesi(data.width, data.height, data.length),
+  };
+};
 
 export default {
   productionPaintMapper,
@@ -1030,4 +1092,6 @@ export default {
   cancelModalProductMapper,
   cancelReturnMapper,
   oemMapper,
+  metaDataOptionMapper,
+  productAttributesMapper,
 };
