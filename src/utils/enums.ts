@@ -42,49 +42,61 @@ export const CompanyOptions: Record<ShipmentTypeValue, CargoTypeOption[]> = {
   S: [
     {
       text: 'Vivense',
-      value: 'vivense',
+      value: 'Vivense',
     },
     {
       text: 'EVKA (Horoz)',
-      value: 'evka',
+      value: 'EVKA (Horoz)',
     },
     {
       text: 'Proje',
-      value: 'proje',
+      value: 'Proje',
     },
     {
       text: 'Mudo',
-      value: 'mudo',
+      value: 'Mudo',
     },
     {
       text: 'Blue Ground',
-      value: 'blueGround',
+      value: 'Blue Ground',
+    },
+    {
+      text: 'Ambar',
+      value: 'Ambar',
     },
   ],
   C: [
     {
       text: 'MNG Kargo',
-      value: 'mng',
+      value: 'MNG Kargo',
     },
     {
       text: 'Yurtiçi Kargo',
-      value: 'yurtici',
+      value: 'Yurtiçi Kargo',
     },
     {
-      text: 'MNG Kargo',
-      value: 'mng',
+      text: 'Trendyol Express',
+      value: 'Trendyol Express',
+    },
+    {
+      text: 'Hepsi Express',
+      value: 'Hepsi Express',
+    },
+    {
+      text: 'Aras Kargo',
+      value: 'Aras Kargo',
     },
     {
       text: 'UPS',
-      value: 'ups',
+      value: 'UPS',
     },
     {
       text: 'EVKA (Fevzi)',
-      value: 'evka',
+      value: 'EVKA (Fevzi)',
     },
     {
       text: 'Sürat Kargo',
-      value: 'surat',
+      value: 'Sürat Kargo',
     },
   ],
 };
