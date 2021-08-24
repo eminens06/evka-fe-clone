@@ -74,6 +74,7 @@ const PaintProduction: FunctionComponent = () => {
     paintType === PaintTypes.WOOD
       ? WorkshopTypes.WOOD_PAINT
       : WorkshopTypes.METAL_PAINT,
+    ModuleType.PT,
   );
 
   const onTableClick = (data: any) => {

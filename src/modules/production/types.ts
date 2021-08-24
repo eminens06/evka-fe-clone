@@ -1,3 +1,4 @@
+import { ModuleType } from '../admin/externalService/types';
 import { UserOrderSetDTO } from '../managementProduction/types';
 import { OrderTypes } from '../orders/types';
 
@@ -166,6 +167,7 @@ export type WorkshopExternalService = {
   name: string;
   phoneNumber: string;
   address: string;
+  module: ModuleType;
 };
 
 export type PackagingListDTO = {

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
+export type ExternalServiceModule = "AS" | "F" | "GL" | "MR" | "PT" | "%future added value";
 export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
 export type MetaProductMetaType = "DF" | "F" | "G" | "M" | "MT" | "WD" | "%future added value";
 export type MetaProductPaintType = "DF" | "MT" | "WD" | "%future added value";
@@ -61,6 +62,7 @@ export type ProductionRelayWorkshopQueryResponse = {
                             readonly name: string;
                             readonly phoneNumber: string | null;
                             readonly address: string;
+                            readonly module: ExternalServiceModule;
                         } | null;
                     } | null>;
                 };
@@ -133,6 +135,7 @@ query ProductionRelayWorkshopQuery(
               name
               phoneNumber
               address
+              module
               id
             }
           }
@@ -344,6 +347,13 @@ v26 = {
   "kind": "ScalarField",
   "name": "address",
   "storageKey": null
+},
+v27 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "module",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -515,7 +525,8 @@ return {
                               (v24/*: any*/),
                               (v13/*: any*/),
                               (v25/*: any*/),
-                              (v26/*: any*/)
+                              (v26/*: any*/),
+                              (v27/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -710,6 +721,7 @@ return {
                               (v13/*: any*/),
                               (v25/*: any*/),
                               (v26/*: any*/),
+                              (v27/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -736,9 +748,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayWorkshopQuery",
     "operationKind": "query",
-    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n  $search: String\n) {\n  allProductOrders(byWorkshopType: $workshopType, superSearch: $search) {\n    edges {\n      node {\n        id\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        ayakPaintStatus\n        tablaPaintStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                paintType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              estimatedDeliveryDate\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              isRawMaterial\n              name\n              phoneNumber\n              address\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n  $search: String\n) {\n  allProductOrders(byWorkshopType: $workshopType, superSearch: $search) {\n    edges {\n      node {\n        id\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        ayakPaintStatus\n        tablaPaintStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                paintType\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              estimatedDeliveryDate\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              isRawMaterial\n              name\n              phoneNumber\n              address\n              module\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '723179f3ea3ac672237962e1d44c9262';
+(node as any).hash = '05dd62e72bbb7c4fba1597cfecb27ea3';
 export default node;
