@@ -855,6 +855,18 @@ const mapLogProducts = (data: any): LogOrderProduct[] => {
 };
 
 const logListMapper = (data: any): OrderLogDetail[] => {
+  const getInvoiceInfo = (isAval: boolean, date: any, number: string) => {
+    if (!isAval) {
+      return 'Fatura Kesilmeyecek';
+    }
+
+    if (number && date) {
+      return `${moment(date).format('DD-MM-YYYY')} - ${number}`;
+    }
+
+    return 'Kesilmedi';
+  };
+
   return data.map(
     (order: any): OrderLogDetail => {
       const customerInfo = JSON.parse(order.customerInfo);
@@ -869,6 +881,11 @@ const logListMapper = (data: any): OrderLogDetail[] => {
         commissionRate: order.commissionRate,
         notes: order.notes,
         totalPrice: order.totalPrice,
+        invoiceInfo: getInvoiceInfo(
+          order.isKdvInclude,
+          order.orderDate,
+          order.invoiceNo,
+        ),
         customerInfo: customerInfo,
         completedDate: order.completedDate,
         products: mapLogProducts(genericTableDataMapper(order, 'products')),

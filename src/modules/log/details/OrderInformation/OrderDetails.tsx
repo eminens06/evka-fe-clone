@@ -40,6 +40,10 @@ const OrderDetails: FC<Props> = ({ data }) => {
             <Typography.Text strong>Sipariş Durumu:</Typography.Text>
             <Typography.Text>{data.status}</Typography.Text>
           </Row>
+          <Row>
+            <Typography.Text strong>Fatura Bilgisi:</Typography.Text>
+            <Typography.Text>{data.invoiceInfo}</Typography.Text>
+          </Row>
         </Col>
         {data.notes && (
           <Col span={12}>
