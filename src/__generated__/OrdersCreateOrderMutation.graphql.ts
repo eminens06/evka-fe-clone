@@ -38,7 +38,7 @@ export type UserOrderCreateInput = {
     isKdvInclude?: boolean | null;
     customerInfo?: CustomerInfo | null;
     cargoPrice?: number | null;
-    cargoChaseNumber?: string | null;
+    cargoChaseNumber?: number | null;
     marketplaceOrderId?: string | null;
     completedDate?: unknown | null;
     productOrderIds?: Array<string | null> | null;

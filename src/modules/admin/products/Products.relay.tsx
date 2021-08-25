@@ -127,3 +127,27 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation ProductsRelayCreateProductMutation(
+    $input: CreateProductMutationInput!
+  ) {
+    createProduct(input: $input) {
+      product {
+        id
+      }
+    }
+  }
+`;
+
+graphql`
+  mutation ProductsRelayUpdateProductMutation(
+    $input: UpdateProductMutationInput!
+  ) {
+    updateProduct(input: $input) {
+      product {
+        id
+      }
+    }
+  }
+`;

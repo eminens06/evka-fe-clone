@@ -60,6 +60,13 @@ import {
 import { ReturnCancelData } from './modules/return_cancel/types';
 import { ModuleType } from './modules/admin/externalService/types';
 import { Oem } from './modules/oem/types';
+import {
+  laborPropsFileds,
+  metalPropsFileds,
+  otherPropsFileds,
+  otherWsPropsFileds,
+  woodPropsFileds,
+} from './modules/admin/products/enums';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -1066,6 +1073,51 @@ const productAttributesMapper = (data: any) => {
   };
 };
 
+const productSaveMapper = (data: any): any => {
+  const metal = metalPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const wood = woodPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const otherAtt = otherWsPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const other = otherPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const labor = laborPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+  debugger;
+  return {
+    name: data.name,
+    productName: data.name,
+    metaProductIds: [data.category, data.subCategory, data.ayak, data.tabla],
+    isCollectable: data.isCollectable,
+    packageCount: data.packageCount,
+    metalAttributes: { ...metal },
+    woodAttributes: { ...wood },
+    otherAttributes: { ...otherAtt },
+    other: { ...other },
+    labor: { ...labor },
+    aluminiumPrice: data.aliminyumDokum,
+    sivamaPrice: data.sivama,
+    silikonHirdavatPrice: data.silikonHirdavat,
+    aksesuarPrice: data.aksesuar,
+    packingPrice: data.ambalajMalzeme,
+  };
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1094,4 +1146,5 @@ export default {
   oemMapper,
   metaDataOptionMapper,
   productAttributesMapper,
+  productSaveMapper,
 };

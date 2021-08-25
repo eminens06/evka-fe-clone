@@ -20,6 +20,12 @@ import GeneralProps from './GeneralProps.';
 import { ImageUploaderFragment } from '../../../__generated__/ImageUploaderFragment.graphql';
 import mappers from '../../../mappers';
 import useFullPageLoader from '../../../hooks/useFullPageLoader';
+import CREATE_PRODUCT, {
+  ProductsRelayCreateProductMutation,
+} from '../../../__generated__/ProductsRelayCreateProductMutation.graphql';
+import UPDATE_PRODUCT, {
+  ProductsRelayUpdateProductMutation,
+} from '../../../__generated__/ProductsRelayUpdateProductMutation.graphql';
 
 const CreateEditProduct: FunctionComponent = () => {
   const router = useRouter();
@@ -27,6 +33,7 @@ const CreateEditProduct: FunctionComponent = () => {
   const [form] = Form.useForm();
   const [initialValues, setInitialValues] = useState<any>();
   const [uploadedImage, setUploadedImage] = useState<any>('');
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
@@ -45,9 +52,36 @@ const CreateEditProduct: FunctionComponent = () => {
     }
   };
 
+  const [createProduct] = useMutation<ProductsRelayCreateProductMutation>(
+    CREATE_PRODUCT,
+    {
+      onError: (error: any) => {
+        message.error('Hata! ', error.response.errors[0].message);
+      },
+      onCompleted: (res) => {
+        message.success('Ürün başarıyla oluşturuldu');
+        router.back();
+      },
+    },
+  );
+
+  const [updateProduct] = useMutation<ProductsRelayUpdateProductMutation>(
+    UPDATE_PRODUCT,
+    {
+      onError: (error: any) => {
+        message.error('Hata! ', error.response.errors[0].message);
+      },
+      onCompleted: (res) => {
+        message.success('Ürün başarıyla güncellendi');
+        router.back();
+      },
+    },
+  );
+
   useEffect(() => {
     if (router?.query?.id) {
       openLoader();
+      setIsEdit(true);
       getProductDetail();
     }
   }, [router]);
@@ -55,6 +89,23 @@ const CreateEditProduct: FunctionComponent = () => {
   const onFinish = (values: any) => {
     console.log('TODO: create update system params');
     console.log(values);
+    const productData = mappers.productSaveMapper(values);
+
+    if (isEdit) {
+      productData.id = router?.query?.id;
+      debugger;
+      updateProduct({
+        variables: {
+          input: { ...productData },
+        },
+      });
+    } else {
+      createProduct({
+        variables: {
+          input: { ...productData },
+        },
+      });
+    }
   };
 
   const handleSelectedSuccess = useCallback((image: ImageUploaderFragment) => {

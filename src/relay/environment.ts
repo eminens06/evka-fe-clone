@@ -8,6 +8,7 @@ import {
 import { ajax } from 'rxjs/ajax';
 import { saveSession } from '../modules/auth/utils/session.utils';
 import { getOrRefreshToken } from '../modules/auth/utils/session.utils';
+import settings from '../settings';
 
 const oneMinute = 60 * 1000;
 const cache = new QueryResponseCache({ size: 250, ttl: oneMinute });
@@ -63,11 +64,7 @@ async function fetchQuery(
   }
   // https://evka-backend-gbwnb.ondigitalocean.app
   return ajax
-    .post(
-      'https://evka-backend-gbwnb.ondigitalocean.app/graphql/',
-      body,
-      headers,
-    )
+    .post(settings.apiUrl, body, headers)
     .toPromise()
     .then((response: any) => {
       if (response.status !== 200) {
