@@ -198,6 +198,8 @@ export type PackagingList = {
   remainingDate: number;
   isCollectable: boolean;
   status: string;
+  legMaterial: string;
+  tableMaterial: string;
   packageCount: number;
   isMonte: boolean;
   id: string;

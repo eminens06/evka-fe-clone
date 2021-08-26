@@ -12,6 +12,14 @@ graphql`
             isCollectable
             packageCount
             isMonte
+            metaProducts {
+              edges {
+                node {
+                  categoryName
+                  materialName
+                }
+              }
+            }
           }
           userOrder {
             edges {

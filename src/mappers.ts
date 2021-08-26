@@ -688,6 +688,8 @@ const productionWorkshopMapper = (
 const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
   return data.map((item) => {
     const order = genericTableDataMapper(item, 'userOrder');
+    const newProduct = genericTableDataMapper(item.product, 'metaProducts');
+    const { legMaterial, tableMaterial } = findMetadata(newProduct);
     return {
       orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
       productName: item.product.name,
@@ -695,6 +697,8 @@ const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
       isCollectable: item.product.isCollectable,
       status: item.packagingStatus,
       packageCount: item.product.packageCount,
+      legMaterial,
+      tableMaterial,
       isMonte: item.product.isMonte,
       id: item.id,
     };
