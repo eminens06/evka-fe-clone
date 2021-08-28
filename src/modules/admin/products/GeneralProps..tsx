@@ -1,5 +1,22 @@
-import { Card, Form, Row, Col, Input, FormInstance, Upload } from 'antd';
-import React, { FC, useEffect, useState } from 'react';
+import {
+  Card,
+  Form,
+  Row,
+  Col,
+  Input,
+  FormInstance,
+  Upload,
+  Alert,
+  Button,
+} from 'antd';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { SingleSelect } from '../../../atoms';
 import {
   generalPropsFileds,
@@ -14,12 +31,17 @@ import GET_META_DATA, {
 } from '../../../__generated__/MetadataRelayAllMetadataQuery.graphql';
 import { fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import mappers, { getDesi } from '../../../mappers';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 interface Props {
   form: FormInstance<any>;
   initialValues: any;
   isDisabled?: boolean;
   onImageUploadSuccess: (image: ImageUploaderFragment) => void;
+  preSku: string;
+  setPreSku: Dispatch<SetStateAction<string>>;
+  createSkuNo: () => void;
+  fullSku?: string;
 }
 
 const GeneralProps: FC<Props> = ({
@@ -27,6 +49,10 @@ const GeneralProps: FC<Props> = ({
   initialValues,
   isDisabled,
   onImageUploadSuccess,
+  preSku,
+  setPreSku,
+  createSkuNo,
+  fullSku,
 }) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
@@ -72,6 +98,12 @@ const GeneralProps: FC<Props> = ({
     }
   };
 
+  const onSkuChange = (e: any) => setPreSku(e.target.value);
+
+  const fullSkuNo = useMemo(() => {
+    return fullSku ? fullSku : initialValues?.sku || '';
+  }, [initialValues, fullSku]);
+
   return (
     <Card title="Genel Bilgiler" bordered={false} className="form-card">
       <Row gutter={24}>
@@ -97,6 +129,36 @@ const GeneralProps: FC<Props> = ({
             </Col>
           );
         })}
+      </Row>
+
+      <Row gutter={24}>
+        <Col span={8} offset={8}>
+          <Row>
+            <Col span={12}>
+              <Input
+                onChange={(e) => onSkuChange(e)}
+                maxLength={3}
+                placeholder="123"
+                value={preSku}
+              />
+            </Col>
+            <Col
+              span={12}
+              style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}
+            >
+              <Button
+                type="primary"
+                onClick={() => createSkuNo()}
+                icon={<CheckCircleOutlined />}
+              >
+                SKU Oluştur
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={8} offset={8}>
+          <Alert message={fullSkuNo} type="success" />
+        </Col>
       </Row>
       <Row>
         <Col span={24}>

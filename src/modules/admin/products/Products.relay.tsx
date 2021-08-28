@@ -151,3 +151,11 @@ graphql`
     }
   }
 `;
+
+graphql`
+  query ProductsRelayGetMetaProductByIdQuery($id: ID!) {
+    metaProduct(id: $id) {
+      materialId
+    }
+  }
+`;

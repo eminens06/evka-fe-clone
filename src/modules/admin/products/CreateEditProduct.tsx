@@ -26,6 +26,9 @@ import CREATE_PRODUCT, {
 import UPDATE_PRODUCT, {
   ProductsRelayUpdateProductMutation,
 } from '../../../__generated__/ProductsRelayUpdateProductMutation.graphql';
+import GET_META_PROD, {
+  ProductsRelayGetMetaProductByIdQuery,
+} from '../../../__generated__/ProductsRelayGetMetaProductByIdQuery.graphql';
 
 const CreateEditProduct: FunctionComponent = () => {
   const router = useRouter();
@@ -34,6 +37,8 @@ const CreateEditProduct: FunctionComponent = () => {
   const [initialValues, setInitialValues] = useState<any>();
   const [uploadedImage, setUploadedImage] = useState<any>('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [preSku, setPreSku] = useState<string>('');
+  const [fullSku, setFullSku] = useState<string>('');
 
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
@@ -47,7 +52,9 @@ const CreateEditProduct: FunctionComponent = () => {
     );
 
     if (product) {
-      setInitialValues(mappers.productAttributesMapper(product));
+      const initData = mappers.productAttributesMapper(product);
+      setInitialValues(initData);
+      setPreSku(initData.sku.split('-')[2].substring(0, 3));
       closeLoader();
     }
   };
@@ -90,13 +97,14 @@ const CreateEditProduct: FunctionComponent = () => {
     console.log('TODO: create update system params');
     console.log(values);
     const productData = mappers.productSaveMapper(values);
+    productData.sku = fullSku;
 
     if (isEdit) {
       productData.id = router?.query?.id;
       debugger;
       updateProduct({
         variables: {
-          input: { ...productData },
+          input: { product: productData },
         },
       });
     } else {
@@ -113,6 +121,45 @@ const CreateEditProduct: FunctionComponent = () => {
       setUploadedImage(image);
     }
   }, []);
+
+  const getMetaProductId = async () => {
+    const formFields = form.getFieldsValue();
+    const metaData = [
+      formFields.category,
+      formFields.subCategory,
+      formFields.tabla,
+      formFields.ayak,
+    ];
+    let asyncRes = [];
+    asyncRes = await Promise.all(
+      metaData.map(async (item) => {
+        const {
+          metaProduct,
+        } = await fetchQuery<ProductsRelayGetMetaProductByIdQuery>(
+          environment,
+          GET_META_PROD,
+          {
+            id: item,
+          },
+        );
+        return metaProduct?.materialId;
+      }),
+    );
+    const isMonte = formFields.isMonte === 'demonte' ? '0' : '1';
+    return asyncRes.join('') + isMonte;
+  };
+
+  const createSkuNo = async () => {
+    const generated = await getMetaProductId();
+    let newSku = '';
+    newSku =
+      'EVKA-' +
+      form.getFieldValue('name').substring(0, 4).toUpperCase() +
+      '-' +
+      preSku +
+      generated;
+    setFullSku(newSku);
+  };
 
   return (
     <>
@@ -133,6 +180,10 @@ const CreateEditProduct: FunctionComponent = () => {
           form={form}
           initialValues={initialValues}
           onImageUploadSuccess={handleSelectedSuccess}
+          preSku={preSku}
+          setPreSku={setPreSku}
+          createSkuNo={createSkuNo}
+          fullSku={fullSku}
         />
         <MetalProps form={form} initialValues={initialValues} />
         <WoodProps form={form} initialValues={initialValues} />

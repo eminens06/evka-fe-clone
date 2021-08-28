@@ -1098,7 +1098,7 @@ const productSaveMapper = (data: any): any => {
     acc[field.name] = data[field.name];
     return acc;
   }, {});
-  debugger;
+
   return {
     name: data.name,
     productName: data.name,
