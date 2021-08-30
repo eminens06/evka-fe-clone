@@ -140,6 +140,7 @@ export type ProductionMaterialWorkshopData = {
   type: WorkshopTypes;
   externalServices: WorkshopExternalService[];
   categoryName?: string;
+  materialName?: string;
 };
 
 export enum WorkshopTypes {
