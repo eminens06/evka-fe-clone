@@ -27,7 +27,7 @@ export type ProductionRelayWorkshopQueryResponse = {
                 readonly notes: string;
                 readonly product: {
                     readonly id: string;
-                    readonly sku: string | null;
+                    readonly sku: string;
                     readonly name: string;
                     readonly width: number | null;
                     readonly height: number | null;

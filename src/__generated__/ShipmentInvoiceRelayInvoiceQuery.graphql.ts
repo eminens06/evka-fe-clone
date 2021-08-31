@@ -30,7 +30,7 @@ export type ShipmentInvoiceRelayInvoiceQueryResponse = {
                             readonly product: {
                                 readonly name: string;
                                 readonly id: string;
-                                readonly sku: string | null;
+                                readonly sku: string;
                             } | null;
                         } | null;
                     } | null>;

@@ -65,7 +65,9 @@ graphql`
         kayinKereste
         hamMdf
         masifPanel
+        masifPanelFiyat
         kontplak
+        kontplakFiyat
         lake
         cila
       }

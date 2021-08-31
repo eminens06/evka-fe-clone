@@ -10,7 +10,7 @@ export type ProductUpdateInput = {
     name?: string | null;
     productName?: string | null;
     metaProductIds?: Array<string | null> | null;
-    imageId?: string | null;
+    imageIds?: Array<string | null> | null;
     isCollectable?: boolean | null;
     sku?: string | null;
     packageCount?: number | null;
@@ -24,6 +24,9 @@ export type ProductUpdateInput = {
     silikonHirdavatPrice?: number | null;
     aksesuarPrice?: number | null;
     packingPrice?: number | null;
+    width?: number | null;
+    height?: number | null;
+    length?: number | null;
     id?: string | null;
 };
 export type MetalAttributeInput = {
@@ -42,7 +45,7 @@ export type WoodAttributeInput = {
     cumba?: number | null;
     balon?: number | null;
     torna?: number | null;
-    meseKereste?: number | null;
+    digerKereste?: number | null;
     kayinKereste?: number | null;
     hamMdf?: number | null;
     masifPanel?: number | null;
@@ -68,6 +71,7 @@ export type OtherInput = {
     ambalajMalzeme?: number | null;
     aksesuar?: number | null;
     akrilikTipi?: string | null;
+    akrilik?: number | null;
 };
 export type LaborAttributeInputs = {
     metal?: number | null;

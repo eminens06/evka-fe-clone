@@ -32,7 +32,7 @@ export type ReturnCancelListOrdersQueryResponse = {
                             readonly notes: string;
                             readonly productOrderStatus: ProductOrderProductOrderStatus;
                             readonly product: {
-                                readonly sku: string | null;
+                                readonly sku: string;
                                 readonly name: string;
                             } | null;
                         } | null;

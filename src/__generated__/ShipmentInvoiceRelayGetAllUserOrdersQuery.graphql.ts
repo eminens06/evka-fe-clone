@@ -22,14 +22,14 @@ export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
                 } | null;
                 readonly shipmentType: UserOrderShipmentType;
                 readonly shipmentCompanyName: string;
-                readonly cargoChaseNumber: number;
+                readonly cargoChaseNumber: string | null;
                 readonly products: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
                             readonly productOrderStatus: ProductOrderProductOrderStatus;
                             readonly product: {
                                 readonly name: string;
-                                readonly sku: string | null;
+                                readonly sku: string;
                                 readonly width: number | null;
                                 readonly length: number | null;
                                 readonly height: number | null;

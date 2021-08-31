@@ -31,7 +31,7 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
                             readonly notes: string;
                             readonly productOrderStatus: ProductOrderProductOrderStatus;
                             readonly product: {
-                                readonly sku: string | null;
+                                readonly sku: string;
                                 readonly name: string;
                                 readonly productName: string;
                                 readonly metaInfo: unknown | null;

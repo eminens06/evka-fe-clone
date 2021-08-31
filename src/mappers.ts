@@ -1115,6 +1115,9 @@ const productSaveMapper = (data: any): any => {
     silikonHirdavatPrice: data.silikonHirdavat,
     aksesuarPrice: data.aksesuar,
     packingPrice: data.ambalajMalzeme,
+    width: data.width,
+    height: data.height,
+    length: data.length,
   };
 };
 

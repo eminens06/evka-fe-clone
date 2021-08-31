@@ -133,8 +133,16 @@ export const woodPropsFileds = [
     name: 'masifPanel',
   },
   {
+    label: 'Masif Panel Fiyat (m2/TL)',
+    name: 'masifPanelFiyat',
+  },
+  {
     label: 'Kontplak (m2)',
     name: 'kontplak',
+  },
+  {
+    label: 'Kontplak (m2/TL)',
+    name: 'kontplakFiyat',
   },
   {
     label: 'Lake (m2)',
