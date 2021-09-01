@@ -32,9 +32,9 @@ export const packagingColumns = [
     dataIndex: 'productName',
   },
   {
-    key: 'remainingTime',
+    key: 'remainingDate',
     title: 'Kalan Süre',
-    dataIndex: 'remainingTime',
+    dataIndex: 'remainingDate',
     render: (value: number) => {
       if (value <= settings.remainingTimeLevel) {
         return <Typography.Text type="danger">{value}</Typography.Text>;
@@ -46,6 +46,16 @@ export const packagingColumns = [
     key: 'packageCount',
     title: 'Paket Sayısı',
     dataIndex: 'packageCount',
+  },
+  {
+    key: 'legMaterial',
+    title: 'Ayak Malzemesi',
+    dataIndex: 'legMaterial',
+  },
+  {
+    key: 'tableMaterial',
+    title: 'Tabla Malzemesi',
+    dataIndex: 'tableMaterial',
   },
   {
     key: 'isCollectable',

@@ -23,6 +23,7 @@ interface Props {
   form?: FormInstance<any>;
   serviceInfo: WorkshopExternalService[];
   moduleName?: ModuleType;
+  materialName?: string;
 }
 
 const MaterialWorkshopDetail: FC<Props> = ({
@@ -34,9 +35,10 @@ const MaterialWorkshopDetail: FC<Props> = ({
   workshopType,
   serviceInfo,
   moduleName,
+  materialName,
 }) => {
   const getDimensionsText = () => {
-    return `En: ${dimensions.width} cm / Yükseklik: ${dimensions.height} cm / Uzunluk: ${dimensions.length} cm`;
+    return `En: ${dimensions.width} mm / Yükseklik: ${dimensions.height} mm / Uzunluk: ${dimensions.length} mm`;
   };
 
   return (
@@ -48,6 +50,11 @@ const MaterialWorkshopDetail: FC<Props> = ({
               <Typography.Title level={5}>{productName}</Typography.Title>
               <br></br>
               <Typography.Text>{getDimensionsText()}</Typography.Text>
+              {materialName && (
+                <Row style={{ marginTop: 10 }}>
+                  <Typography.Title level={5}>{materialName}</Typography.Title>
+                </Row>
+              )}
             </Col>
             <Col span={12}>
               {status === WorkshopStatus.READY ? (
@@ -72,9 +79,7 @@ const MaterialWorkshopDetail: FC<Props> = ({
                         <Col span={24}>
                           <Typography.Text strong>{info.name}</Typography.Text>
                           <br></br>
-                          <Typography.Text>
-                            {info.phoneNumber}as
-                          </Typography.Text>
+                          <Typography.Text>{info.phoneNumber}</Typography.Text>
                           <br></br>
                           <br></br>
                         </Col>

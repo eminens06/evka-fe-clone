@@ -140,6 +140,7 @@ export type ProductionMaterialWorkshopData = {
   type: WorkshopTypes;
   externalServices: WorkshopExternalService[];
   categoryName?: string;
+  materialName?: string;
 };
 
 export enum WorkshopTypes {
@@ -198,6 +199,8 @@ export type PackagingList = {
   remainingDate: number;
   isCollectable: boolean;
   status: string;
+  legMaterial: string;
+  tableMaterial: string;
   packageCount: number;
   isMonte: boolean;
   id: string;

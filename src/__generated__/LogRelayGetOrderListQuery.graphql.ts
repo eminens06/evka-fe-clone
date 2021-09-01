@@ -31,7 +31,7 @@ export type LogRelayGetOrderListQueryResponse = {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
                             readonly product: {
-                                readonly sku: string | null;
+                                readonly sku: string;
                                 readonly name: string;
                                 readonly metaInfo: unknown | null;
                             } | null;

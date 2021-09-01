@@ -66,15 +66,15 @@ const ListProducts: FunctionComponent = () => {
     });
   };
 
-  const addNewUser = () => {
-    console.log('Add new Product');
+  const addNewProduct = () => {
+    //router.push('/admin_product');
   };
 
   const onTableClick = (record: any) => {
-    router.push({
+    /*router.push({
       pathname: '/admin_product',
       query: { id: record.id },
-    });
+    }); */
   };
 
   return (
@@ -83,7 +83,11 @@ const ListProducts: FunctionComponent = () => {
         <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Ürünler</Typography.Title>
-          <Button type="primary" onClick={addNewUser} icon={<PlusOutlined />}>
+          <Button
+            type="primary"
+            onClick={addNewProduct}
+            icon={<PlusOutlined />}
+          >
             Ekle
           </Button>
         </div>
