@@ -277,6 +277,63 @@ export const materialProductionColumns = [
   },
 ];
 
+export const paintColumns = [
+  {
+    key: 'orderId',
+    title: 'Sipariş Id',
+    dataIndex: 'orderId',
+  },
+  {
+    key: 'sku',
+    title: 'SKU',
+    dataIndex: 'sku',
+  },
+  {
+    key: 'productName',
+    title: 'Ürün Adı',
+    dataIndex: 'productName',
+  },
+  {
+    key: 'type',
+    title: 'Ürün Tipi',
+    dataIndex: 'type',
+  },
+  {
+    key: 'remainingTime',
+    title: 'Kalan Süre',
+    dataIndex: 'remainingTime',
+    render: (value: number) => {
+      if (value <= settings.remainingTimeLevel) {
+        return <Typography.Text type="danger">{value}</Typography.Text>;
+      }
+      return value;
+    },
+  },
+  {
+    key: 'sent',
+    title: 'Gönderilen',
+    dataIndex: 'sent',
+    render: (value: any, product: any) => {
+      const services = product.externalServices.filter(
+        (service: any) => !service.isRawMaterial,
+      );
+      if (services.length > 0) {
+        return services[0].name;
+      }
+      return value;
+    },
+  },
+  {
+    key: 'status',
+    title: 'Durum',
+    dataIndex: 'status',
+    render: (value: WorkshopStatus) => {
+      const { status, text } = WorkshopStatusMapper[value];
+      return <Status status={status} text={text} />;
+    },
+  },
+];
+
 export const mainStatusArray: ProgressStepValue[] = [
   {
     text: 'Üretime Hazır',

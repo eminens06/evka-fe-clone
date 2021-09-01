@@ -19,6 +19,7 @@ import {
   materialProductionColumns,
   materialStatusArray,
   materialWorkshopNextButtonText,
+  paintColumns,
 } from './helpers';
 import MaterialWorkshopDetail from './MaterialWorkshopDetail';
 import {
@@ -151,7 +152,7 @@ const PaintProduction: FunctionComponent = () => {
             };
           }}
           exportFormatter={excelFormatter.materialProduction}
-          columns={materialProductionColumns}
+          columns={paintColumns}
           dataSource={data}
           rowKey="name"
           loading={isLoading}
@@ -187,6 +188,7 @@ const PaintProduction: FunctionComponent = () => {
               workshopType={modalData.type}
               serviceInfo={modalData.externalServices}
               moduleName={ModuleType.PT}
+              materialName={modalData.materialName}
             />
           </StatusModal>
         )}
