@@ -38,7 +38,7 @@ const MaterialWorkshopDetail: FC<Props> = ({
   materialName,
 }) => {
   const getDimensionsText = () => {
-    return `En: ${dimensions.width} cm / Yükseklik: ${dimensions.height} cm / Uzunluk: ${dimensions.length} cm`;
+    return `En: ${dimensions.width} mm / Yükseklik: ${dimensions.height} mm / Uzunluk: ${dimensions.length} mm`;
   };
 
   return (
