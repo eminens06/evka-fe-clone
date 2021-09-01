@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
+export type MetaProductCategoryName = "AY" | "CA" | "CT" | "DF" | "TB" | "%future added value";
 export type ProductOrderPackagingStatus = "C" | "DF" | "I" | "R" | "%future added value";
 export type PackagingRelayallProductOrdersQueryVariables = {
     search?: string | null;
@@ -17,6 +18,14 @@ export type PackagingRelayallProductOrdersQueryResponse = {
                     readonly isCollectable: boolean;
                     readonly packageCount: number;
                     readonly isMonte: boolean;
+                    readonly metaProducts: {
+                        readonly edges: ReadonlyArray<{
+                            readonly node: {
+                                readonly categoryName: MetaProductCategoryName;
+                                readonly materialName: string;
+                            } | null;
+                        } | null>;
+                    };
                 } | null;
                 readonly userOrder: {
                     readonly edges: ReadonlyArray<{
@@ -54,6 +63,15 @@ query PackagingRelayallProductOrdersQuery(
           isCollectable
           packageCount
           isMonte
+          metaProducts {
+            edges {
+              node {
+                categoryName
+                materialName
+                id
+              }
+            }
+          }
           id
         }
         userOrder {
@@ -142,10 +160,24 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "estimatedDeliveryDate",
+  "name": "categoryName",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "materialName",
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "estimatedDeliveryDate",
+  "storageKey": null
+},
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -196,7 +228,42 @@ return {
                       (v4/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
-                      (v7/*: any*/)
+                      (v7/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "MetaProductNodeConnection",
+                        "kind": "LinkedField",
+                        "name": "metaProducts",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "MetaProductNodeEdge",
+                            "kind": "LinkedField",
+                            "name": "edges",
+                            "plural": true,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "MetaProductNode",
+                                "kind": "LinkedField",
+                                "name": "node",
+                                "plural": false,
+                                "selections": [
+                                  (v8/*: any*/),
+                                  (v9/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
                     ],
                     "storageKey": null
                   },
@@ -224,8 +291,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v8/*: any*/),
-                              (v9/*: any*/),
+                              (v10/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -303,6 +370,42 @@ return {
                       (v5/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "MetaProductNodeConnection",
+                        "kind": "LinkedField",
+                        "name": "metaProducts",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "MetaProductNodeEdge",
+                            "kind": "LinkedField",
+                            "name": "edges",
+                            "plural": true,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "MetaProductNode",
+                                "kind": "LinkedField",
+                                "name": "node",
+                                "plural": false,
+                                "selections": [
+                                  (v8/*: any*/),
+                                  (v9/*: any*/),
+                                  (v3/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
                       (v3/*: any*/)
                     ],
                     "storageKey": null
@@ -331,8 +434,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v8/*: any*/),
-                              (v9/*: any*/),
+                              (v10/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -372,9 +475,9 @@ return {
     "metadata": {},
     "name": "PackagingRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query PackagingRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"PP\", superSearch: $search) {\n    edges {\n      node {\n        packagingStatus\n        id\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              estimatedDeliveryDate\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query PackagingRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"PP\", superSearch: $search) {\n    edges {\n      node {\n        packagingStatus\n        id\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              estimatedDeliveryDate\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '46170a415be9acd683bbf3c760313f16';
+(node as any).hash = '285ca69bb7331848d6be26bbfe495d92';
 export default node;
