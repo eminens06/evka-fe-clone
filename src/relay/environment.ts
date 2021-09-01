@@ -64,7 +64,11 @@ async function fetchQuery(
   }
   // https://evka-backend-gbwnb.ondigitalocean.app
   return ajax
-    .post('https://evka-backend-gbwnb.ondigitalocean.app', body, headers)
+    .post(
+      'https://evka-backend-gbwnb.ondigitalocean.app/graphql/',
+      body,
+      headers,
+    )
     .toPromise()
     .then((response: any) => {
       if (response.status !== 200) {
