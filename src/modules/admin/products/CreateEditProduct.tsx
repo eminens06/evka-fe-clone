@@ -101,7 +101,6 @@ const CreateEditProduct: FunctionComponent = () => {
 
     if (isEdit) {
       productData.id = router?.query?.id;
-      debugger;
       updateProduct({
         variables: {
           input: { product: productData },
