@@ -2,26 +2,30 @@ export const generalPropsFileds = [
   {
     label: 'Ürün Adı',
     name: 'name',
-    isDropdown: true,
+    isText: true,
   },
   {
     label: 'Kategori',
     name: 'category',
+    filter: 'CT',
     isDropdown: true,
   },
   {
     label: 'Alt Kategori',
     name: 'subCategory',
+    filter: 'CA',
     isDropdown: true,
   },
   {
     label: 'Ayak Malzemesi',
     name: 'ayak',
+    filter: 'AY',
     isDropdown: true,
   },
   {
     label: 'Tabla Malzemesi',
     name: 'tabla',
+    filter: 'TB',
     isDropdown: true,
   },
   {
@@ -46,10 +50,6 @@ export const generalPropsFileds = [
     name: 'desi',
   },
   {
-    label: 'Formüllü Ağırlık',
-    name: 'weight',
-  },
-  {
     label: 'Toplama Durumu',
     name: 'isCollectable',
     isDropdown: true,
@@ -57,11 +57,6 @@ export const generalPropsFileds = [
   {
     label: 'Paket Adedi',
     name: 'packageCount',
-  },
-  {
-    label: 'KDV Oranı',
-    name: 'kdv',
-    isDropdown: true,
   },
 ];
 
@@ -83,12 +78,8 @@ export const metalPropsFileds = [
     name: 'statikBoya',
   },
   {
-    label: 'Eskitme Prinç (TL)',
-    name: 'eskitmePrinc',
-  },
-  {
-    label: 'Parlak Prinç (TL)',
-    name: 'parlakPrinc',
+    label: 'Parlak/Eskitme Prinç (TL)',
+    name: 'parlakEskitmePrinc',
   },
   {
     label: 'Büküm (m)',
@@ -142,8 +133,16 @@ export const woodPropsFileds = [
     name: 'masifPanel',
   },
   {
+    label: 'Masif Panel Fiyat (m2/TL)',
+    name: 'masifPanelFiyat',
+  },
+  {
     label: 'Kontplak (m2)',
     name: 'kontplak',
+  },
+  {
+    label: 'Kontplak (m2/TL)',
+    name: 'kontplakFiyat',
   },
   {
     label: 'Lake (m2)',
@@ -224,7 +223,7 @@ export const laborPropsFileds = [
 export const otherPropsFileds = [
   {
     label: 'Alüminyum Döküm (TL)',
-    name: 'aluminyumDokum',
+    name: 'aliminyumDokum',
   },
   {
     label: 'Sivama (TL)',
@@ -236,7 +235,7 @@ export const otherPropsFileds = [
   },
   {
     label: 'Ambalaj Malzemeleri (m2)',
-    name: 'ambalajMalzemeleri',
+    name: 'ambalajMalzeme',
   },
   {
     label: 'Aksesuar (TL)',
@@ -248,6 +247,16 @@ export const otherPropsFileds = [
   },
   {
     label: 'Akrilik Ebat (m2)',
-    name: 'akrilikEbat',
+    name: 'akrilik',
   },
+];
+
+export const isMonteOptions = [
+  { text: 'Monte', value: 'monte' },
+  { text: 'Demonte', value: 'demonte' },
+];
+
+export const isCollectableOptions = [
+  { text: 'Toplanacak', value: 'toplanacak' },
+  { text: 'Toplanmayacak', value: 'toplanmayacak' },
 ];

@@ -29,7 +29,7 @@ export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
                             readonly productOrderStatus: ProductOrderProductOrderStatus;
                             readonly product: {
                                 readonly name: string;
-                                readonly sku: string | null;
+                                readonly sku: string;
                                 readonly width: number | null;
                                 readonly length: number | null;
                                 readonly height: number | null;

@@ -60,6 +60,13 @@ import {
 import { ReturnCancelData } from './modules/return_cancel/types';
 import { ModuleType } from './modules/admin/externalService/types';
 import { Oem } from './modules/oem/types';
+import {
+  laborPropsFileds,
+  metalPropsFileds,
+  otherPropsFileds,
+  otherWsPropsFileds,
+  woodPropsFileds,
+} from './modules/admin/products/enums';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -713,6 +720,16 @@ const getTableProducts = (products: ShipmentTableProduct[]) => {
   });
 };
 
+export const getDesi = (
+  width: number,
+  height: number,
+  length: number,
+): string => {
+  const hacim = width * height * length;
+  const desi = hacim / 3000000;
+  return desi.toFixed(2);
+};
+
 export const getProductDesi = (products: ShipmentTableProduct[]): string => {
   let desi = 0;
   products.map((product) => {
@@ -1003,6 +1020,106 @@ const oemMapper = (data: any[]): Oem[] => {
     };
   });
 };
+const metaDataOptionMapper = (data: any) => {
+  return data.edges
+    .map((metaData: any) => {
+      return {
+        text: metaData.node.materialName,
+        value: metaData.node.id,
+      };
+    })
+    .sort((a: any, b: any) => {
+      return a.text.localeCompare(b.text);
+    });
+};
+
+const metaAttributesMapper = (product: any) => {
+  const metaData: ProductManagmentMetaProduct = {};
+  product.forEach((pr: any) => {
+    switch (pr.type) {
+      case 'Kategori':
+        metaData['category'] = pr.id;
+        return;
+      case 'Alt Kategori':
+        metaData['subCategory'] = pr.id;
+        return;
+      case 'Tabla':
+        metaData['tabla'] = pr.id;
+        return;
+      case 'Ayak':
+        metaData['ayak'] = pr.id;
+        return;
+      default:
+        return;
+    }
+  });
+  return metaData;
+};
+
+const productAttributesMapper = (data: any) => {
+  const metaData = genericTableDataMapper(data, 'metaProducts');
+
+  return {
+    ...data,
+    ...data.labor,
+    ...data.metalAttributes,
+    ...data.other,
+    ...data.otherAttributes,
+    ...data.woodAttributes,
+    ...metaAttributesMapper(metaData),
+    isMonte: data.isMonte ? 'monte' : 'demonte',
+    isCollectable: data.isCollectable ? 'toplanacak' : 'toplanmayacak',
+    desi: getDesi(data.width, data.height, data.length),
+  };
+};
+
+const productSaveMapper = (data: any): any => {
+  const metal = metalPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const wood = woodPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const otherAtt = otherWsPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const other = otherPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  const labor = laborPropsFileds.reduce((acc: any, field: any) => {
+    acc[field.name] = data[field.name];
+    return acc;
+  }, {});
+
+  return {
+    name: data.name,
+    productName: data.name,
+    metaProductIds: [data.category, data.subCategory, data.ayak, data.tabla],
+    isCollectable: data.isCollectable,
+    packageCount: data.packageCount,
+    metalAttributes: { ...metal },
+    woodAttributes: { ...wood },
+    otherAttributes: { ...otherAtt },
+    other: { ...other },
+    labor: { ...labor },
+    aluminiumPrice: data.aliminyumDokum,
+    sivamaPrice: data.sivama,
+    silikonHirdavatPrice: data.silikonHirdavat,
+    aksesuarPrice: data.aksesuar,
+    packingPrice: data.ambalajMalzeme,
+    width: data.width,
+    height: data.height,
+    length: data.length,
+  };
+};
 
 export default {
   productionPaintMapper,
@@ -1030,4 +1147,7 @@ export default {
   cancelModalProductMapper,
   cancelReturnMapper,
   oemMapper,
+  metaDataOptionMapper,
+  productAttributesMapper,
+  productSaveMapper,
 };

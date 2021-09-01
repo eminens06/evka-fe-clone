@@ -28,7 +28,7 @@ export type ReturnCancelRelayGetUserOrderQueryResponse = {
                                 readonly id: string;
                                 readonly name: string;
                                 readonly productName: string;
-                                readonly sku: string | null;
+                                readonly sku: string;
                                 readonly metaProducts: {
                                     readonly edges: ReadonlyArray<{
                                         readonly node: {

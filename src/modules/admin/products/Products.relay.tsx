@@ -50,6 +50,7 @@ graphql`
         paslanmaz
         lazer
         statikBoya
+        parlakEskitmePrinc
         bukum
       }
       woodAttributes {
@@ -64,7 +65,9 @@ graphql`
         kayinKereste
         hamMdf
         masifPanel
+        masifPanelFiyat
         kontplak
+        kontplakFiyat
         lake
         cila
       }
@@ -123,6 +126,38 @@ graphql`
           type
         }
       }
+    }
+  }
+`;
+
+graphql`
+  mutation ProductsRelayCreateProductMutation(
+    $input: CreateProductMutationInput!
+  ) {
+    createProduct(input: $input) {
+      product {
+        id
+      }
+    }
+  }
+`;
+
+graphql`
+  mutation ProductsRelayUpdateProductMutation(
+    $input: UpdateProductMutationInput!
+  ) {
+    updateProduct(input: $input) {
+      product {
+        id
+      }
+    }
+  }
+`;
+
+graphql`
+  query ProductsRelayGetMetaProductByIdQuery($id: ID!) {
+    metaProduct(id: $id) {
+      materialId
     }
   }
 `;
