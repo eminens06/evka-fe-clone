@@ -1058,6 +1058,7 @@ const metaAttributesMapper = (product: any) => {
 
 const productAttributesMapper = (data: any) => {
   const metaData = genericTableDataMapper(data, 'metaProducts');
+  const productImages = genericTableDataMapper(data, 'productImages');
 
   return {
     ...data,
@@ -1070,6 +1071,7 @@ const productAttributesMapper = (data: any) => {
     isMonte: data.isMonte ? 'monte' : 'demonte',
     isCollectable: data.isCollectable ? 'toplanacak' : 'toplanmayacak',
     desi: getDesi(data.width, data.height, data.length),
+    defaultFileList: productImages,
   };
 };
 

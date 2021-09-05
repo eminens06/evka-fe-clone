@@ -1,32 +1,35 @@
-import React, { FunctionComponent } from 'react';
+import React, {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useMemo,
+  useState,
+} from 'react';
 import { message, Upload } from 'antd';
 
 import { InboxOutlined } from '@ant-design/icons';
-import { useMutation } from 'relay-hooks';
+import { useFragment, useMutation } from 'relay-hooks';
 import CREATE_IMAGE_GROUP, {
   ImageUploaderRelayCreateImageMutation,
   ImageUploaderRelayCreateImageMutationResponse,
 } from '../../__generated__/ImageUploaderRelayCreateImageMutation.graphql';
-import { ImageUploaderFragment } from '../../__generated__/ImageUploaderFragment.graphql';
+import IMAGE_GROUP_FRAGMENT, {
+  ImageUploaderFragment,
+} from '../../__generated__/ImageUploaderFragment.graphql';
+import { getImageGroupByWidth } from '../../utils/helpers';
 const { Dragger } = Upload;
 
 interface Props {
-  onImageUploadSuccess: (image: ImageUploaderFragment) => void;
+  setUploadedImages: Dispatch<SetStateAction<any[]>>;
+  imageFragment: any;
+  imageFragmentGroup: any;
 }
 
-const ImageUploader: FunctionComponent<Props> = ({ onImageUploadSuccess }) => {
-  const [createImageGroup] = useMutation<ImageUploaderRelayCreateImageMutation>(
-    CREATE_IMAGE_GROUP,
-    {
-      onCompleted: (result: any) => {
-        if (result.createImageGroup && result.createImageGroup.imageGroup) {
-          onImageUploadSuccess(result);
-        }
-      },
-      // onError: standardOnError(setCreatingMsg, setCreateErrors),
-    },
-  );
-
+const ImageUploader: FunctionComponent<Props> = ({
+  setUploadedImages,
+  imageFragment,
+  imageFragmentGroup,
+}) => {
   const draggerProps = {
     name: 'file',
     multiple: true,
@@ -34,35 +37,59 @@ const ImageUploader: FunctionComponent<Props> = ({ onImageUploadSuccess }) => {
       let uploadables;
       if (info.file) {
         uploadables = {
-          image: info.file,
+          image: info.file.originFileObj,
         };
       }
-      createImageGroup({
-        variables: {
-          input: {
-            name: info.file.name,
-          },
-        },
-        uploadables,
-      });
 
       const { status } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
+      if (status === 'uploading') {
+        /*createImageGroup({
+          variables: {
+            input: {
+              name: info.file.name,
+            },
+          },
+          uploadables,
+        });*/
       }
+      console.log(status);
+
+      console.log(info.fileList);
+
       if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
+        message.success(`${info.file.name} dosya başarıyla eklendi.`);
       } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
+        message.error(`${info.file.name} dosya eklenemedi.`);
       }
+
+      setUploadedImages(info.fileList);
     },
     onDrop(e: any) {
       console.log('Dropped files', e.dataTransfer.files);
     },
   };
+
+  const defaultFileList = useMemo(() => {
+    return imageFragmentGroup?.map((item: any, index: any) => {
+      const url = getImageGroupByWidth(item, 320);
+      return {
+        uid: index.toString(),
+        name: item.name,
+        status: 'done',
+        url: url,
+        thumbUrl: url,
+      };
+    });
+  }, [imageFragmentGroup]);
+
+  console.log(defaultFileList);
   return (
     <section className="code-box-demo">
-      <Dragger {...draggerProps}>
+      <Dragger
+        {...draggerProps}
+        listType="picture"
+        defaultFileList={defaultFileList}
+      >
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
@@ -74,5 +101,4 @@ const ImageUploader: FunctionComponent<Props> = ({ onImageUploadSuccess }) => {
     </section>
   );
 };
-
 export default ImageUploader;

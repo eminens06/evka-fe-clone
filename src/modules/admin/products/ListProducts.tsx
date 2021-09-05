@@ -67,14 +67,14 @@ const ListProducts: FunctionComponent = () => {
   };
 
   const addNewProduct = () => {
-    //router.push('/admin_product');
+    router.push('/admin_product');
   };
 
   const onTableClick = (record: any) => {
-    /*router.push({
+    router.push({
       pathname: '/admin_product',
       query: { id: record.id },
-    }); */
+    });
   };
 
   return (

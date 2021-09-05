@@ -32,27 +32,30 @@ import GET_META_DATA, {
 import { fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import mappers, { getDesi } from '../../../mappers';
 import { CheckCircleOutlined } from '@ant-design/icons';
+import PicturesWall from '../../../molecules/ImageUploader/PicturesWall';
 
 interface Props {
   form: FormInstance<any>;
   initialValues: any;
   isDisabled?: boolean;
-  onImageUploadSuccess: (image: ImageUploaderFragment) => void;
   preSku: string;
   setPreSku: Dispatch<SetStateAction<string>>;
   createSkuNo: () => void;
   fullSku?: string;
+  setUploadedImages: Dispatch<SetStateAction<any[]>>;
+  uploadedImages: any[];
 }
 
 const GeneralProps: FC<Props> = ({
   form,
   initialValues,
   isDisabled,
-  onImageUploadSuccess,
   preSku,
   setPreSku,
   createSkuNo,
   fullSku,
+  setUploadedImages,
+  uploadedImages,
 }) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
@@ -133,8 +136,8 @@ const GeneralProps: FC<Props> = ({
 
       <Row gutter={24}>
         <Col span={8} offset={8}>
-          <Row>
-            <Col span={12}>
+          <Row style={{ justifyContent: 'space-between' }}>
+            <Col>
               <Input
                 onChange={(e) => onSkuChange(e)}
                 maxLength={3}
@@ -142,10 +145,7 @@ const GeneralProps: FC<Props> = ({
                 value={preSku}
               />
             </Col>
-            <Col
-              span={12}
-              style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}
-            >
+            <Col style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
               <Button
                 type="primary"
                 onClick={() => createSkuNo()}
@@ -156,13 +156,20 @@ const GeneralProps: FC<Props> = ({
             </Col>
           </Row>
         </Col>
-        <Col span={8} offset={8}>
-          <Alert message={fullSkuNo} type="success" />
+        <Col span={8} offset={8} style={{ marginTop: '2em' }}>
+          {fullSkuNo ? (
+            <Alert message={fullSkuNo} type="success" />
+          ) : (
+            <Alert message="SKU Oluşturunuz" type="error" />
+          )}
         </Col>
       </Row>
       <Row>
-        <Col span={24}>
-          <ImageUploader onImageUploadSuccess={onImageUploadSuccess} />
+        <Col span={24} className="image-uploader">
+          <PicturesWall
+            setUploadedImages={setUploadedImages}
+            imageFragmentGroup={uploadedImages}
+          />
         </Col>
       </Row>
     </Card>

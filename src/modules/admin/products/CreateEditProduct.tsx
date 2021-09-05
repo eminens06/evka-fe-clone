@@ -29,6 +29,10 @@ import UPDATE_PRODUCT, {
 import GET_META_PROD, {
   ProductsRelayGetMetaProductByIdQuery,
 } from '../../../__generated__/ProductsRelayGetMetaProductByIdQuery.graphql';
+import CREATE_IMAGE_GROUP, {
+  ImageUploaderRelayCreateImageMutation,
+  ImageUploaderRelayCreateImageMutationResponse,
+} from '../../../__generated__/ImageUploaderRelayCreateImageMutation.graphql';
 
 const CreateEditProduct: FunctionComponent = () => {
   const router = useRouter();
@@ -39,6 +43,7 @@ const CreateEditProduct: FunctionComponent = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [preSku, setPreSku] = useState<string>('');
   const [fullSku, setFullSku] = useState<string>('');
+  const [uploadedImages, setUploadedImages] = useState<any[]>([]);
 
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
@@ -54,6 +59,7 @@ const CreateEditProduct: FunctionComponent = () => {
     if (product) {
       const initData = mappers.productAttributesMapper(product);
       setInitialValues(initData);
+      setUploadedImages(initData.defaultFileList);
       setPreSku(initData.sku.split('-')[2].substring(0, 3));
       closeLoader();
     }
@@ -85,6 +91,20 @@ const CreateEditProduct: FunctionComponent = () => {
     },
   );
 
+  const [createImageGroup] = useMutation<ImageUploaderRelayCreateImageMutation>(
+    CREATE_IMAGE_GROUP,
+    {
+      onCompleted: (result: any) => {
+        if (result.createImageGroup && result.createImageGroup.imageGroup) {
+          console.log(result);
+        }
+      },
+      onError: (error: any) => {
+        message.error('Hata! ', error.response.errors[0].message);
+      },
+    },
+  );
+
   useEffect(() => {
     if (router?.query?.id) {
       openLoader();
@@ -93,11 +113,52 @@ const CreateEditProduct: FunctionComponent = () => {
     }
   }, [router]);
 
-  const onFinish = (values: any) => {
-    console.log('TODO: create update system params');
-    console.log(values);
+  console.log('uploadedImages', uploadedImages);
+
+  const onFinish = async (values: any) => {
+    let asyncRes = [];
+    asyncRes = await Promise.all(
+      uploadedImages.map(async (file) => {
+        return await new Promise((resolve, reject) => {
+          if (file.status === 'uploading') {
+            let uploadables;
+            if (file) {
+              uploadables = {
+                image: file.originFileObj,
+              };
+            }
+            createImageGroup({
+              variables: {
+                input: {
+                  name: file.name,
+                },
+              },
+              uploadables,
+              onCompleted: (
+                response: ImageUploaderRelayCreateImageMutationResponse,
+              ) => {
+                resolve(response);
+              },
+              onError: (error) => reject(error),
+            });
+          } else {
+            resolve({
+              createImageGroup: {
+                imageGroup: {
+                  id: file.id,
+                },
+              },
+            });
+          }
+        });
+      }),
+    );
+
     const productData = mappers.productSaveMapper(values);
     productData.sku = fullSku;
+    productData.imageIds = asyncRes.map(
+      (item: any) => item.createImageGroup.imageGroup.id,
+    );
 
     if (isEdit) {
       productData.id = router?.query?.id;
@@ -109,17 +170,11 @@ const CreateEditProduct: FunctionComponent = () => {
     } else {
       createProduct({
         variables: {
-          input: { ...productData },
+          input: { product: productData },
         },
       });
     }
   };
-
-  const handleSelectedSuccess = useCallback((image: ImageUploaderFragment) => {
-    if (image.id) {
-      setUploadedImage(image);
-    }
-  }, []);
 
   const getMetaProductId = async () => {
     const formFields = form.getFieldsValue();
@@ -178,11 +233,12 @@ const CreateEditProduct: FunctionComponent = () => {
         <GeneralProps
           form={form}
           initialValues={initialValues}
-          onImageUploadSuccess={handleSelectedSuccess}
           preSku={preSku}
           setPreSku={setPreSku}
           createSkuNo={createSkuNo}
           fullSku={fullSku}
+          setUploadedImages={setUploadedImages}
+          uploadedImages={uploadedImages}
         />
         <MetalProps form={form} initialValues={initialValues} />
         <WoodProps form={form} initialValues={initialValues} />
