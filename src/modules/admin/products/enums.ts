@@ -3,35 +3,41 @@ export const generalPropsFileds = [
     label: 'Ürün Adı',
     name: 'name',
     isText: true,
+    isRequired: true,
   },
   {
     label: 'Kategori',
     name: 'category',
     filter: 'CT',
     isDropdown: true,
+    isRequired: true,
   },
   {
     label: 'Alt Kategori',
     name: 'subCategory',
     filter: 'CA',
     isDropdown: true,
+    isRequired: true,
   },
   {
     label: 'Ayak Malzemesi',
     name: 'ayak',
     filter: 'AY',
     isDropdown: true,
+    isRequired: true,
   },
   {
     label: 'Tabla Malzemesi',
     name: 'tabla',
     filter: 'TB',
     isDropdown: true,
+    isRequired: true,
   },
   {
     label: 'Montaj Durumu',
     name: 'isMonte',
     isDropdown: true,
+    isRequired: true,
   },
   {
     label: 'En (mm)',
@@ -260,3 +266,5 @@ export const isCollectableOptions = [
   { text: 'Toplanacak', value: 'toplanacak' },
   { text: 'Toplanmayacak', value: 'toplanmayacak' },
 ];
+
+export const skuMustFields = generalPropsFileds.slice(0, 6);

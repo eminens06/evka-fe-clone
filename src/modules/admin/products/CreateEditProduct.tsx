@@ -17,7 +17,6 @@ import OtherWsProps from './OtherWsProps';
 import LaborProps from './LaborProps';
 import OtherProps from './OtherProps';
 import GeneralProps from './GeneralProps.';
-import { ImageUploaderFragment } from '../../../__generated__/ImageUploaderFragment.graphql';
 import mappers from '../../../mappers';
 import useFullPageLoader from '../../../hooks/useFullPageLoader';
 import CREATE_PRODUCT, {
@@ -33,15 +32,14 @@ import CREATE_IMAGE_GROUP, {
   ImageUploaderRelayCreateImageMutation,
   ImageUploaderRelayCreateImageMutationResponse,
 } from '../../../__generated__/ImageUploaderRelayCreateImageMutation.graphql';
+import { generalPropsFileds, skuMustFields } from './enums';
 
 const CreateEditProduct: FunctionComponent = () => {
   const router = useRouter();
   const environment = useRelayEnvironment();
   const [form] = Form.useForm();
   const [initialValues, setInitialValues] = useState<any>();
-  const [uploadedImage, setUploadedImage] = useState<any>('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [preSku, setPreSku] = useState<string>('');
   const [fullSku, setFullSku] = useState<string>('');
   const [uploadedImages, setUploadedImages] = useState<any[]>([]);
 
@@ -58,9 +56,9 @@ const CreateEditProduct: FunctionComponent = () => {
 
     if (product) {
       const initData = mappers.productAttributesMapper(product);
+      initData.preSku = initData.sku.split('-')[2].substring(0, 3);
       setInitialValues(initData);
       setUploadedImages(initData.defaultFileList);
-      setPreSku(initData.sku.split('-')[2].substring(0, 3));
       closeLoader();
     }
   };
@@ -112,8 +110,6 @@ const CreateEditProduct: FunctionComponent = () => {
       getProductDetail();
     }
   }, [router]);
-
-  console.log('uploadedImages', uploadedImages);
 
   const onFinish = async (values: any) => {
     let asyncRes = [];
@@ -184,35 +180,58 @@ const CreateEditProduct: FunctionComponent = () => {
       formFields.tabla,
       formFields.ayak,
     ];
-    let asyncRes = [];
-    asyncRes = await Promise.all(
-      metaData.map(async (item) => {
-        const {
-          metaProduct,
-        } = await fetchQuery<ProductsRelayGetMetaProductByIdQuery>(
-          environment,
-          GET_META_PROD,
-          {
-            id: item,
-          },
-        );
-        return metaProduct?.materialId;
-      }),
-    );
-    const isMonte = formFields.isMonte === 'demonte' ? '0' : '1';
-    return asyncRes.join('') + isMonte;
+    if (metaData.indexOf(undefined) === -1) {
+      let asyncRes = [];
+      asyncRes = await Promise.all(
+        metaData.map(async (item) => {
+          const {
+            metaProduct,
+          } = await fetchQuery<ProductsRelayGetMetaProductByIdQuery>(
+            environment,
+            GET_META_PROD,
+            {
+              id: item,
+            },
+          );
+          return metaProduct?.materialId;
+        }),
+      );
+
+      const isMonte = formFields.isMonte === 'demonte' ? '0' : '1';
+      return asyncRes.join('') + isMonte;
+    }
+    return '';
+  };
+
+  const getSkuCharacters = () => {
+    if (form.getFieldValue('name')) {
+      return form.getFieldValue('name')?.substring(0, 4).toUpperCase();
+    }
+    return '';
+  };
+  const getPreSku = () => {
+    if (form.getFieldValue('preSku')) {
+      return form.getFieldValue('preSku');
+    }
+    return '';
   };
 
   const createSkuNo = async () => {
     const generated = await getMetaProductId();
     let newSku = '';
-    newSku =
-      'EVKA-' +
-      form.getFieldValue('name').substring(0, 4).toUpperCase() +
-      '-' +
-      preSku +
-      generated;
+    newSku = 'EVKA-' + getSkuCharacters() + '-' + getPreSku() + generated;
     setFullSku(newSku);
+  };
+
+  const onChangeFormValues = (e: any) => {
+    skuMustFields.forEach((item) => {
+      if (
+        Object.keys(e).indexOf(item.name) !== -1 ||
+        Object.keys(e).indexOf('preSku') !== -1
+      ) {
+        createSkuNo();
+      }
+    });
   };
 
   return (
@@ -229,13 +248,11 @@ const CreateEditProduct: FunctionComponent = () => {
         layout="vertical"
         onFinish={onFinish}
         initialValues={initialValues}
+        onValuesChange={(e) => onChangeFormValues(e)}
       >
         <GeneralProps
           form={form}
           initialValues={initialValues}
-          preSku={preSku}
-          setPreSku={setPreSku}
-          createSkuNo={createSkuNo}
           fullSku={fullSku}
           setUploadedImages={setUploadedImages}
           uploadedImages={uploadedImages}
