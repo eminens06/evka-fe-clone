@@ -58,6 +58,7 @@ const CreateEditProduct: FunctionComponent = () => {
       const initData = mappers.productAttributesMapper(product);
       initData.preSku = initData.sku.split('-')[2].substring(0, 3);
       setInitialValues(initData);
+      setFullSku(product.sku);
       setUploadedImages(initData.defaultFileList);
       closeLoader();
     }
