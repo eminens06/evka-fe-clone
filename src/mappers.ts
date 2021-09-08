@@ -1058,6 +1058,7 @@ const metaAttributesMapper = (product: any) => {
 
 const productAttributesMapper = (data: any) => {
   const metaData = genericTableDataMapper(data, 'metaProducts');
+  const productImages = genericTableDataMapper(data, 'productImages');
 
   return {
     ...data,
@@ -1070,6 +1071,7 @@ const productAttributesMapper = (data: any) => {
     isMonte: data.isMonte ? 'monte' : 'demonte',
     isCollectable: data.isCollectable ? 'toplanacak' : 'toplanmayacak',
     desi: getDesi(data.width, data.height, data.length),
+    defaultFileList: productImages,
   };
 };
 
@@ -1110,11 +1112,11 @@ const productSaveMapper = (data: any): any => {
     otherAttributes: { ...otherAtt },
     other: { ...other },
     labor: { ...labor },
-    aluminiumPrice: data.aliminyumDokum,
-    sivamaPrice: data.sivama,
-    silikonHirdavatPrice: data.silikonHirdavat,
-    aksesuarPrice: data.aksesuar,
-    packingPrice: data.ambalajMalzeme,
+    aluminiumPrice: data.aliminyumDokum || 0,
+    sivamaPrice: data.sivama || 0,
+    silikonHirdavatPrice: data.silikonHirdavat || 0,
+    aksesuarPrice: data.aksesuar || 0,
+    packingPrice: data.ambalajMalzeme || 0,
     width: data.width,
     height: data.height,
     length: data.length,

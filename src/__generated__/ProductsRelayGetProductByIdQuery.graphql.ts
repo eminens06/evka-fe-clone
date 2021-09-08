@@ -92,6 +92,30 @@ export type ProductsRelayGetProductByIdQueryResponse = {
         readonly aksesuarPrice: number;
         readonly packingPrice: number;
         readonly metaInfo: unknown | null;
+        readonly productImages: {
+            readonly edges: ReadonlyArray<{
+                readonly node: {
+                    readonly id: string;
+                    readonly name: string;
+                    readonly processed: boolean;
+                    readonly tags: unknown | null;
+                    readonly images: {
+                        readonly edges: ReadonlyArray<{
+                            readonly node: {
+                                readonly id: string;
+                                readonly name: string;
+                                readonly height: number | null;
+                                readonly width: number | null;
+                                readonly file: {
+                                    readonly url: string | null;
+                                } | null;
+                                readonly externalUrl: string | null;
+                            } | null;
+                        } | null>;
+                    } | null;
+                } | null;
+            } | null>;
+        };
     } | null;
 };
 export type ProductsRelayGetProductByIdQuery = {
@@ -188,6 +212,30 @@ query ProductsRelayGetProductByIdQuery(
     aksesuarPrice
     packingPrice
     metaInfo
+    productImages {
+      edges {
+        node {
+          id
+          name
+          processed
+          tags
+          images(orderBy: "width") {
+            edges {
+              node {
+                id
+                name
+                height
+                width
+                file {
+                  url
+                }
+                externalUrl
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 */
@@ -208,7 +256,28 @@ v1 = {
   "name": "id",
   "storageKey": null
 },
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
+},
+v5 = [
   {
     "alias": null,
     "args": [
@@ -224,13 +293,7 @@ v2 = [
     "plural": false,
     "selections": [
       (v1/*: any*/),
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      },
+      (v2/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -698,13 +761,7 @@ v2 = [
         "name": "isMonte",
         "storageKey": null
       },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "width",
-        "storageKey": null
-      },
+      (v3/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -712,13 +769,7 @@ v2 = [
         "name": "length",
         "storageKey": null
       },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "height",
-        "storageKey": null
-      },
+      (v4/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -760,6 +811,123 @@ v2 = [
         "kind": "ScalarField",
         "name": "metaInfo",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ImageGroupNodeConnection",
+        "kind": "LinkedField",
+        "name": "productImages",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageGroupNodeEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageGroupNode",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/),
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "processed",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "tags",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": [
+                      {
+                        "kind": "Literal",
+                        "name": "orderBy",
+                        "value": "width"
+                      }
+                    ],
+                    "concreteType": "ImageConnection",
+                    "kind": "LinkedField",
+                    "name": "images",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ImageNode",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v1/*: any*/),
+                              (v2/*: any*/),
+                              (v4/*: any*/),
+                              (v3/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageFileType",
+                                "kind": "LinkedField",
+                                "name": "file",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "url",
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "externalUrl",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": "images(orderBy:\"width\")"
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -771,7 +939,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "ProductsRelayGetProductByIdQuery",
-    "selections": (v2/*: any*/),
+    "selections": (v5/*: any*/),
     "type": "Query"
   },
   "kind": "Request",
@@ -779,16 +947,16 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ProductsRelayGetProductByIdQuery",
-    "selections": (v2/*: any*/)
+    "selections": (v5/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "ProductsRelayGetProductByIdQuery",
     "operationKind": "query",
-    "text": "query ProductsRelayGetProductByIdQuery(\n  $id: ID!\n) {\n  product(id: $id) {\n    id\n    name\n    productName\n    metaProducts {\n      edges {\n        node {\n          id\n          categoryName\n          materialName\n          materialId\n          metaType\n          paintType\n          type\n        }\n      }\n    }\n    isCollectable\n    sku\n    packageCount\n    metalAttributes {\n      profil\n      paslanmaz\n      lazer\n      statikBoya\n      parlakEskitmePrinc\n      bukum\n    }\n    woodAttributes {\n      mdfLam\n      mdfkp\n      papel\n      laminant\n      cumba\n      balon\n      torna\n      digerKereste\n      kayinKereste\n      hamMdf\n      masifPanel\n      masifPanelFiyat\n      kontplak\n      kontplakFiyat\n      lake\n      cila\n    }\n    otherAttributes {\n      mermer\n      mermerIscilik\n      mermerFarklari\n      cam4mm\n      cam10mm\n      camAynaFazlalik\n      kumas\n    }\n    other {\n      aliminyumDokum\n      silikonHirdavat\n      sivama\n      ambalajMalzeme\n      aksesuar\n      akrilikTipi\n    }\n    labor {\n      metal\n      tasima\n      toplama\n      ahsapAtolyesi\n      polisaj\n      doseme\n      akrilik\n      ambalaj\n    }\n    isMonte\n    width\n    length\n    height\n    aluminiumPrice\n    sivamaPrice\n    silikonHirdavatPrice\n    aksesuarPrice\n    packingPrice\n    metaInfo\n  }\n}\n"
+    "text": "query ProductsRelayGetProductByIdQuery(\n  $id: ID!\n) {\n  product(id: $id) {\n    id\n    name\n    productName\n    metaProducts {\n      edges {\n        node {\n          id\n          categoryName\n          materialName\n          materialId\n          metaType\n          paintType\n          type\n        }\n      }\n    }\n    isCollectable\n    sku\n    packageCount\n    metalAttributes {\n      profil\n      paslanmaz\n      lazer\n      statikBoya\n      parlakEskitmePrinc\n      bukum\n    }\n    woodAttributes {\n      mdfLam\n      mdfkp\n      papel\n      laminant\n      cumba\n      balon\n      torna\n      digerKereste\n      kayinKereste\n      hamMdf\n      masifPanel\n      masifPanelFiyat\n      kontplak\n      kontplakFiyat\n      lake\n      cila\n    }\n    otherAttributes {\n      mermer\n      mermerIscilik\n      mermerFarklari\n      cam4mm\n      cam10mm\n      camAynaFazlalik\n      kumas\n    }\n    other {\n      aliminyumDokum\n      silikonHirdavat\n      sivama\n      ambalajMalzeme\n      aksesuar\n      akrilikTipi\n    }\n    labor {\n      metal\n      tasima\n      toplama\n      ahsapAtolyesi\n      polisaj\n      doseme\n      akrilik\n      ambalaj\n    }\n    isMonte\n    width\n    length\n    height\n    aluminiumPrice\n    sivamaPrice\n    silikonHirdavatPrice\n    aksesuarPrice\n    packingPrice\n    metaInfo\n    productImages {\n      edges {\n        node {\n          id\n          name\n          processed\n          tags\n          images(orderBy: \"width\") {\n            edges {\n              node {\n                id\n                name\n                height\n                width\n                file {\n                  url\n                }\n                externalUrl\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '99c41ce5b0adc5a8c3e292008e0cfec9';
+(node as any).hash = 'ad808ef69dd9578c7681ebe7f2cba494';
 export default node;

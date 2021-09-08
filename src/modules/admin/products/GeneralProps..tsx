@@ -1,14 +1,4 @@
-import {
-  Card,
-  Form,
-  Row,
-  Col,
-  Input,
-  FormInstance,
-  Upload,
-  Alert,
-  Button,
-} from 'antd';
+import { Card, Form, Row, Col, Input, FormInstance, Alert } from 'antd';
 import React, {
   Dispatch,
   FC,
@@ -22,37 +12,31 @@ import {
   generalPropsFileds,
   isCollectableOptions,
   isMonteOptions,
+  skuMustFields,
 } from './enums';
-import ImageUploader from '../../../molecules/ImageUploader/ImageUploader';
-import { ImageUploaderRelayCreateImageMutationResponse } from '../../../__generated__/ImageUploaderRelayCreateImageMutation.graphql';
-import { ImageUploaderFragment } from '../../../__generated__/ImageUploaderFragment.graphql';
 import GET_META_DATA, {
   MetadataRelayAllMetadataQuery,
 } from '../../../__generated__/MetadataRelayAllMetadataQuery.graphql';
 import { fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import mappers, { getDesi } from '../../../mappers';
-import { CheckCircleOutlined } from '@ant-design/icons';
+import PicturesWall from '../../../molecules/ImageUploader/PicturesWall';
 
 interface Props {
   form: FormInstance<any>;
   initialValues: any;
   isDisabled?: boolean;
-  onImageUploadSuccess: (image: ImageUploaderFragment) => void;
-  preSku: string;
-  setPreSku: Dispatch<SetStateAction<string>>;
-  createSkuNo: () => void;
   fullSku?: string;
+  setUploadedImages: Dispatch<SetStateAction<any[]>>;
+  uploadedImages: any[];
 }
 
 const GeneralProps: FC<Props> = ({
   form,
   initialValues,
   isDisabled,
-  onImageUploadSuccess,
-  preSku,
-  setPreSku,
-  createSkuNo,
   fullSku,
+  setUploadedImages,
+  uploadedImages,
 }) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
@@ -98,8 +82,6 @@ const GeneralProps: FC<Props> = ({
     }
   };
 
-  const onSkuChange = (e: any) => setPreSku(e.target.value);
-
   const fullSkuNo = useMemo(() => {
     return fullSku ? fullSku : initialValues?.sku || '';
   }, [initialValues, fullSku]);
@@ -111,14 +93,32 @@ const GeneralProps: FC<Props> = ({
           return (
             <Col span={8} key={`other-${index}`}>
               {item.isDropdown ? (
-                <Form.Item name={item.name} label={item.label}>
+                <Form.Item
+                  name={item.name}
+                  label={item.label}
+                  rules={[
+                    {
+                      required: item.isRequired,
+                      message: 'Zorunlu alan',
+                    },
+                  ]}
+                >
                   <SingleSelect
                     options={options[item.name] || []}
                     defaultValue={initialValues && initialValues[item.name]}
                   />
                 </Form.Item>
               ) : (
-                <Form.Item name={item.name} label={item.label}>
+                <Form.Item
+                  name={item.name}
+                  label={item.label}
+                  rules={[
+                    {
+                      required: item.isRequired,
+                      message: 'Zorunlu alan',
+                    },
+                  ]}
+                >
                   <Input
                     type={item.isText ? 'text' : 'number'}
                     disabled={isDisabled}
@@ -133,19 +133,20 @@ const GeneralProps: FC<Props> = ({
 
       <Row gutter={24}>
         <Col span={8} offset={8}>
-          <Row>
-            <Col span={12}>
-              <Input
-                onChange={(e) => onSkuChange(e)}
-                maxLength={3}
-                placeholder="123"
-                value={preSku}
-              />
-            </Col>
-            <Col
-              span={12}
-              style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}
-            >
+          <Form.Item
+            name="preSku"
+            label="SKU No(İlk 3 Rakam)"
+            rules={[
+              {
+                required: true,
+                message: 'Zorunlu alan',
+              },
+            ]}
+          >
+            <Input onChange={(e) => handleChange(e)} maxLength={3} />
+          </Form.Item>
+        </Col>
+        {/*<Col style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
               <Button
                 type="primary"
                 onClick={() => createSkuNo()}
@@ -153,16 +154,21 @@ const GeneralProps: FC<Props> = ({
               >
                 SKU Oluştur
               </Button>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={8} offset={8}>
-          <Alert message={fullSkuNo} type="success" />
+            </Col>*/}
+        <Col span={8} offset={8} style={{ marginTop: '2em' }}>
+          {fullSkuNo ? (
+            <Alert message={fullSkuNo} type="success" />
+          ) : (
+            <Alert message="SKU Oluşturunuz" type="error" />
+          )}
         </Col>
       </Row>
       <Row>
-        <Col span={24}>
-          <ImageUploader onImageUploadSuccess={onImageUploadSuccess} />
+        <Col span={24} className="image-uploader">
+          <PicturesWall
+            setUploadedImages={setUploadedImages}
+            imageFragmentGroup={uploadedImages}
+          />
         </Col>
       </Row>
     </Card>

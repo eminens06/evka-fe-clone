@@ -108,6 +108,30 @@ graphql`
       aksesuarPrice
       packingPrice
       metaInfo
+      productImages {
+        edges {
+          node {
+            id
+            name
+            processed
+            tags
+            images(orderBy: "width") {
+              edges {
+                node {
+                  id
+                  name
+                  height
+                  width
+                  file {
+                    url
+                  }
+                  externalUrl
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;

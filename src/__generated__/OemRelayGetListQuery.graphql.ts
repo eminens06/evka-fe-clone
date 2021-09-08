@@ -13,7 +13,7 @@ export type OemRelayGetListQueryResponse = {
                 readonly id: string;
                 readonly product: {
                     readonly name: string;
-                    readonly sku: string | null;
+                    readonly sku: string;
                 } | null;
                 readonly externalService: {
                     readonly edges: ReadonlyArray<{
