@@ -617,14 +617,18 @@ const productionMaterialMapper = (
 const productionPaintMapper = (
   data: ProductionWorkshopDataDTO[],
   type: WorkshopTypes.WOOD_PAINT | WorkshopTypes.METAL_PAINT,
+  moduleType?: ModuleType,
 ) => {
   const finalRes = data.map((item) => {
     const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
     const order = genericTableDataMapper(item, 'userOrder');
-    const services: WorkshopExternalService[] = genericTableDataMapper(
+    let services: WorkshopExternalService[] = genericTableDataMapper(
       item,
       'externalService',
     );
+    if (moduleType) {
+      services = services.filter((service) => service.module === moduleType);
+    }
     const itemTypes: any[] = [];
     metaProducts.forEach((mp) => {
       if (mp.paintType === MainPartsShortNames[type]) {
@@ -686,7 +690,7 @@ const productionWorkshopMapper = (
     type === WorkshopTypes.METAL_PAINT ||
     type === WorkshopTypes.WOOD_PAINT
   ) {
-    return productionPaintMapper(data, type);
+    return productionPaintMapper(data, type, moduleType);
   } else {
     return productionMaterialMapper(data, type, moduleType);
   }
