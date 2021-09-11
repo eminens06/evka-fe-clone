@@ -1109,6 +1109,7 @@ const productSaveMapper = (data: any): any => {
     name: data.name,
     productName: data.name,
     metaProductIds: [data.category, data.subCategory, data.ayak, data.tabla],
+    kdv: data.kdv,
     isCollectable: data.isCollectable,
     packageCount: data.packageCount,
     metalAttributes: { ...metal },
