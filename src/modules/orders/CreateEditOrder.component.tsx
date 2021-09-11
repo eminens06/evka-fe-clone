@@ -1,4 +1,13 @@
-import { Breadcrumb, Button, Divider, Form, message, Row } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Divider,
+  Form,
+  message,
+  Modal,
+  Row,
+  Typography,
+} from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
@@ -28,6 +37,9 @@ import { OrderTypes } from './types';
 import InvoiceCard from '../../molecules/InvoiceCard';
 import CancelOrderModal from './CancelOrderModal';
 import useFullPageLoader from '../../hooks/useFullPageLoader';
+import DELETE_ORDER, {
+  OrdersDeleteOrderMutation,
+} from '../../__generated__/OrdersDeleteOrderMutation.graphql';
 
 interface Props {
   orderType: OrderTypes;
@@ -43,6 +55,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
   const [productOrderIds, setProductOrderIds] = useState<string[]>([]);
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const [initialValues, setInitialValues] = useState<any>();
 
@@ -105,6 +118,16 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
     },
   });
 
+  const [deleteOrder] = useMutation<OrdersDeleteOrderMutation>(DELETE_ORDER, {
+    onError: (error: any) => {
+      message.error('Hata! ', error.response.errors[0].message);
+    },
+    onCompleted: (res) => {
+      message.success('Siparişiniz başarıyla silindi');
+      router.back();
+    },
+  });
+
   const onFinish = (values: any) => {
     let saveControl = true;
     values.products.forEach((product: any) => {
@@ -138,8 +161,22 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
     }
   };
 
+  const deleteUserOrder = (id: string) => {
+    deleteOrder({
+      variables: {
+        input: {
+          id,
+        },
+      },
+    });
+  };
+
   const openCancelModal = () => {
     setCancelModalVisible(true);
+  };
+
+  const openDeleteModal = () => {
+    setDeleteModalVisible(true);
   };
 
   return (
@@ -224,6 +261,16 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
               İptal Et
             </Button>
           )}
+          {isAdmin && (
+            <Button
+              type="primary"
+              className="cancel-button"
+              danger
+              onClick={openDeleteModal}
+            >
+              Sil
+            </Button>
+          )}
         </Row>
         <Row className="buttons-row">
           <Form.Item>
@@ -246,6 +293,28 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
           orderId={router?.query?.id}
           products={initialValues.cancelModalProducts}
         />
+      )}
+      {isAdmin && (
+        <Modal
+          visible={deleteModalVisible}
+          title={'Uyarı'}
+          width={'70%'}
+          onCancel={() => setDeleteModalVisible(false)}
+          footer={[
+            <Button key="back" onClick={() => setDeleteModalVisible(false)}>
+              Vazgeç
+            </Button>,
+            <Button
+              key="submit"
+              type="primary"
+              onClick={() => deleteUserOrder(router?.query?.id)}
+            >
+              Sil
+            </Button>,
+          ]}
+        >
+          <Typography>Siparişi silmek istediğinizden emin misiniz ?</Typography>
+        </Modal>
       )}
       {loader}
     </>
