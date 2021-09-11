@@ -55,6 +55,7 @@ export type UserOrderDTO = {
   shipmentType?: ShipmentTypeValue;
   invoiceStatus: string;
   shipmentStatus: string;
+  shipmentOrderDate?: any;
 };
 
 export type UserOrder = {

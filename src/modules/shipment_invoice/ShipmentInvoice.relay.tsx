@@ -9,8 +9,10 @@ graphql`
           notes
           orderType
           shipmentType
+          shipmentOrderDate
           shipmentCompanyName
           customerInfo
+          orderStatus
           marketplaceOrderId
           marketplace {
             name

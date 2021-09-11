@@ -799,6 +799,9 @@ const invoiceMapper = (data: UserOrderDTO[]): Invoice[] => {
       products: orderProductMapper(order) || [],
       shipmentCompany: order.shipmentCompanyName || 'Seçilmedi',
       shipmentType: order.shipmentType || ' - ',
+      shipmentOrderDate: order.shipmentOrderDate
+        ? moment(order.shipmentOrderDate).format('DD-MM-YYYY')
+        : 'Sevk Emri Girilmedi',
     };
   });
 };

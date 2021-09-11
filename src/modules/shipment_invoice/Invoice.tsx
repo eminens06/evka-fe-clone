@@ -44,6 +44,11 @@ const columns = [
     dataIndex: 'marketplace',
   },
   {
+    key: 'shipmentOrderDate',
+    title: 'Sevk Tarihi',
+    dataIndex: 'shipmentOrderDate',
+  },
+  {
     key: 'shipmentCompany',
     title: 'Sevkiyat Firması',
     dataIndex: 'shipmentCompany',
