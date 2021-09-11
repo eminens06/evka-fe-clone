@@ -67,6 +67,7 @@ import {
   otherWsPropsFileds,
   woodPropsFileds,
 } from './modules/admin/products/enums';
+import { getImageGroupByWidth } from './utils/helpers';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -827,6 +828,11 @@ const templateMapper = (data: any): TemplateData => {
   let ayak = '';
   let tabla = '';
   const metaData = genericTableDataMapper(data.product, 'metaProducts');
+  const images = genericTableDataMapper(data.product, 'productImages');
+  const imageList = images
+    ? images.map((img) => getImageGroupByWidth(img, 320))
+    : [];
+
   metaData.forEach((mt) => {
     if (mt.categoryName == 'TB') {
       tabla = mt.materialName;
@@ -841,6 +847,7 @@ const templateMapper = (data: any): TemplateData => {
     measure: `${data.product.width} x ${data.product.height} x ${data.product.length} mm`,
     ayak,
     tabla,
+    imageList,
   };
 };
 
