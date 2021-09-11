@@ -1,40 +1,31 @@
 import { Breadcrumb, Button, Form, message, Row } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { fetchQuery, useMutation, useRelayEnvironment } from 'relay-hooks';
 import GET_PRODUCT, {
   ProductsRelayGetProductByIdQuery,
-} from '../../../__generated__/ProductsRelayGetProductByIdQuery.graphql';
-import MetalProps from './MetalProps';
-import WoodProps from './WoodProps';
-import OtherWsProps from './OtherWsProps';
-import LaborProps from './LaborProps';
-import OtherProps from './OtherProps';
-import GeneralProps from './GeneralProps';
-import mappers from '../../../mappers';
-import useFullPageLoader from '../../../hooks/useFullPageLoader';
+} from '../../../../__generated__/ProductsRelayGetProductByIdQuery.graphql';
+import MetalProps from '../MetalProps';
+import WoodProps from '../WoodProps';
+import OtherWsProps from '../OtherWsProps';
+import LaborProps from '../LaborProps';
+import OtherProps from '../OtherProps';
+import MamuGeneralProps from './MamuGeneralProps';
+import mappers from '../../../../mappers';
+import useFullPageLoader from '../../../../hooks/useFullPageLoader';
 import CREATE_PRODUCT, {
   ProductsRelayCreateProductMutation,
-} from '../../../__generated__/ProductsRelayCreateProductMutation.graphql';
+} from '../../../../__generated__/ProductsRelayCreateProductMutation.graphql';
 import UPDATE_PRODUCT, {
   ProductsRelayUpdateProductMutation,
-} from '../../../__generated__/ProductsRelayUpdateProductMutation.graphql';
-import GET_META_PROD, {
-  ProductsRelayGetMetaProductByIdQuery,
-} from '../../../__generated__/ProductsRelayGetMetaProductByIdQuery.graphql';
+} from '../../../../__generated__/ProductsRelayUpdateProductMutation.graphql';
 import CREATE_IMAGE_GROUP, {
   ImageUploaderRelayCreateImageMutation,
   ImageUploaderRelayCreateImageMutationResponse,
-} from '../../../__generated__/ImageUploaderRelayCreateImageMutation.graphql';
-import { generalPropsFileds, skuMustFields } from './enums';
+} from '../../../../__generated__/ImageUploaderRelayCreateImageMutation.graphql';
 
-const CreateEditProduct: FunctionComponent = () => {
+const MamuProduct: FunctionComponent = () => {
   const router = useRouter();
   const environment = useRelayEnvironment();
   const [form] = Form.useForm();
@@ -56,7 +47,7 @@ const CreateEditProduct: FunctionComponent = () => {
 
     if (product) {
       const initData = mappers.productAttributesMapper(product);
-      initData.preSku = initData.sku.split('-')[2].substring(0, 3);
+      initData.preSku = initData.sku.split('-')[2];
       setInitialValues(initData);
       setFullSku(product.sku);
       setUploadedImages(initData.defaultFileList);
@@ -173,37 +164,6 @@ const CreateEditProduct: FunctionComponent = () => {
     }
   };
 
-  const getMetaProductId = async () => {
-    const formFields = form.getFieldsValue();
-    const metaData = [
-      formFields.category,
-      formFields.subCategory,
-      formFields.tabla,
-      formFields.ayak,
-    ];
-    if (metaData.indexOf(undefined) === -1) {
-      let asyncRes = [];
-      asyncRes = await Promise.all(
-        metaData.map(async (item) => {
-          const {
-            metaProduct,
-          } = await fetchQuery<ProductsRelayGetMetaProductByIdQuery>(
-            environment,
-            GET_META_PROD,
-            {
-              id: item,
-            },
-          );
-          return metaProduct?.materialId;
-        }),
-      );
-
-      const isMonte = formFields.isMonte === 'demonte' ? '0' : '1';
-      return asyncRes.join('') + isMonte;
-    }
-    return '';
-  };
-
   const getSkuCharacters = () => {
     if (form.getFieldValue('name')) {
       return form.getFieldValue('name')?.substring(0, 4).toUpperCase();
@@ -218,21 +178,18 @@ const CreateEditProduct: FunctionComponent = () => {
   };
 
   const createSkuNo = async () => {
-    const generated = await getMetaProductId();
     let newSku = '';
-    newSku = 'EVKA-' + getSkuCharacters() + '-' + getPreSku() + generated;
+    newSku = 'MAMU-' + getSkuCharacters() + '-' + getPreSku();
     setFullSku(newSku);
   };
 
   const onChangeFormValues = (e: any) => {
-    skuMustFields.forEach((item) => {
-      if (
-        Object.keys(e).indexOf(item.name) !== -1 ||
-        Object.keys(e).indexOf('preSku') !== -1
-      ) {
-        createSkuNo();
-      }
-    });
+    if (
+      Object.keys(e).indexOf('name') !== -1 ||
+      Object.keys(e).indexOf('preSku') !== -1
+    ) {
+      createSkuNo();
+    }
   };
 
   return (
@@ -251,7 +208,7 @@ const CreateEditProduct: FunctionComponent = () => {
         initialValues={initialValues}
         onValuesChange={(e) => onChangeFormValues(e)}
       >
-        <GeneralProps
+        <MamuGeneralProps
           form={form}
           initialValues={initialValues}
           fullSku={fullSku}
@@ -276,4 +233,4 @@ const CreateEditProduct: FunctionComponent = () => {
   );
 };
 
-export default CreateEditProduct;
+export default MamuProduct;

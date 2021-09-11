@@ -7,19 +7,21 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { SingleSelect } from '../../../atoms';
+import { SingleSelect } from '../../../../atoms';
 import {
+  generalMamuPropsFileds,
   generalPropsFileds,
   isCollectableOptions,
   isMonteOptions,
+  kdvOptions,
   skuMustFields,
-} from './enums';
+} from '../enums';
 import GET_META_DATA, {
   MetadataRelayAllMetadataQuery,
-} from '../../../__generated__/MetadataRelayAllMetadataQuery.graphql';
+} from '../../../../__generated__/MetadataRelayAllMetadataQuery.graphql';
 import { fetchQuery, useRelayEnvironment } from 'relay-hooks';
-import mappers, { getDesi } from '../../../mappers';
-import PicturesWall from '../../../molecules/ImageUploader/PicturesWall';
+import mappers, { getDesi } from '../../../../mappers';
+import PicturesWall from '../../../../molecules/ImageUploader/PicturesWall';
 
 interface Props {
   form: FormInstance<any>;
@@ -30,7 +32,7 @@ interface Props {
   uploadedImages: any[];
 }
 
-const GeneralProps: FC<Props> = ({
+const MamuGeneralProps: FC<Props> = ({
   form,
   initialValues,
   isDisabled,
@@ -44,32 +46,13 @@ const GeneralProps: FC<Props> = ({
   const [options, setOptions] = useState<any>({});
 
   useEffect(() => {
-    generalPropsFileds.forEach((item) => {
-      if (item.filter) {
-        getMetaData(item).then((res) => {
-          setOptions((prevState: any) => ({ ...prevState, [item.name]: res }));
-        });
-      }
-    });
     setOptions((prevState: any) => ({
       ...prevState,
       isMonte: isMonteOptions,
       isCollectable: isCollectableOptions,
+      kdv: kdvOptions,
     }));
   }, []);
-
-  const getMetaData = async ({ filter }: any) => {
-    const { allMetaProducts } = await fetchQuery<MetadataRelayAllMetadataQuery>(
-      environment,
-      GET_META_DATA,
-      {
-        search: '',
-        category: filter,
-      },
-    );
-
-    return mappers.metaDataOptionMapper(allMetaProducts);
-  };
 
   const handleChange = (e: any) => {
     if (
@@ -89,7 +72,7 @@ const GeneralProps: FC<Props> = ({
   return (
     <Card title="Genel Bilgiler" bordered={false} className="form-card">
       <Row gutter={24}>
-        {generalPropsFileds.map((item, index) => {
+        {generalMamuPropsFileds.map((item, index) => {
           return (
             <Col span={8} key={`other-${index}`}>
               {item.isDropdown ? (
@@ -135,7 +118,7 @@ const GeneralProps: FC<Props> = ({
         <Col span={8} offset={8}>
           <Form.Item
             name="preSku"
-            label="SKU No(İlk 3 Rakam)"
+            label="SKU No"
             rules={[
               {
                 required: true,
@@ -143,18 +126,9 @@ const GeneralProps: FC<Props> = ({
               },
             ]}
           >
-            <Input onChange={(e) => handleChange(e)} maxLength={3} />
+            <Input onChange={(e) => handleChange(e)} maxLength={11} />
           </Form.Item>
         </Col>
-        {/*<Col style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-              <Button
-                type="primary"
-                onClick={() => createSkuNo()}
-                icon={<CheckCircleOutlined />}
-              >
-                SKU Oluştur
-              </Button>
-            </Col>*/}
         <Col span={8} offset={8} style={{ marginTop: '2em' }}>
           {fullSkuNo ? (
             <Alert message={fullSkuNo} type="success" />
@@ -175,4 +149,4 @@ const GeneralProps: FC<Props> = ({
   );
 };
 
-export default GeneralProps;
+export default MamuGeneralProps;
