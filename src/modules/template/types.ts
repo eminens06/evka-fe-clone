@@ -5,4 +5,5 @@ export type TemplateData = {
   ayak: string;
   tabla: string;
   notes?: string;
+  imageList: string[];
 };
