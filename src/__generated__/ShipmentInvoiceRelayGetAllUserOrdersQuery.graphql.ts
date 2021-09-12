@@ -33,6 +33,7 @@ export type ShipmentInvoiceRelayGetAllUserOrdersQueryResponse = {
                                 readonly width: number | null;
                                 readonly length: number | null;
                                 readonly height: number | null;
+                                readonly kdv: string;
                             } | null;
                         } | null;
                     } | null>;
@@ -78,6 +79,7 @@ query ShipmentInvoiceRelayGetAllUserOrdersQuery(
                 width
                 length
                 height
+                kdv
                 id
               }
               id
@@ -214,6 +216,13 @@ v15 = {
   "kind": "ScalarField",
   "name": "height",
   "storageKey": null
+},
+v16 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kdv",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -303,7 +312,8 @@ return {
                                   (v12/*: any*/),
                                   (v13/*: any*/),
                                   (v14/*: any*/),
-                                  (v15/*: any*/)
+                                  (v15/*: any*/),
+                                  (v16/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -417,6 +427,7 @@ return {
                                   (v13/*: any*/),
                                   (v14/*: any*/),
                                   (v15/*: any*/),
+                                  (v16/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
@@ -447,9 +458,9 @@ return {
     "metadata": {},
     "name": "ShipmentInvoiceRelayGetAllUserOrdersQuery",
     "operationKind": "query",
-    "text": "query ShipmentInvoiceRelayGetAllUserOrdersQuery(\n  $status: String\n  $search: String\n) {\n  allUserOrders(byShipmentStatus: $status, superSearch: $search) {\n    edges {\n      node {\n        id\n        orderStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        customerInfo\n        marketplace {\n          name\n          id\n        }\n        shipmentType\n        shipmentCompanyName\n        cargoChaseNumber\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                sku\n                width\n                length\n                height\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentInvoiceRelayGetAllUserOrdersQuery(\n  $status: String\n  $search: String\n) {\n  allUserOrders(byShipmentStatus: $status, superSearch: $search) {\n    edges {\n      node {\n        id\n        orderStatus\n        marketplaceOrderId\n        estimatedDeliveryDate\n        customerInfo\n        marketplace {\n          name\n          id\n        }\n        shipmentType\n        shipmentCompanyName\n        cargoChaseNumber\n        products {\n          edges {\n            node {\n              productOrderStatus\n              product {\n                name\n                sku\n                width\n                length\n                height\n                kdv\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '14c3a32da81817253ef7a6757af3f6c2';
+(node as any).hash = 'a3c50cfada0ad97d1e79d299bb474106';
 export default node;

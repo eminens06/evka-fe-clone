@@ -145,3 +145,9 @@ export type Invoice = {
   customerDetail: CustomerDTO;
   products: OrderProduct[];
 };
+
+export type KdvParams = {
+  kdv1?: number;
+  kdv2?: number;
+  kdv3: number;
+};

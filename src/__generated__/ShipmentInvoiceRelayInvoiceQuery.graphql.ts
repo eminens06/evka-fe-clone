@@ -33,6 +33,7 @@ export type ShipmentInvoiceRelayInvoiceQueryResponse = {
                                 readonly name: string;
                                 readonly id: string;
                                 readonly sku: string;
+                                readonly kdv: string;
                             } | null;
                         } | null;
                     } | null>;
@@ -77,6 +78,7 @@ query ShipmentInvoiceRelayInvoiceQuery(
                 name
                 id
                 sku
+                kdv
               }
               id
             }
@@ -208,6 +210,13 @@ v14 = {
       "args": null,
       "kind": "ScalarField",
       "name": "sku",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "kdv",
       "storageKey": null
     }
   ],
@@ -418,9 +427,9 @@ return {
     "metadata": {},
     "name": "ShipmentInvoiceRelayInvoiceQuery",
     "operationKind": "query",
-    "text": "query ShipmentInvoiceRelayInvoiceQuery(\n  $search: String\n) {\n  allUserOrders(byInvoiceStatus: \"R\", superSearch: $search) {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentOrderDate\n        shipmentCompanyName\n        customerInfo\n        orderStatus\n        marketplaceOrderId\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              price\n              productOrderStatus\n              product {\n                name\n                id\n                sku\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentInvoiceRelayInvoiceQuery(\n  $search: String\n) {\n  allUserOrders(byInvoiceStatus: \"R\", superSearch: $search) {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentOrderDate\n        shipmentCompanyName\n        customerInfo\n        orderStatus\n        marketplaceOrderId\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              price\n              productOrderStatus\n              product {\n                name\n                id\n                sku\n                kdv\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '62266f733e5dc1cd7dc9924abcdf3ac8';
+(node as any).hash = '4a1907ca553d9d0574d65c01b837c1e7';
 export default node;
