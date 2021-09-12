@@ -191,3 +191,11 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation OrdersDeleteOrderMutation($input: DeleteUserOrderMutationInput!) {
+    deleteUserOrder(input: $input) {
+      deletedId
+    }
+  }
+`;
