@@ -26,6 +26,7 @@ graphql`
                   name
                   id
                   sku
+                  kdv
                 }
               }
             }
@@ -65,9 +66,26 @@ graphql`
                   width
                   length
                   height
+                  kdv
                 }
               }
             }
+          }
+        }
+      }
+    }
+  }
+`;
+
+graphql`
+  query ShipmentInvoiceRelayGetSystemParametersQuery {
+    allSystemParams {
+      edges {
+        node {
+          otherParams {
+            kdv1
+            kdv2
+            kdv3
           }
         }
       }

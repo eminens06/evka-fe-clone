@@ -10,6 +10,7 @@ type OrderProductDTO = {
       productName: string;
       metaInfo: string;
       sku: string;
+      kdv?: string;
     };
   };
 };
@@ -26,6 +27,7 @@ export interface OrderProduct {
   metaInfo?: OrderProductMetaInfo;
   sku: string;
   price?: number;
+  kdv: string;
 }
 
 export type UserOrderProductDTO = {
@@ -56,6 +58,7 @@ export type UserOrderDTO = {
   invoiceStatus: string;
   shipmentStatus: string;
   shipmentOrderDate?: any;
+  kdv?: string;
 };
 
 export type UserOrder = {

@@ -244,6 +244,7 @@ const orderProductMapper = (data: any) => {
           : undefined,
         sku: grouped[key][0].product.sku,
         price: grouped[key][0].price,
+        kdv: grouped[key][0].product.kdv,
       };
     }
   });
