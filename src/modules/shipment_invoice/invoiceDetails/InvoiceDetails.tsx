@@ -8,7 +8,7 @@ interface Props {
   form: FormInstance<any>;
   onSubmit: Function;
   modalData: Invoice;
-  kdvDetails: KdvParams;
+  kdvDetails?: KdvParams;
 }
 const { TabPane } = Tabs;
 

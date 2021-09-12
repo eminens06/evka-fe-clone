@@ -165,7 +165,7 @@ const Invoice: FunctionComponent = () => {
             total: size,
           }}
         />
-        {modalData && kdvParams && (
+        {modalData && (
           <AddEditCard
             isVisible={isModalVisible}
             closeModal={closeModal}

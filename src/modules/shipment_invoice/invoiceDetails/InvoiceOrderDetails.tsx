@@ -6,7 +6,7 @@ import { KdvParams } from '../types';
 interface Props {
   products: OrderProduct[];
   customerInfo: CustomerDTO;
-  kdvDetails: KdvParams;
+  kdvDetails?: KdvParams;
 }
 
 const InvoiceOrderDetails: FC<Props> = ({
@@ -27,7 +27,9 @@ const InvoiceOrderDetails: FC<Props> = ({
   const { total, totalKdv } = useMemo(() => {
     let totalKdv = 0;
     const totalArr = products.map((product) => {
-      totalKdv += calculateKdv(product);
+      if (kdvDetails) {
+        totalKdv += calculateKdv(product);
+      }
       return product.count * (product.price || 0);
     });
     let total = 0;
