@@ -19,6 +19,26 @@ graphql`
             }
           }
         }
+        productImages {
+          edges {
+            node {
+              images {
+                edges {
+                  node {
+                    id
+                    name
+                    height
+                    width
+                    file {
+                      url
+                    }
+                    externalUrl
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

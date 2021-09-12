@@ -67,6 +67,7 @@ import {
   otherWsPropsFileds,
   woodPropsFileds,
 } from './modules/admin/products/enums';
+import { getImageGroupByWidth } from './utils/helpers';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -134,7 +135,7 @@ export const orderSaveMapper = (values: any) => {
         ? values.deliveryAddress
         : values.invoiceAddress,
     },
-    marketplaceOrderId: values.marketplaceOrderId,
+    marketplaceOrderId: values.marketplaceOrderId?.trim() || undefined,
     orderType: values.orderType,
     isKdvInclude: values.isKdvInclude,
   };
@@ -179,7 +180,7 @@ export const orderEditMapper = (
         ? values.deliveryAddress
         : values.invoiceAddress,
     },
-    marketplaceOrderId: values.marketplaceOrderId,
+    marketplaceOrderId: values.marketplaceOrderId?.trim() || undefined,
     productOrderIds: productOrderIds,
     isKdvInclude: values.isKdvInclude,
   };
@@ -243,6 +244,7 @@ const orderProductMapper = (data: any) => {
           : undefined,
         sku: grouped[key][0].product.sku,
         price: grouped[key][0].price,
+        kdv: grouped[key][0].product.kdv,
       };
     }
   });
@@ -798,6 +800,9 @@ const invoiceMapper = (data: UserOrderDTO[]): Invoice[] => {
       products: orderProductMapper(order) || [],
       shipmentCompany: order.shipmentCompanyName || 'Seçilmedi',
       shipmentType: order.shipmentType || ' - ',
+      shipmentOrderDate: order.shipmentOrderDate
+        ? moment(order.shipmentOrderDate).format('DD-MM-YYYY')
+        : 'Sevk Emri Girilmedi',
     };
   });
 };
@@ -827,6 +832,11 @@ const templateMapper = (data: any): TemplateData => {
   let ayak = '';
   let tabla = '';
   const metaData = genericTableDataMapper(data.product, 'metaProducts');
+  const images = genericTableDataMapper(data.product, 'productImages');
+  const imageList = images
+    ? images.map((img) => getImageGroupByWidth(img, 320))
+    : [];
+
   metaData.forEach((mt) => {
     if (mt.categoryName == 'TB') {
       tabla = mt.materialName;
@@ -841,6 +851,7 @@ const templateMapper = (data: any): TemplateData => {
     measure: `${data.product.width} x ${data.product.height} x ${data.product.length} mm`,
     ayak,
     tabla,
+    imageList,
   };
 };
 
@@ -1109,6 +1120,7 @@ const productSaveMapper = (data: any): any => {
     name: data.name,
     productName: data.name,
     metaProductIds: [data.category, data.subCategory, data.ayak, data.tabla],
+    kdv: data.kdv,
     isCollectable: data.isCollectable,
     packageCount: data.packageCount,
     metalAttributes: { ...metal },

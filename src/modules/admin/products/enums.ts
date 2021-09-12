@@ -64,6 +64,11 @@ export const generalPropsFileds = [
     label: 'Paket Adedi',
     name: 'packageCount',
   },
+  {
+    label: 'Kdv',
+    name: 'kdv',
+    isDropdown: true,
+  },
 ];
 
 export const metalPropsFileds = [
@@ -267,4 +272,49 @@ export const isCollectableOptions = [
   { text: 'Toplanmayacak', value: 'toplanmayacak' },
 ];
 
+export const kdvOptions = [
+  { text: 'kdv1', value: 'kdv1' },
+  { text: 'kdv2', value: 'kdv2' },
+  { text: 'kdv3', value: 'kdv3' },
+];
+
 export const skuMustFields = generalPropsFileds.slice(0, 6);
+
+export const generalMamuPropsFileds = [
+  {
+    label: 'Ürün Adı',
+    name: 'name',
+    isText: true,
+    isRequired: true,
+  },
+  {
+    label: 'En (mm)',
+    name: 'width',
+  },
+  {
+    label: 'Boy (mm)',
+    name: 'length',
+  },
+  {
+    label: 'Yükseklik (mm)',
+    name: 'height',
+  },
+  {
+    label: 'Desi',
+    name: 'desi',
+  },
+  {
+    label: 'Toplama Durumu',
+    name: 'isCollectable',
+    isDropdown: true,
+  },
+  {
+    label: 'Paket Adedi',
+    name: 'packageCount',
+  },
+  {
+    label: 'Kdv',
+    name: 'kdv',
+    isDropdown: true,
+  },
+];

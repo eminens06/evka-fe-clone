@@ -28,6 +28,7 @@ graphql`
       id
       name
       productName
+      kdv
       metaProducts {
         edges {
           node {

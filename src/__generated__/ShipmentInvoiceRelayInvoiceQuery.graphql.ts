@@ -16,8 +16,10 @@ export type ShipmentInvoiceRelayInvoiceQueryResponse = {
                 readonly notes: string;
                 readonly orderType: UserOrderOrderType;
                 readonly shipmentType: UserOrderShipmentType;
+                readonly shipmentOrderDate: unknown | null;
                 readonly shipmentCompanyName: string;
                 readonly customerInfo: unknown | null;
+                readonly orderStatus: string | null;
                 readonly marketplaceOrderId: string;
                 readonly marketplace: {
                     readonly name: string;
@@ -31,6 +33,7 @@ export type ShipmentInvoiceRelayInvoiceQueryResponse = {
                                 readonly name: string;
                                 readonly id: string;
                                 readonly sku: string;
+                                readonly kdv: string;
                             } | null;
                         } | null;
                     } | null>;
@@ -57,8 +60,10 @@ query ShipmentInvoiceRelayInvoiceQuery(
         notes
         orderType
         shipmentType
+        shipmentOrderDate
         shipmentCompanyName
         customerInfo
+        orderStatus
         marketplaceOrderId
         marketplace {
           name
@@ -73,6 +78,7 @@ query ShipmentInvoiceRelayInvoiceQuery(
                 name
                 id
                 sku
+                kdv
               }
               id
             }
@@ -137,45 +143,59 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "shipmentCompanyName",
+  "name": "shipmentOrderDate",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "customerInfo",
+  "name": "shipmentCompanyName",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marketplaceOrderId",
+  "name": "customerInfo",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "orderStatus",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "price",
+  "name": "marketplaceOrderId",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productOrderStatus",
+  "name": "name",
   "storageKey": null
 },
 v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "price",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "productOrderStatus",
+  "storageKey": null
+},
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "ProductNode",
@@ -183,13 +203,20 @@ v12 = {
   "name": "product",
   "plural": false,
   "selections": [
-    (v9/*: any*/),
+    (v11/*: any*/),
     (v2/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "sku",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "kdv",
       "storageKey": null
     }
   ],
@@ -233,6 +260,8 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -241,7 +270,7 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v9/*: any*/)
+                      (v11/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -269,9 +298,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
-                              (v11/*: any*/),
-                              (v12/*: any*/)
+                              (v12/*: any*/),
+                              (v13/*: any*/),
+                              (v14/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -330,6 +359,8 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -338,7 +369,7 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v9/*: any*/),
+                      (v11/*: any*/),
                       (v2/*: any*/)
                     ],
                     "storageKey": null
@@ -367,9 +398,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
-                              (v11/*: any*/),
                               (v12/*: any*/),
+                              (v13/*: any*/),
+                              (v14/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -396,9 +427,9 @@ return {
     "metadata": {},
     "name": "ShipmentInvoiceRelayInvoiceQuery",
     "operationKind": "query",
-    "text": "query ShipmentInvoiceRelayInvoiceQuery(\n  $search: String\n) {\n  allUserOrders(byInvoiceStatus: \"R\", superSearch: $search) {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentCompanyName\n        customerInfo\n        marketplaceOrderId\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              price\n              productOrderStatus\n              product {\n                name\n                id\n                sku\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ShipmentInvoiceRelayInvoiceQuery(\n  $search: String\n) {\n  allUserOrders(byInvoiceStatus: \"R\", superSearch: $search) {\n    edges {\n      node {\n        id\n        notes\n        orderType\n        shipmentType\n        shipmentOrderDate\n        shipmentCompanyName\n        customerInfo\n        orderStatus\n        marketplaceOrderId\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              price\n              productOrderStatus\n              product {\n                name\n                id\n                sku\n                kdv\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'f39d6dc29e710153ea9ee0b3e1e096ba';
+(node as any).hash = '4a1907ca553d9d0574d65c01b837c1e7';
 export default node;

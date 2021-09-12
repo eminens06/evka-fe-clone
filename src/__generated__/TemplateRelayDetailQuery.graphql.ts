@@ -24,6 +24,26 @@ export type TemplateRelayDetailQueryResponse = {
                     } | null;
                 } | null>;
             };
+            readonly productImages: {
+                readonly edges: ReadonlyArray<{
+                    readonly node: {
+                        readonly images: {
+                            readonly edges: ReadonlyArray<{
+                                readonly node: {
+                                    readonly id: string;
+                                    readonly name: string;
+                                    readonly height: number | null;
+                                    readonly width: number | null;
+                                    readonly file: {
+                                        readonly url: string | null;
+                                    } | null;
+                                    readonly externalUrl: string | null;
+                                } | null;
+                            } | null>;
+                        } | null;
+                    } | null;
+                } | null>;
+            };
         } | null;
     } | null;
 };
@@ -52,6 +72,27 @@ query TemplateRelayDetailQuery(
           node {
             materialName
             categoryName
+            id
+          }
+        }
+      }
+      productImages {
+        edges {
+          node {
+            images {
+              edges {
+                node {
+                  id
+                  name
+                  height
+                  width
+                  file {
+                    url
+                  }
+                  externalUrl
+                }
+              }
+            }
             id
           }
         }
@@ -140,6 +181,68 @@ v10 = {
   "kind": "ScalarField",
   "name": "categoryName",
   "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ImageConnection",
+  "kind": "LinkedField",
+  "name": "images",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageNode",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v2/*: any*/),
+            (v4/*: any*/),
+            (v8/*: any*/),
+            (v6/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageFileType",
+              "kind": "LinkedField",
+              "name": "file",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "url",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "externalUrl",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -197,6 +300,40 @@ return {
                         "selections": [
                           (v9/*: any*/),
                           (v10/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageGroupNodeConnection",
+                "kind": "LinkedField",
+                "name": "productImages",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageGroupNodeEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageGroupNode",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": [
+                          (v11/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -280,6 +417,41 @@ return {
                 ],
                 "storageKey": null
               },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageGroupNodeConnection",
+                "kind": "LinkedField",
+                "name": "productImages",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageGroupNodeEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageGroupNode",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": [
+                          (v11/*: any*/),
+                          (v2/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
               (v2/*: any*/)
             ],
             "storageKey": null
@@ -294,9 +466,9 @@ return {
     "metadata": {},
     "name": "TemplateRelayDetailQuery",
     "operationKind": "query",
-    "text": "query TemplateRelayDetailQuery(\n  $id: ID!\n) {\n  productOrder(id: $id) {\n    id\n    notes\n    product {\n      name\n      sku\n      width\n      length\n      height\n      metaProducts {\n        edges {\n          node {\n            materialName\n            categoryName\n            id\n          }\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query TemplateRelayDetailQuery(\n  $id: ID!\n) {\n  productOrder(id: $id) {\n    id\n    notes\n    product {\n      name\n      sku\n      width\n      length\n      height\n      metaProducts {\n        edges {\n          node {\n            materialName\n            categoryName\n            id\n          }\n        }\n      }\n      productImages {\n        edges {\n          node {\n            images {\n              edges {\n                node {\n                  id\n                  name\n                  height\n                  width\n                  file {\n                    url\n                  }\n                  externalUrl\n                }\n              }\n            }\n            id\n          }\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '51df37ffb851acdd4dc2aa9f2c270725';
+(node as any).hash = 'd1231e126ea5397751e124e6e8fdc8a2';
 export default node;

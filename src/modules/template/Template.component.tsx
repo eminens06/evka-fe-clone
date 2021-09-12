@@ -100,40 +100,16 @@ const TemplatePage: FunctionComponent = () => {
       </Card>
       <Card title="Resimler" bordered={false} className="form-card">
         <Row gutter={24}>
-          <Image
-            width={300}
-            style={{ padding: 20 }}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
-          <Image
-            width={300}
-            style={{ padding: 20 }}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
-          <Image
-            width={300}
-            style={{ padding: 20 }}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
-        </Row>
-      </Card>
-      <Card title="Teknik Resimler" bordered={false} className="form-card">
-        <Row gutter={24}>
-          <Image
-            width={300}
-            style={{ padding: 20 }}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
-          <Image
-            width={300}
-            style={{ padding: 20 }}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
-          <Image
-            width={300}
-            style={{ padding: 20 }}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
+          {data.imageList.map((img, index) => {
+            return (
+              <Image
+                key={`image_${index}`}
+                width={300}
+                style={{ padding: 20 }}
+                src={img}
+              />
+            );
+          })}
         </Row>
       </Card>
     </Layout>

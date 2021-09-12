@@ -9,8 +9,8 @@ export const vergiNo = '[0-9]{10}';
 export function getImageGroupByWidth(
   imageGroup: ImageUploaderFragment,
   width: number,
-): string | undefined {
-  let imgUrl;
+) {
+  let imgUrl = '';
   if (imageGroup && imageGroup.images && imageGroup.images.edges) {
     let i = 0;
     let foundWidth = 0;

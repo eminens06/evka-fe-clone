@@ -1,5 +1,5 @@
 import { Form, message, Typography } from 'antd';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
 import useFullPageLoader from '../../hooks/useFullPageLoader';
@@ -8,6 +8,9 @@ import mappers from '../../mappers';
 import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
 import Table from '../../molecules/Table';
 import TableFilter from '../../molecules/TableFilter';
+import GET_KDV_VALUES, {
+  ShipmentInvoiceRelayGetSystemParametersQuery,
+} from '../../__generated__/ShipmentInvoiceRelayGetSystemParametersQuery.graphql';
 import INVOICE_MUTATION, {
   ShipmentInvoiceRelayInvoiceMutation,
 } from '../../__generated__/ShipmentInvoiceRelayInvoiceMutation.graphql';
@@ -17,7 +20,7 @@ import GET_INVOICE_LIST, {
 import AddEditCard from '../common/AddEditCard';
 import { OrderProduct } from '../orders/types';
 import InvoiceDetails from './invoiceDetails';
-import { Invoice as InvoiceType } from './types';
+import { Invoice as InvoiceType, KdvParams } from './types';
 
 const columns = [
   {
@@ -44,6 +47,11 @@ const columns = [
     dataIndex: 'marketplace',
   },
   {
+    key: 'shipmentOrderDate',
+    title: 'Sevk Tarihi',
+    dataIndex: 'shipmentOrderDate',
+  },
+  {
     key: 'shipmentCompany',
     title: 'Sevkiyat Firması',
     dataIndex: 'shipmentCompany',
@@ -53,6 +61,7 @@ const columns = [
 const Invoice: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<InvoiceType>();
+  const [kdvParams, setKdvParams] = useState<KdvParams>();
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [form] = Form.useForm();
@@ -77,6 +86,19 @@ const Invoice: FunctionComponent = () => {
       },
     },
   );
+
+  const systemParams = useFetchTablePagination<ShipmentInvoiceRelayGetSystemParametersQuery>(
+    GET_KDV_VALUES,
+    {
+      search: '',
+    },
+  );
+
+  useEffect(() => {
+    if (systemParams.data && systemParams.data.length > 0) {
+      setKdvParams(systemParams.data[0].otherParams);
+    }
+  }, [systemParams.data]);
 
   const {
     data,
@@ -138,7 +160,7 @@ const Invoice: FunctionComponent = () => {
           columns={columns}
           dataSource={data}
           rowKey="id"
-          loading={isLoading}
+          loading={isLoading || systemParams.isLoading}
           pagination={{
             total: size,
           }}
@@ -154,6 +176,7 @@ const Invoice: FunctionComponent = () => {
               form={form}
               onSubmit={onFormFinish}
               modalData={modalData}
+              kdvDetails={kdvParams}
             />
           </AddEditCard>
         )}
