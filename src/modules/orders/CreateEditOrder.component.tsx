@@ -193,6 +193,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
           )}
         </Form.List>
         <OrderCard
+          orderType={orderType}
           form={form}
           initialValues={initialValues}
           isDisabled={!isAdmin && isEdit}
