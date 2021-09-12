@@ -135,7 +135,7 @@ export const orderSaveMapper = (values: any) => {
         ? values.deliveryAddress
         : values.invoiceAddress,
     },
-    marketplaceOrderId: values.marketplaceOrderId,
+    marketplaceOrderId: values.marketplaceOrderId.trim() || undefined,
     orderType: values.orderType,
     isKdvInclude: values.isKdvInclude,
   };
@@ -180,7 +180,7 @@ export const orderEditMapper = (
         ? values.deliveryAddress
         : values.invoiceAddress,
     },
-    marketplaceOrderId: values.marketplaceOrderId,
+    marketplaceOrderId: values.marketplaceOrderId.trim() || undefined,
     productOrderIds: productOrderIds,
     isKdvInclude: values.isKdvInclude,
   };

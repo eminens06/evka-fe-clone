@@ -15,6 +15,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { STORE_OR_NETWORK, useQuery } from 'relay-hooks';
 import { SingleSelect } from '../atoms';
 import { marketplacesDataMapper } from '../mappers';
+import { OrderTypes } from '../modules/orders/types';
 import MARKETPLACES_QUERY, {
   OrdersAllMarketplacesQuery,
 } from '../__generated__/OrdersAllMarketplacesQuery.graphql';
@@ -22,9 +23,15 @@ interface Props {
   form: FormInstance<any>;
   initialValues: any;
   isDisabled?: boolean;
+  orderType?: OrderTypes;
 }
 
-const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
+const OrderCard: FC<Props> = ({
+  form,
+  initialValues,
+  isDisabled,
+  orderType,
+}) => {
   useEffect(() => form.resetFields(), [initialValues]);
 
   const [isKdvInclude, setIsKdvInclude] = useState<boolean>(true);
@@ -79,7 +86,10 @@ const OrderCard: FC<Props> = ({ form, initialValues, isDisabled }) => {
             name="marketplaceOrderId"
             label="Sipariş Numarası"
             rules={[
-              { required: true, message: 'Lütfen Sipariş Numarası Giriniz' },
+              {
+                required: orderType !== 'SP',
+                message: 'Lütfen Sipariş Numarası Giriniz',
+              },
             ]}
             style={{ width: '100%' }}
           >
