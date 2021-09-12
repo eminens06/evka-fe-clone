@@ -27,6 +27,7 @@ export type ProductUpdateInput = {
     width?: number | null;
     height?: number | null;
     length?: number | null;
+    kdv?: string | null;
     id?: string | null;
 };
 export type MetalAttributeInput = {

@@ -27,6 +27,7 @@ export type ProductCreateInput = {
     width?: number | null;
     height?: number | null;
     length?: number | null;
+    kdv?: string | null;
 };
 export type MetalAttributeInput = {
     profil?: number | null;
