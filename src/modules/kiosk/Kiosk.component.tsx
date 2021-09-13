@@ -1,88 +1,93 @@
-import React, { FunctionComponent, useState } from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Select,
-  DatePicker,
-  InputNumber,
-  Switch,
-  Breadcrumb,
-  Steps,
-  Card,
-} from 'antd';
-import { Header } from 'antd/lib/layout/layout';
+import React, { FunctionComponent } from 'react';
+import { Card, Row, Col, DatePicker, Typography, Statistic } from 'antd';
+import { Bar } from 'react-chartjs-2';
+import moment from 'moment';
+import ComparisonCard from './ComparisonCard';
+import { dateOptions, monthlySales } from './data';
+import { SingleSelect } from '../../atoms';
+import CumulativeAnnual from './CumulativeAnnual';
+import ProductSalesTable from './ProductSalesTable';
 
-type SizeType = Parameters<typeof Form>[0]['size'];
+const { Title } = Typography;
 
 const KioskPage: FunctionComponent = () => {
-  const { Step } = Steps;
-
-  const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
-    'default',
-  );
-  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-    setComponentSize(size);
-  };
-
   return (
     <>
-      <Header className="site-layout-sub-header-background">
-        <Breadcrumb style={{ marginTop: '22px' }}>
-          <Breadcrumb.Item>KIOSK</Breadcrumb.Item>
-        </Breadcrumb>
-      </Header>
-      <Card
-        title="Sipariş Bilgileri"
-        bordered={false}
-        className="content-container"
-      >
-        <Button
-          target="_blank"
-          href={`/template?id=VXNlck9yZGVyTm9kZTpmOGU4ZjIwOC1mODRlLTQxNDAtYjBmOC1hZDQwYzJmMzQ5ZWI%3D`}
-          type="primary"
-        >
-          Sablon Olustur
-        </Button>
-        <Steps
-          size="small"
-          current={1}
-          style={{ width: '50%', marginBottom: 30 }}
-        >
-          <Step title="Hazırlanıyor" />
-          <Step title="Tamamlandı" />
-          <Step title="Teslim Edildi" />
-        </Steps>
+      <Row gutter={24} style={{ padding: 16 }}>
+        <Col span={4}>
+          <ComparisonCard
+            header="Satış Tarihi"
+            title="Günlük Satış"
+            subTitle="Dün Satış"
+            value="12000"
+            subValue="14000"
+          />
+        </Col>
+        <Col span={4}>
+          <ComparisonCard
+            header="Satış Tarihi"
+            title="Aylık Satış"
+            subTitle="Geçen Aylık Satış"
+            value="14000"
+            subValue="10000"
+          />
+        </Col>
+        <Col span={4}>
+          <ComparisonCard
+            header="Satış Tarihi"
+            title="Yıllık Satış"
+            subTitle="Geçen Yıllık Satış"
+            value="12000"
+            subValue="12000"
+          />
+        </Col>
+        <Col span={4}>
+          <ComparisonCard
+            header="Sevk Tarihi"
+            title="Günlük Satış"
+            subTitle="Dün Satış"
+            value="9000"
+            subValue="14000"
+          />
+        </Col>
+        <Col span={4}>
+          <ComparisonCard
+            header="Sevk Tarihi"
+            title="Aylık Satış"
+            subTitle="Geçen Aylık Satış"
+            value="14000"
+            subValue="190000"
+          />
+        </Col>
+        <Col span={4}>
+          <ComparisonCard
+            header="Sevk Tarihi"
+            title="Yıllık Satış"
+            subTitle="Geçen Yıllık Satış"
+            value="12000"
+            subValue="8000"
+          />
+        </Col>
+      </Row>
 
-        <Form
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 14 }}
-          initialValues={{ size: componentSize }}
-          onValuesChange={onFormLayoutChange}
-          size={componentSize as SizeType}
-          layout="vertical"
-        >
-          <Form.Item label="Input">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Select">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Tarih Seçimi">
-            <DatePicker />
-          </Form.Item>
-          <Form.Item label="Numara Input">
-            <InputNumber />
-          </Form.Item>
-          <Form.Item label="Switch">
-            <Switch />
-          </Form.Item>
-          <Form.Item label="Buton">
-            <Button type="primary">Button</Button>
-          </Form.Item>
-        </Form>
+      <Card style={{ margin: 16 }} title="Aylık Ortalamalar">
+        <Row gutter={24}>
+          <Col span={24}>
+            <Bar
+              data={monthlySales}
+              options={{ maintainAspectRatio: false }}
+              height={400}
+            />
+          </Col>
+        </Row>
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Kümülatif Yıllık Grafik">
+        <CumulativeAnnual />
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Ürün Bazlı Satış Tablosu">
+        <ProductSalesTable />
       </Card>
     </>
   );

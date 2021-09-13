@@ -7,6 +7,7 @@ interface Props {
   onChange?: (value: any) => void;
   multiple?: boolean;
   disabled?: boolean;
+  style?: any;
 }
 
 const SingleSelect: FC<Props> = ({
@@ -15,12 +16,13 @@ const SingleSelect: FC<Props> = ({
   onChange,
   multiple,
   disabled = false,
+  style,
 }) => {
   return (
     <Select
       defaultValue={defaultValue}
       onChange={onChange}
-      style={{ minWidth: 120 }}
+      style={{ minWidth: 120, ...style }}
       mode={multiple ? 'multiple' : undefined}
       disabled={disabled}
     >
