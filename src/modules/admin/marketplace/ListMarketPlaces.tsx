@@ -33,6 +33,8 @@ const ListMarketPlaces: FunctionComponent = () => {
   const [modalData, setModalData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [search, setSearch] = useState('');
+
   const [form] = Form.useForm();
 
   const openModal = () => {
@@ -52,6 +54,7 @@ const ListMarketPlaces: FunctionComponent = () => {
   );
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
     });
@@ -104,7 +107,7 @@ const ListMarketPlaces: FunctionComponent = () => {
           <MarketPlaceForm
             initialValues={modalData}
             form={form}
-            onSuccess={() => onSearch('')}
+            onSuccess={() => onSearch(search)}
           />
         </AddEditCard>
       </div>

@@ -73,6 +73,8 @@ const ShipmentOrder: FunctionComponent = () => {
   const [modalData, setModalData] = useState<any>();
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
+  const [search, setSearch] = useState('');
+
   const [form] = Form.useForm();
 
   const openModal = () => {
@@ -87,6 +89,7 @@ const ShipmentOrder: FunctionComponent = () => {
   } = useFetchTablePagination<ShipmentInvoiceRelayGetAllUserOrdersQuery>(
     GET_ORDERS,
     {
+      search: '',
       status: 'O',
     },
     mappers.shipmentOrderMapper,
@@ -103,6 +106,7 @@ const ShipmentOrder: FunctionComponent = () => {
         closeLoader();
         message.success('Kargo Durumu Başarıyla Güncellendi');
         forceFetchQuery({
+          search,
           status: 'O',
         });
         closeModal();
@@ -119,8 +123,9 @@ const ShipmentOrder: FunctionComponent = () => {
     },
     onCompleted: (res) => {
       closeLoader();
-      message.success('Kargo Durumu Başarıyla Güncellendi');
+      message.success('Kargo Ücreti Başarıyla Güncellendi');
       forceFetchQuery({
+        search,
         status: 'O',
       });
       closeModal();
@@ -134,6 +139,7 @@ const ShipmentOrder: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
+    setSearch(search);
     forceFetchQuery({
       search: value,
       status: 'O',

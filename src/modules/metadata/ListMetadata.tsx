@@ -87,6 +87,8 @@ const ListMetadata: FunctionComponent = () => {
   const [modalData, setModalData] = useState<MetadataFormProps>();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [search, setSearch] = useState('');
+
   const [form] = Form.useForm();
 
   const openModal = () => {
@@ -153,6 +155,7 @@ const ListMetadata: FunctionComponent = () => {
   );
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
       category,
@@ -221,7 +224,7 @@ const ListMetadata: FunctionComponent = () => {
           <MetadataForm
             initialValues={modalData}
             form={form}
-            onSuccess={() => onSearch('')}
+            onSuccess={() => onSearch(search)}
           />
         </AddEditCard>
       </div>
