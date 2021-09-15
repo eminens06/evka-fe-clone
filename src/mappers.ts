@@ -923,6 +923,10 @@ const logListMapper = (data: any): OrderLogDetail[] => {
           order.orderDate,
           order.invoiceNo,
         ),
+        cargoChaseNumber: order.cargoChaseNumber,
+        shipmentOrderDate: order.shipmentOrderDate
+          ? moment(order.orderDate).format('DD-MM-YYYY')
+          : '',
         customerInfo: customerInfo,
         completedDate: order.completedDate,
         products: mapLogProducts(genericTableDataMapper(order, 'products')),

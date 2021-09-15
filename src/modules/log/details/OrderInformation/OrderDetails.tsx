@@ -44,6 +44,14 @@ const OrderDetails: FC<Props> = ({ data }) => {
             <Typography.Text strong>Fatura Bilgisi:</Typography.Text>
             <Typography.Text>{data.invoiceInfo}</Typography.Text>
           </Row>
+          <Row>
+            <Typography.Text strong>Sevk Tarihi:</Typography.Text>
+            <Typography.Text>{data.shipmentOrderDate}</Typography.Text>
+          </Row>
+          <Row>
+            <Typography.Text strong>Kargo Numarası:</Typography.Text>
+            <Typography.Text>{data.cargoChaseNumber}</Typography.Text>
+          </Row>
         </Col>
         {data.notes && (
           <Col span={12}>

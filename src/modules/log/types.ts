@@ -30,6 +30,8 @@ export type OrderLogDetail = {
   customer: string;
   orderId: string;
   invoiceInfo: string;
+  cargoChaseNumber?: string;
+  shipmentOrderDate: any;
   products: LogOrderProduct[];
 };
 
