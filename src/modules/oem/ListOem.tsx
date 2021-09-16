@@ -117,7 +117,6 @@ const ListOem: FunctionComponent = () => {
   };
 
   const onApprove = (data: OemFormData) => {
-    console.log('Approved ! ', data);
     openLoader();
     approveOem({
       variables: {

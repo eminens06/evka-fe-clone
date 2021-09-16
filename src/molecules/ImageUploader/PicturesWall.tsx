@@ -27,7 +27,7 @@ const PicturesWall: FunctionComponent<Props> = ({
 
   const fileList: any = useMemo(() => {
     return imageFragmentGroup?.map((item: any, index: any) => {
-      const url = item.url || getImageGroupByWidth(item, 320);
+      const url = item.url || getImageGroupByWidth(item, 320) || undefined;
       return {
         uid: index.toString(),
         name: item.name,
@@ -54,7 +54,6 @@ const PicturesWall: FunctionComponent<Props> = ({
   };
 
   const handleChange = (e: any) => {
-    console.log('changed', e);
     setUploadedImages(e.fileList);
   };
 

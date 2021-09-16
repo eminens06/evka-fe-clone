@@ -117,7 +117,7 @@ const CreateEditProduct: FunctionComponent = () => {
     asyncRes = await Promise.all(
       uploadedImages.map(async (file) => {
         return await new Promise((resolve, reject) => {
-          if (file.status === 'uploading') {
+          if (!file.id) {
             let uploadables;
             if (file) {
               uploadables = {
