@@ -83,6 +83,8 @@ const ShipmentManagement: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
+  const [search, setSearch] = useState('');
+
   const [form] = Form.useForm();
 
   const sendShipment = () => {
@@ -112,6 +114,7 @@ const ShipmentManagement: FunctionComponent = () => {
   );
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       status: 'R',
       search: value,
@@ -129,6 +132,7 @@ const ShipmentManagement: FunctionComponent = () => {
         closeLoader();
         message.success('Durum Başarıyla Güncellendi');
         forceFetchQuery({
+          search,
           status: 'R',
         });
         setIsModalVisible(false);

@@ -11,6 +11,7 @@ import GET_USERS, {
 import AddEditCard from '../../common/AddEditCard';
 import UserForm from './UserForm';
 import Table from '../../../molecules/Table';
+import Search from 'antd/lib/transfer/search';
 
 const columns = [
   {
@@ -42,6 +43,8 @@ const ListUsers: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<UserProps>();
 
+  const [search, setSearch] = useState('');
+
   const [form] = Form.useForm();
 
   const openModal = () => {
@@ -67,6 +70,7 @@ const ListUsers: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
     });
@@ -114,7 +118,7 @@ const ListUsers: FunctionComponent = () => {
           <UserForm
             initialValues={modalData}
             form={form}
-            onSuccess={() => onSearch('')}
+            onSuccess={() => onSearch(search)}
           />
         </AddEditCard>
       </div>

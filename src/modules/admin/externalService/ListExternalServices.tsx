@@ -43,6 +43,8 @@ const ListExternalServices: FunctionComponent = () => {
   const [modalData, setModalData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [search, setSearch] = useState('');
+
   const [form] = Form.useForm();
 
   const openModal = () => {
@@ -62,6 +64,7 @@ const ListExternalServices: FunctionComponent = () => {
   );
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
     });
@@ -114,7 +117,7 @@ const ListExternalServices: FunctionComponent = () => {
           <ExternalServiceForm
             initialValues={modalData}
             form={form}
-            onSuccess={() => onSearch('')}
+            onSuccess={() => onSearch(search)}
           />
         </AddEditCard>
       </div>

@@ -94,6 +94,7 @@ const ManagementProduction: FunctionComponent = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState<any>();
+  const [search, setSearch] = useState('');
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
   const [
@@ -111,7 +112,7 @@ const ManagementProduction: FunctionComponent = () => {
       onCompleted: (res) => {
         closeLoader();
         forceFetchQuery({
-          search: '',
+          search,
         });
         message.success('Üretime başarıyla gönderildi');
         setIsModalVisible(false);
@@ -134,7 +135,7 @@ const ManagementProduction: FunctionComponent = () => {
       onCompleted: (res) => {
         closeLoader();
         forceFetchQuery({
-          search: '',
+          search,
         });
         message.success('Başarıyla Tamamlandı');
         setIsModalVisible(false);
@@ -161,6 +162,7 @@ const ManagementProduction: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
     });
