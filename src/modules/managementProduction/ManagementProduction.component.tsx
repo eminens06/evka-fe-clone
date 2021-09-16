@@ -1,5 +1,13 @@
-import { message, Row, Tooltip, Typography } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import {
+  message,
+  Popover,
+  Row,
+  Tooltip,
+  Typography,
+  Button,
+  Image,
+} from 'antd';
+import { InfoCircleOutlined, CameraOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
@@ -19,6 +27,7 @@ import EXIST_IN_STORAGE, {
 } from '../../__generated__/ManagementProductionRelayExistInStorageMutation.graphql';
 import useFullPageLoader from '../../hooks/useFullPageLoader';
 import settings from '../../settings';
+import ImagePopover from '../common/ImagePopover';
 
 const columns = [
   {
@@ -48,6 +57,12 @@ const columns = [
     key: 'productName',
     title: 'Ürün Adı',
     dataIndex: 'productName',
+    render: (value: any, order: any) => {
+      if (order.productImages.length > 0) {
+        return <ImagePopover images={order.productImages} text={value} />;
+      }
+      return value;
+    },
   },
   {
     key: 'remainingTime',

@@ -474,6 +474,12 @@ const managementProductionMapper = (
       } = findMetadata(newProduct);
 
       const order = genericTableDataMapper(item, 'userOrder');
+
+      const images = genericTableDataMapper(product, 'productImages');
+      const imageList = images
+        ? images.map((img) => getImageGroupByWidth(img, 320))
+        : [];
+
       return {
         id: item.id,
         orderId: order[0].marketplaceOrderId,
@@ -488,6 +494,7 @@ const managementProductionMapper = (
         legMaterial,
         tableMaterial,
         remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
+        productImages: imageList,
       };
     },
   );
@@ -520,6 +527,12 @@ const productionMainPartsMapper = (
     const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
     const order = genericTableDataMapper(item, 'userOrder');
     const itemTypes: any[] = [];
+
+    const images = genericTableDataMapper(item.product, 'productImages');
+    const imageList = images
+      ? images.map((img) => getImageGroupByWidth(img, 320))
+      : [];
+
     metaProducts.forEach((mp) => {
       if (mp.metaType === MainPartsShortNames[type]) {
         itemTypes.push({
@@ -543,6 +556,7 @@ const productionMainPartsMapper = (
         orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
         remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
         productName: item.product.name,
+        productImages: imageList,
         status: status,
         type: it.type === 'TB' ? 'Tabla' : 'Ayak',
         dimensions: {
@@ -594,6 +608,11 @@ const productionMaterialMapper = (
       finalCategoryName = categoryName === 'TB' ? 'tabla' : 'ayak';
     }
 
+    const images = genericTableDataMapper(item.product, 'productImages');
+    const imageList = images
+      ? images.map((img) => getImageGroupByWidth(img, 320))
+      : [];
+
     return {
       id: item.id,
       sku: item.product.sku,
@@ -601,6 +620,7 @@ const productionMaterialMapper = (
       remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
       orderCount: item.orderCount,
       productName: item.product.name,
+      productImages: imageList,
       type: type,
       dimensions: {
         width: item.product.width,
@@ -624,6 +644,12 @@ const productionPaintMapper = (
   const finalRes = data.map((item) => {
     const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
     const order = genericTableDataMapper(item, 'userOrder');
+
+    const images = genericTableDataMapper(item.product, 'productImages');
+    const imageList = images
+      ? images.map((img) => getImageGroupByWidth(img, 320))
+      : [];
+
     let services: WorkshopExternalService[] = genericTableDataMapper(
       item,
       'externalService',
@@ -655,6 +681,7 @@ const productionPaintMapper = (
         orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
         remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
         productName: item.product.name,
+        productImages: imageList,
         status: status,
         externalServices: services || [],
         type: it.type === 'TB' ? 'Tabla' : 'Ayak',

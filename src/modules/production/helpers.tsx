@@ -10,6 +10,7 @@ import {
   WorkshopTypes,
 } from './types';
 import settings from '../../settings';
+import ImagePopover from '../common/ImagePopover';
 
 export const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
   [WorkshopStatus.READY]: {
@@ -197,6 +198,12 @@ export const mainProductionColumns = [
     key: 'productName',
     title: 'Ürün Adı',
     dataIndex: 'productName',
+    render: (value: any, order: any) => {
+      if (order.productImages.length > 0) {
+        return <ImagePopover images={order.productImages} text={value} />;
+      }
+      return value;
+    },
   },
   {
     key: 'remainingTime',
@@ -240,6 +247,12 @@ export const materialProductionColumns = [
     key: 'productName',
     title: 'Ürün Adı',
     dataIndex: 'productName',
+    render: (value: any, order: any) => {
+      if (order.productImages.length > 0) {
+        return <ImagePopover images={order.productImages} text={value} />;
+      }
+      return value;
+    },
   },
   {
     key: 'remainingTime',
@@ -292,6 +305,12 @@ export const paintColumns = [
     key: 'productName',
     title: 'Ürün Adı',
     dataIndex: 'productName',
+    render: (value: any, order: any) => {
+      if (order.productImages.length > 0) {
+        return <ImagePopover images={order.productImages} text={value} />;
+      }
+      return value;
+    },
   },
   {
     key: 'type',

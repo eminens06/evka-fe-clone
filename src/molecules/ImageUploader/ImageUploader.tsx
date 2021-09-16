@@ -52,9 +52,6 @@ const ImageUploader: FunctionComponent<Props> = ({
           uploadables,
         });*/
       }
-      console.log(status);
-
-      console.log(info.fileList);
 
       if (status === 'done') {
         message.success(`${info.file.name} dosya başarıyla eklendi.`);
@@ -82,7 +79,6 @@ const ImageUploader: FunctionComponent<Props> = ({
     });
   }, [imageFragmentGroup]);
 
-  console.log(defaultFileList);
   return (
     <section className="code-box-demo">
       <Dragger
