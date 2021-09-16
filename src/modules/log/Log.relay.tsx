@@ -63,6 +63,8 @@ graphql`
           invoiceDate
           invoiceNo
           isKdvInclude
+          shipmentOrderDate
+          cargoChaseNumber
           marketplace {
             name
           }
