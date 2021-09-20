@@ -62,6 +62,7 @@ async function fetchQuery(
       variables,
     };
   }
+  // http://127.0.0.1:8000/graphql/
   // https://evka-backend-gbwnb.ondigitalocean.app
   return ajax
     .post(

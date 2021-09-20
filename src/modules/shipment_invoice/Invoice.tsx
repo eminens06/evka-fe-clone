@@ -64,6 +64,8 @@ const Invoice: FunctionComponent = () => {
   const [kdvParams, setKdvParams] = useState<KdvParams>();
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
+  const [search, setSearch] = useState('');
+
   const [form] = Form.useForm();
 
   const openModal = () => {
@@ -80,7 +82,7 @@ const Invoice: FunctionComponent = () => {
       onCompleted: (res) => {
         closeLoader();
         message.success('Fatura başarıyla oluşturuldu');
-        forceFetchQuery({ search: '' });
+        forceFetchQuery({ search });
         setIsModalVisible(false);
         setModalData(undefined);
       },
@@ -119,6 +121,7 @@ const Invoice: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
     });

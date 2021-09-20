@@ -69,6 +69,8 @@ const ListOem: FunctionComponent = () => {
   const [modalData, setModalData] = useState<Oem>();
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
+  const [search, setSearch] = useState('');
+
   const [approveOem] = useMutation<OemRelayApproveMutation>(APPROVE_OEM, {
     onError: (error: any) => {
       closeLoader();
@@ -80,7 +82,7 @@ const ListOem: FunctionComponent = () => {
     onCompleted: (res) => {
       closeLoader();
       forceFetchQuery({
-        search: '',
+        search,
       });
       message.success('Başarıyla Onaylandı');
       closeModal();
@@ -106,6 +108,7 @@ const ListOem: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
     });
@@ -117,7 +120,6 @@ const ListOem: FunctionComponent = () => {
   };
 
   const onApprove = (data: OemFormData) => {
-    console.log('Approved ! ', data);
     openLoader();
     approveOem({
       variables: {

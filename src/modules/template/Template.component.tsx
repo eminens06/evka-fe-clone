@@ -42,8 +42,6 @@ const TemplatePage: FunctionComponent = () => {
 
   useEffect(() => {
     if (router?.query?.id) {
-      //TODO: get request
-      console.log(router?.query?.id);
       getProductDetail();
     }
   }, [router]);

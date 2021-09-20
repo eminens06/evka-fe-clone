@@ -23,6 +23,8 @@ const ListPackaging: FunctionComponent = () => {
   const [modalData, setModalData] = useState<any>();
   const { loader, openLoader, closeLoader } = useFullPageLoader();
 
+  const [search, setSearch] = useState('');
+
   const openModal = () => {
     setIsModalVisible(true);
   };
@@ -46,6 +48,7 @@ const ListPackaging: FunctionComponent = () => {
   };
 
   const onSearch = (value: string) => {
+    setSearch(value);
     forceFetchQuery({
       search: value,
     });
@@ -62,7 +65,7 @@ const ListPackaging: FunctionComponent = () => {
       closeLoader();
       message.success('Durum Başarıyla Güncellendi');
       forceFetchQuery({
-        search: '',
+        search,
       });
       setIsModalVisible(false);
     },

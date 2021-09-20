@@ -24,6 +24,8 @@ export type LogRelayGetOrderListQueryResponse = {
                 readonly invoiceDate: unknown | null;
                 readonly invoiceNo: string | null;
                 readonly isKdvInclude: boolean;
+                readonly shipmentOrderDate: unknown | null;
+                readonly cargoChaseNumber: string | null;
                 readonly marketplace: {
                     readonly name: string;
                 } | null;
@@ -78,6 +80,8 @@ query LogRelayGetOrderListQuery(
         invoiceDate
         invoiceNo
         isKdvInclude
+        shipmentOrderDate
+        cargoChaseNumber
         marketplace {
           name
           id
@@ -222,31 +226,45 @@ v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "shipmentOrderDate",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "sku",
+  "name": "cargoChaseNumber",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "metaInfo",
+  "name": "name",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isRawMaterial",
+  "name": "sku",
   "storageKey": null
 },
 v19 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "metaInfo",
+  "storageKey": null
+},
+v20 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isRawMaterial",
+  "storageKey": null
+},
+v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -297,6 +315,8 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -305,7 +325,7 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v15/*: any*/)
+                      (v17/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -341,9 +361,9 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v16/*: any*/),
-                                  (v15/*: any*/),
-                                  (v17/*: any*/)
+                                  (v18/*: any*/),
+                                  (v17/*: any*/),
+                                  (v19/*: any*/)
                                 ],
                                 "storageKey": null
                               },
@@ -371,9 +391,9 @@ return {
                                         "name": "node",
                                         "plural": false,
                                         "selections": [
-                                          (v15/*: any*/),
-                                          (v18/*: any*/),
-                                          (v19/*: any*/)
+                                          (v17/*: any*/),
+                                          (v20/*: any*/),
+                                          (v21/*: any*/)
                                         ],
                                         "storageKey": null
                                       }
@@ -447,6 +467,8 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -455,7 +477,7 @@ return {
                     "name": "marketplace",
                     "plural": false,
                     "selections": [
-                      (v15/*: any*/),
+                      (v17/*: any*/),
                       (v2/*: any*/)
                     ],
                     "storageKey": null
@@ -492,9 +514,9 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v16/*: any*/),
-                                  (v15/*: any*/),
+                                  (v18/*: any*/),
                                   (v17/*: any*/),
+                                  (v19/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
@@ -523,9 +545,9 @@ return {
                                         "name": "node",
                                         "plural": false,
                                         "selections": [
-                                          (v15/*: any*/),
-                                          (v18/*: any*/),
-                                          (v19/*: any*/),
+                                          (v17/*: any*/),
+                                          (v20/*: any*/),
+                                          (v21/*: any*/),
                                           (v2/*: any*/)
                                         ],
                                         "storageKey": null
@@ -562,9 +584,9 @@ return {
     "metadata": {},
     "name": "LogRelayGetOrderListQuery",
     "operationKind": "query",
-    "text": "query LogRelayGetOrderListQuery(\n  $search: String\n) {\n  allUserOrders(superSearch: $search) {\n    edges {\n      node {\n        id\n        orderType\n        orderDate\n        commissionRate\n        completedDate\n        orderStatus\n        notes\n        totalPrice\n        customerInfo\n        marketplaceOrderId\n        invoiceDate\n        invoiceNo\n        isKdvInclude\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              product {\n                sku\n                name\n                metaInfo\n                id\n              }\n              externalService {\n                edges {\n                  node {\n                    name\n                    isRawMaterial\n                    module\n                    id\n                  }\n                }\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query LogRelayGetOrderListQuery(\n  $search: String\n) {\n  allUserOrders(superSearch: $search) {\n    edges {\n      node {\n        id\n        orderType\n        orderDate\n        commissionRate\n        completedDate\n        orderStatus\n        notes\n        totalPrice\n        customerInfo\n        marketplaceOrderId\n        invoiceDate\n        invoiceNo\n        isKdvInclude\n        shipmentOrderDate\n        cargoChaseNumber\n        marketplace {\n          name\n          id\n        }\n        products {\n          edges {\n            node {\n              product {\n                sku\n                name\n                metaInfo\n                id\n              }\n              externalService {\n                edges {\n                  node {\n                    name\n                    isRawMaterial\n                    module\n                    id\n                  }\n                }\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '9e74a101b1d6cf8a6bbc9380ba76819a';
+(node as any).hash = '751efa916bc1fc020890c3809c2e77c2';
 export default node;

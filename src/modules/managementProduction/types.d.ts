@@ -27,6 +27,7 @@ export type ProductionManagementDataDTO = {
       };
     };
     name: string;
+    productImages: any[];
   };
   userOrder: {
     edges: {
@@ -58,4 +59,5 @@ export type ProductionManagment = {
   tableMaterial: string;
   orderType: OrderTypes;
   remainingTime: number;
+  productImages: any[];
 };
