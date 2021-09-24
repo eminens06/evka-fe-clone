@@ -3,7 +3,7 @@ import { MetadataDTO, Metadata, MetadataType } from './modules/metadata/types';
 import { UserOrderDTO, UserOrder, CustomerDTO } from './modules/orders/types';
 import { User } from './modules/auth/types';
 import { OrdersAllMarketplacesQueryResponse } from './__generated__/OrdersAllMarketplacesQuery.graphql';
-import { productMetaData } from './utils/enums';
+import { daysInMonth, months, productMetaData } from './utils/enums';
 import {
   ProductionManagementDataDTO,
   ProductionManagment,
@@ -1139,6 +1139,47 @@ const productSaveMapper = (data: any): any => {
   };
 };
 
+const monthlySalesMapper = (data: any): any => {
+  const averageSales = data.map((item: any, index: any) =>
+    (item / daysInMonth[index]).toFixed(2),
+  );
+  return {
+    labels: [...months],
+    options: {
+      scales: {
+        yAxes: [
+          {
+            id: 'A',
+            type: 'linear',
+            position: 'left',
+          },
+          {
+            id: 'B',
+            type: 'linear',
+            position: 'right',
+          },
+        ],
+      },
+    },
+    datasets: [
+      {
+        label: 'Toplam Satış(TL)',
+        data: [...data],
+        borderWidth: 1,
+        backgroundColor: '#587889',
+        yAxisID: 'A',
+      },
+      {
+        label: 'Ortalama Satış(TL)',
+        data: [...averageSales],
+        borderWidth: 1,
+        backgroundColor: '#c37878',
+        yAxisID: 'B',
+      },
+    ],
+  };
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1168,4 +1209,5 @@ export default {
   metaDataOptionMapper,
   productAttributesMapper,
   productSaveMapper,
+  monthlySalesMapper,
 };
