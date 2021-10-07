@@ -49,7 +49,7 @@ const ShipmentSelectorForm: FC<ExternalServiceProps> = (props) => {
     <Tabs defaultActiveKey="1" centered>
       <TabPane tab="Siparişler" key="1">
         <Table
-          rowKey="orderId"
+          rowKey="id"
           columns={columns}
           dataSource={modalData}
           size="small"

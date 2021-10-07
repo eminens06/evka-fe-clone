@@ -586,7 +586,7 @@ const productionMaterialMapper = (
   type: WorkshopTypes,
   moduleType?: ModuleType,
 ): ProductionMaterialWorkshopData[] => {
-  return data.map((item) => {
+  return data.map((item, index) => {
     const order = genericTableDataMapper(item, 'userOrder');
     let services: WorkshopExternalService[] = genericTableDataMapper(
       item,
@@ -635,6 +635,7 @@ const productionMaterialMapper = (
       orderType: order[0].orderType,
       notes: item.notes,
       tablaName: tablaNode.materialName,
+      rowKey: `${item.id}-${index}`,
     };
   });
 };

@@ -154,7 +154,7 @@ const PaintProduction: FunctionComponent = () => {
           exportFormatter={excelFormatter.materialProduction}
           columns={paintColumns}
           dataSource={data}
-          rowKey="name"
+          rowKey="rowKey"
           loading={isLoading}
           pagination={{
             total: size,
