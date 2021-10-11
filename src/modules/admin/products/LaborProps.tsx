@@ -18,7 +18,7 @@ const LaborProps: FC<Props> = ({ form, initialValues, isDisabled }) => {
           return (
             <Col span={8} key={`labor-${index}`}>
               <Form.Item name={item.name} label={item.label}>
-                <Input type="number" disabled={isDisabled} />
+                <Input type="number" disabled={isDisabled} defaultValue={0} />
               </Form.Item>
             </Col>
           );
