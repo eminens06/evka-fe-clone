@@ -5,16 +5,20 @@ import Text from 'antd/lib/typography/Text';
 
 const { Summary } = Table;
 
+interface Props {
+  data?: any[];
+}
+
 const columns = [
   {
     title: 'Satış Tarihi',
-    dataIndex: 'saleDate',
-    key: 'saleDate',
+    dataIndex: 'orderDate',
+    key: 'orderDate',
   },
   {
     title: 'Sevk Tarihi',
-    dataIndex: 'shipmentDate',
-    key: 'shipmentDate',
+    dataIndex: 'shipmentOrderDate',
+    key: 'shipmentOrderDate',
   },
   {
     title: 'Adı',
@@ -38,16 +42,17 @@ const columns = [
   },
   {
     title: 'Nakliyat',
-    dataIndex: 'cargoName',
-    key: 'cargoName',
+    dataIndex: 'shipmentCompanyName',
+    key: 'shipmentCompanyName',
   },
 ];
 
-const ProductSalesTable: FunctionComponent = () => {
+const ProductSalesTable: FunctionComponent<Props> = ({ data }) => {
   return (
     <Table
       columns={columns}
-      dataSource={productSales}
+      dataSource={data}
+      pagination={false}
       summary={(pageData) => {
         let total = 0;
 
@@ -65,7 +70,7 @@ const ProductSalesTable: FunctionComponent = () => {
               <Summary.Cell index={1}></Summary.Cell>
               <Summary.Cell index={5}>
                 <Text strong type="danger">
-                  {total}
+                  {total.toFixed(2)}
                 </Text>
               </Summary.Cell>
               <Summary.Cell index={1}></Summary.Cell>

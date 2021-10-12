@@ -715,7 +715,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "byWorkshopType",
+                  "name": "superSearch",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -725,7 +725,57 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "superSearch",
+                  "name": "byShipmentStatus",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "byInvoiceStatus",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "byMarketplaceOrderIdStatus",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "byOrderStatus",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "notCompleted",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "returnCancelOrders",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -736,10 +786,53 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "productOrderList",
+              "name": "userOrderList",
               "type": {
                 "kind": "OBJECT",
-                "name": "ProductOrderNodeConnection",
+                "name": "UserOrderNodeConnection",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "startDate",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "endDate",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "qtype",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "marketplaceTotals",
+              "type": {
+                "kind": "SCALAR",
+                "name": "JSONString",
                 "ofType": null
               }
             },

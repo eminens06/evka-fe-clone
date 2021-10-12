@@ -45,8 +45,8 @@ export const monthlySales = {
 };
 
 export const dateOptions = [
-  { text: 'Satış Tarihi', value: 'Sell' },
-  { text: 'Sevk Tarihi', value: 'Shipment' },
+  { text: 'Satış Tarihi', value: 'ORDER' },
+  { text: 'Sevk Tarihi', value: 'SHIPMENT' },
 ];
 
 export const cumulativeAnnualData = {

@@ -1180,6 +1180,66 @@ const monthlySalesMapper = (data: any): any => {
   };
 };
 
+const productBasedSalesMapper = (data: any) => {
+  const userOrderList = genericTableDataMapper(data);
+  const mappedData: any[] = [];
+
+  userOrderList.forEach((order: any): any => {
+    const grouped = order.products.edges.reduce((acc: any, key: any) => {
+      if (acc[key.node.product.sku]) {
+        acc[key.node.product.sku].push(key.node);
+      } else {
+        acc[key.node.product.sku] = [key.node];
+      }
+      return acc;
+    }, []);
+
+    const data = Object.keys(grouped).map((key) => {
+      let totalPrice = 0;
+      grouped[key].forEach((product: any) => {
+        totalPrice = totalPrice + parseFloat(product.price);
+      });
+
+      return {
+        id: order.id,
+        marketplace: order.marketplace.name,
+        orderDate: moment(order.orderDate).format('DD-MM-YYYY'),
+        shipmentCompanyName: order.shipmentCompanyName,
+        shipmentOrderDate: moment(order.shipmentOrderDate).format('DD-MM-YYYY'),
+        name: order.products.edges[0].node.product.name,
+        count: grouped[key].length,
+        price: totalPrice.toFixed(2),
+      };
+    });
+    mappedData.push(...data);
+  });
+  console.log(mappedData);
+  return mappedData;
+};
+
+const marketplaceTotalsMapper = (data: any) => {
+  const parsedData = JSON.parse(data);
+  const labels = Object.keys(parsedData.marketplace_totals);
+  const values = Object.values(parsedData.marketplace_totals);
+  return {
+    data: {
+      labels: [...labels],
+      datasets: [
+        {
+          label: 'Satış(TL)',
+          data: [...values],
+          fill: false,
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgba(255, 99, 132, 0.2)',
+          yAxisID: 'y-axis-1',
+        },
+      ],
+    },
+    return_sum: parsedData.return_sum,
+    cancel_sum: parsedData.cancel_sum,
+  };
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1210,4 +1270,6 @@ export default {
   productAttributesMapper,
   productSaveMapper,
   monthlySalesMapper,
+  productBasedSalesMapper,
+  marketplaceTotalsMapper,
 };

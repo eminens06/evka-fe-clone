@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useMemo } from 'react';
-import { Card, Divider, Statistic, Typography } from 'antd';
+import { Card, Divider, Skeleton, Spin, Statistic, Typography } from 'antd';
 import {
   CaretUpOutlined,
   CaretDownOutlined,
@@ -15,6 +15,7 @@ interface Props {
   subTitle: string;
   value: string;
   subValue: string;
+  loading?: boolean;
 }
 
 const ComparisonCard: FunctionComponent<Props> = ({
@@ -23,6 +24,7 @@ const ComparisonCard: FunctionComponent<Props> = ({
   subTitle,
   value,
   subValue,
+  loading = true,
 }) => {
   const changeText = useMemo(() => {
     const change = percIncrease(Number(value), Number(subValue));
@@ -51,11 +53,17 @@ const ComparisonCard: FunctionComponent<Props> = ({
       <Card bodyStyle={{ padding: 18 }} bordered={false}>
         <Text strong>{header}</Text>
         <Divider style={{ margin: 4 }} />
-        <Statistic title={title} value={`${value} ₺`} />
-        <Text type="secondary">Değişim </Text>
-        {changeText}
-        <Divider style={{ margin: 4 }} />
-        <Statistic title={subTitle} value={`${subValue} ₺`} />
+        {loading ? (
+          <Skeleton />
+        ) : (
+          <>
+            <Statistic title={title} value={`${value} ₺`} />
+            <Text type="secondary">Değişim </Text>
+            {changeText}
+            <Divider style={{ margin: 4 }} />
+            <Statistic title={subTitle} value={`${subValue} ₺`} />
+          </>
+        )}
       </Card>
     </>
   );
