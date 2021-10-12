@@ -603,6 +603,8 @@ const productionMaterialMapper = (
       }
     });
 
+    const tablaNode = metaProducts.find((mt) => mt.categoryName === 'TB');
+
     let finalCategoryName;
     if (categoryName) {
       finalCategoryName = categoryName === 'TB' ? 'tabla' : 'ayak';
@@ -632,6 +634,7 @@ const productionMaterialMapper = (
       externalServices: services || [],
       orderType: order[0].orderType,
       notes: item.notes,
+      tablaName: tablaNode.materialName,
     };
   });
 };

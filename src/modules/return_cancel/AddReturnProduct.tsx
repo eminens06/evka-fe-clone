@@ -50,7 +50,7 @@ const AddReturnProduct: FC = () => {
       },
       onCompleted: (res) => {
         closeLoader();
-        message.success('Başarıyla iade talebi oluşturuldu');
+        message.success('Başarıyla iade edildi');
         router.back();
       },
     },

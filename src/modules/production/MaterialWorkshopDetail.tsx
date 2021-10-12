@@ -24,6 +24,7 @@ interface Props {
   serviceInfo: WorkshopExternalService[];
   moduleName?: ModuleType;
   materialName?: string;
+  tablaName?: string;
 }
 
 const MaterialWorkshopDetail: FC<Props> = ({
@@ -36,6 +37,7 @@ const MaterialWorkshopDetail: FC<Props> = ({
   serviceInfo,
   moduleName,
   materialName,
+  tablaName,
 }) => {
   const getDimensionsText = () => {
     return `En: ${dimensions.width} mm / Yükseklik: ${dimensions.height} mm / Uzunluk: ${dimensions.length} mm`;
@@ -48,6 +50,11 @@ const MaterialWorkshopDetail: FC<Props> = ({
           <Row gutter={24}>
             <Col span={12}>
               <Typography.Title level={5}>{productName}</Typography.Title>
+              {tablaName && (
+                <Row style={{ marginTop: 10 }}>
+                  <Typography.Text>Tabla: {tablaName}</Typography.Text>
+                </Row>
+              )}
               <br></br>
               <Typography.Text>{getDimensionsText()}</Typography.Text>
               {materialName && (

@@ -235,4 +235,12 @@ export const otherFields = [
     label: 'Fahiş Katsayısı',
     name: 'fahisKatsayisi',
   },
+  {
+    label: 'Genel Giderler',
+    name: 'genelGiderleri',
+  },
+  {
+    label: 'Reklam Giderleri',
+    name: 'reklamGiderleri',
+  },
 ];
