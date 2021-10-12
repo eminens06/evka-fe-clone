@@ -79,6 +79,8 @@ export type OtherParamInput = {
     sivamaFiyatKatsayisi?: number | null;
     nakliyeFiyat?: number | null;
     fahisKatsayisi?: number | null;
+    genelGiderler?: number | null;
+    reklamGiderler?: number | null;
 };
 export type ParametersRelayCreateMutationVariables = {
     input: SystemParamMutationInput;

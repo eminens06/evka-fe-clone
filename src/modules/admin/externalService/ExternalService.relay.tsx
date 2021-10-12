@@ -14,6 +14,7 @@ graphql`
           address
           module
           isRawMaterial
+          submodule
         }
       }
     }
