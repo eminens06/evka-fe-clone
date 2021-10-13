@@ -12,6 +12,7 @@ import UPDATE_METADATA, {
 import {
   CategoryOptions,
   MetadataFormProps,
+  PaintOptions,
   WorkshopOptions,
 } from './ListMetadata';
 import DELETE_METADATA, {
@@ -30,6 +31,8 @@ const mapFormData = (data: any): any => {
     categoryName: data.category,
     materialName: data.material,
     materialId: data.number,
+    metaType: data.metaType || undefined,
+    paintType: data.paintType || undefined,
     id: data.id || undefined,
   };
 };
@@ -192,13 +195,13 @@ const MetadataForm: FC<MetadataProps> = (props) => {
       {isMainMaterial && (
         <Col>
           <Form.Item
-            name="painytype"
+            name="paintType"
             label="Boya Atölyesi"
             rules={[{ required: true, message: 'Zorunlu alan' }]}
             style={{ width: '100%' }}
           >
             <SingleSelect
-              options={WorkshopOptions}
+              options={PaintOptions}
               defaultValue={initialValues?.paintType}
             />
           </Form.Item>

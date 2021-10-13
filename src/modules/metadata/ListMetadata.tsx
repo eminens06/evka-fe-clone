@@ -49,6 +49,21 @@ export const CategoryOptions = [
   },
 ];
 
+export const PaintOptions = [
+  {
+    value: MetaWorkshopType.MT,
+    text: 'Metal',
+  },
+  {
+    value: MetaWorkshopType.WD,
+    text: 'Ahşap',
+  },
+  {
+    value: MetaWorkshopType.DF,
+    text: 'Yok',
+  },
+];
+
 export const WorkshopOptions = [
   {
     value: MetaWorkshopType.MT,
