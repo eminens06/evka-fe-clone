@@ -623,6 +623,22 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
+              "name": "kioskOne",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "JSONString",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
               "name": "sellComparison",
               "type": {
                 "kind": "LIST",
@@ -830,6 +846,39 @@
               "description": null,
               "isDeprecated": false,
               "name": "marketplaceTotals",
+              "type": {
+                "kind": "SCALAR",
+                "name": "JSONString",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "startDate",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "endDate",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "hakedisTotal",
               "type": {
                 "kind": "SCALAR",
                 "name": "JSONString",
@@ -6758,6 +6807,22 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
+              "name": "akrilikCost",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
               "name": "profil",
               "type": {
                 "kind": "NON_NULL",
@@ -7159,6 +7224,22 @@
                 "ofType": {
                   "kind": "ENUM",
                   "name": "ExternalServiceModule",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "submodule",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               }
@@ -9090,6 +9171,30 @@
               "description": null,
               "isDeprecated": false,
               "name": "fahisKatsayisi",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "genelGiderleri",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "reklamGiderleri",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
@@ -11899,6 +12004,26 @@
                 "name": "Float",
                 "ofType": null
               }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "genelGiderler",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "reklamGiderler",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
             }
           ],
           "interfaces": null,
@@ -11984,6 +12109,16 @@
               "defaultValue": null,
               "description": null,
               "name": "address",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "submodule",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -12094,6 +12229,16 @@
               "defaultValue": null,
               "description": null,
               "name": "module",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "submodule",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
