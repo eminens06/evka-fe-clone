@@ -212,7 +212,7 @@ const ManagementProduction: FunctionComponent = () => {
           fileName="uretim_yonetimi"
           columns={columns}
           dataSource={data}
-          rowKey="orderId"
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,

@@ -77,7 +77,7 @@ const ListProducts: FunctionComponent<Props> = ({ setSelectWithTable }) => {
         preventExport
         columns={columns}
         dataSource={data}
-        rowKey="sku"
+        rowKey="id"
         loading={isLoading}
         pagination={{
           total: size,

@@ -103,7 +103,7 @@ const ListUsers: FunctionComponent = () => {
           }}
           columns={columns}
           dataSource={data}
-          rowKey="name"
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,

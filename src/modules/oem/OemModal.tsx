@@ -56,7 +56,6 @@ const OemModal: FC<Props> = ({
   }
 
   const onFormFinish = (values: any) => {
-    console.log('Form finish ! ', values);
     onApprove({
       ...values,
       productId: modalData.id,

@@ -185,7 +185,7 @@ const ShipmentManagement: FunctionComponent = () => {
           expandable={expandable}
           columns={columns}
           dataSource={data}
-          rowKey="orderId"
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,
