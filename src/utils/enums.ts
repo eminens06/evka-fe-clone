@@ -3,6 +3,7 @@ import {
   ShipmentTypeValue,
   ShippingTypeOption,
 } from '../modules/shipment_invoice/types';
+import moment from 'moment';
 
 export const productMetaData = [
   {
@@ -100,3 +101,33 @@ export const CompanyOptions: Record<ShipmentTypeValue, CargoTypeOption[]> = {
     },
   ],
 };
+
+export const months = [
+  'Ocak',
+  'Şubat',
+  'Mart',
+  'Nisan',
+  'Mayıs',
+  'Haziran',
+  'Temmuz',
+  'Ağustos',
+  'Eylül',
+  'Ekim',
+  'Kasım',
+  'Aralık',
+];
+
+export const daysInMonth = [
+  31,
+  moment(moment().year() + '-02', 'YYYY-MM').daysInMonth(),
+  31,
+  30,
+  31,
+  30,
+  31,
+  31,
+  30,
+  31,
+  30,
+  31,
+];
