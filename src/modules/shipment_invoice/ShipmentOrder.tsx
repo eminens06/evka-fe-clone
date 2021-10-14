@@ -223,7 +223,7 @@ const ShipmentOrder: FunctionComponent = () => {
           fileName="sevkiyat"
           columns={columns}
           dataSource={data}
-          rowKey="orderId"
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,

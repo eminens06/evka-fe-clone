@@ -81,6 +81,8 @@ graphql`
             sivamaFiyatKatsayisi
             nakliyeFiyat
             fahisKatsayisi
+            genelGiderler
+            reklamGiderler
           }
         }
       }

@@ -49,6 +49,21 @@ export const CategoryOptions = [
   },
 ];
 
+export const PaintOptions = [
+  {
+    value: MetaWorkshopType.MT,
+    text: 'Metal',
+  },
+  {
+    value: MetaWorkshopType.WD,
+    text: 'Ahşap',
+  },
+  {
+    value: MetaWorkshopType.DF,
+    text: 'Yok',
+  },
+];
+
 export const WorkshopOptions = [
   {
     value: MetaWorkshopType.MT,
@@ -209,7 +224,7 @@ const ListMetadata: FunctionComponent = () => {
           }}
           columns={columns}
           dataSource={data}
-          rowKey="name"
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,

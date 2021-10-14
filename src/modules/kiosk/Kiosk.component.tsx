@@ -1,88 +1,145 @@
-import React, { FunctionComponent, useState } from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Select,
-  DatePicker,
-  InputNumber,
-  Switch,
-  Breadcrumb,
-  Steps,
-  Card,
-} from 'antd';
-import { Header } from 'antd/lib/layout/layout';
-
-type SizeType = Parameters<typeof Form>[0]['size'];
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Card, Row, Col, Spin, Skeleton } from 'antd';
+import { Bar } from 'react-chartjs-2';
+import ComparisonCard from './ComparisonCard';
+import CumulativeAnnual from './CumulativeAnnual';
+import ProductSalesTable from './ProductSalesTable';
+import GET_CARD_DATA, {
+  KioskSellComparisonQuery,
+} from '../../__generated__/KioskSellComparisonQuery.graphql';
+import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
+import GET_SALES_DATA, {
+  KioskMonthlySalesAveragesQuery,
+} from '../../__generated__/KioskMonthlySalesAveragesQuery.graphql';
+import mappers from '../../mappers';
+import GET_ORDER_DATA, {
+  KioskGetUserOrderListQuery,
+} from '../../__generated__/KioskGetUserOrderListQuery.graphql';
+import VastedTotal from './VastedTotal';
 
 const KioskPage: FunctionComponent = () => {
-  const { Step } = Steps;
+  const environment = useRelayEnvironment();
+  const [sellComparsionData, setSellComparsionData] = useState<any>(null);
+  const [monthlySalesData, setMonthlySalesData] = useState<any>(null);
+  const [productSalesData, setProductSalesData] = useState<any>(null);
+  const [loading, setLoading] = useState<any>(false);
 
-  const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
-    'default',
-  );
-  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-    setComponentSize(size);
+  const getChartsData = async () => {
+    setLoading(true);
+    const { sellComparison } = await fetchQuery<KioskSellComparisonQuery>(
+      environment,
+      GET_CARD_DATA,
+      {},
+    );
+
+    const {
+      monthlySalesAverages,
+    } = await fetchQuery<KioskMonthlySalesAveragesQuery>(
+      environment,
+      GET_SALES_DATA,
+      {},
+    );
+
+    const { userOrderList } = await fetchQuery<KioskGetUserOrderListQuery>(
+      environment,
+      GET_ORDER_DATA,
+      {},
+    );
+    const sellComparisonParsed =
+      sellComparison && JSON.parse(sellComparison[0] as string);
+    setSellComparsionData(sellComparisonParsed);
+
+    setMonthlySalesData(mappers.monthlySalesMapper(monthlySalesAverages));
+    setProductSalesData(
+      mappers.productBasedSalesMapper({ userOrderList: userOrderList }),
+    );
+
+    setLoading(false);
   };
+
+  useEffect(() => {
+    getChartsData();
+  }, []);
 
   return (
     <>
-      <Header className="site-layout-sub-header-background">
-        <Breadcrumb style={{ marginTop: '22px' }}>
-          <Breadcrumb.Item>KIOSK</Breadcrumb.Item>
-        </Breadcrumb>
-      </Header>
-      <Card
-        title="Sipariş Bilgileri"
-        bordered={false}
-        className="content-container"
-      >
-        <Button
-          target="_blank"
-          href={`/template?id=VXNlck9yZGVyTm9kZTpmOGU4ZjIwOC1mODRlLTQxNDAtYjBmOC1hZDQwYzJmMzQ5ZWI%3D`}
-          type="primary"
-        >
-          Sablon Olustur
-        </Button>
-        <Steps
-          size="small"
-          current={1}
-          style={{ width: '50%', marginBottom: 30 }}
-        >
-          <Step title="Hazırlanıyor" />
-          <Step title="Tamamlandı" />
-          <Step title="Teslim Edildi" />
-        </Steps>
+      <Row gutter={24} style={{ padding: 16 }}>
+        <Col span={6}>
+          <ComparisonCard
+            header="Satış Tarihi"
+            title="Günlük Satış"
+            subTitle="Dün Satış"
+            value={sellComparsionData?.orderDate?.today.toFixed(2)}
+            subValue={sellComparsionData?.orderDate?.yesterday.toFixed(2)}
+            loading={loading}
+          />
+        </Col>
+        <Col span={6}>
+          <ComparisonCard
+            header="Sevk Tarihi"
+            title="Günlük Satış"
+            subTitle="Dün Satış"
+            value={sellComparsionData?.shipmentDate?.today.toFixed(2)}
+            subValue={sellComparsionData?.shipmentDate?.yesterday.toFixed(2)}
+            loading={loading}
+          />
+        </Col>
+        <Col span={6}>
+          <ComparisonCard
+            header="Satış Tarihi"
+            title="Aylık Satış"
+            subTitle="Geçen Aylık Satış"
+            value={sellComparsionData?.orderDate?.this_month.toFixed(2)}
+            subValue={sellComparsionData?.orderDate?.last_month.toFixed(2)}
+            loading={loading}
+          />
+        </Col>
+        <Col span={6}>
+          <ComparisonCard
+            header="Sevk Tarihi"
+            title="Aylık Satış"
+            subTitle="Geçen Aylık Satış"
+            value={sellComparsionData?.shipmentDate?.this_month.toFixed(2)}
+            subValue={sellComparsionData?.shipmentDate?.last_month.toFixed(2)}
+            loading={loading}
+          />
+        </Col>
+      </Row>
 
-        <Form
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 14 }}
-          initialValues={{ size: componentSize }}
-          onValuesChange={onFormLayoutChange}
-          size={componentSize as SizeType}
-          layout="vertical"
-        >
-          <Form.Item label="Input">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Select">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Tarih Seçimi">
-            <DatePicker />
-          </Form.Item>
-          <Form.Item label="Numara Input">
-            <InputNumber />
-          </Form.Item>
-          <Form.Item label="Switch">
-            <Switch />
-          </Form.Item>
-          <Form.Item label="Buton">
-            <Button type="primary">Button</Button>
-          </Form.Item>
-        </Form>
+      <Card style={{ margin: 16 }} title="Aylık Satış">
+        <Row gutter={24}>
+          <Col span={24}>
+            {loading ? (
+              <div style={{ height: 300, width: '100%' }}>
+                <Skeleton />
+              </div>
+            ) : (
+              <Bar
+                data={monthlySalesData}
+                options={{ maintainAspectRatio: false }}
+                height={400}
+              />
+            )}
+          </Col>
+        </Row>
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Kümülatif Yıllık Grafik">
+        <CumulativeAnnual />
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Ürün Bazlı Satış Tablosu">
+        {loading ? (
+          <div style={{ height: 300, width: '100%' }}>
+            <Skeleton />
+          </div>
+        ) : (
+          <ProductSalesTable data={productSalesData} />
+        )}
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Kümülatif Yıllık Grafik">
+        <VastedTotal />
       </Card>
     </>
   );

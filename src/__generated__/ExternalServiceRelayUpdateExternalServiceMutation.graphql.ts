@@ -8,6 +8,7 @@ export type UpdateExternalServiceInput = {
     name?: string | null;
     phoneNumber?: string | null;
     module?: string | null;
+    submodule?: string | null;
     address?: string | null;
     isRawMaterial?: boolean | null;
     clientMutationId?: string | null;

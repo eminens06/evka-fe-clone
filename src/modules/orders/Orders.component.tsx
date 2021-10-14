@@ -137,7 +137,7 @@ const OrdersPage: FunctionComponent = () => {
           columns={columns}
           fileName="acik_siparisler"
           dataSource={data}
-          rowKey="orderId"
+          rowKey="id"
           loading={isLoading}
           pagination={{
             total: size,

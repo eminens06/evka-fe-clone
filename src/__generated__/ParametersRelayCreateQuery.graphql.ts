@@ -73,6 +73,8 @@ export type ParametersRelayCreateQueryResponse = {
                     readonly sivamaFiyatKatsayisi: number | null;
                     readonly nakliyeFiyat: number | null;
                     readonly fahisKatsayisi: number | null;
+                    readonly genelGiderler: number | null;
+                    readonly reklamGiderler: number | null;
                 } | null;
             } | null;
         } | null>;
@@ -156,6 +158,8 @@ query ParametersRelayCreateQuery {
           sivamaFiyatKatsayisi
           nakliyeFiyat
           fahisKatsayisi
+          genelGiderler
+          reklamGiderler
         }
       }
     }
@@ -634,6 +638,20 @@ v1 = [
                     "kind": "ScalarField",
                     "name": "fahisKatsayisi",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "genelGiderler",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "reklamGiderler",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -669,9 +687,9 @@ return {
     "metadata": {},
     "name": "ParametersRelayCreateQuery",
     "operationKind": "query",
-    "text": "query ParametersRelayCreateQuery {\n  allSystemParams {\n    edges {\n      node {\n        id\n        metalParams {\n          fiyat\n          sarfKatsayisi\n          fireKatsayisi\n          paslanmazKatsayisi\n          bukumFiyat\n          statikBoyaKatsayisi\n          eskitmeParlakPrincKatsayisi\n        }\n        woodParams {\n          mdfFiyat\n          mdfFireKatsayisi\n          mdfLamFiyat\n          ahsapKaplamaFiyat\n          ahsapKaplamaFireKatsayisi\n          ahsapAstarKaplamaFireKatsayisi\n          ahsapAstarKaplamaFiyat\n          astarBasimFiyati\n          papelFiyat\n          laminantFiyat\n          cumbaFiyat\n          cumbaFireKatsayisi\n          cumbaIscilik\n          balonFiyat\n          tornaFiyatKatsayisi\n          keresteFiyat\n          keresteFireKatsayisi\n          masifPanelFiyati\n          digerKeresteFiyati\n          kontraplakFiyati\n          keresteKaplamaCilaFiyat\n          lakeBoyaFiyat\n        }\n        laborParams {\n          metal\n          tasima\n          toplama\n          ahsap\n          polisaj\n          dosemeIscilikKatsayisi\n          akrilik\n          ambalaj\n          mermer\n        }\n        otherWorkshopParams {\n          mermerFiyat\n          ozelMermerKatsayisi\n          kumasFiyat\n          camFiyat\n          mm4Katsayisi\n          mm10Katsayisi\n          aynaKatsayisi\n        }\n        otherParams {\n          kdv1\n          kdv2\n          kdv3\n          silikon\n          aksesuarFiyatKatsayisi\n          akrilik\n          ambalajMalzeme\n          aliminyumDokumFiyatKatsayisi\n          sivamaFiyatKatsayisi\n          nakliyeFiyat\n          fahisKatsayisi\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ParametersRelayCreateQuery {\n  allSystemParams {\n    edges {\n      node {\n        id\n        metalParams {\n          fiyat\n          sarfKatsayisi\n          fireKatsayisi\n          paslanmazKatsayisi\n          bukumFiyat\n          statikBoyaKatsayisi\n          eskitmeParlakPrincKatsayisi\n        }\n        woodParams {\n          mdfFiyat\n          mdfFireKatsayisi\n          mdfLamFiyat\n          ahsapKaplamaFiyat\n          ahsapKaplamaFireKatsayisi\n          ahsapAstarKaplamaFireKatsayisi\n          ahsapAstarKaplamaFiyat\n          astarBasimFiyati\n          papelFiyat\n          laminantFiyat\n          cumbaFiyat\n          cumbaFireKatsayisi\n          cumbaIscilik\n          balonFiyat\n          tornaFiyatKatsayisi\n          keresteFiyat\n          keresteFireKatsayisi\n          masifPanelFiyati\n          digerKeresteFiyati\n          kontraplakFiyati\n          keresteKaplamaCilaFiyat\n          lakeBoyaFiyat\n        }\n        laborParams {\n          metal\n          tasima\n          toplama\n          ahsap\n          polisaj\n          dosemeIscilikKatsayisi\n          akrilik\n          ambalaj\n          mermer\n        }\n        otherWorkshopParams {\n          mermerFiyat\n          ozelMermerKatsayisi\n          kumasFiyat\n          camFiyat\n          mm4Katsayisi\n          mm10Katsayisi\n          aynaKatsayisi\n        }\n        otherParams {\n          kdv1\n          kdv2\n          kdv3\n          silikon\n          aksesuarFiyatKatsayisi\n          akrilik\n          ambalajMalzeme\n          aliminyumDokumFiyatKatsayisi\n          sivamaFiyatKatsayisi\n          nakliyeFiyat\n          fahisKatsayisi\n          genelGiderler\n          reklamGiderler\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ea809993404a709bd24cb16ea1881b8b';
+(node as any).hash = '928119334445a58562d7ccecedd2f8e6';
 export default node;

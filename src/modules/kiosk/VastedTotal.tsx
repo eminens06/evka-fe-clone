@@ -1,0 +1,100 @@
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Row, Col, DatePicker, Typography, Spin, Table } from 'antd';
+import moment from 'moment';
+import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
+import mappers from '../../mappers';
+import VASTED_TOTALS, {
+  KioskHakedisTotalQuery,
+} from '../../__generated__/KioskHakedisTotalQuery.graphql';
+
+const { Text } = Typography;
+
+const columns = [
+  {
+    title: 'Adı',
+    dataIndex: 'title',
+  },
+  {
+    title: 'Değer',
+    dataIndex: 'data',
+  },
+];
+
+const VastedTotal: FunctionComponent = () => {
+  const environment = useRelayEnvironment();
+  const [startDate, setStartDate] = useState<any>(moment().startOf('year'));
+  const [endDate, setEndDate] = useState<any>(moment());
+
+  const [chartData, setChartData] = useState<any>(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const getChartData = async () => {
+    setLoading(true);
+    const { hakedisTotal } = await fetchQuery<KioskHakedisTotalQuery>(
+      environment,
+      VASTED_TOTALS,
+      {
+        startDate: startDate,
+        endDate: endDate,
+      },
+      { force: true },
+    );
+    setLoading(false);
+    setChartData(mappers.vastedMapper(hakedisTotal));
+  };
+
+  useEffect(() => {
+    getChartData();
+  }, [startDate, endDate]);
+
+  return (
+    <>
+      <Row gutter={24}>
+        <Col span={8}>
+          <Text>Başlangıç Tarihi</Text>
+          <DatePicker
+            style={{ width: '100%' }}
+            placeholder=""
+            format={'DD-MM-YYYY'}
+            defaultValue={moment().startOf('year')}
+            onChange={setStartDate}
+          />
+        </Col>
+        <Col span={8}>
+          <Text>Bitiş Tarihi</Text>
+          <DatePicker
+            style={{ width: '100%' }}
+            placeholder=""
+            format={'DD-MM-YYYY'}
+            defaultValue={moment()}
+            value={endDate}
+            onChange={setEndDate}
+          />
+        </Col>
+      </Row>
+
+      <Row gutter={24} style={{ paddingTop: 20 }}>
+        {chartData &&
+          Object.keys(chartData).map((item) => {
+            return (
+              <Col span={12}>
+                <Table
+                  columns={columns}
+                  dataSource={chartData[item]}
+                  size="small"
+                />
+              </Col>
+            );
+          })}
+      </Row>
+      {loading && (
+        <div className="card-loader">
+          <Spin />
+        </div>
+      )}
+    </>
+  );
+};
+
+export default VastedTotal;

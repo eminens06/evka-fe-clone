@@ -8,7 +8,7 @@ import {
   Button,
   Checkbox,
 } from 'antd';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from 'relay-hooks';
 import { SingleSelect } from '../../../atoms';
@@ -53,9 +53,26 @@ export const ModuleOptions = [
   },
 ];
 
+export const SubModuleOptions = [
+  {
+    value: 'NK',
+    text: 'Nikelaj',
+  },
+  {
+    value: 'LK',
+    text: 'Lake',
+  },
+  {
+    value: 'ST',
+    text: 'Statik',
+  },
+];
+
 const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
   const { form, initialValues } = props;
   const { loader, openLoader, closeLoader } = useFullPageLoader();
+
+  const [isPaint, setIsPaint] = useState(false);
 
   const [
     createExternalService,
@@ -117,7 +134,14 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
     },
   );
 
-  useEffect(() => form.resetFields(), [initialValues]);
+  useEffect(() => {
+    form.resetFields();
+    if (initialValues.module === 'PT') {
+      setIsPaint(true);
+    } else {
+      setIsPaint(false);
+    }
+  }, [initialValues]);
 
   const onFormFinish = (values: any) => {
     openLoader();
@@ -149,6 +173,14 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
     });
   };
 
+  const onModuleChange = (value: any) => {
+    if (value === 'PT') {
+      setIsPaint(true);
+    } else {
+      setIsPaint(false);
+    }
+  };
+
   return (
     <Form
       form={form}
@@ -165,6 +197,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
             rules={[{ required: true, message: 'Zorunlu alan' }]}
           >
             <SingleSelect
+              onChange={onModuleChange}
               options={ModuleOptions}
               defaultValue={initialValues?.module}
             />
@@ -206,6 +239,24 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
             <Checkbox>Hammaddeci mi?</Checkbox>
           </Form.Item>
         </Col>
+        {isPaint && (
+          <Col span={12}>
+            <Form.Item
+              name="submodule"
+              label="Boya Kategorisi"
+              rules={[{ required: true, message: 'Zorunlu alan' }]}
+            >
+              <SingleSelect
+                options={SubModuleOptions}
+                defaultValue={
+                  initialValues?.submodule != 'DF'
+                    ? initialValues.submodule
+                    : undefined
+                }
+              />
+            </Form.Item>
+          </Col>
+        )}
       </Row>
       {initialValues && (
         <Row gutter={24}>

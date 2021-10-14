@@ -179,6 +179,7 @@ const GlassProduction: FunctionComponent = () => {
               workshopType={modalData.type}
               serviceInfo={modalData.externalServices}
               moduleName={ModuleType.GL}
+              tablaName={modalData.tablaName}
             />
           </StatusModal>
         )}

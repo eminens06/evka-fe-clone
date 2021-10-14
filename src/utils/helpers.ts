@@ -38,3 +38,25 @@ export function getImageGroupByWidth(
   }
   return imgUrl;
 }
+
+export const randomColor = (count: number) => {
+  const colors = [];
+  for (let i = 0; i < count; i++) {
+    colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
+  }
+  return colors;
+};
+
+export const percIncrease = (a: number, b: number) => {
+  let percent;
+  if (a !== 0) {
+    if (b !== 0) {
+      percent = ((a - b) / b) * 100;
+    } else {
+      percent = a * 100;
+    }
+  } else {
+    percent = -b * 100;
+  }
+  return Math.floor(percent);
+};

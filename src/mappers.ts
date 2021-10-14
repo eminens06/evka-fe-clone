@@ -3,7 +3,7 @@ import { MetadataDTO, Metadata, MetadataType } from './modules/metadata/types';
 import { UserOrderDTO, UserOrder, CustomerDTO } from './modules/orders/types';
 import { User } from './modules/auth/types';
 import { OrdersAllMarketplacesQueryResponse } from './__generated__/OrdersAllMarketplacesQuery.graphql';
-import { productMetaData } from './utils/enums';
+import { daysInMonth, months, productMetaData } from './utils/enums';
 import {
   ProductionManagementDataDTO,
   ProductionManagment,
@@ -586,7 +586,7 @@ const productionMaterialMapper = (
   type: WorkshopTypes,
   moduleType?: ModuleType,
 ): ProductionMaterialWorkshopData[] => {
-  return data.map((item) => {
+  return data.map((item, index) => {
     const order = genericTableDataMapper(item, 'userOrder');
     let services: WorkshopExternalService[] = genericTableDataMapper(
       item,
@@ -602,6 +602,8 @@ const productionMaterialMapper = (
         categoryName = mt.categoryName;
       }
     });
+
+    const tablaNode = metaProducts.find((mt) => mt.categoryName === 'TB');
 
     let finalCategoryName;
     if (categoryName) {
@@ -632,6 +634,8 @@ const productionMaterialMapper = (
       externalServices: services || [],
       orderType: order[0].orderType,
       notes: item.notes,
+      tablaName: tablaNode.materialName,
+      rowKey: `${item.id}-${index}`,
     };
   });
 };
@@ -1170,6 +1174,123 @@ const productSaveMapper = (data: any): any => {
   };
 };
 
+const monthlySalesMapper = (data: any): any => {
+  const averageSales = data.map((item: any, index: any) =>
+    (item / daysInMonth[index]).toFixed(2),
+  );
+  return {
+    labels: [...months],
+    options: {
+      scales: {
+        yAxes: [
+          {
+            id: 'A',
+            type: 'linear',
+            position: 'left',
+          },
+          {
+            id: 'B',
+            type: 'linear',
+            position: 'right',
+          },
+        ],
+      },
+    },
+    datasets: [
+      {
+        label: 'Toplam Satış(TL)',
+        data: [...data],
+        borderWidth: 1,
+        backgroundColor: '#587889',
+        yAxisID: 'A',
+      },
+      {
+        label: 'Ortalama Satış(TL)',
+        data: [...averageSales],
+        borderWidth: 1,
+        backgroundColor: '#c37878',
+        yAxisID: 'B',
+      },
+    ],
+  };
+};
+
+const productBasedSalesMapper = (data: any) => {
+  const userOrderList = genericTableDataMapper(data);
+  const mappedData: any[] = [];
+
+  userOrderList.forEach((order: any): any => {
+    const grouped = order.products.edges.reduce((acc: any, key: any) => {
+      if (acc[key.node.product.sku]) {
+        acc[key.node.product.sku].push(key.node);
+      } else {
+        acc[key.node.product.sku] = [key.node];
+      }
+      return acc;
+    }, []);
+
+    const data = Object.keys(grouped).map((key) => {
+      let totalPrice = 0;
+      grouped[key].forEach((product: any) => {
+        totalPrice = totalPrice + parseFloat(product.price);
+      });
+
+      return {
+        id: order.id,
+        marketplace: order.marketplace.name,
+        orderDate: moment(order.orderDate).format('DD-MM-YYYY'),
+        shipmentCompanyName: order.shipmentCompanyName,
+        shipmentOrderDate: moment(order.shipmentOrderDate).format('DD-MM-YYYY'),
+        name: order.products.edges[0].node.product.name,
+        count: grouped[key].length,
+        price: totalPrice.toFixed(2),
+      };
+    });
+    mappedData.push(...data);
+  });
+
+  return mappedData;
+};
+
+const marketplaceTotalsMapper = (data: any) => {
+  if (!!data) {
+    const parsedData = JSON.parse(data);
+    const labels = Object.keys(parsedData.marketplace_totals);
+    const values = Object.values(parsedData.marketplace_totals);
+    return {
+      data: {
+        labels: [...labels],
+        datasets: [
+          {
+            label: 'Satış(TL)',
+            data: [...values],
+            fill: false,
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgba(255, 99, 132, 0.2)',
+            yAxisID: 'y-axis-1',
+          },
+        ],
+      },
+      return_sum: parsedData.return_sum,
+      cancel_sum: parsedData.cancel_sum,
+    };
+  }
+  return null;
+};
+
+const vastedMapper = (data: any) => {
+  const testObj: any = {};
+  const parsedData = JSON.parse(data as string);
+  Object.keys(parsedData).map((item) => {
+    const data = parsedData[item];
+    const temp = Object.keys(data).map((item) => {
+      return { title: item, data: data[item].toString() };
+    });
+    testObj[item] = temp;
+  });
+  console.log(testObj);
+  return testObj;
+};
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1199,4 +1320,8 @@ export default {
   metaDataOptionMapper,
   productAttributesMapper,
   productSaveMapper,
+  monthlySalesMapper,
+  productBasedSalesMapper,
+  marketplaceTotalsMapper,
+  vastedMapper,
 };

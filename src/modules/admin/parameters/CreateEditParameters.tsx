@@ -35,8 +35,8 @@ const CreateEditParameters: FunctionComponent = () => {
     if (systemParams) {
       setId(systemParams.id);
       setInitialValues(mappers.systemParamMapper(systemParams));
-      closeLoader();
     }
+    closeLoader();
   };
 
   useEffect(() => {
