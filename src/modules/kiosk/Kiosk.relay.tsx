@@ -53,3 +53,9 @@ graphql`
     marketplaceTotals(startDate: $startDate, endDate: $endDate, qtype: $qtype)
   }
 `;
+
+graphql`
+  query KioskHakedisTotalQuery($startDate: DateTime, $endDate: DateTime) {
+    hakedisTotal(startDate: $startDate, endDate: $endDate)
+  }
+`;

@@ -237,10 +237,10 @@ export const otherFields = [
   },
   {
     label: 'Genel Giderler',
-    name: 'genelGiderleri',
+    name: 'genelGiderler',
   },
   {
     label: 'Reklam Giderleri',
-    name: 'reklamGiderleri',
+    name: 'reklamGiderler',
   },
 ];

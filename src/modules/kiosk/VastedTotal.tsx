@@ -1,30 +1,29 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import {
-  Row,
-  Col,
-  DatePicker,
-  Typography,
-  Statistic,
-  Progress,
-  Spin,
-} from 'antd';
-import { Line } from 'react-chartjs-2';
+import { Row, Col, DatePicker, Typography, Spin, Table } from 'antd';
 import moment from 'moment';
 import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
-import { dateOptions } from './data';
-import { SingleSelect } from '../../atoms';
-import MARKETPLACE_TOTALS, {
-  KioskMarketplaceTotalsQuery,
-} from '../../__generated__/KioskMarketplaceTotalsQuery.graphql';
 import mappers from '../../mappers';
+import VASTED_TOTALS, {
+  KioskHakedisTotalQuery,
+} from '../../__generated__/KioskHakedisTotalQuery.graphql';
 
 const { Text } = Typography;
 
-const CumulativeAnnual: FunctionComponent = () => {
+const columns = [
+  {
+    title: 'Adı',
+    dataIndex: 'title',
+  },
+  {
+    title: 'Değer',
+    dataIndex: 'data',
+  },
+];
+
+const VastedTotal: FunctionComponent = () => {
   const environment = useRelayEnvironment();
   const [startDate, setStartDate] = useState<any>(moment().startOf('year'));
   const [endDate, setEndDate] = useState<any>(moment());
-  const [qtype, setQType] = useState<string>(dateOptions[0].value);
 
   const [chartData, setChartData] = useState<any>(null);
 
@@ -32,23 +31,22 @@ const CumulativeAnnual: FunctionComponent = () => {
 
   const getChartData = async () => {
     setLoading(true);
-    const { marketplaceTotals } = await fetchQuery<KioskMarketplaceTotalsQuery>(
+    const { hakedisTotal } = await fetchQuery<KioskHakedisTotalQuery>(
       environment,
-      MARKETPLACE_TOTALS,
+      VASTED_TOTALS,
       {
         startDate: startDate,
         endDate: endDate,
-        qtype: qtype,
       },
       { force: true },
     );
     setLoading(false);
-    setChartData(mappers.marketplaceTotalsMapper(marketplaceTotals as string));
+    setChartData(mappers.vastedMapper(hakedisTotal));
   };
 
   useEffect(() => {
     getChartData();
-  }, [startDate, endDate, qtype]);
+  }, [startDate, endDate]);
 
   return (
     <>
@@ -74,34 +72,21 @@ const CumulativeAnnual: FunctionComponent = () => {
             onChange={setEndDate}
           />
         </Col>
-        <Col span={8}>
-          <Text>Tarihi Seçimi</Text>
-          <SingleSelect
-            options={dateOptions}
-            defaultValue={dateOptions[0].value}
-            style={{ width: '100%' }}
-            onChange={setQType}
-          />
-        </Col>
       </Row>
-      <Col span={24}>
-        <div style={{ width: '100%' }}>
-          <Line height={100} data={chartData?.data} />
-        </div>
-      </Col>
-      <Row gutter={24}>
-        <Col span={6}>
-          <Statistic
-            title="İptal Sayısı"
-            value={chartData?.cancel_sum.toFixed(2)}
-          />
-        </Col>
-        <Col span={6}>
-          <Statistic
-            title="İade Sayısı"
-            value={chartData?.return_sum.toFixed(2)}
-          />
-        </Col>
+
+      <Row gutter={24} style={{ paddingTop: 20 }}>
+        {chartData &&
+          Object.keys(chartData).map((item) => {
+            return (
+              <Col span={12}>
+                <Table
+                  columns={columns}
+                  dataSource={chartData[item]}
+                  size="small"
+                />
+              </Col>
+            );
+          })}
       </Row>
       {loading && (
         <div className="card-loader">
@@ -112,4 +97,4 @@ const CumulativeAnnual: FunctionComponent = () => {
   );
 };
 
-export default CumulativeAnnual;
+export default VastedTotal;

@@ -1248,33 +1248,49 @@ const productBasedSalesMapper = (data: any) => {
     });
     mappedData.push(...data);
   });
-  console.log(mappedData);
+
   return mappedData;
 };
 
 const marketplaceTotalsMapper = (data: any) => {
-  const parsedData = JSON.parse(data);
-  const labels = Object.keys(parsedData.marketplace_totals);
-  const values = Object.values(parsedData.marketplace_totals);
-  return {
-    data: {
-      labels: [...labels],
-      datasets: [
-        {
-          label: 'Satış(TL)',
-          data: [...values],
-          fill: false,
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgba(255, 99, 132, 0.2)',
-          yAxisID: 'y-axis-1',
-        },
-      ],
-    },
-    return_sum: parsedData.return_sum,
-    cancel_sum: parsedData.cancel_sum,
-  };
+  if (!!data) {
+    const parsedData = JSON.parse(data);
+    const labels = Object.keys(parsedData.marketplace_totals);
+    const values = Object.values(parsedData.marketplace_totals);
+    return {
+      data: {
+        labels: [...labels],
+        datasets: [
+          {
+            label: 'Satış(TL)',
+            data: [...values],
+            fill: false,
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgba(255, 99, 132, 0.2)',
+            yAxisID: 'y-axis-1',
+          },
+        ],
+      },
+      return_sum: parsedData.return_sum,
+      cancel_sum: parsedData.cancel_sum,
+    };
+  }
+  return null;
 };
 
+const vastedMapper = (data: any) => {
+  const testObj: any = {};
+  const parsedData = JSON.parse(data as string);
+  Object.keys(parsedData).map((item) => {
+    const data = parsedData[item];
+    const temp = Object.keys(data).map((item) => {
+      return { title: item, data: data[item].toString() };
+    });
+    testObj[item] = temp;
+  });
+  console.log(testObj);
+  return testObj;
+};
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1307,4 +1323,5 @@ export default {
   monthlySalesMapper,
   productBasedSalesMapper,
   marketplaceTotalsMapper,
+  vastedMapper,
 };

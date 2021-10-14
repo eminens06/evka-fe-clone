@@ -63,8 +63,8 @@ export type otherTypes = {
   sivamaFiyatKatsayisi: number;
   nakliyeFiyat: number;
   fahisKatsayisi: number;
-  genelGiderleri: number;
-  reklamGiderleri: number;
+  genelGiderler: number;
+  reklamGiderler: number;
 };
 
 export type SystemFormTypes = {

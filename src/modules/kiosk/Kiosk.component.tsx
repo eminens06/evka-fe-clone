@@ -15,6 +15,7 @@ import mappers from '../../mappers';
 import GET_ORDER_DATA, {
   KioskGetUserOrderListQuery,
 } from '../../__generated__/KioskGetUserOrderListQuery.graphql';
+import VastedTotal from './VastedTotal';
 
 const KioskPage: FunctionComponent = () => {
   const environment = useRelayEnvironment();
@@ -135,6 +136,10 @@ const KioskPage: FunctionComponent = () => {
         ) : (
           <ProductSalesTable data={productSalesData} />
         )}
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Kümülatif Yıllık Grafik">
+        <VastedTotal />
       </Card>
     </>
   );

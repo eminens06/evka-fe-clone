@@ -9182,7 +9182,7 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "genelGiderleri",
+              "name": "genelGiderler",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
@@ -9194,7 +9194,7 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "reklamGiderleri",
+              "name": "reklamGiderler",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
