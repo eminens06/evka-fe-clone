@@ -308,6 +308,19 @@ export const paintColumns = [
     key: 'orderId',
     title: 'Sipariş Id',
     dataIndex: 'orderId',
+    render: (value: any, order: any) => {
+      if (order.notes) {
+        return (
+          <Row className="note">
+            <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
+              <Typography.Text>{`${value}  `}</Typography.Text>
+              <InfoCircleOutlined />
+            </Tooltip>
+          </Row>
+        );
+      }
+      return value;
+    },
   },
   {
     key: 'sku',

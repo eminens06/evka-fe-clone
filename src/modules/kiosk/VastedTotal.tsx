@@ -9,6 +9,13 @@ import VASTED_TOTALS, {
 
 const { Text } = Typography;
 
+const maliyet_names: Record<string, string> = {
+  ana_giderler: 'Malzeme Giderleri',
+  hakedis: 'Hakedişler',
+  insan_hakedis: 'Dış Hizmet Hakediş',
+  fonlar: 'Fonlar',
+};
+
 const columns = [
   {
     title: 'Adı',
@@ -20,9 +27,22 @@ const columns = [
   },
 ];
 
+const getColumns = (type: string) => {
+  return [
+    {
+      title: maliyet_names[type],
+      dataIndex: 'title',
+    },
+    {
+      title: 'Değer',
+      dataIndex: 'data',
+    },
+  ];
+};
+
 const VastedTotal: FunctionComponent = () => {
   const environment = useRelayEnvironment();
-  const [startDate, setStartDate] = useState<any>(moment().startOf('year'));
+  const [startDate, setStartDate] = useState<any>(moment().startOf('month'));
   const [endDate, setEndDate] = useState<any>(moment());
 
   const [chartData, setChartData] = useState<any>(null);
@@ -57,7 +77,7 @@ const VastedTotal: FunctionComponent = () => {
             style={{ width: '100%' }}
             placeholder=""
             format={'DD-MM-YYYY'}
-            defaultValue={moment().startOf('year')}
+            defaultValue={moment().startOf('month')}
             onChange={setStartDate}
           />
         </Col>
@@ -80,7 +100,7 @@ const VastedTotal: FunctionComponent = () => {
             return (
               <Col span={12}>
                 <Table
-                  columns={columns}
+                  columns={getColumns(item)}
                   dataSource={chartData[item]}
                   size="small"
                 />

@@ -124,11 +124,11 @@ const KioskPage: FunctionComponent = () => {
         </Row>
       </Card>
 
-      <Card style={{ margin: 16 }} title="Kümülatif Yıllık Grafik">
+      <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Satış Grafiği">
         <CumulativeAnnual />
       </Card>
 
-      <Card style={{ margin: 16 }} title="Ürün Bazlı Satış Tablosu">
+      <Card style={{ margin: 16 }} title="Sevk Emir Bugün Girilen Siparişler">
         {loading ? (
           <div style={{ height: 300, width: '100%' }}>
             <Skeleton />
@@ -138,7 +138,7 @@ const KioskPage: FunctionComponent = () => {
         )}
       </Card>
 
-      <Card style={{ margin: 16 }} title="Kümülatif Yıllık Grafik">
+      <Card style={{ margin: 16 }} title="Maliyet Analizi">
         <VastedTotal />
       </Card>
     </>

@@ -1284,11 +1284,10 @@ const vastedMapper = (data: any) => {
   Object.keys(parsedData).map((item) => {
     const data = parsedData[item];
     const temp = Object.keys(data).map((item) => {
-      return { title: item, data: data[item].toString() };
+      return { title: item, data: data[item].toFixed(2) };
     });
     testObj[item] = temp;
   });
-  console.log(testObj);
   return testObj;
 };
 export default {

@@ -22,7 +22,7 @@ const { Text } = Typography;
 
 const CumulativeAnnual: FunctionComponent = () => {
   const environment = useRelayEnvironment();
-  const [startDate, setStartDate] = useState<any>(moment().startOf('year'));
+  const [startDate, setStartDate] = useState<any>(moment().startOf('month'));
   const [endDate, setEndDate] = useState<any>(moment());
   const [qtype, setQType] = useState<string>(dateOptions[0].value);
 
@@ -59,7 +59,7 @@ const CumulativeAnnual: FunctionComponent = () => {
             style={{ width: '100%' }}
             placeholder=""
             format={'DD-MM-YYYY'}
-            defaultValue={moment().startOf('year')}
+            defaultValue={moment().startOf('month')}
             onChange={setStartDate}
           />
         </Col>
