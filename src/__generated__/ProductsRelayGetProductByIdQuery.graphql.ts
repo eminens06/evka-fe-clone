@@ -72,6 +72,7 @@ export type ProductsRelayGetProductByIdQueryResponse = {
             readonly ambalajMalzeme: number | null;
             readonly aksesuar: number | null;
             readonly akrilikTipi: string | null;
+            readonly akrilik: number | null;
         } | null;
         readonly labor: {
             readonly metal: number | null;
@@ -193,6 +194,7 @@ query ProductsRelayGetProductByIdQuery(
       ambalajMalzeme
       aksesuar
       akrilikTipi
+      akrilik
     }
     labor {
       metal
@@ -269,17 +271,24 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "width",
+  "name": "akrilik",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v5 = [
+v6 = [
   {
     "alias": null,
     "args": [
@@ -692,7 +701,8 @@ v5 = [
             "kind": "ScalarField",
             "name": "akrilikTipi",
             "storageKey": null
-          }
+          },
+          (v3/*: any*/)
         ],
         "storageKey": null
       },
@@ -746,13 +756,7 @@ v5 = [
             "name": "doseme",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "akrilik",
-            "storageKey": null
-          },
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -770,7 +774,7 @@ v5 = [
         "name": "isMonte",
         "storageKey": null
       },
-      (v3/*: any*/),
+      (v4/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -778,7 +782,7 @@ v5 = [
         "name": "length",
         "storageKey": null
       },
-      (v4/*: any*/),
+      (v5/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -893,8 +897,8 @@ v5 = [
                             "selections": [
                               (v1/*: any*/),
                               (v2/*: any*/),
+                              (v5/*: any*/),
                               (v4/*: any*/),
-                              (v3/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -948,7 +952,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "ProductsRelayGetProductByIdQuery",
-    "selections": (v5/*: any*/),
+    "selections": (v6/*: any*/),
     "type": "Query"
   },
   "kind": "Request",
@@ -956,16 +960,16 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ProductsRelayGetProductByIdQuery",
-    "selections": (v5/*: any*/)
+    "selections": (v6/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "ProductsRelayGetProductByIdQuery",
     "operationKind": "query",
-    "text": "query ProductsRelayGetProductByIdQuery(\n  $id: ID!\n) {\n  product(id: $id) {\n    id\n    name\n    productName\n    kdv\n    metaProducts {\n      edges {\n        node {\n          id\n          categoryName\n          materialName\n          materialId\n          metaType\n          paintType\n          type\n        }\n      }\n    }\n    isCollectable\n    sku\n    packageCount\n    metalAttributes {\n      profil\n      paslanmaz\n      lazer\n      statikBoya\n      parlakEskitmePrinc\n      bukum\n    }\n    woodAttributes {\n      mdfLam\n      mdfkp\n      papel\n      laminant\n      cumba\n      balon\n      torna\n      digerKereste\n      kayinKereste\n      hamMdf\n      masifPanel\n      masifPanelFiyat\n      kontplak\n      kontplakFiyat\n      lake\n      cila\n    }\n    otherAttributes {\n      mermer\n      mermerIscilik\n      mermerFarklari\n      cam4mm\n      cam10mm\n      camAynaFazlalik\n      kumas\n    }\n    other {\n      aliminyumDokum\n      silikonHirdavat\n      sivama\n      ambalajMalzeme\n      aksesuar\n      akrilikTipi\n    }\n    labor {\n      metal\n      tasima\n      toplama\n      ahsapAtolyesi\n      polisaj\n      doseme\n      akrilik\n      ambalaj\n    }\n    isMonte\n    width\n    length\n    height\n    aluminiumPrice\n    sivamaPrice\n    silikonHirdavatPrice\n    aksesuarPrice\n    packingPrice\n    metaInfo\n    productImages {\n      edges {\n        node {\n          id\n          name\n          processed\n          tags\n          images(orderBy: \"width\") {\n            edges {\n              node {\n                id\n                name\n                height\n                width\n                file {\n                  url\n                }\n                externalUrl\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductsRelayGetProductByIdQuery(\n  $id: ID!\n) {\n  product(id: $id) {\n    id\n    name\n    productName\n    kdv\n    metaProducts {\n      edges {\n        node {\n          id\n          categoryName\n          materialName\n          materialId\n          metaType\n          paintType\n          type\n        }\n      }\n    }\n    isCollectable\n    sku\n    packageCount\n    metalAttributes {\n      profil\n      paslanmaz\n      lazer\n      statikBoya\n      parlakEskitmePrinc\n      bukum\n    }\n    woodAttributes {\n      mdfLam\n      mdfkp\n      papel\n      laminant\n      cumba\n      balon\n      torna\n      digerKereste\n      kayinKereste\n      hamMdf\n      masifPanel\n      masifPanelFiyat\n      kontplak\n      kontplakFiyat\n      lake\n      cila\n    }\n    otherAttributes {\n      mermer\n      mermerIscilik\n      mermerFarklari\n      cam4mm\n      cam10mm\n      camAynaFazlalik\n      kumas\n    }\n    other {\n      aliminyumDokum\n      silikonHirdavat\n      sivama\n      ambalajMalzeme\n      aksesuar\n      akrilikTipi\n      akrilik\n    }\n    labor {\n      metal\n      tasima\n      toplama\n      ahsapAtolyesi\n      polisaj\n      doseme\n      akrilik\n      ambalaj\n    }\n    isMonte\n    width\n    length\n    height\n    aluminiumPrice\n    sivamaPrice\n    silikonHirdavatPrice\n    aksesuarPrice\n    packingPrice\n    metaInfo\n    productImages {\n      edges {\n        node {\n          id\n          name\n          processed\n          tags\n          images(orderBy: \"width\") {\n            edges {\n              node {\n                id\n                name\n                height\n                width\n                file {\n                  url\n                }\n                externalUrl\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '30b694bb68e6c677107feacdd8cd7d89';
+(node as any).hash = '757bb7767410b2b9c9ed5202e51a8716';
 export default node;

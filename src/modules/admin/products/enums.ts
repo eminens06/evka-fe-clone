@@ -258,7 +258,7 @@ export const otherPropsFileds = [
   },
   {
     label: 'Akrilik Ebat (m2)',
-    name: 'akrilik',
+    name: 'akrilikEbat',
   },
 ];
 

@@ -88,6 +88,7 @@ graphql`
         ambalajMalzeme
         aksesuar
         akrilikTipi
+        akrilik
       }
       labor {
         metal

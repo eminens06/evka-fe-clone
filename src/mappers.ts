@@ -1122,6 +1122,8 @@ const productAttributesMapper = (data: any) => {
     isCollectable: data.isCollectable ? 'toplanacak' : 'toplanmayacak',
     desi: getDesi(data.width, data.height, data.length),
     defaultFileList: productImages,
+    akrilik: data.labor.akrilik,
+    akrilikEbat: data.other.akrilik,
   };
 };
 
@@ -1142,7 +1144,11 @@ const productSaveMapper = (data: any): any => {
   }, {});
 
   const other = otherPropsFileds.reduce((acc: any, field: any) => {
-    acc[field.name] = data[field.name];
+    if (field.name === 'akrilikEbat') {
+      acc['akrilik'] = Number(data[field.name]);
+    } else {
+      acc[field.name] = data[field.name];
+    }
     return acc;
   }, {});
 
