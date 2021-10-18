@@ -58,8 +58,12 @@ const ComparisonCard: FunctionComponent<Props> = ({
         ) : (
           <>
             <Statistic title={title} value={`${value} ₺`} />
-            <Text type="secondary">Değişim </Text>
-            {changeText}
+            {value !== '0.00' && subValue !== '0.00' && (
+              <>
+                <Text type="secondary">Değişim </Text>
+                {changeText}
+              </>
+            )}
             <Divider style={{ margin: 4 }} />
             <Statistic title={subTitle} value={`${subValue} ₺`} />
           </>

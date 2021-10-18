@@ -54,10 +54,12 @@ const ProductSalesTable: FunctionComponent<Props> = ({ data }) => {
       dataSource={data}
       pagination={false}
       summary={(pageData) => {
+        let totalCount = 0;
         let total = 0;
 
-        pageData.forEach(({ price }) => {
+        pageData.forEach(({ price, count }) => {
           total += Number(price);
+          totalCount += count;
         });
 
         return (
@@ -67,7 +69,11 @@ const ProductSalesTable: FunctionComponent<Props> = ({ data }) => {
               <Summary.Cell index={1}></Summary.Cell>
               <Summary.Cell index={1}></Summary.Cell>
               <Summary.Cell index={1}></Summary.Cell>
-              <Summary.Cell index={1}></Summary.Cell>
+              <Summary.Cell index={4}>
+                <Text strong type="danger">
+                  {totalCount}
+                </Text>
+              </Summary.Cell>
               <Summary.Cell index={5}>
                 <Text strong type="danger">
                   {total.toFixed(2)}

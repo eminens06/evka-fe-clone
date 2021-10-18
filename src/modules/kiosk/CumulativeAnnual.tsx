@@ -61,6 +61,7 @@ const CumulativeAnnual: FunctionComponent = () => {
             format={'DD-MM-YYYY'}
             defaultValue={moment().startOf('month')}
             onChange={setStartDate}
+            allowClear={false}
           />
         </Col>
         <Col span={8}>
@@ -72,6 +73,7 @@ const CumulativeAnnual: FunctionComponent = () => {
             defaultValue={moment()}
             value={endDate}
             onChange={setEndDate}
+            allowClear={false}
           />
         </Col>
         <Col span={8}>

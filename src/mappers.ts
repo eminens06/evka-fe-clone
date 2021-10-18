@@ -1290,7 +1290,7 @@ const vastedMapper = (data: any) => {
   Object.keys(parsedData).map((item) => {
     const data = parsedData[item];
     const temp = Object.keys(data).map((item) => {
-      return { title: item, data: data[item].toFixed(2) };
+      return { title: item, data: data[item].toFixed(2).toString() };
     });
     testObj[item] = temp;
   });

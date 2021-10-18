@@ -79,6 +79,7 @@ const VastedTotal: FunctionComponent = () => {
             format={'DD-MM-YYYY'}
             defaultValue={moment().startOf('month')}
             onChange={setStartDate}
+            allowClear={false}
           />
         </Col>
         <Col span={8}>
@@ -90,6 +91,7 @@ const VastedTotal: FunctionComponent = () => {
             defaultValue={moment()}
             value={endDate}
             onChange={setEndDate}
+            allowClear={false}
           />
         </Col>
       </Row>
