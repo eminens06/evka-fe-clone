@@ -634,7 +634,7 @@ const productionMaterialMapper = (
       externalServices: services || [],
       orderType: order[0].orderType,
       notes: item.notes,
-      tablaName: tablaNode.materialName,
+      tablaName: tablaNode?.materialName,
       rowKey: `${item.id}-${index}`,
     };
   });
