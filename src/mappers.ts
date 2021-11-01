@@ -1157,12 +1157,17 @@ const productSaveMapper = (data: any): any => {
     return acc;
   }, {});
 
+  const isCollectable =
+    data.isCollectable === 'toplanacak' || data.isCollectable === true
+      ? true
+      : false;
+
   return {
     name: data.name,
     productName: data.name,
     metaProductIds: [data.category, data.subCategory, data.ayak, data.tabla],
     kdv: data.kdv,
-    isCollectable: data.isCollectable,
+    isCollectable: isCollectable,
     packageCount: data.packageCount,
     metalAttributes: { ...metal },
     woodAttributes: { ...wood },
@@ -1181,9 +1186,17 @@ const productSaveMapper = (data: any): any => {
 };
 
 const monthlySalesMapper = (data: any): any => {
+  let dataArray = data.map((item: any) => item);
   const averageSales = data.map((item: any, index: any) =>
     (item / daysInMonth[index]).toFixed(2),
   );
+
+  const date = new Date();
+  if (!(date.getFullYear() > 2021 && date.getMonth() > 6)) {
+    averageSales[7] = 0;
+    dataArray[7] = 0;
+  }
+
   return {
     labels: [...months],
     options: {
@@ -1205,7 +1218,7 @@ const monthlySalesMapper = (data: any): any => {
     datasets: [
       {
         label: 'Toplam Satış(TL)',
-        data: [...data],
+        data: [...dataArray],
         borderWidth: 1,
         backgroundColor: '#587889',
         yAxisID: 'A',
@@ -1261,8 +1274,28 @@ const productBasedSalesMapper = (data: any) => {
 const marketplaceTotalsMapper = (data: any) => {
   if (!!data) {
     const parsedData = JSON.parse(data);
-    const labels = Object.keys(parsedData.marketplace_totals);
-    const values = Object.values(parsedData.marketplace_totals);
+    const sortBy = [
+      'Evka',
+      'Vivense',
+      'TRENDYOL',
+      'Tepehome',
+      'Hepsiburada',
+      'n11',
+      'Yapibahce',
+      'Hipicon',
+      'Amazon',
+      'Dekopasaj',
+      'Depo',
+    ];
+
+    const ordered = Object.keys(parsedData.marketplace_totals)
+      .sort((a, b) => sortBy.indexOf(a) - sortBy.indexOf(b))
+      .reduce((obj: any, key) => {
+        obj[key] = parsedData.marketplace_totals[key];
+        return obj;
+      }, {});
+    const labels = Object.keys(ordered);
+    const values = Object.values(ordered);
     return {
       data: {
         labels: [...labels],
