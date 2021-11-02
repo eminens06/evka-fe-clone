@@ -126,7 +126,7 @@ export const otherWorkshopFields = [
     name: 'mermerFiyat',
   },
   {
-    label: 'Renkli/Özel Mermer Katsayısı',
+    label: 'Renkli/Özel Mermer Fiyatı (TL/m2)',
     name: 'ozelMermerKatsayisi',
   },
   {
