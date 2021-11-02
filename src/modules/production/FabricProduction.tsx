@@ -178,6 +178,7 @@ const FabricProduction: FunctionComponent = () => {
               status={modalData.status}
               workshopType={modalData.type}
               serviceInfo={modalData.externalServices}
+              tablaName={modalData.tablaName}
               moduleName={ModuleType.F}
             />
           </StatusModal>

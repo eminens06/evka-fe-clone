@@ -179,6 +179,7 @@ const MarbleProduction: FunctionComponent = () => {
               workshopType={modalData.type}
               serviceInfo={modalData.externalServices}
               moduleName={ModuleType.MR}
+              tablaName={modalData.tablaName}
             />
           </StatusModal>
         )}
