@@ -360,6 +360,7 @@ export const userOrderMapper = (userOrder: any) => {
     invoiceDate: userOrder.invoiceDate,
     invoiceNo: userOrder.invoiceNo,
     isKdvInclude: userOrder.isKdvInclude,
+    orderDate: moment(userOrder?.orderDate),
   };
 };
 
@@ -966,12 +967,19 @@ const logListMapper = (data: any): OrderLogDetail[] => {
   );
 };
 
+const checkuser = (user: any) => {
+  if (user?.firstName || user?.lastName) {
+    return `${user.firstName} ${user.lastName}`;
+  }
+  return 'Kullanıcı artık yok';
+};
+
 const orderHistoryMapper = (data: HistoryDTO[]): OrderHistory[] => {
   return data.map((item) => {
     return {
       id: item.id,
       date: moment(item.updatedDate).format('DD-MM-YYYY HH:mm:ss'),
-      user: `${item.user.firstName} ${item.user.lastName}`,
+      user: checkuser(item.user),
       change: {
         oldStatus: item.oldStatus,
         newStatus: item.newStatus,
