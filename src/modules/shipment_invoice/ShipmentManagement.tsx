@@ -190,6 +190,10 @@ const ShipmentManagement: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'marketplace', text: 'Pazaryeri' },
+          ]}
         />
         <AddEditCard
           isVisible={isModalVisible}

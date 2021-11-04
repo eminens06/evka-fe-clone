@@ -159,6 +159,12 @@ const PaintProduction: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'productName', text: 'Ürün Adı' },
+            { value: 'type', text: 'Ürün Tipi' },
+            { value: 'status', text: 'Durum' },
+          ]}
         />
         {modalData && (
           <StatusModal

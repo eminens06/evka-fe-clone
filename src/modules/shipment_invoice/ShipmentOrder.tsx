@@ -228,6 +228,11 @@ const ShipmentOrder: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'marketplace', text: 'Pazaryeri' },
+            { value: 'shipmentType', text: 'Sevkiyat Türü' },
+          ]}
         />
 
         <AddEditCard

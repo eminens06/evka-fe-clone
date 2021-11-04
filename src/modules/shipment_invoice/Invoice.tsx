@@ -167,6 +167,11 @@ const Invoice: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'marketplace', text: 'Pazaryeri' },
+            { value: 'shipmentCompany', text: 'Firma' },
+          ]}
         />
         {modalData && (
           <AddEditCard
