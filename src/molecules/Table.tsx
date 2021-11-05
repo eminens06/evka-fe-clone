@@ -9,10 +9,10 @@ import { DataSource } from './types';
 import settings from '../settings';
 import { OrderTypes } from '../modules/orders/types';
 import { RowClass } from '../modules/production/types';
-import { ExportTableButton } from 'ant-table-extensions';
 import { FileExcelOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import TableSort from './TableSort';
+import ExportTableButton from './ExportTableButton';
 
 const { Title } = Typography;
 
