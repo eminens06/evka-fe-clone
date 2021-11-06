@@ -69,6 +69,7 @@ const columns = [
     key: 'customer',
     title: 'Müşteri',
     dataIndex: 'customer',
+    sortable: true,
   },
   {
     key: 'products',
@@ -142,6 +143,12 @@ const OrdersPage: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'customer', text: 'Müşteri' },
+            { value: 'status', text: 'Durum' },
+            { value: 'marketplace', text: 'Pazaryeri' },
+          ]}
         />
       </div>
     </PageContent>

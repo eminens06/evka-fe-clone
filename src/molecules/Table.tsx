@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Table as AntTable, Typography } from 'antd';
 import {
   ColumnsType,
@@ -12,6 +12,7 @@ import { RowClass } from '../modules/production/types';
 import { ExportTableButton } from 'ant-table-extensions';
 import { FileExcelOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import TableSort from './TableSort';
 
 const { Title } = Typography;
 
@@ -30,11 +31,15 @@ interface Props {
   exportFormatter?: any;
   fileName?: string;
   preventExport?: boolean;
+  sortKeys?: Option[];
 }
 
 const Table: FC<Props> = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(settings.pageSize);
+  const [sortedData, setSortedData] = useState<any>();
+  const [initial, setInitial] = useState<any>();
+  const [sort, setSort] = useState<string>();
 
   const changePagination = (page: number, pgSize?: number) => {
     setCurrentPage(page);
@@ -53,6 +58,42 @@ const Table: FC<Props> = (props) => {
     return props.dataSource;
   }, [props.dataSource, props.exportFormatter]);
 
+  useEffect(() => {
+    setSortedData(props.dataSource);
+    setInitial([...props.dataSource]);
+    if (props.sortKeys) {
+      setSort(props.sortKeys[0].value);
+    }
+  }, [props.dataSource, props.sortKeys]);
+
+  useEffect(() => {
+    if (!sort) return;
+    if (sort === 'remainingTime') {
+      setSortedData(initial);
+      return;
+    }
+    setSortedData((prev: any) => {
+      const newData = prev.sort((a, b) => {
+        if (typeof a[sort] === 'string') {
+          const value1 = a[sort] as string;
+          const value2 = b[sort] as string;
+          if (!value1) return -1;
+          return value1.localeCompare(value2);
+        } else if (typeof a[sort] === 'number') {
+          return a[sort] - b[sort];
+        } else {
+          return 0;
+        }
+      });
+      return [...newData];
+    });
+  }, [sort]);
+
+  const onSortChange = (value: any) => {
+    setSort(value);
+    changePagination(1);
+  };
+
   return (
     <>
       {!props.preventExport && (
@@ -65,8 +106,17 @@ const Table: FC<Props> = (props) => {
           İndir
         </ExportTableButton>
       )}
+      {props.sortKeys && sort && (
+        <TableSort
+          onChange={onSortChange}
+          options={props.sortKeys}
+          value={sort}
+        />
+      )}
       <AntTable
         {...props}
+        dataSource={sortedData}
+        sortDirections={['ascend']}
         key={props.rowKey}
         pagination={{
           ...props.pagination,

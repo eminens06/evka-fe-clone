@@ -217,6 +217,11 @@ const ManagementProduction: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'productName', text: 'Ürün Adı' },
+            { value: 'marketplace', text: 'Pazaryeri' },
+          ]}
         />
         <ProductOrderSummary
           data={modalData}

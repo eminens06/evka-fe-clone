@@ -103,6 +103,11 @@ const Summary: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'shipmentStatus', text: 'Sevk Durumu' },
+            { value: 'invoiceStatus', text: 'Fatura Durumu' },
+          ]}
         />
       </div>
     </PageContent>

@@ -150,6 +150,11 @@ const GlassProduction: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'productName', text: 'Ürün Adı' },
+            { value: 'status', text: 'Durum' },
+          ]}
         />
         {modalData && (
           <StatusModal

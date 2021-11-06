@@ -109,6 +109,12 @@ const MetalProduction: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'productName', text: 'Ürün Adı' },
+            { value: 'type', text: 'Ürün Tipi' },
+            { value: 'status', text: 'Durum' },
+          ]}
         />
         {modalData && modalData?.status !== WorkshopStatus.IN_PAINT && (
           <StatusModal
