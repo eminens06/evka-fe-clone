@@ -57,7 +57,7 @@ const ComparisonCard: FunctionComponent<Props> = ({
           <Skeleton />
         ) : (
           <>
-            <Statistic title={title} value={`${value} ₺`} />
+            <Statistic title={title} value={`${value.replace(/\./g, ',')} ₺`} />
             {value !== '0.00' && subValue !== '0.00' && (
               <>
                 <Text type="secondary">Değişim </Text>
@@ -65,7 +65,10 @@ const ComparisonCard: FunctionComponent<Props> = ({
               </>
             )}
             <Divider style={{ margin: 4 }} />
-            <Statistic title={subTitle} value={`${subValue} ₺`} />
+            <Statistic
+              title={subTitle}
+              value={`${subValue.replace(/\./g, ',')} ₺`}
+            />
           </>
         )}
       </Card>
