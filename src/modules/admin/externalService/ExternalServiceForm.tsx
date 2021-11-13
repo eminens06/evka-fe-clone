@@ -136,7 +136,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
 
   useEffect(() => {
     form.resetFields();
-    if (initialValues.module === 'PT') {
+    if (initialValues?.module === 'PT') {
       setIsPaint(true);
     } else {
       setIsPaint(false);
