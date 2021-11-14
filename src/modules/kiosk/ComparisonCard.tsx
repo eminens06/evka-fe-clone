@@ -48,6 +48,10 @@ const ComparisonCard: FunctionComponent<Props> = ({
     );
   }, [value, subValue]);
 
+  function numberWithCommas(x: any) {
+    if (x) return x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   return (
     <>
       <Card bodyStyle={{ padding: 18 }} bordered={false}>
@@ -57,10 +61,7 @@ const ComparisonCard: FunctionComponent<Props> = ({
           <Skeleton />
         ) : (
           <>
-            <Statistic
-              title={title}
-              value={`${value?.replace(/\./g, ',')} ₺`}
-            />
+            <Statistic title={title} value={`${numberWithCommas(value)} ₺`} />
             {value !== '0.00' && subValue !== '0.00' && (
               <>
                 <Text type="secondary">Değişim </Text>
@@ -70,7 +71,7 @@ const ComparisonCard: FunctionComponent<Props> = ({
             <Divider style={{ margin: 4 }} />
             <Statistic
               title={subTitle}
-              value={`${subValue?.replace(/\./g, ',')} ₺`}
+              value={`${numberWithCommas(subValue)} ₺`}
             />
           </>
         )}
