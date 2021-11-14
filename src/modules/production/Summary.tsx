@@ -46,6 +46,12 @@ const ProductionSummary: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
+          sortKeys={[
+            { value: 'remainingTime', text: 'Kalan Süre' },
+            { value: 'productName', text: 'Ürün Adı' },
+            { value: 'tablaStatus', text: 'Tabla Durumu' },
+            { value: 'ayakStatus', text: 'Ayak Durumu' },
+          ]}
         />
       </div>
     </PageContent>
