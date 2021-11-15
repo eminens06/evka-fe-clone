@@ -3,6 +3,7 @@ import React from 'react';
 import Status from '../../atoms/Status';
 import { ProgressStepValue } from '../../molecules/types';
 import settings from '../../settings';
+import ImagePopover from '../common/ImagePopover';
 import { PackageStatus } from './types';
 
 export const StatusMapper: Record<PackageStatus, StatusObject> = {
@@ -30,6 +31,12 @@ export const packagingColumns = [
     key: 'productName',
     title: 'Ürün Adı',
     dataIndex: 'productName',
+    render: (value: any, order: any) => {
+      if (order.productImages.length > 0) {
+        return <ImagePopover images={order.productImages} text={value} />;
+      }
+      return value;
+    },
   },
   {
     key: 'remainingDate',

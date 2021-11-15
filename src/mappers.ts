@@ -734,6 +734,12 @@ const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
   return data.map((item) => {
     const order = genericTableDataMapper(item, 'userOrder');
     const newProduct = genericTableDataMapper(item.product, 'metaProducts');
+
+    const images = genericTableDataMapper(item.product, 'productImages');
+    const imageList = images
+      ? images.map((img) => getImageGroupByWidth(img, 320))
+      : [];
+
     const { legMaterial, tableMaterial } = findMetadata(newProduct);
     return {
       orderId: `${order[0].marketplace.name} - ${order[0].marketplaceOrderId}`,
@@ -746,6 +752,7 @@ const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
       tableMaterial,
       isMonte: item.product.isMonte,
       id: item.id,
+      productImages: imageList,
     };
   });
 };
