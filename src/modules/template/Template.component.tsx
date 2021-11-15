@@ -46,6 +46,27 @@ const TemplatePage: FunctionComponent = () => {
     }
   }, [router]);
 
+  const printProduct = () => {
+    const imageContainer = document.getElementById(`image_0`);
+    const img = imageContainer
+      ?.getElementsByClassName('ant-image-img')[0]
+      .getAttribute('src');
+
+    const desc = document.getElementById('product-desc');
+    const frame = window.open('', '', 'height=500, width=500');
+    if (frame) {
+      frame.document.write('<html>');
+      frame.document.write('<style>img { padding: 30px; }</style>');
+      frame.document.write('<body > ' + desc?.innerHTML + ' <br>');
+      frame.document.write(`<img width='90%' src='` + img + `' />`);
+
+      frame.document.write('</body></html>');
+      frame.document.close();
+
+      frame.print();
+    }
+  };
+
   if (!data) return null;
   return (
     <Layout>
@@ -57,12 +78,17 @@ const TemplatePage: FunctionComponent = () => {
           type="primary"
           icon={<PrinterOutlined />}
           style={{ marginTop: '16px', float: 'right' }}
-          onClick={() => window.print()}
+          onClick={() => printProduct()}
         >
           Şablonu Yazdır
         </Button>
       </Header>
-      <Card title="Özellikleri" bordered={false} className="template-card">
+      <Card
+        id="product-desc"
+        title="Özellikleri"
+        bordered={false}
+        className="template-card"
+      >
         <Row gutter={24}>
           <Col span={12}>
             <Row>
@@ -105,6 +131,7 @@ const TemplatePage: FunctionComponent = () => {
                 width={300}
                 style={{ padding: 20 }}
                 src={img}
+                id={`image_${index}`}
               />
             );
           })}
