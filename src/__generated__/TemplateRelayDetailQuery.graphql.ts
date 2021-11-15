@@ -27,6 +27,7 @@ export type TemplateRelayDetailQueryResponse = {
             readonly productImages: {
                 readonly edges: ReadonlyArray<{
                     readonly node: {
+                        readonly updatedAt: unknown | null;
                         readonly images: {
                             readonly edges: ReadonlyArray<{
                                 readonly node: {
@@ -79,6 +80,7 @@ query TemplateRelayDetailQuery(
       productImages {
         edges {
           node {
+            updatedAt
             images {
               edges {
                 node {
@@ -183,6 +185,13 @@ v10 = {
   "storageKey": null
 },
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageConnection",
@@ -333,7 +342,8 @@ return {
                         "name": "node",
                         "plural": false,
                         "selections": [
-                          (v11/*: any*/)
+                          (v11/*: any*/),
+                          (v12/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -442,6 +452,7 @@ return {
                         "plural": false,
                         "selections": [
                           (v11/*: any*/),
+                          (v12/*: any*/),
                           (v2/*: any*/)
                         ],
                         "storageKey": null
@@ -466,9 +477,9 @@ return {
     "metadata": {},
     "name": "TemplateRelayDetailQuery",
     "operationKind": "query",
-    "text": "query TemplateRelayDetailQuery(\n  $id: ID!\n) {\n  productOrder(id: $id) {\n    id\n    notes\n    product {\n      name\n      sku\n      width\n      length\n      height\n      metaProducts {\n        edges {\n          node {\n            materialName\n            categoryName\n            id\n          }\n        }\n      }\n      productImages {\n        edges {\n          node {\n            images {\n              edges {\n                node {\n                  id\n                  name\n                  height\n                  width\n                  file {\n                    url\n                  }\n                  externalUrl\n                }\n              }\n            }\n            id\n          }\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query TemplateRelayDetailQuery(\n  $id: ID!\n) {\n  productOrder(id: $id) {\n    id\n    notes\n    product {\n      name\n      sku\n      width\n      length\n      height\n      metaProducts {\n        edges {\n          node {\n            materialName\n            categoryName\n            id\n          }\n        }\n      }\n      productImages {\n        edges {\n          node {\n            updatedAt\n            images {\n              edges {\n                node {\n                  id\n                  name\n                  height\n                  width\n                  file {\n                    url\n                  }\n                  externalUrl\n                }\n              }\n            }\n            id\n          }\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd1231e126ea5397751e124e6e8fdc8a2';
+(node as any).hash = '12a20fd3acab0e84a381b156cd1bf486';
 export default node;

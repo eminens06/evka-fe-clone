@@ -22,6 +22,7 @@ graphql`
         productImages {
           edges {
             node {
+              updatedAt
               images {
                 edges {
                   node {

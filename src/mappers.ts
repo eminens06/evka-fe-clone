@@ -865,6 +865,10 @@ const templateMapper = (data: any): TemplateData => {
   let tabla = '';
   const metaData = genericTableDataMapper(data.product, 'metaProducts');
   const images = genericTableDataMapper(data.product, 'productImages');
+  images.sort(function (a: any, b: any) {
+    return new Date(b.updatedAt) - new Date(a.updatedAt);
+  });
+
   const imageList = images
     ? images.map((img) => getImageGroupByWidth(img, 320))
     : [];
