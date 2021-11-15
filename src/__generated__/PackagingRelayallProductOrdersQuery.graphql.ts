@@ -26,6 +26,26 @@ export type PackagingRelayallProductOrdersQueryResponse = {
                             } | null;
                         } | null>;
                     };
+                    readonly productImages: {
+                        readonly edges: ReadonlyArray<{
+                            readonly node: {
+                                readonly images: {
+                                    readonly edges: ReadonlyArray<{
+                                        readonly node: {
+                                            readonly id: string;
+                                            readonly name: string;
+                                            readonly height: number | null;
+                                            readonly width: number | null;
+                                            readonly file: {
+                                                readonly url: string | null;
+                                            } | null;
+                                            readonly externalUrl: string | null;
+                                        } | null;
+                                    } | null>;
+                                } | null;
+                            } | null;
+                        } | null>;
+                    };
                 } | null;
                 readonly userOrder: {
                     readonly edges: ReadonlyArray<{
@@ -68,6 +88,27 @@ query PackagingRelayallProductOrdersQuery(
               node {
                 categoryName
                 materialName
+                id
+              }
+            }
+          }
+          productImages {
+            edges {
+              node {
+                images {
+                  edges {
+                    node {
+                      id
+                      name
+                      height
+                      width
+                      file {
+                        url
+                      }
+                      externalUrl
+                    }
+                  }
+                }
                 id
               }
             }
@@ -173,11 +214,85 @@ v9 = {
 v10 = {
   "alias": null,
   "args": null,
+  "concreteType": "ImageConnection",
+  "kind": "LinkedField",
+  "name": "images",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageNode",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v3/*: any*/),
+            (v4/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "height",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "width",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageFileType",
+              "kind": "LinkedField",
+              "name": "file",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "url",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "externalUrl",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
   "kind": "ScalarField",
   "name": "estimatedDeliveryDate",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -263,6 +378,40 @@ return {
                           }
                         ],
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageGroupNodeConnection",
+                        "kind": "LinkedField",
+                        "name": "productImages",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ImageGroupNodeEdge",
+                            "kind": "LinkedField",
+                            "name": "edges",
+                            "plural": true,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageGroupNode",
+                                "kind": "LinkedField",
+                                "name": "node",
+                                "plural": false,
+                                "selections": [
+                                  (v10/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -291,8 +440,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
                               (v11/*: any*/),
+                              (v12/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -406,6 +555,41 @@ return {
                         ],
                         "storageKey": null
                       },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageGroupNodeConnection",
+                        "kind": "LinkedField",
+                        "name": "productImages",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ImageGroupNodeEdge",
+                            "kind": "LinkedField",
+                            "name": "edges",
+                            "plural": true,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageGroupNode",
+                                "kind": "LinkedField",
+                                "name": "node",
+                                "plural": false,
+                                "selections": [
+                                  (v10/*: any*/),
+                                  (v3/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
                       (v3/*: any*/)
                     ],
                     "storageKey": null
@@ -434,8 +618,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
                               (v11/*: any*/),
+                              (v12/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -475,9 +659,9 @@ return {
     "metadata": {},
     "name": "PackagingRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query PackagingRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"PP\", superSearch: $search) {\n    edges {\n      node {\n        packagingStatus\n        id\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              estimatedDeliveryDate\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query PackagingRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"PP\", superSearch: $search) {\n    edges {\n      node {\n        packagingStatus\n        id\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      file {\n                        url\n                      }\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              estimatedDeliveryDate\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '285ca69bb7331848d6be26bbfe495d92';
+(node as any).hash = 'df34cefca3389a4dd0ab9be03915e3f9';
 export default node;
