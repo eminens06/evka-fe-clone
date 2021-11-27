@@ -32,7 +32,9 @@ const CumulativeAnnual: FunctionComponent = () => {
 
   const getChartData = async () => {
     setLoading(true);
-    const { marketplaceTotals } = await fetchQuery<KioskMarketplaceTotalsQuery>(
+    const {
+      newMarketplaceTotal,
+    } = await fetchQuery<KioskMarketplaceTotalsQuery>(
       environment,
       MARKETPLACE_TOTALS,
       {
@@ -43,7 +45,10 @@ const CumulativeAnnual: FunctionComponent = () => {
       { force: true },
     );
     setLoading(false);
-    setChartData(mappers.marketplaceTotalsMapper(marketplaceTotals as string));
+
+    setChartData(
+      mappers.marketplaceTotalsMapper(newMarketplaceTotal as string),
+    );
   };
 
   useEffect(() => {
@@ -95,13 +100,13 @@ const CumulativeAnnual: FunctionComponent = () => {
         <Col span={6}>
           <Statistic
             title="İptal Tutarı"
-            value={chartData?.cancel_sum.toFixed(2)}
+            value={chartData?.cancel_sum?.toFixed(2)}
           />
         </Col>
         <Col span={6}>
           <Statistic
             title="İade Tutarı"
-            value={chartData?.return_sum.toFixed(2)}
+            value={chartData?.return_sum?.toFixed(2)}
           />
         </Col>
       </Row>
