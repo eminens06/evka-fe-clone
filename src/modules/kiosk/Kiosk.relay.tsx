@@ -50,7 +50,7 @@ graphql`
     $endDate: DateTime
     $qtype: String
   ) {
-    marketplaceTotals(startDate: $startDate, endDate: $endDate, qtype: $qtype)
+    newMarketplaceTotal(startDate: $startDate, endDate: $endDate, qtype: $qtype)
   }
 `;
 

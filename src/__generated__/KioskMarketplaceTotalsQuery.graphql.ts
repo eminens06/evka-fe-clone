@@ -8,7 +8,7 @@ export type KioskMarketplaceTotalsQueryVariables = {
     qtype?: string | null;
 };
 export type KioskMarketplaceTotalsQueryResponse = {
-    readonly marketplaceTotals: unknown | null;
+    readonly newMarketplaceTotal: unknown | null;
 };
 export type KioskMarketplaceTotalsQuery = {
     readonly response: KioskMarketplaceTotalsQueryResponse;
@@ -23,7 +23,7 @@ query KioskMarketplaceTotalsQuery(
   $endDate: DateTime
   $qtype: String
 ) {
-  marketplaceTotals(startDate: $startDate, endDate: $endDate, qtype: $qtype)
+  newMarketplaceTotal(startDate: $startDate, endDate: $endDate, qtype: $qtype)
 }
 */
 
@@ -69,7 +69,7 @@ v1 = [
       }
     ],
     "kind": "ScalarField",
-    "name": "marketplaceTotals",
+    "name": "newMarketplaceTotal",
     "storageKey": null
   }
 ];
@@ -94,9 +94,9 @@ return {
     "metadata": {},
     "name": "KioskMarketplaceTotalsQuery",
     "operationKind": "query",
-    "text": "query KioskMarketplaceTotalsQuery(\n  $startDate: DateTime\n  $endDate: DateTime\n  $qtype: String\n) {\n  marketplaceTotals(startDate: $startDate, endDate: $endDate, qtype: $qtype)\n}\n"
+    "text": "query KioskMarketplaceTotalsQuery(\n  $startDate: DateTime\n  $endDate: DateTime\n  $qtype: String\n) {\n  newMarketplaceTotal(startDate: $startDate, endDate: $endDate, qtype: $qtype)\n}\n"
   }
 };
 })();
-(node as any).hash = '1c4b90bb6e4e516dfb432c1bd995994e';
+(node as any).hash = '30b4a396fd7116a1732ab8d2abfd5802';
 export default node;

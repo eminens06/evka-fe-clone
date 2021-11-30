@@ -131,3 +131,31 @@ export const daysInMonth = [
   30,
   31,
 ];
+
+export const colorPalette = [
+  `#003f5c`,
+  `#ffa600`,
+  `#B6C8A9`,
+  `#FFAEBC`,
+  `#FBE7C6`,
+  `#ff7c43`,
+  `#665191`,
+  `#a05195`,
+  `#f95d6a`,
+  `#d45087`,
+  `#fa8072`,
+];
+
+export const marketplaces = [
+  'Evka',
+  'Vivense',
+  'TRENDYOL',
+  'Tepehome',
+  'Hepsiburada',
+  'n11',
+  'Yapibahce',
+  'Hipicon',
+  'Amazon',
+  'Dekopasaj',
+  'Depo',
+];

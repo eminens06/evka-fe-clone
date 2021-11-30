@@ -3,7 +3,13 @@ import { MetadataDTO, Metadata, MetadataType } from './modules/metadata/types';
 import { UserOrderDTO, UserOrder, CustomerDTO } from './modules/orders/types';
 import { User } from './modules/auth/types';
 import { OrdersAllMarketplacesQueryResponse } from './__generated__/OrdersAllMarketplacesQuery.graphql';
-import { daysInMonth, months, productMetaData } from './utils/enums';
+import {
+  colorPalette,
+  daysInMonth,
+  marketplaces,
+  months,
+  productMetaData,
+} from './utils/enums';
 import {
   ProductionManagementDataDTO,
   ProductionManagment,
@@ -1291,43 +1297,34 @@ const productBasedSalesMapper = (data: any) => {
 };
 
 const marketplaceTotalsMapper = (data: any) => {
+  let labels = [];
   if (!!data) {
     const parsedData = JSON.parse(data);
-    const sortBy = [
-      'Evka',
-      'Vivense',
-      'TRENDYOL',
-      'Tepehome',
-      'Hepsiburada',
-      'n11',
-      'Yapibahce',
-      'Hipicon',
-      'Amazon',
-      'Dekopasaj',
-      'Depo',
-    ];
+    for (const item of parsedData) {
+      labels.push(moment(Object.keys(item)[0]).format('DD-MM-YYYY'));
+    }
 
-    const ordered = Object.keys(parsedData.marketplace_totals)
-      .sort((a, b) => sortBy.indexOf(a) - sortBy.indexOf(b))
-      .reduce((obj: any, key) => {
-        obj[key] = parsedData.marketplace_totals[key];
-        return obj;
-      }, {});
-    const labels = Object.keys(ordered);
-    const values = Object.values(ordered);
+    const grouped = parsedData.reduce((acc: any, item: any) => {
+      const value: any = Object.values(item)[0];
+      marketplaces.forEach((marketplace, index) => {
+        if (acc[marketplace]) {
+          acc[marketplace].data.push(value[marketplace]);
+        } else {
+          acc[marketplace] = {
+            label: marketplace,
+            data: [value[marketplace]],
+            borderColor: colorPalette[index],
+            backgroundColor: colorPalette[index],
+          };
+        }
+      });
+      return acc;
+    }, {});
+
     return {
       data: {
         labels: [...labels],
-        datasets: [
-          {
-            label: 'Satış(TL)',
-            data: [...values],
-            fill: false,
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgba(255, 99, 132, 0.2)',
-            yAxisID: 'y-axis-1',
-          },
-        ],
+        datasets: [...Object.values(grouped)],
       },
       return_sum: parsedData.return_sum,
       cancel_sum: parsedData.cancel_sum,
