@@ -33,6 +33,10 @@ export const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
     text: 'Boyada',
     status: 'none',
   },
+  [WorkshopStatus.NONE]: {
+    text: 'Üretilmeyecek',
+    status: 'none',
+  },
 };
 
 export const MainPartsStatusMapper: Record<MainPartsStatus, StatusObject> = {

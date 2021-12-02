@@ -8,6 +8,7 @@ export enum WorkshopStatus {
   RECEIVED = 'RECEIVED',
   COMPLETED = 'COMPLETED',
   IN_PAINT = 'IN_PAINT',
+  NONE = 'NONE',
 }
 
 export enum MainPartsStatus {
