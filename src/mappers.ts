@@ -73,7 +73,7 @@ import {
   otherWsPropsFileds,
   woodPropsFileds,
 } from './modules/admin/products/enums';
-import { getImageGroupByWidth } from './utils/helpers';
+import { firstCharCapitalize, getImageGroupByWidth } from './utils/helpers';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -1339,7 +1339,10 @@ const vastedMapper = (data: any) => {
   Object.keys(parsedData).map((item) => {
     const data = parsedData[item];
     const temp = Object.keys(data).map((item) => {
-      return { title: item, data: data[item].toFixed(2).toString() };
+      return {
+        title: firstCharCapitalize(item.split('_').join(' ')),
+        data: data[item].toFixed(2).toString(),
+      };
     });
     testObj[item] = temp;
   });

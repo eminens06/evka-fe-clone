@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Row, Col, DatePicker, Typography, Spin, Table } from 'antd';
+import { Row, Col, DatePicker, Typography, Spin, Table, Divider } from 'antd';
 import moment from 'moment';
 import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
 import mappers from '../../mappers';
@@ -32,10 +32,12 @@ const getColumns = (type: string) => {
     {
       title: maliyet_names[type],
       dataIndex: 'title',
+      width: 200,
     },
     {
       title: 'Değer',
       dataIndex: 'data',
+      width: 100,
     },
   ];
 };
@@ -71,7 +73,7 @@ const VastedTotal: FunctionComponent = () => {
   return (
     <>
       <Row gutter={24}>
-        <Col span={8}>
+        <Col span={6}>
           <Text>Başlangıç Tarihi</Text>
           <DatePicker
             style={{ width: '100%' }}
@@ -82,7 +84,7 @@ const VastedTotal: FunctionComponent = () => {
             allowClear={false}
           />
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Text>Bitiş Tarihi</Text>
           <DatePicker
             style={{ width: '100%' }}
@@ -95,17 +97,19 @@ const VastedTotal: FunctionComponent = () => {
           />
         </Col>
       </Row>
-
+      <Divider />
       <Row gutter={24} style={{ paddingTop: 20 }}>
         {chartData &&
-          Object.keys(chartData).map((item) => {
+          Object.keys(chartData).map((item, index) => {
             return (
               <Col span={12}>
                 <Table
                   columns={getColumns(item)}
                   dataSource={chartData[item]}
-                  size="small"
+                  size="middle"
+                  bordered
                 />
+                {index < 2 && <Divider />}
               </Col>
             );
           })}
