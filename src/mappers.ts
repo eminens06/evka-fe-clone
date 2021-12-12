@@ -1315,6 +1315,7 @@ const marketplaceTotalsMapper = (data: any) => {
             data: [value[marketplace]],
             borderColor: colorPalette[index],
             backgroundColor: colorPalette[index],
+            hidden: index > 1,
           };
         }
       });
