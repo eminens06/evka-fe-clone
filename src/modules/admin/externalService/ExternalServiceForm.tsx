@@ -249,7 +249,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
               <SingleSelect
                 options={SubModuleOptions}
                 defaultValue={
-                  initialValues?.submodule != 'DF'
+                  initialValues?.submodule && initialValues.submodule != 'DF'
                     ? initialValues.submodule
                     : undefined
                 }

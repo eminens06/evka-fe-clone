@@ -1296,15 +1296,15 @@ const productBasedSalesMapper = (data: any) => {
   return mappedData;
 };
 
-const marketplaceTotalsMapper = (data: any) => {
+const marketplaceTotalsMapper = (response: any) => {
   let labels = [];
-  if (!!data) {
-    const parsedData = JSON.parse(data);
-    for (const item of parsedData) {
+  if (response) {
+    const parsedData = JSON.parse(response);
+    for (const item of parsedData.data) {
       labels.push(moment(Object.keys(item)[0]).format('DD-MM-YYYY'));
     }
 
-    const grouped = parsedData.reduce((acc: any, item: any) => {
+    const grouped = parsedData.data.reduce((acc: any, item: any) => {
       const value: any = Object.values(item)[0];
       marketplaces.forEach((marketplace, index) => {
         if (acc[marketplace]) {
@@ -1327,8 +1327,8 @@ const marketplaceTotalsMapper = (data: any) => {
         labels: [...labels],
         datasets: [...Object.values(grouped)],
       },
-      return_sum: parsedData.return_sum,
-      cancel_sum: parsedData.cancel_sum,
+      return_sum: parsedData['iade'],
+      cancel_sum: parsedData['iptal'],
     };
   }
   return null;
