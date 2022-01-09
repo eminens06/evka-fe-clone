@@ -75,6 +75,11 @@ const Table: FC<Props> = (props) => {
     setSortedData((prev: any) => {
       const newData = prev.sort((a, b) => {
         if (typeof a[sort] === 'string') {
+          if (sort.indexOf('Date') !== -1) {
+            const value1 = a[sort].split('-').reverse().join('');
+            const value2 = b[sort].split('-').reverse().join('');
+            return value1 > value2 ? 1 : value1 < value2 ? -1 : 0;
+          }
           const value1 = a[sort] as string;
           const value2 = b[sort] as string;
           if (!value1) return -1;
