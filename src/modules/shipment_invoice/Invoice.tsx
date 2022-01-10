@@ -171,6 +171,7 @@ const Invoice: FunctionComponent = () => {
             { value: 'remainingTime', text: 'Kalan Süre' },
             { value: 'marketplace', text: 'Pazaryeri' },
             { value: 'shipmentCompany', text: 'Firma' },
+            { value: 'shipmentOrderDate', text: 'Sevk Tarihi' },
           ]}
         />
         {modalData && (
