@@ -74,6 +74,7 @@ import {
   woodPropsFileds,
 } from './modules/admin/products/enums';
 import { firstCharCapitalize, getImageGroupByWidth } from './utils/helpers';
+import csvDownload from 'json-to-csv-export';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
@@ -1349,6 +1350,14 @@ const vastedMapper = (data: any) => {
   });
   return testObj;
 };
+const downloadDataMapper = async (data: any) => {
+  const parsedDownloadData = data.map((elem: string) => {
+    const parsedData = JSON.parse(elem);
+    return parsedData;
+  });
+
+  csvDownload(parsedDownloadData, 'data.csv');
+};
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1382,4 +1391,5 @@ export default {
   productBasedSalesMapper,
   marketplaceTotalsMapper,
   vastedMapper,
+  downloadDataMapper,
 };

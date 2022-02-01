@@ -16,6 +16,7 @@ import GET_ORDER_DATA, {
   KioskGetUserOrderListQuery,
 } from '../../__generated__/KioskGetUserOrderListQuery.graphql';
 import VastedTotal from './VastedTotal';
+import DownloadDataModal from './DownloadDataModal';
 
 const KioskPage: FunctionComponent = () => {
   const environment = useRelayEnvironment();
@@ -140,6 +141,10 @@ const KioskPage: FunctionComponent = () => {
 
       <Card style={{ margin: 16 }} title="Maliyet Analizi">
         <VastedTotal />
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Verileri İndir">
+        <DownloadDataModal />
       </Card>
     </>
   );
