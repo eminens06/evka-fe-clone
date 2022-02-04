@@ -793,7 +793,10 @@ export const getProductDesi = (products: ShipmentTableProduct[]): string => {
 };
 
 const shipmentManagementMapper = (data: ShipmentTableDTO[]) => {
-  return data.map((item) => {
+  const filteredData = data.filter(
+    (item) => item.orderStatus !== 'İptal edildi',
+  );
+  return filteredData.map((item) => {
     const { name, surname } = JSON.parse(item.customerInfo);
     const products = genericTableDataMapper(item, 'products');
 
