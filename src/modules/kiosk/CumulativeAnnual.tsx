@@ -5,7 +5,7 @@ import {
   DatePicker,
   Typography,
   Statistic,
-  Progress,
+  Checkbox,
   Spin,
 } from 'antd';
 import { Line } from 'react-chartjs-2';
@@ -25,8 +25,10 @@ const CumulativeAnnual: FunctionComponent = () => {
   const [startDate, setStartDate] = useState<any>(moment().startOf('month'));
   const [endDate, setEndDate] = useState<any>(moment());
   const [qtype, setQType] = useState<string>(dateOptions[0].value);
+  const [isCumulative, setIsCumulative] = useState<boolean>(false);
 
   const [chartData, setChartData] = useState<any>(null);
+  const [cumulativeData, setCumulativeData] = useState<any>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +49,10 @@ const CumulativeAnnual: FunctionComponent = () => {
     setLoading(false);
 
     setChartData(
-      mappers.marketplaceTotalsMapper(newMarketplaceTotal as string),
+      mappers.marketplaceTotalsMapper(newMarketplaceTotal as string, false),
+    );
+    setCumulativeData(
+      mappers.marketplaceTotalsMapper(newMarketplaceTotal as string, true),
     );
   };
 
@@ -58,7 +63,7 @@ const CumulativeAnnual: FunctionComponent = () => {
   return (
     <>
       <Row gutter={24}>
-        <Col span={8}>
+        <Col span={7}>
           <Text>Başlangıç Tarihi</Text>
           <DatePicker
             style={{ width: '100%' }}
@@ -69,7 +74,7 @@ const CumulativeAnnual: FunctionComponent = () => {
             allowClear={false}
           />
         </Col>
-        <Col span={8}>
+        <Col span={7}>
           <Text>Bitiş Tarihi</Text>
           <DatePicker
             style={{ width: '100%' }}
@@ -81,7 +86,7 @@ const CumulativeAnnual: FunctionComponent = () => {
             allowClear={false}
           />
         </Col>
-        <Col span={8}>
+        <Col span={7}>
           <Text>Tarihi Seçimi</Text>
           <SingleSelect
             options={dateOptions}
@@ -90,10 +95,13 @@ const CumulativeAnnual: FunctionComponent = () => {
             onChange={setQType}
           />
         </Col>
+        <Col span={3} style={{ display: 'flex', alignItems: 'flex-end'}}>
+          <Checkbox onChange={() => setIsCumulative(!isCumulative)} checked={isCumulative}>Kümülatif Grafik</Checkbox>
+        </Col>
       </Row>
       <Col span={24}>
         <div style={{ width: '100%' }}>
-          <Line height={100} data={chartData?.data} />
+          <Line height={100} data={isCumulative ? cumulativeData?.data : chartData?.data} />
         </div>
       </Col>
       <Row gutter={24}>
