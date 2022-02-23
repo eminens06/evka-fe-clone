@@ -74,7 +74,7 @@ import {
   woodPropsFileds,
 } from './modules/admin/products/enums';
 import { firstCharCapitalize, getImageGroupByWidth } from './utils/helpers';
-import csvDownload from 'json-to-csv-export';
+import csvDownload from './utils/jsonToCsv';
 
 export const metaDataMapper = (data: any) => {
   return data.edges.reduce((acc: any, key: any) => {
