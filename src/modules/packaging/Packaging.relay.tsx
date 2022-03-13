@@ -7,6 +7,7 @@ graphql`
         node {
           packagingStatus
           id
+          notes
           product {
             name
             isCollectable

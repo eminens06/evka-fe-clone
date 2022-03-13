@@ -760,6 +760,7 @@ const packagingListMapper = (data: PackagingListDTO[]): PackagingList[] => {
       isMonte: item.product.isMonte,
       id: item.id,
       productImages: imageList,
+      notes: item.notes,
     };
   });
 };

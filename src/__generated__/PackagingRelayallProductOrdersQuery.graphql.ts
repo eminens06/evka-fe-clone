@@ -13,6 +13,7 @@ export type PackagingRelayallProductOrdersQueryResponse = {
             readonly node: {
                 readonly packagingStatus: ProductOrderPackagingStatus;
                 readonly id: string;
+                readonly notes: string;
                 readonly product: {
                     readonly name: string;
                     readonly isCollectable: boolean;
@@ -78,6 +79,7 @@ query PackagingRelayallProductOrdersQuery(
       node {
         packagingStatus
         id
+        notes
         product {
           name
           isCollectable
@@ -173,45 +175,52 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "notes",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isCollectable",
+  "name": "name",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "packageCount",
+  "name": "isCollectable",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isMonte",
+  "name": "packageCount",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "categoryName",
+  "name": "isMonte",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "materialName",
+  "name": "categoryName",
   "storageKey": null
 },
 v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "materialName",
+  "storageKey": null
+},
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageConnection",
@@ -236,7 +245,7 @@ v10 = {
           "plural": false,
           "selections": [
             (v3/*: any*/),
-            (v4/*: any*/),
+            (v5/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -285,14 +294,14 @@ v10 = {
   ],
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "estimatedDeliveryDate",
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -332,6 +341,7 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -340,10 +350,10 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
+                      (v8/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -368,8 +378,8 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v8/*: any*/),
-                                  (v9/*: any*/)
+                                  (v9/*: any*/),
+                                  (v10/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -403,7 +413,7 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v10/*: any*/)
+                                  (v11/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -440,8 +450,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v11/*: any*/),
                               (v12/*: any*/),
+                              (v13/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -450,7 +460,7 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v4/*: any*/)
+                                  (v5/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -507,6 +517,7 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -515,10 +526,10 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
+                      (v8/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -543,8 +554,8 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v8/*: any*/),
                                   (v9/*: any*/),
+                                  (v10/*: any*/),
                                   (v3/*: any*/)
                                 ],
                                 "storageKey": null
@@ -579,7 +590,7 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v10/*: any*/),
+                                  (v11/*: any*/),
                                   (v3/*: any*/)
                                 ],
                                 "storageKey": null
@@ -618,8 +629,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v11/*: any*/),
                               (v12/*: any*/),
+                              (v13/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -628,7 +639,7 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v4/*: any*/),
+                                  (v5/*: any*/),
                                   (v3/*: any*/)
                                 ],
                                 "storageKey": null
@@ -659,9 +670,9 @@ return {
     "metadata": {},
     "name": "PackagingRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query PackagingRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"PP\", superSearch: $search) {\n    edges {\n      node {\n        packagingStatus\n        id\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      file {\n                        url\n                      }\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              estimatedDeliveryDate\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query PackagingRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"PP\", superSearch: $search) {\n    edges {\n      node {\n        packagingStatus\n        id\n        notes\n        product {\n          name\n          isCollectable\n          packageCount\n          isMonte\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      file {\n                        url\n                      }\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n          id\n        }\n        userOrder {\n          edges {\n            node {\n              estimatedDeliveryDate\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'df34cefca3389a4dd0ab9be03915e3f9';
+(node as any).hash = 'd2fcc66eec998bfeff89b64f0b6897aa';
 export default node;
