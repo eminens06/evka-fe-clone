@@ -1353,6 +1353,15 @@ const vastedMapper = (data: any) => {
   });
   return testObj;
 };
+
+const topSellMapper = (data: any) => {
+  const mappedData = data.map((item: any) => {
+    const parsedData = JSON.parse(item as string);
+    return { productName: parsedData[0], count: parsedData[1].toString() };
+  });
+  return mappedData;
+};
+
 const downloadDataMapper = async (data: any) => {
   const parsedDownloadData = data.map((elem: string) => {
     const parsedData = JSON.parse(elem);
@@ -1395,4 +1404,5 @@ export default {
   marketplaceTotalsMapper,
   vastedMapper,
   downloadDataMapper,
+  topSellMapper,
 };

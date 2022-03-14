@@ -159,3 +159,7 @@ export const marketplaces = [
   'Dekopasaj',
   'Depo',
 ];
+
+export const marketplaceOptions = marketplaces.map((item) => {
+  return { text: item, value: item };
+});
