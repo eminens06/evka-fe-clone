@@ -70,7 +70,7 @@ const KioskPage: FunctionComponent = () => {
 
   return (
     <>
-      <Row gutter={24} style={{ padding: 16 }}>
+      <Row gutter={24} style={{ padding: 16, margin: 0 }}>
         <Col span={6}>
           <ComparisonCard
             header="Satış Tarihi"

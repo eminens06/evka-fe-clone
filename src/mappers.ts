@@ -1300,7 +1300,7 @@ const productBasedSalesMapper = (data: any) => {
   return mappedData;
 };
 
-const marketplaceTotalsMapper = (response: any) => {
+const marketplaceTotalsMapper = (response: any, isCumulative: boolean) => {
   let labels = [];
   if (response) {
     const parsedData = JSON.parse(response);
@@ -1312,7 +1312,9 @@ const marketplaceTotalsMapper = (response: any) => {
       const value: any = Object.values(item)[0];
       marketplaces.forEach((marketplace, index) => {
         if (acc[marketplace]) {
-          acc[marketplace].data.push(value[marketplace]);
+          const data = acc[marketplace].data;
+          const newData = isCumulative ? data[data.length - 1] + value[marketplace]  : value[marketplace];
+          acc[marketplace].data.push(newData);
         } else {
           acc[marketplace] = {
             label: marketplace,
