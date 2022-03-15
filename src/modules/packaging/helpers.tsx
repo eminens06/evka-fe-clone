@@ -1,10 +1,11 @@
-import { Typography } from 'antd';
+import { Row, Tooltip, Typography } from 'antd';
 import React from 'react';
 import Status from '../../atoms/Status';
 import { ProgressStepValue } from '../../molecules/types';
 import settings from '../../settings';
 import ImagePopover from '../common/ImagePopover';
 import { PackageStatus } from './types';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 export const StatusMapper: Record<PackageStatus, StatusObject> = {
   [PackageStatus.READY]: {
@@ -26,6 +27,19 @@ export const packagingColumns = [
     key: 'orderId',
     title: 'Sipariş',
     dataIndex: 'orderId',
+    render: (value: any, order: any) => {
+      if (order.notes) {
+        return (
+          <Row className="note">
+            <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
+              <Typography.Text>{`${value}  `}</Typography.Text>
+              <InfoCircleOutlined />
+            </Tooltip>
+          </Row>
+        );
+      }
+      return value;
+    },
   },
   {
     key: 'productName',
@@ -33,7 +47,13 @@ export const packagingColumns = [
     dataIndex: 'productName',
     render: (value: any, order: any) => {
       if (order.productImages.length > 0) {
-        return <ImagePopover images={order.productImages} text={value} />;
+        return (
+          <ImagePopover
+            images={order.productImages}
+            text={value}
+            key={order.orderId}
+          />
+        );
       }
       return value;
     },

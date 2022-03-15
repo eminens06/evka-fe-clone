@@ -193,6 +193,7 @@ export type PackagingListDTO = {
       }[];
     };
   };
+  notes: string;
 };
 
 export type PackagingList = {
