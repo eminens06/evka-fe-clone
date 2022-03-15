@@ -17,6 +17,11 @@ import GET_ORDER_DATA, {
 } from '../../__generated__/KioskGetUserOrderListQuery.graphql';
 import VastedTotal from './VastedTotal';
 import DownloadDataModal from './DownloadDataModal';
+import GET_TOP_SELLING_DATA, {
+  KioskTopSellingProductsQuery,
+} from '../../__generated__/KioskTopSellingProductsQuery.graphql';
+import moment from 'moment';
+import TopSellingProducts from './TopSellingProducts';
 
 const KioskPage: FunctionComponent = () => {
   const environment = useRelayEnvironment();
@@ -46,6 +51,7 @@ const KioskPage: FunctionComponent = () => {
       GET_ORDER_DATA,
       {},
     );
+
     const sellComparisonParsed =
       sellComparison && JSON.parse(sellComparison[0] as string);
     setSellComparsionData(sellComparisonParsed);
@@ -127,6 +133,10 @@ const KioskPage: FunctionComponent = () => {
 
       <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Satış Grafiği">
         <CumulativeAnnual />
+      </Card>
+
+      <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Ürün Satış Grafiği">
+        <TopSellingProducts />
       </Card>
 
       <Card style={{ margin: 16 }} title="Sevk Emir Bugün Girilen Siparişler">

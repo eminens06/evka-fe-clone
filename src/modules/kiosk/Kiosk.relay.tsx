@@ -65,3 +65,17 @@ graphql`
     download(startDate: $startDate, endDate: $endDate)
   }
 `;
+
+graphql`
+  query KioskTopSellingProductsQuery(
+    $startDate: DateTime
+    $endDate: DateTime
+    $marketplaceName: String
+  ) {
+    topSellingProducts(
+      startDate: $startDate
+      endDate: $endDate
+      marketplaceName: $marketplaceName
+    )
+  }
+`;
