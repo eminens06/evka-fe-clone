@@ -8,6 +8,7 @@ export type AddToStorageMutationInput = {
 };
 export type StorageCreateInput = {
     productId: string;
+    location?: string | null;
     note?: string | null;
     count?: number | null;
     missingParts?: Array<string | null> | null;

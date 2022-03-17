@@ -47,7 +47,7 @@ const StorageProduct: FC<Props> = ({ form, isDisabled, isEdit }) => {
     if (allProducts && allProducts.edges.length === 1) {
       setProduct(allProducts.edges[0]?.node);
     } else {
-      form.setFieldsValue({ productId: undefined });
+      form.setFieldsValue({ product: undefined });
       setSelectedProduct(null);
       setIsLoading(false);
       setError(true);
@@ -59,9 +59,10 @@ const StorageProduct: FC<Props> = ({ form, isDisabled, isEdit }) => {
   useEffect(() => {
     if (product) {
       setSelectedProduct(product);
+
       setIsLoading(false);
       setError(false);
-      form.setFieldsValue({ productId: product.id });
+      form.setFieldsValue({ product: product, sku: product.sku });
     }
   }, [product]);
 
@@ -73,6 +74,12 @@ const StorageProduct: FC<Props> = ({ form, isDisabled, isEdit }) => {
   const onCancelModal = () => {
     setShowProductsTable(false);
   };
+
+  const initProduct = form.getFieldValue('product');
+
+  if (!product && initProduct) {
+    setProduct({ ...initProduct });
+  }
 
   return (
     <>
@@ -90,7 +97,7 @@ const StorageProduct: FC<Props> = ({ form, isDisabled, isEdit }) => {
               disabled={isDisabled}
             />
           </Form.Item>
-          <Form.Item name={'productId'} required hidden></Form.Item>
+          <Form.Item name={'product'} required hidden></Form.Item>
         </Col>
 
         <Col span={4} className="find-table-btn">

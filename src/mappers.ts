@@ -1384,7 +1384,7 @@ const mapStorageItem = (item: any) => {
     count: item.count,
     name: item.product.name,
     sku: item.product.sku,
-    productId: item.product.id,
+    product: item.product,
     missingParts: item.missingParts,
   };
 };

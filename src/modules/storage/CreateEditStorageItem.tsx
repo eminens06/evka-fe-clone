@@ -18,7 +18,6 @@ import { useMutation, fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import { useRouter } from 'next/router';
 import useFullPageLoader from '../../hooks/useFullPageLoader';
 import StorageProduct from './StorageProduct';
-import { RoleOptions } from '../../layout/roles';
 import { SingleSelect } from '../../atoms';
 import TextArea from 'antd/lib/input/TextArea';
 import GET_STORAGE_ITEM, {
@@ -28,7 +27,6 @@ import { DeleteOutlined } from '@ant-design/icons';
 import mappers from '../../mappers';
 import ADD_TO_STORAGE, {
   StorageAddToStorageMutation,
-  StorageCreateInput,
 } from '../../__generated__/StorageAddToStorageMutation.graphql';
 import UPDATE_STORAGE_ITEM, {
   StorageUpdateStorageMutation,
@@ -36,6 +34,7 @@ import UPDATE_STORAGE_ITEM, {
 import DELETE_STORAGE_ITEM, {
   StorageDeleteStorageMutation,
 } from '../../__generated__/StorageDeleteStorageMutation.graphql';
+import { getUserRoles } from '../auth/utils/session.utils';
 
 const PartOptions = [
   'Ayak',
@@ -50,8 +49,10 @@ const PartOptions = [
 const CreateEditStorageItem: FunctionComponent = () => {
   const [form] = Form.useForm();
   const router = useRouter();
+  const [userRoles, setUserRoles] = useState<string[]>();
   const environment = useRelayEnvironment();
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const [initialValues, setInitialValues] = useState<any>();
 
@@ -68,12 +69,6 @@ const CreateEditStorageItem: FunctionComponent = () => {
 
     if (storageItem) {
       const mapped = mappers.mapStorageItem(storageItem);
-      const mp = mapped.missingParts.map((item: any) => ({
-        value: item,
-        text: item,
-      }));
-      // Bu mp gelmesine rağmen garip bir şekilde hata atıyor o nedenle kaldırdım şu an editte gözükmğyor missing Partlar
-      console.log('MAP ! ', mp);
       setInitialValues(mapped);
     }
     closeLoader();
@@ -83,6 +78,11 @@ const CreateEditStorageItem: FunctionComponent = () => {
     if (router?.query?.id) {
       openLoader();
       setIsEdit(true);
+      const getRoles = async () => {
+        const data = await getUserRoles();
+        setUserRoles(data);
+      };
+      getRoles();
       getStorageItem();
     }
   }, [router]);
@@ -94,26 +94,26 @@ const CreateEditStorageItem: FunctionComponent = () => {
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
-        message.success('Siparişiniz başarıyla oluşturuldu');
+        message.success('Depo kaydı başarıyla oluşturuldu');
         router.back();
       },
     },
   );
 
-  const [updateOrder] = useMutation<StorageUpdateStorageMutation>(
+  const [updateStorage] = useMutation<StorageUpdateStorageMutation>(
     UPDATE_STORAGE_ITEM,
     {
       onError: (error: any) => {
         message.error('Hata! ', error.response.errors[0].message);
       },
       onCompleted: (res) => {
-        message.success('Siparişiniz başarıyla güncellendi');
+        message.success('Depo başarıyla güncellendi');
         router.back();
       },
     },
   );
 
-  const [deleteOrder] = useMutation<StorageDeleteStorageMutation>(
+  const [deleteStorage] = useMutation<StorageDeleteStorageMutation>(
     DELETE_STORAGE_ITEM,
     {
       onError: (error: any) => {
@@ -127,16 +127,22 @@ const CreateEditStorageItem: FunctionComponent = () => {
   );
 
   const onFinish = (values: any) => {
-    console.log('Values ! ', values);
-    if (values.productId) {
-      const storageItem = {
-        productId: values.productId,
+    if (values.product) {
+      const storageItem: any = {
+        productId: values.product.id,
         note: values.note,
         count: values.count,
         missingParts: values.missingParts,
+        location: values.location,
       };
       if (isEdit) {
         // Edit Mutation
+        storageItem.id = router?.query?.id;
+        updateStorage({
+          variables: {
+            input: { storageItem },
+          },
+        });
       } else {
         // Create Mutation
         addToStorage({
@@ -148,57 +154,29 @@ const CreateEditStorageItem: FunctionComponent = () => {
     } else {
       message.error('Lütfen ürün bilgilerini kontrol ediniz');
     }
-    /* let saveControl = true;
-    values.products.forEach((product: any) => {
-      if (product === undefined || !product.productId) {
-        saveControl = false;
-      }
-    });
-    values.orderType = orderType;
-    if (saveControl) {
-      if (isEdit) {
-        const orderData = orderEditMapper(
-          { values },
-          productOrderIds,
-          router?.query?.id as string,
-        );
-        updateOrder({
-          variables: {
-            input: { ...orderData },
-          },
-        });
-      } else {
-        const orderData = orderSaveMapper(values);
-        createOrder({
-          variables: {
-            input: { ...orderData },
-          },
-        });
-      }
-    } else {
-      message.error('Lütfen ürün bilgilerini kontrol ediniz');
-    } */
   };
-
-  /*const deleteUserOrder = (id: string) => {
-    deleteOrder({
-      variables: {
-        input: {
-          id,
-        },
-      },
-    });
-  }; */
 
   useEffect(() => form.resetFields(), [initialValues]);
 
-  /*const openCancelModal = () => {
-    setCancelModalVisible(true);
-  }; */
+  const deleteItem = () => {
+    if (router?.query?.id) {
+      deleteStorage({
+        variables: {
+          input: {
+            id: router.query.id as string,
+          },
+        },
+      });
+    }
+  };
 
-  /* const openDeleteModal = () => {
-    setDeleteModalVisible(true);
-  }; */
+  const isAdmin = useMemo(() => {
+    if (userRoles) return userRoles.indexOf('admin') !== -1;
+  }, [userRoles]);
+
+  const deleteEnabled = useMemo(() => {
+    return isAdmin || (isEdit && initialValues?.count == 1) ? true : false;
+  }, [isEdit, initialValues, isAdmin]);
 
   return (
     <>
@@ -217,12 +195,10 @@ const CreateEditStorageItem: FunctionComponent = () => {
           title="Depo Ürünü"
           extra={
             <Button
-              onClick={() => {}}
+              onClick={() => setModalVisible(true)}
               icon={<DeleteOutlined />}
               danger
-              disabled={
-                form.getFieldValue('count') && form.getFieldValue('count') > 1
-              }
+              disabled={!deleteEnabled}
             />
           }
           bordered={false}
@@ -263,7 +239,7 @@ const CreateEditStorageItem: FunctionComponent = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Notlar" name={'notes'}>
+              <Form.Item label="Notlar" name={'note'}>
                 <TextArea rows={4} />
               </Form.Item>
             </Col>
@@ -277,6 +253,25 @@ const CreateEditStorageItem: FunctionComponent = () => {
           </Row>
         </Card>
       </Form>
+
+      <Modal
+        visible={modalVisible}
+        title={'Uyarı'}
+        width={'70%'}
+        onCancel={() => setModalVisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setModalVisible(false)}>
+            Vazgeç
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => deleteItem()}>
+            Sil
+          </Button>,
+        ]}
+      >
+        <Typography>
+          Depodaki ürünü silmek istediğinizden emin misiniz ?
+        </Typography>
+      </Modal>
       {loader}
     </>
   );

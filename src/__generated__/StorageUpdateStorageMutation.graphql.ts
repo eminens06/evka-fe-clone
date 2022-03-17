@@ -8,6 +8,7 @@ export type UpdateStorageMutationInput = {
 };
 export type StorageUpdateInput = {
     productId: string;
+    location?: string | null;
     note?: string | null;
     count?: number | null;
     missingParts?: Array<string | null> | null;

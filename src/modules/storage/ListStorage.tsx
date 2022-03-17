@@ -39,7 +39,7 @@ const columns = [
   },
   {
     key: 'count',
-    title: 'Sayı',
+    title: 'Adet',
     dataIndex: 'count',
   },
 ];

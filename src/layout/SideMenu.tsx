@@ -11,6 +11,7 @@ import {
   CodeOutlined,
   SettingOutlined,
   MenuFoldOutlined,
+  ShopOutlined,
 } from '@ant-design/icons';
 import CustomMenuItem from './CustomMenuItem';
 import { Roles } from './roles';
@@ -62,7 +63,7 @@ const SideMenu: FunctionComponent<Props> = (props) => {
         <CustomMenuItem
           role={Roles.storage}
           title="Depo"
-          icon={<AuditOutlined />}
+          icon={<ShopOutlined />}
         />
         <CustomSubMenu
           role="production"
