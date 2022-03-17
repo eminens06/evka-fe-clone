@@ -19,6 +19,8 @@ function useFetchTablePagination<
     fetchPolicy: STORE_OR_NETWORK,
   });
 
+  console.log('Data in hook !', data);
+
   const [tableData, setTableData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -55,7 +57,7 @@ function useFetchTablePagination<
   return {
     data: tableData,
     isLoading: loading,
-    size: tableData.length,
+    size: 0,
     forceFetchQuery,
   };
 }

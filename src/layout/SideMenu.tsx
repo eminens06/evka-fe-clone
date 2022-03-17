@@ -59,6 +59,11 @@ const SideMenu: FunctionComponent<Props> = (props) => {
           title="Üretim Yönetimi"
           icon={<AuditOutlined />}
         />
+        <CustomMenuItem
+          role={Roles.storage}
+          title="Depo"
+          icon={<AuditOutlined />}
+        />
         <CustomSubMenu
           role="production"
           icon={<SisternodeOutlined />}

@@ -18,6 +18,7 @@ export enum Roles {
   oem = 'oem',
   return_cancel = 'return_cancel',
   admin = 'admin',
+  storage = 'storage',
 }
 
 export const RolesMapper: Record<string, string> = {
@@ -48,6 +49,7 @@ export const RoleTexts = {
   [Roles.log]: 'Loglar',
   [Roles.oem]: 'Al-Sat',
   [Roles.orders]: 'Siparişler',
+  [Roles.storage]: 'Depo',
 };
 
 export const RoleOptions: Option[] = [
@@ -126,5 +128,9 @@ export const RoleOptions: Option[] = [
   {
     text: 'Siparişler',
     value: Roles.orders,
+  },
+  {
+    text: 'Depo',
+    value: Roles.storage,
   },
 ];
