@@ -55,7 +55,7 @@ function useFetchTablePagination<
   return {
     data: tableData,
     isLoading: loading,
-    size: tableData.length,
+    size: 0,
     forceFetchQuery,
   };
 }

@@ -1314,7 +1314,9 @@ const marketplaceTotalsMapper = (response: any, isCumulative: boolean) => {
       marketplaces.forEach((marketplace, index) => {
         if (acc[marketplace]) {
           const data = acc[marketplace].data;
-          const newData = isCumulative ? data[data.length - 1] + value[marketplace]  : value[marketplace];
+          const newData = isCumulative
+            ? data[data.length - 1] + value[marketplace]
+            : value[marketplace];
           acc[marketplace].data.push(newData);
         } else {
           acc[marketplace] = {
@@ -1373,6 +1375,25 @@ const downloadDataMapper = async (data: any) => {
 
   csvDownload(parsedDownloadData, 'data.csv');
 };
+
+const mapStorageItem = (item: any) => {
+  return {
+    id: item.id,
+    location: item.location,
+    note: item.note,
+    count: item.count,
+    name: item.product.name,
+    sku: item.product.sku,
+    product: item.product,
+    missingParts: item.missingParts,
+  };
+};
+
+const storageItemsMapper = (data: any) => {
+  const mappedData = data.map((item: any) => mapStorageItem(item));
+  return mappedData;
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1408,4 +1429,6 @@ export default {
   vastedMapper,
   downloadDataMapper,
   topSellMapper,
+  storageItemsMapper,
+  mapStorageItem,
 };
