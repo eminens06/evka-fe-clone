@@ -1159,31 +1159,31 @@ const productAttributesMapper = (data: any) => {
 
 const productSaveMapper = (data: any): any => {
   const metal = metalPropsFileds.reduce((acc: any, field: any) => {
-    acc[field.name] = data[field.name];
+    acc[field.name] = data[field.name] || 0;
     return acc;
   }, {});
 
   const wood = woodPropsFileds.reduce((acc: any, field: any) => {
-    acc[field.name] = data[field.name];
+    acc[field.name] = data[field.name] || 0;
     return acc;
   }, {});
 
   const otherAtt = otherWsPropsFileds.reduce((acc: any, field: any) => {
-    acc[field.name] = data[field.name];
+    acc[field.name] = data[field.name] || 0;
     return acc;
   }, {});
 
   const other = otherPropsFileds.reduce((acc: any, field: any) => {
     if (field.name === 'akrilikEbat') {
-      acc['akrilik'] = Number(data[field.name]);
+      acc['akrilik'] = Number(data[field.name]) || 0;
     } else {
-      acc[field.name] = data[field.name];
+      acc[field.name] = data[field.name] || 0;
     }
     return acc;
   }, {});
 
   const labor = laborPropsFileds.reduce((acc: any, field: any) => {
-    acc[field.name] = data[field.name];
+    acc[field.name] = data[field.name] || 0;
     return acc;
   }, {});
 
