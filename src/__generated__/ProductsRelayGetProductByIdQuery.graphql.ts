@@ -71,7 +71,7 @@ export type ProductsRelayGetProductByIdQueryResponse = {
             readonly sivama: number | null;
             readonly ambalajMalzeme: number | null;
             readonly aksesuar: number | null;
-            readonly akrilikTipi: string | null;
+            readonly akrilikTipi: number | null;
             readonly akrilik: number | null;
         } | null;
         readonly labor: {

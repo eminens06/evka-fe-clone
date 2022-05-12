@@ -21,6 +21,7 @@ export type ProductionManagementDataDTO = {
   id: string;
   product: {
     id: string;
+    sku: string;
     metaProducts: {
       edges: {
         node: ProductManagmentMetaProductDTO[];
@@ -57,7 +58,9 @@ export type ProductionManagment = {
   subCategory: string;
   legMaterial: string;
   tableMaterial: string;
+  sku: string;
   orderType: OrderTypes;
   remainingTime: number;
   productImages: any[];
+  existInStorage?: boolean | any;
 };

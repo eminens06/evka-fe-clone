@@ -11,6 +11,7 @@ graphql`
           product {
             id
             name
+            sku
             productName
             metaProducts {
               edges {
@@ -79,6 +80,25 @@ graphql`
     existInStorage(input: $input) {
       productOrder {
         id
+      }
+    }
+  }
+`;
+
+graphql`
+  query ManagementProductionRelayStorageItemsQuery($sku: String) {
+    storageItems(isProductExist: $sku) {
+      edges {
+        node {
+          id
+          location
+          count
+          missingParts
+          product {
+            name
+            id
+          }
+        }
       }
     }
   }

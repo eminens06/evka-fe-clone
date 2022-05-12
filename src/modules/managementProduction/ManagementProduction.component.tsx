@@ -18,7 +18,7 @@ import GET_MANAGEMENT_PRODUCTION, {
   ManagementProductionRelayallProductOrdersQuery,
 } from '../../__generated__/ManagementProductionRelayallProductOrdersQuery.graphql';
 import ProductOrderSummary from './ProductOrderSummary';
-import { useMutation } from 'relay-hooks';
+import { useMutation, fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import SEND_TO_PRODUCTION, {
   ManagementProductionRelaySendttoProductionMutation,
 } from '../../__generated__/ManagementProductionRelaySendttoProductionMutation.graphql';
@@ -28,6 +28,10 @@ import EXIST_IN_STORAGE, {
 import useFullPageLoader from '../../hooks/useFullPageLoader';
 import settings from '../../settings';
 import ImagePopover from '../common/ImagePopover';
+import StorageModal from './StorageModal';
+import GET_ISEXIST_PRODUCT, {
+  ManagementProductionRelayStorageItemsQuery,
+} from '../../__generated__/ManagementProductionRelayStorageItemsQuery.graphql';
 
 const columns = [
   {
@@ -91,8 +95,11 @@ const ManagementProduction: FunctionComponent = () => {
   const openModal = () => {
     setIsModalVisible(true);
   };
+  const environment = useRelayEnvironment();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isStorageVisible, setIsStorageVisible] = useState(false);
+
   const [modalData, setModalData] = useState<any>();
   const [search, setSearch] = useState('');
   const { loader, openLoader, closeLoader } = useFullPageLoader();
@@ -138,6 +145,7 @@ const ManagementProduction: FunctionComponent = () => {
           search,
         });
         message.success('Başarıyla Tamamlandı');
+        setIsStorageVisible(false);
         setIsModalVisible(false);
       },
     },
@@ -156,8 +164,34 @@ const ManagementProduction: FunctionComponent = () => {
     mappers.managementProductionMapper,
   );
 
+  const getIsExist = async (data: any) => {
+    const {
+      storageItems,
+    } = await fetchQuery<ManagementProductionRelayStorageItemsQuery>(
+      environment,
+      GET_ISEXIST_PRODUCT,
+      {
+        sku: data.sku,
+      },
+    );
+
+    if (storageItems?.edges && storageItems.edges.length > 0) {
+      const mapped = mappers.storageItemsValidList(storageItems);
+      if (mapped.length > 0) {
+        setModalData({
+          ...data,
+          existInStorage: { storageItems: { edges: mapped } },
+        });
+      } else {
+        setModalData({ ...data, existInStorage: false });
+      }
+    } else {
+      setModalData({ ...data, existInStorage: false });
+    }
+  };
+
   const onTableClick = (data: any) => {
-    setModalData({ ...data });
+    getIsExist(data);
     openModal();
   };
 
@@ -166,10 +200,6 @@ const ManagementProduction: FunctionComponent = () => {
     forceFetchQuery({
       search: value,
     });
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
   };
 
   const onApprove = (id: string) => {
@@ -188,7 +218,8 @@ const ManagementProduction: FunctionComponent = () => {
     existInStorage({
       variables: {
         input: {
-          productOrderId: id,
+          productOrderId: modalData.id,
+          storageId: id,
         },
       },
     });
@@ -226,9 +257,16 @@ const ManagementProduction: FunctionComponent = () => {
         <ProductOrderSummary
           data={modalData}
           onApprove={onApprove}
-          onStorage={onStorage}
+          onStorage={() => setIsStorageVisible(true)}
           isVisible={isModalVisible}
           closeModal={() => setIsModalVisible(false)}
+        />
+
+        <StorageModal
+          data={modalData}
+          onStorage={onStorage}
+          isVisible={isStorageVisible}
+          closeModal={() => setIsStorageVisible(false)}
         />
         {loader}
       </div>

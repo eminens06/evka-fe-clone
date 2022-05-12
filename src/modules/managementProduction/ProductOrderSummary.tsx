@@ -46,7 +46,11 @@ const ProductOrderSummary: FC<Props> = ({
       width={'70%'}
       onCancel={closeModal}
       footer={[
-        <Button type="primary" onClick={() => onStorage(data.id)}>
+        <Button
+          type="primary"
+          onClick={() => onStorage(data.id)}
+          disabled={!data?.existInStorage}
+        >
           Depoda Var
         </Button>,
         <Button type="primary" onClick={() => onClickApprove(data.id)}>

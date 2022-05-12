@@ -497,6 +497,7 @@ const managementProductionMapper = (
         category,
         count: item.orderCount,
         notes: item.notes,
+        sku: product.sku,
         orderType: order[0].orderType,
         subCategory,
         legMaterial,
@@ -1394,6 +1395,13 @@ const storageItemsMapper = (data: any) => {
   return mappedData;
 };
 
+const storageItemsValidList = (data: any) => {
+  const mappedData = data.edges.filter((item: any) => {
+    return item.node.count > 0;
+  });
+  return mappedData;
+};
+
 export default {
   productionPaintMapper,
   genericTableDataMapper,
@@ -1431,4 +1439,5 @@ export default {
   topSellMapper,
   storageItemsMapper,
   mapStorageItem,
+  storageItemsValidList,
 };

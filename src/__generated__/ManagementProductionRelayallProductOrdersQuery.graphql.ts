@@ -17,6 +17,7 @@ export type ManagementProductionRelayallProductOrdersQueryResponse = {
                 readonly product: {
                     readonly id: string;
                     readonly name: string;
+                    readonly sku: string;
                     readonly productName: string;
                     readonly metaProducts: {
                         readonly edges: ReadonlyArray<{
@@ -84,6 +85,7 @@ query ManagementProductionRelayallProductOrdersQuery(
         product {
           id
           name
+          sku
           productName
           metaProducts {
             edges {
@@ -190,24 +192,31 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productName",
+  "name": "sku",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "categoryName",
+  "name": "productName",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "materialName",
+  "name": "categoryName",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "materialName",
+  "storageKey": null
+},
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageConnection",
@@ -281,28 +290,28 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "customerInfo",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "orderType",
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "marketplaceOrderId",
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -354,6 +363,7 @@ return {
                       (v4/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
+                      (v7/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -378,8 +388,8 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/),
-                                  (v8/*: any*/)
+                                  (v8/*: any*/),
+                                  (v9/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -413,7 +423,7 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v9/*: any*/)
+                                  (v10/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -450,9 +460,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
                               (v11/*: any*/),
                               (v12/*: any*/),
+                              (v13/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -465,7 +475,7 @@ return {
                                 ],
                                 "storageKey": null
                               },
-                              (v13/*: any*/)
+                              (v14/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -531,6 +541,7 @@ return {
                       (v4/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
+                      (v7/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -555,8 +566,8 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/),
                                   (v8/*: any*/),
+                                  (v9/*: any*/),
                                   (v4/*: any*/)
                                 ],
                                 "storageKey": null
@@ -591,7 +602,7 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v9/*: any*/),
+                                  (v10/*: any*/),
                                   (v4/*: any*/)
                                 ],
                                 "storageKey": null
@@ -629,9 +640,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
                               (v11/*: any*/),
                               (v12/*: any*/),
+                              (v13/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -645,7 +656,7 @@ return {
                                 ],
                                 "storageKey": null
                               },
-                              (v13/*: any*/),
+                              (v14/*: any*/),
                               (v4/*: any*/)
                             ],
                             "storageKey": null
@@ -672,9 +683,9 @@ return {
     "metadata": {},
     "name": "ManagementProductionRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query ManagementProductionRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"DF\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        orderCount\n        id\n        product {\n          id\n          name\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      file {\n                        url\n                      }\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ManagementProductionRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"DF\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        orderCount\n        id\n        product {\n          id\n          name\n          sku\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      file {\n                        url\n                      }\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5fb5083059a2bcfb9e2cbe06c8395c7a';
+(node as any).hash = '63340ae38a5f8ba03fa58480951f38ba';
 export default node;

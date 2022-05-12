@@ -4,6 +4,7 @@
 import { ConcreteRequest } from "relay-runtime";
 export type ExistInStorageInput = {
     productOrderId: string;
+    storageId: string;
     clientMutationId?: string | null;
 };
 export type ManagementProductionRelayExistInStorageMutationVariables = {
