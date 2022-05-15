@@ -153,10 +153,10 @@ export const marketplaces = [
   'Tepehome',
   'Hepsiburada',
   'n11',
-  'Yapibahce',
+  'Yapıbahçe',
   'Hipicon',
   'Amazon',
-  'Dekopasaj',
+  'Perabulvarı',
   'Depo',
 ];
 
