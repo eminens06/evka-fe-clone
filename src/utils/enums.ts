@@ -149,7 +149,7 @@ export const colorPalette = [
 export const marketplaces = [
   'Evka',
   'Vivense',
-  'TRENDYOL',
+  'Trendyol',
   'Tepehome',
   'Hepsiburada',
   'n11',
