@@ -31,6 +31,7 @@ const TopSellingProducts: FunctionComponent = () => {
   const [marketplace, setMarketplace] = useState<string>(
     marketplaceOptions[0].value,
   );
+  const { Summary } = Table;
 
   const [chartData, setChartData] = useState<any>(null);
 
@@ -105,6 +106,27 @@ const TopSellingProducts: FunctionComponent = () => {
             dataSource={chartData}
             size="middle"
             bordered
+            summary={(pageData) => {
+              console.log(pageData);
+              let total = 0;
+
+              pageData.forEach(({ count }) => {
+                total += Number(count);
+              });
+
+              return (
+                <>
+                  <Summary.Row>
+                    <Summary.Cell index={1}>Toplam</Summary.Cell>
+                    <Summary.Cell index={2}>
+                      <Text strong type="danger">
+                        {total}
+                      </Text>
+                    </Summary.Cell>
+                  </Summary.Row>
+                </>
+              );
+            }}
           />
         </div>
       </Col>
