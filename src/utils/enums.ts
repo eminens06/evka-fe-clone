@@ -157,7 +157,7 @@ export const marketplaces = [
   'Hipicon',
   'Amazon',
   'Perabulvarı',
-  'Depo',
+  'Toplam',
 ];
 
 export const marketplaceOptions = marketplaces.map((item) => {

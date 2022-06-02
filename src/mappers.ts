@@ -319,7 +319,7 @@ const allProductsMapper = (data: any) => {
 
 const cancelModalProductMapper = (userOrder: any) => {
   const products = genericTableDataMapper(userOrder, 'products');
-  if (products.length <= 1) {
+  if (products.length < 1) {
     return [];
   }
   const generateName = (metadata: any, productName: any) => {
@@ -1312,17 +1312,22 @@ const marketplaceTotalsMapper = (response: any, isCumulative: boolean) => {
 
     const grouped = parsedData.data.reduce((acc: any, item: any) => {
       const value: any = Object.values(item)[0];
+      const valueTotal = {
+        ...value,
+        Toplam: Object.values(value).reduce((a: any, b: any) => a + b),
+      };
+
       marketplaces.forEach((marketplace, index) => {
         if (acc[marketplace]) {
           const data = acc[marketplace].data;
           const newData = isCumulative
-            ? data[data.length - 1] + value[marketplace]
-            : value[marketplace];
+            ? data[data.length - 1] + valueTotal[marketplace]
+            : valueTotal[marketplace];
           acc[marketplace].data.push(newData);
         } else {
           acc[marketplace] = {
             label: marketplace,
-            data: [value[marketplace]],
+            data: [valueTotal[marketplace]],
             borderColor: colorPalette[index],
             backgroundColor: colorPalette[index],
             hidden: index > 1,
