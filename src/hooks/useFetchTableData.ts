@@ -31,6 +31,7 @@ function useFetchTablePagination<
       gqlQuery,
       queryParams,
     );
+
     if (customMapper) {
       setLoading(false);
       setTableData(customMapper(mappers.genericTableDataMapper(res)));
