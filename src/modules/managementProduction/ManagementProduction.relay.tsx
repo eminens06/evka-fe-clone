@@ -31,9 +31,7 @@ graphql`
                         name
                         height
                         width
-                        file {
-                          url
-                        }
+                        
                         externalUrl
                       }
                     }
