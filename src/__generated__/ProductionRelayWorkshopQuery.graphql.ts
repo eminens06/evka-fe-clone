@@ -52,9 +52,6 @@ export type ProductionRelayWorkshopQueryResponse = {
                                             readonly name: string;
                                             readonly height: number | null;
                                             readonly width: number | null;
-                                            readonly file: {
-                                                readonly url: string | null;
-                                            } | null;
                                             readonly externalUrl: string | null;
                                         } | null;
                                     } | null>;
@@ -143,9 +140,6 @@ query ProductionRelayWorkshopQuery(
                       name
                       height
                       width
-                      file {
-                        url
-                      }
                       externalUrl
                     }
                   }
@@ -375,24 +369,6 @@ v21 = {
             (v13/*: any*/),
             (v15/*: any*/),
             (v14/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageFileType",
-              "kind": "LinkedField",
-              "name": "file",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            },
             {
               "alias": null,
               "args": null,
@@ -920,9 +896,9 @@ return {
     "metadata": {},
     "name": "ProductionRelayWorkshopQuery",
     "operationKind": "query",
-    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n  $search: String\n) {\n  allProductOrders(byWorkshopType: $workshopType, superSearch: $search) {\n    edges {\n      node {\n        id\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        ayakPaintStatus\n        tablaPaintStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                paintType\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      file {\n                        url\n                      }\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              estimatedDeliveryDate\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              isRawMaterial\n              name\n              phoneNumber\n              address\n              module\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ProductionRelayWorkshopQuery(\n  $workshopType: String\n  $search: String\n) {\n  allProductOrders(byWorkshopType: $workshopType, superSearch: $search) {\n    edges {\n      node {\n        id\n        tablaStatus\n        ayakStatus\n        fabricStatus\n        marbleStatus\n        glassStatus\n        ayakPaintStatus\n        tablaPaintStatus\n        orderCount\n        notes\n        product {\n          id\n          sku\n          name\n          width\n          height\n          length\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                metaType\n                paintType\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              orderType\n              marketplaceOrderId\n              estimatedDeliveryDate\n              marketplace {\n                name\n                id\n              }\n              id\n            }\n          }\n        }\n        externalService {\n          edges {\n            node {\n              isRawMaterial\n              name\n              phoneNumber\n              address\n              module\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '596edbf5b794196f48d275336e122b3b';
+(node as any).hash = '11952c527a22a8e449f243af357d2cc2';
 export default node;
