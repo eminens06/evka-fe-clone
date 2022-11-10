@@ -174,8 +174,13 @@ const CreateEditStorageItem: FunctionComponent = () => {
     if (userRoles) return userRoles.indexOf('admin') !== -1;
   }, [userRoles]);
 
+  const isStorage = useMemo(() => {
+    if (userRoles) return userRoles.indexOf('storage') !== -1;
+  }, [userRoles]);
+
+
   const deleteEnabled = useMemo(() => {
-    return isAdmin || (isEdit && initialValues?.count == 1) ? true : false;
+    return isAdmin || isStorage || (isEdit && initialValues?.count == 1) ? true : false;
   }, [isEdit, initialValues, isAdmin]);
 
   return (

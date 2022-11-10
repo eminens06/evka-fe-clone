@@ -21,6 +21,7 @@ import AddEditCard from '../common/AddEditCard';
 import { OrderProduct } from '../orders/types';
 import InvoiceDetails from './invoiceDetails';
 import { Invoice as InvoiceType, KdvParams } from './types';
+import moment from 'moment';
 
 const columns = [
   {
@@ -50,6 +51,19 @@ const columns = [
     key: 'shipmentOrderDate',
     title: 'Sevk Tarihi',
     dataIndex: 'shipmentOrderDate',
+    sorter: {
+      compare: (a, b) =>
+        moment(a.shipmentOrderDate, 'DD-MM-YYYY') -
+        moment(b.shipmentOrderDate, 'DD-MM-YYYY'),
+    },
+    // console.log(
+    //   datediff(
+    //     parseDate(a.shipmentOrderDate),
+    //     parseDate(b.shipmentOrderDate),
+    //   ),
+    // ),
+    sortDirections: ['descend'],
+    defaultSortOrder: ['descend'],
   },
   {
     key: 'shipmentCompany',
@@ -57,6 +71,15 @@ const columns = [
     dataIndex: 'shipmentCompany',
   },
 ];
+
+function datediff(first, second) {
+  return Math.round((second - first) / (1000 * 60 * 60 * 24));
+}
+
+function parseDate(str) {
+  var mdy = str.split('-');
+  return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+}
 
 const Invoice: FunctionComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -146,6 +169,15 @@ const Invoice: FunctionComponent = () => {
     }
   };
 
+  const onChange: TableProps<DataType>['onChange'] = (
+    pagination,
+    filters,
+    sorter,
+    extra,
+  ) => {
+    console.log('params', pagination, filters, sorter, extra);
+  };
+
   return (
     <PageContent header={['Sevkiyat Fatura', 'Fatura İrsaliye']}>
       <div>
@@ -154,6 +186,7 @@ const Invoice: FunctionComponent = () => {
           <Typography.Title level={5}>Fatura/İrsaliye Listesi</Typography.Title>
         </div>
         <Table
+          onChange={onChange}
           onRow={(record: InvoiceType) => {
             return {
               onClick: () => onTableClick(record),
@@ -168,10 +201,10 @@ const Invoice: FunctionComponent = () => {
             total: size,
           }}
           sortKeys={[
+            { value: 'shipmentOrderDate', text: 'Sevk Tarihi' },
             { value: 'remainingTime', text: 'Kalan Süre' },
             { value: 'marketplace', text: 'Pazaryeri' },
             { value: 'shipmentCompany', text: 'Firma' },
-            { value: 'shipmentOrderDate', text: 'Sevk Tarihi' },
           ]}
         />
         {modalData && (

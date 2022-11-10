@@ -13,6 +13,7 @@ import { FileExcelOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import TableSort from './TableSort';
 import ExportTableButton from './ExportTableButton';
+import DropdownFilter from '../molecules/DropdownFilter';
 
 const { Title } = Typography;
 
@@ -40,6 +41,7 @@ const Table: FC<Props> = (props) => {
   const [sortedData, setSortedData] = useState<any>();
   const [initial, setInitial] = useState<any>();
   const [sort, setSort] = useState<string>();
+  const [filteredType, setFilteredType] = useState<string>();
 
   const changePagination = (page: number, pgSize?: number) => {
     setCurrentPage(page);
@@ -57,6 +59,11 @@ const Table: FC<Props> = (props) => {
     }
     return props.dataSource;
   }, [props.dataSource, props.exportFormatter]);
+
+  const handleFilter = (value: string) => {
+    setFilteredType(value);
+    // let filtered = sortedData.filter(e => e.)
+  };
 
   useEffect(() => {
     setSortedData(props.dataSource);
