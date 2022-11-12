@@ -2,7 +2,7 @@ import { graphql } from 'relay-hooks';
 
 graphql`
   query PackagingRelayallProductOrdersQuery($search: String) {
-    allProductByProductOrderStatus(statusType: "PP", superSearch: $search) {
+    allProductByProductOrderStatus(statusType: "PP", superSearch: $search, getAll: true) {
       edges {
         node {
           packagingStatus
