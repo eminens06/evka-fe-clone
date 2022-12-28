@@ -532,7 +532,11 @@ const productionMainPartsMapper = (
   data: ProductionWorkshopDataDTO[],
   type: WorkshopTypes.WOOD | WorkshopTypes.METAL,
 ) => {
-  const finalRes = data.map((item) => {
+  const cleanData = (item: ProductionWorkshopDataDTO) => {
+    const order = genericTableDataMapper(item, 'userOrder');
+    return !!order.length;
+  };
+  const finalRes = data.filter(cleanData).map((item) => {
     const metaProducts = genericTableDataMapper(item.product, 'metaProducts');
     const order = genericTableDataMapper(item, 'userOrder');
     const itemTypes: any[] = [];
