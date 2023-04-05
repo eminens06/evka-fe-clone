@@ -95,7 +95,7 @@ const KioskPage: FunctionComponent = () => {
           <ComparisonCard
             header="Satış Tarihi"
             title="Aylık Satış"
-            subTitle="Geçen Aylık Satış"
+            subTitle="Geçen Gün Bazında Geçen Aylık Satış"
             value={sellComparsionData?.orderDate?.this_month.toFixed(2)}
             subValue={sellComparsionData?.orderDate?.last_month.toFixed(2)}
             loading={loading}
@@ -105,7 +105,7 @@ const KioskPage: FunctionComponent = () => {
           <ComparisonCard
             header="Sevk Tarihi"
             title="Aylık Satış"
-            subTitle="Geçen Aylık Satış"
+            subTitle="Geçen Gün Bazında Geçen Aylık Satış"
             value={sellComparsionData?.shipmentDate?.this_month.toFixed(2)}
             subValue={sellComparsionData?.shipmentDate?.last_month.toFixed(2)}
             loading={loading}
