@@ -138,8 +138,6 @@ export const colorPalette = [
   `#B6C8A9`,
   `#FFAEBC`,
   `#FBE7C6`,
-  `#ff7c43`,
-  `#665191`,
   `#a05195`,
   `#f95d6a`,
   `#d45087`,
@@ -152,11 +150,9 @@ export const marketplaces = [
   'Trendyol',
   'Tepehome',
   'Hepsiburada',
-  'n11',
-  'Yapıbahçe',
   'Hipicon',
   'Amazon',
-  'Perabulvarı',
+  'Pazarama',
   'Toplam',
 ];
 
