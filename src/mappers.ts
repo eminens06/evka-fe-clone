@@ -1377,13 +1377,13 @@ const topSellMapper = (data: any) => {
   return mappedData;
 };
 
-const downloadDataMapper = async (data: any) => {
+const downloadDataMapper = async (data: any, startDate: any, endDate: any) => {
   const parsedDownloadData = data.map((elem: string) => {
     const parsedData = JSON.parse(elem);
     return parsedData;
   });
 
-  csvDownload(parsedDownloadData, 'data.csv');
+  csvDownload(parsedDownloadData, startDate + '_' + endDate  + '_' + 'data.csv');
 };
 
 const mapStorageItem = (item: any) => {
