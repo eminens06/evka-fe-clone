@@ -26,7 +26,9 @@ const DownloadDataModal = () => {
     );
 
     setLoading(false);
-    console.log(mappers.downloadDataMapper(download));
+    let date1 = String(startDate).split(" ")[1] + "_" + String(startDate).split(" ")[2] + "_" + String(startDate).split(" ")[3];
+    let date2 = String(endDate).split(" ")[1] + "_" + String(endDate).split(" ")[2] + "_" + String(endDate).split(" ")[3];
+    console.log(mappers.downloadDataMapper(download, date1, date2));
   };
 
   const disabled = useMemo(() => {
