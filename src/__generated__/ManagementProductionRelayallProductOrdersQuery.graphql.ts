@@ -38,6 +38,9 @@ export type ManagementProductionRelayallProductOrdersQueryResponse = {
                                             readonly height: number | null;
                                             readonly width: number | null;
                                             readonly externalUrl: string | null;
+                                            readonly file: {
+                                              readonly url: string | null;
+                                          } | null;
                                         } | null;
                                     } | null>;
                                 } | null;
@@ -255,6 +258,24 @@ v10 = {
               "args": null,
               "kind": "ScalarField",
               "name": "externalUrl",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageFileType",
+              "kind": "LinkedField",
+              "name": "file",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "url",
+                  "storageKey": null
+                }
+              ],
               "storageKey": null
             }
           ],
@@ -659,7 +680,7 @@ return {
     "metadata": {},
     "name": "ManagementProductionRelayallProductOrdersQuery",
     "operationKind": "query",
-    "text": "query ManagementProductionRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"DF\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        orderCount\n        id\n        product {\n          id\n          name\n          sku\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ManagementProductionRelayallProductOrdersQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"DF\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        orderCount\n        id\n        product {\n          id\n          name\n          sku\n          productName\n          metaProducts {\n            edges {\n              node {\n                categoryName\n                materialName\n                id\n              }\n            }\n          }\n          productImages {\n            edges {\n              node {\n                images {\n                  edges {\n                    node {\n                      id\n                      name\n                      height\n                      width\n                      file {\n                    url\n                  }\n                    externalUrl\n                    }\n                  }\n                }\n                id\n              }\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              customerInfo\n              orderType\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
