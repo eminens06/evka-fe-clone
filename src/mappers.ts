@@ -1369,6 +1369,54 @@ const vastedMapper = (data: any) => {
   return testObj;
 };
 
+const externalHakedisMapper = (data:any) => {
+  var obj: any = [];
+  const parsedData = JSON.parse(data as string);
+  Object.keys(parsedData).map((item) => {
+    const data = parsedData[item];
+    
+
+    const temp = Object.keys(data).map((item) => {
+      let items = data[item]["siparisler"];
+      const siparis_array = [];
+      items.forEach((array: any) => {
+        siparis_array.push(
+          {
+            siparis_tarihi:String(array["siparis_tarihi"]).split(" ")[0],
+            siparis_pazaryeri_kodu:array["siparis_pazaryeri_kodu"],
+            uretilen_urun:array["uretilen_urun"],
+            siparis_toplam_tutari:String(array["siparis_toplam_tutari"]).concat(" ₺"),
+            siparis_hakedis:String(array["siparis_hakedis"]).concat(" ₺"),
+
+          }
+        );
+      });
+      return {
+        title: item,
+        total_cost: String(data[item]["total_hakedis_cost"]).concat(" ₺"),
+        siparis_adet:data[item]["number_of_orders"],
+        siparis_array:siparis_array,
+      };
+    });
+    obj.push(temp);
+  });
+  return obj[0]
+}
+const externalModalDataMapper = (data:any) => {
+  var obj: any = [];
+     data["siparis_array"].forEach((array) => {
+      obj.push({
+        siparis_tarihi: array["siparis_tarihi"],
+        siparis_pazaryeri_kodu:array["siparis_pazaryeri_kodu"],
+        uretilen_urun:array["uretilen_urun"],
+        siparis_toplam_tutari:array["siparis_toplam_tutari"],
+        siparis_hakedis:array["siparis_hakedis"],
+     });
+    }
+    );
+  return obj
+}
+
 const topSellMapper = (data: any) => {
   const mappedData = data.map((item: any) => {
     const parsedData = JSON.parse(item as string);
