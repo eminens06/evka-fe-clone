@@ -1497,4 +1497,6 @@ export default {
   storageItemsMapper,
   mapStorageItem,
   storageItemsValidList,
+  externalHakedisMapper,
+  externalModalDataMapper,
 };
