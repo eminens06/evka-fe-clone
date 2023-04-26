@@ -61,6 +61,12 @@ graphql`
 `;
 
 graphql`
+  query KioskExternalHakedisQuery($startDate: DateTime, $endDate: DateTime) {
+    externalHakedis(startDate: $startDate, endDate: $endDate)
+  }
+`;
+
+graphql`
   query KioskDownloadDataQuery($startDate: DateTime, $endDate: DateTime) {
     download(startDate: $startDate, endDate: $endDate)
   }
