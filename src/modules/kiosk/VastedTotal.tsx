@@ -73,6 +73,29 @@ const VastedTotal: FunctionComponent = () => {
       sorter: (a, b) => parseInt(a.siparis_hakedis.split(" ")[0])- parseInt(b.siparis_hakedis.split(" ")[0]),
     },
   ]
+  
+    const download_columns : any =[
+    {
+      title: 'Sipariş Tarihi',
+      dataIndex: 'siparis_tarihi',
+    },
+    {
+      title: 'Pazaryeri Sipariş Numarası',
+      dataIndex: 'siparis_pazaryeri_kodu',
+    },
+    {
+      title: 'Üretilen Ürün',
+      dataIndex: 'uretilen_urun',
+    },
+    {
+      title: 'Sipariş Toplam Tutarı',
+      dataIndex: 'siparis_toplam_tutari',
+    },
+    {
+      title: 'Sipariş Hakediş Değeri',
+      dataIndex: 'siparis_hakedis',    },
+  ] 
+  
   const externalColumns: any = [
     {
       title: 'Hizmet Sağlayıcısı',
