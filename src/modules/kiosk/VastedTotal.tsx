@@ -65,12 +65,12 @@ const VastedTotal: FunctionComponent = () => {
     {
       title: 'Sipariş Toplam Tutarı',
       dataIndex: 'siparis_toplam_tutari',
-      sorter: (a, b) => parseInt(a.siparis_toplam_tutari.split(" ")[0])- parseInt(b.siparis_toplam_tutari.split(" ")[0]),
+      sorter: (a, b) => parseInt(a.siparis_toplam_tutari)- parseInt(b.siparis_toplam_tutari),
     },
     {
       title: 'Sipariş Hakediş Değeri',
       dataIndex: 'siparis_hakedis',
-      sorter: (a, b) => parseInt(a.siparis_hakedis.split(" ")[0])- parseInt(b.siparis_hakedis.split(" ")[0]),
+      sorter: (a, b) => parseInt(a.siparis_hakedis)- parseInt(b.siparis_hakedis),
     },
   ]
   
@@ -108,7 +108,7 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Hakediş Değeri',
       dataIndex: 'total_cost',
       width: 250,
-      sorter: (a, b) => parseInt(a.total_cost.split(" ")[0])- parseInt(b.total_cost.split(" ")[0]),
+      sorter: (a, b) => parseInt(a.total_cost)- parseInt(b.total_cost),
       sortDirections: ['descend', 'ascend'],
     },
     {
