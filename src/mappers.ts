@@ -1385,15 +1385,15 @@ const externalHakedisMapper = (data:any) => {
             siparis_tarihi:String(array["siparis_tarihi"]).split(" ")[0],
             siparis_pazaryeri_kodu:array["siparis_pazaryeri_kodu"],
             uretilen_urun:array["uretilen_urun"],
-            siparis_toplam_tutari:String(array["siparis_toplam_tutari"]).concat(" ₺"),
-            siparis_hakedis:String(array["siparis_hakedis"]).concat(" ₺"),
+            siparis_toplam_tutari:array["siparis_toplam_tutari"],
+            siparis_hakedis:array["siparis_hakedis"],
 
           }
         );
       });
       return {
         title: item,
-        total_cost: String(data[item]["total_hakedis_cost"]).concat(" ₺"),
+        total_cost: data[item]["total_hakedis_cost"],
         siparis_adet:data[item]["number_of_orders"],
         siparis_array:siparis_array,
       };
