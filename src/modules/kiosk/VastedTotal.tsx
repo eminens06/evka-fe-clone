@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Row, Col, DatePicker, Typography, Spin, Table, Divider, Modal , Badge, Descriptions, Space, Card } from 'antd';
 import moment from 'moment';
+import ExportTableButton from '../../molecules/ExportTableButton';
+import { FileExcelOutlined } from '@ant-design/icons';
 import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
 import { PieChartTwoTone } from '@ant-design/icons'
 import mappers from '../../mappers';
@@ -213,7 +215,15 @@ const VastedTotal: FunctionComponent = () => {
             );
           })}
                 </Row> 
-              <Title level={4} underline={true}>Dış Hizmetler Hakedişleri</Title>
+              <Title level={4} underline={true}>Dış Hizmetler Hakedişleri
+              <ExportTableButton
+                dataSource={externalData}
+                columns={externalColumns}//
+                fileName={"DisHakedisler_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
+                btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style:{float: 'right'}}}
+                >
+                Bütün Tablo Verilerini İndir
+              </ExportTableButton></Title>
               <Card title="Dış Hizmet Hakediş Güncelleme Notları (Kısa süre içerisinde silinecektir)" size="small" style={{ paddingBottom: 10 }} >
                 <p>* Dış hizmetler üretilen ürünler özelinde yataylara ayrıldı ve çeşitli bilgiler görüntülenebilir hale getirildi.</p>
                 <p>* Hem modal içerisinde hem de asıl tabloda isme ve sipariş tutarlarına göre sort özelliği eklendi. Sort özelliği 3 kademelidir: azalan, artan ve orijinal sıralama.</p>
@@ -249,11 +259,20 @@ const VastedTotal: FunctionComponent = () => {
         <Descriptions.Item label="Toplam Hizmet Ödeme Tutarı"><strong>{externalModalData.total_cost}</strong></Descriptions.Item>
       </Descriptions>
       <Row gutter={24} style={{ paddingTop: 20 }}></Row>
+        <ExportTableButton
+          dataSource={externalTableData}
+          columns={download_columns}
+          fileName={externalModalData.title+"_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
+          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled:externalModalData.siparis_adet>0 ? false:true, block:true, style:{ paddingBottom: 10 }}}
+        >
+          Tablo Verilerini İndir
+        </ExportTableButton>
       <Table 
                   columns={externalModalColumns}
                   dataSource={externalTableData}
                   size="small"
                   bordered
+                          style={{ paddingTop: 20 }}
                   pagination={{
                     showSizeChanger: true,
                     defaultPageSize:20,
