@@ -13,6 +13,9 @@ import VASTED_TOTALS, {
 import EXTERNAL_TOTALS, {
   KioskExternalHakedisQuery,
 } from '../../__generated__/KioskExternalHakedisQuery.graphql';
+import MAINCOST_TOTALS, {
+  KioskMainCostQuery,
+} from '../../__generated__/KioskMainCostQuery.graphql';
 
 import { Button } from 'antd';
 const { Text } = Typography;
@@ -37,18 +40,24 @@ const columns: ColumnsType<DataType> = [
 
 
 const VastedTotal: FunctionComponent = () => {
-  let itemNum = 0;
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isExternalModalVisible, setIsExternalModalVisible] = useState(false);
-  const [modalData, setModalData] = useState<any>();
-  const [externalModalData, setExternalModalData] = useState<any>();
-  const [externalTableData, setExternalTableData] = useState<any>();
   const environment = useRelayEnvironment();
   const [startDate, setStartDate] = useState<any>(moment().startOf('month'));
   const [endDate, setEndDate] = useState<any>(moment());
 
   const [chartData, setChartData] = useState<any>(null);
+  const [modalData, setModalData] = useState<any>();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const [externalData, setExternalData] = useState<any>(null);
+  const [externalTableData, setExternalTableData] = useState<any>();
+  const [externalModalData, setExternalModalData] = useState<any>();
+  const [isExternalModalVisible, setIsExternalModalVisible] = useState(false);
+
+  const [mainCostData, setmainCostData] = useState<any>(null);
+  const [mainCostTableData, setMainCostTableData] = useState<any>();
+  const [mainCostModalData, setmainCostModalData] = useState<any>();
+  const [isMainCostModalVisible, setisMainCostModalVisible] = useState(false);
+  
   const externalModalColumns: any = [
     {
       title: 'Sipariş Tarihi',
@@ -63,18 +72,20 @@ const VastedTotal: FunctionComponent = () => {
       dataIndex: 'uretilen_urun',
     },
     {
-      title: 'Sipariş Toplam Tutarı',
+      title: 'Sipariş Toplam Tutarı (₺)',
       dataIndex: 'siparis_toplam_tutari',
-      sorter: (a, b) => parseInt(a.siparis_toplam_tutari)- parseInt(b.siparis_toplam_tutari),
+      align: 'center',
+      sorter: (a, b) => a.siparis_toplam_tutari- b.siparis_toplam_tutari,
     },
     {
-      title: 'Sipariş Hakediş Değeri',
+      title: 'Sipariş Hakediş Değeri (₺)',
       dataIndex: 'siparis_hakedis',
-      sorter: (a, b) => parseInt(a.siparis_hakedis)- parseInt(b.siparis_hakedis),
+      align: 'center',
+      sorter: (a, b) => a.siparis_hakedis- b.siparis_hakedis,
     },
-  ]
-  
-    const download_columns : any =[
+  ] 
+
+  const download_columns : any =[
     {
       title: 'Sipariş Tarihi',
       dataIndex: 'siparis_tarihi',
@@ -88,27 +99,77 @@ const VastedTotal: FunctionComponent = () => {
       dataIndex: 'uretilen_urun',
     },
     {
-      title: 'Sipariş Toplam Tutarı',
+      title: 'Sipariş Toplam Tutarı (₺)',
       dataIndex: 'siparis_toplam_tutari',
     },
     {
       title: 'Sipariş Hakediş Değeri',
       dataIndex: 'siparis_hakedis',    },
   ] 
-  
+
+  const mainCostColumns:any = [
+    {
+      title: 'Malzeme/İşçilik Kalemi',
+      dataIndex: 'giderTitle',
+      width: 200,
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.giderTitle.toLowerCase().charCodeAt(0) - b.giderTitle.toLowerCase().charCodeAt(0),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Gider Tutarı (₺)',
+      width: 200,
+      dataIndex: 'totalGider',
+      sorter: (a, b) => a.totalGider- b.totalGider,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      width: 270,
+      render: (recordd: any) => (
+        <Space direction='vertical' style={{width: '100%'}}>
+        <Button type="default" onClick={() => onMainCostTableClick(recordd)} icon={<PieChartTwoTone />} block>
+          Gider Ayrıntılarını Göster
+        </Button>
+        </Space>
+      ),
+    }
+  ];
+  const mainCostModalColumns:any = [
+    {
+      title: 'Ürün SKU Kodu',
+      dataIndex: 'productName',
+      width: 150,
+    },
+    {
+      title: 'Ürün Üretim Adeti',
+      dataIndex: 'numberProduced',
+      width: 250,
+      sorter: (a, b) => a.numberProduced- b.numberProduced,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Toplam Ürün Gider/İşçilik Bedeli (₺)',
+      dataIndex: 'productionHakedis',
+      width: 250,
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.productionHakedis- b.productionHakedis,
+      sortDirections: ['descend', 'ascend'],
+    },
+  ];
   const externalColumns: any = [
     {
       title: 'Hizmet Sağlayıcısı',
       dataIndex: 'title',
       width: 200,
+      defaultSortOrder: 'ascend',
       sorter: (a, b) => a.title.toLowerCase().charCodeAt(0) - b.title.toLowerCase().charCodeAt(0),
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Hakediş Değeri',
+      title: 'Hakediş Değeri (₺)',
       dataIndex: 'total_cost',
-      width: 250,
-      sorter: (a, b) => parseInt(a.total_cost)- parseInt(b.total_cost),
+      width: 200,
+      sorter: (a, b) => parseInt(a.total_cost.split(" ")[0])- parseInt(b.total_cost.split(" ")[0]),
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -145,6 +206,13 @@ const VastedTotal: FunctionComponent = () => {
   const hideExternalModal = () => {
     setIsExternalModalVisible(false);
   };
+  const hideMainCostModal = () => {
+    setisMainCostModalVisible(false);
+  };
+  const mainCostModal = () => {
+    setisMainCostModalVisible(false);
+  };
+
   const getChartData = async () => {
     setLoading(true);
     const { hakedisTotal } = await fetchQuery<KioskHakedisTotalQuery>(
@@ -159,6 +227,24 @@ const VastedTotal: FunctionComponent = () => {
     setLoading(false);
     setChartData(mappers.vastedMapper(hakedisTotal));
   };
+  const getMainCostData = async () => {
+    setLoading(true);
+    const { mainCost } = await fetchQuery<KioskMainCostQuery>(
+      environment,
+      MAINCOST_TOTALS,
+      {
+        startDate: startDate,
+        endDate: endDate,
+      },
+      { force: true },
+    );
+    setLoading(false);
+    setmainCostData(mappers.mainCostMapper(mainCost));
+  };
+  useEffect(() => {
+    getMainCostData();
+  }, [startDate, endDate]);
+
   const getExternalData = async () => {
     setLoading(true);
     const { externalHakedis } = await fetchQuery<KioskExternalHakedisQuery>(
@@ -176,10 +262,16 @@ const VastedTotal: FunctionComponent = () => {
   useEffect(() => {
     getExternalData();
   }, [startDate, endDate]);
+
   const onExternalTableClick = (data: any) => {
     setExternalModalData({ ...data });
     setExternalTableData(mappers.externalModalDataMapper({ ...data }))
     setIsExternalModalVisible(true);
+  };
+  const onMainCostTableClick = (data: any) => {
+    setmainCostModalData(mappers.mainCostModalMapper({ ...data }));
+    setMainCostTableData(mappers.mainCostTableMapper({ ...data }))
+    setisMainCostModalVisible(true);
   };
   const onTableClick = (data: any) => {
     setModalData({ ...data });
@@ -238,22 +330,41 @@ const VastedTotal: FunctionComponent = () => {
             );
           })}
                 </Row> 
+                <Row gutter={24} style={{ paddingTop: 20 }}>
+                <Col span={12}>
+              <Title level={4} underline={true}>Malzeme/İşçilik Giderleri
+              <ExportTableButton
+          dataSource={mainCostData}
+          columns={mainCostColumns}//
+          fileName={"AnaGiderler"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
+          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style:{float: 'right'}}}
+        >
+          Bütün Tablo Verilerini İndir
+        </ExportTableButton></Title>
+              <Table //External Hakediş Table
+                  columns={mainCostColumns}
+                  dataSource={mainCostData}
+                  size="small"
+                  bordered
+                  pagination={{
+                    showSizeChanger: true,
+                    defaultPageSize:20,
+                    defaultCurrent:1,
+                  }}
+                />
+
+</Col>
+<Col span={12}>
               <Title level={4} underline={true}>Dış Hizmetler Hakedişleri
               <ExportTableButton
-                dataSource={externalData}
-                columns={externalColumns}//
-                fileName={"DisHakedisler_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
-                btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style:{float: 'right'}}}
-                >
-                Bütün Tablo Verilerini İndir
-              </ExportTableButton></Title>
-              <Card title="Dış Hizmet Hakediş Güncelleme Notları (Kısa süre içerisinde silinecektir)" size="small" style={{ paddingBottom: 10 }} >
-                <p>* Dış hizmetler üretilen ürünler özelinde yataylara ayrıldı ve çeşitli bilgiler görüntülenebilir hale getirildi.</p>
-                <p>* Hem modal içerisinde hem de asıl tabloda isme ve sipariş tutarlarına göre sort özelliği eklendi. Sort özelliği 3 kademelidir: azalan, artan ve orijinal sıralama.</p>
-                <p>* Veriler açısından kıyas yapılması maksadıyla eski dış hizmet hakedişleri şimdilik olduğu gibi bırakılmıştır.</p>
-                <p>* Hakediş bedelleri şu an için eksik hesaplanmaktadır. Son olarak dış hizmet hakedişleri için tarih aralığını yukardan seçebilirsiniz.</p>
-              </Card >
-          
+          dataSource={externalData}
+          columns={externalColumns}
+          fileName={"DisHakedisler_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
+          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style:{float: 'right'}}}
+        >
+          Bütün Tablo Verilerini İndir
+        </ExportTableButton></Title>
+
               <Table //External Hakediş Table
                   columns={externalColumns}
                   dataSource={externalData}
@@ -265,7 +376,7 @@ const VastedTotal: FunctionComponent = () => {
                     defaultCurrent:1,
                   }}
                 />
-
+</Col></Row>
     {externalModalData && (
       <Modal //external modal
       visible={isExternalModalVisible}
@@ -279,10 +390,10 @@ const VastedTotal: FunctionComponent = () => {
       
       <Descriptions title={"Hizmet Alınan Kişi:  ".concat(externalModalData.title)} bordered>
         <Descriptions.Item label="Hizmet Alınan Sipariş Adeti">{externalModalData.siparis_adet} adet sipariş</Descriptions.Item>
-        <Descriptions.Item label="Toplam Hizmet Ödeme Tutarı"><strong>{externalModalData.total_cost}</strong></Descriptions.Item>
+        <Descriptions.Item label="Toplam Hizmet Ödeme Tutarı"><strong>{String(externalModalData.total_cost).concat(" ₺")}</strong></Descriptions.Item>
       </Descriptions>
       <Row gutter={24} style={{ paddingTop: 20 }}></Row>
-        <ExportTableButton
+      <ExportTableButton
           dataSource={externalTableData}
           columns={download_columns}
           fileName={externalModalData.title+"_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
@@ -295,7 +406,45 @@ const VastedTotal: FunctionComponent = () => {
                   dataSource={externalTableData}
                   size="small"
                   bordered
-                          style={{ paddingTop: 20 }}
+                  style={{ paddingTop: 20 }}
+                  pagination={{
+                    showSizeChanger: true,
+                    defaultPageSize:20,
+                    defaultCurrent:1,
+                  }}
+                />
+
+    </Modal>)}
+
+    {mainCostModalData && (
+      <Modal //mainCost Modal
+      visible={isMainCostModalVisible}
+      title={'Hakediş Ayrıntıları'}
+      width={'70%'}
+      onCancel={hideMainCostModal}
+      cancelText="Pencereyi Kapat"
+      footer={[<Button key="back" type='primary' onClick={hideMainCostModal}>
+        Geri Dön
+      </Button>]}>
+      
+      <Descriptions title={"İşçilik/Giderin Adı:  ".concat(String(mainCostTableData.giderTitle))} bordered>
+        <Descriptions.Item label="Toplam İşçilik/Gider Bedeli"><strong>{String(mainCostTableData.totalGider).concat(" ₺")}</strong></Descriptions.Item>
+      </Descriptions>
+      <Row gutter={24} style={{ paddingTop: 20 }}></Row>
+      <ExportTableButton
+          dataSource={mainCostModalData}
+          columns={mainCostModalColumns}
+          fileName={mainCostTableData.giderTitle+"_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
+          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled:mainCostTableData.totalGider>0 ? false:true, block:true, style:{ paddingBottom: 10 }}}
+        >
+          Tablo Verilerini İndir
+        </ExportTableButton>
+      <Table 
+                  columns={mainCostModalColumns}
+                  dataSource={mainCostModalData}
+                  size="small"
+                  bordered
+                  style={{ paddingTop: 20 }}
                   pagination={{
                     showSizeChanger: true,
                     defaultPageSize:20,
@@ -317,4 +466,3 @@ const VastedTotal: FunctionComponent = () => {
 };
 
 export default VastedTotal;
-
