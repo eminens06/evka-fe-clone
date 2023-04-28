@@ -62,14 +62,17 @@ const VastedTotal: FunctionComponent = () => {
     {
       title: 'Sipariş Tarihi',
       dataIndex: 'siparis_tarihi',
+      align: 'center',
     },
     {
       title: 'Pazaryeri Sipariş Numarası',
       dataIndex: 'siparis_pazaryeri_kodu',
+      align: 'center',
     },
     {
       title: 'Üretilen Ürün',
       dataIndex: 'uretilen_urun',
+      align: 'center',
     },
     {
       title: 'Sipariş Toplam Tutarı (₺)',
@@ -112,6 +115,7 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Malzeme/İşçilik Kalemi',
       dataIndex: 'giderTitle',
       width: 200,
+      align: 'center',
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.giderTitle.toLowerCase().charCodeAt(0) - b.giderTitle.toLowerCase().charCodeAt(0),
       sortDirections: ['descend', 'ascend'],
@@ -119,6 +123,7 @@ const VastedTotal: FunctionComponent = () => {
     {
       title: 'Gider Tutarı (₺)',
       width: 200,
+      align: 'center',
       dataIndex: 'totalGider',
       sorter: (a, b) => a.totalGider- b.totalGider,
       sortDirections: ['descend', 'ascend'],
@@ -139,11 +144,13 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Ürün SKU Kodu',
       dataIndex: 'productName',
       width: 150,
+      align: 'center',
     },
     {
       title: 'Ürün Üretim Adeti',
       dataIndex: 'numberProduced',
       width: 250,
+      align: 'center',
       sorter: (a, b) => a.numberProduced- b.numberProduced,
       sortDirections: ['descend', 'ascend'],
     },
@@ -151,6 +158,7 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Toplam Ürün Gider/İşçilik Bedeli (₺)',
       dataIndex: 'productionHakedis',
       width: 250,
+      align: 'center',
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.productionHakedis- b.productionHakedis,
       sortDirections: ['descend', 'ascend'],
@@ -161,6 +169,7 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Hizmet Sağlayıcısı',
       dataIndex: 'title',
       width: 200,
+      align: 'center',
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.title.toLowerCase().charCodeAt(0) - b.title.toLowerCase().charCodeAt(0),
       sortDirections: ['descend', 'ascend'],
@@ -169,6 +178,7 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Hakediş Değeri (₺)',
       dataIndex: 'total_cost',
       width: 200,
+      align: 'center',
       sorter: (a, b) => a.total_cost- b.total_cost,
       sortDirections: ['descend', 'ascend'],
     },
@@ -420,7 +430,7 @@ const VastedTotal: FunctionComponent = () => {
       <Modal //mainCost Modal
       visible={isMainCostModalVisible}
       title={'Hakediş Ayrıntıları'}
-      width={'70%'}
+      width={'60%'}
       onCancel={hideMainCostModal}
       cancelText="Pencereyi Kapat"
       footer={[<Button key="back" type='primary' onClick={hideMainCostModal}>
