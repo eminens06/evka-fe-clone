@@ -169,7 +169,7 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Hakediş Değeri (₺)',
       dataIndex: 'total_cost',
       width: 200,
-      sorter: (a, b) => parseInt(a.total_cost.split(" ")[0])- parseInt(b.total_cost.split(" ")[0]),
+      sorter: (a, b) => a.total_cost- b.total_cost,
       sortDirections: ['descend', 'ascend'],
     },
     {
