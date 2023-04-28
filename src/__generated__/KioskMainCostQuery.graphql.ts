@@ -23,7 +23,7 @@ query KioskMainCostQuery(
 ) {
   mainCost(startDate: $startDate, endDate: $endDate)
 }
-
+*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
