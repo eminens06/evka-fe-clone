@@ -1416,6 +1416,62 @@ const externalModalDataMapper = (data:any) => {
     );
   return obj
 }
+const mainCostMapper = (data:any) => {
+  var obj: any = [];
+  const parsedData = JSON.parse(data as string)["main_costs"]
+  Object.keys(parsedData).map((hakedis_kalemi) => {
+    const hakedis_data = parsedData[hakedis_kalemi];
+    const hakedis_total_cost = hakedis_data["total_hakedis"]
+    var products_list: any[] = [];
+    let productsDict = hakedis_data["hakedis_items"];
+    for (let key in productsDict){
+      products_list.push(
+        {
+          productName: key,
+          numberProduced: productsDict[key]["number_produced"],
+          productionHakedis: productsDict[key]["total_hakedis"],
+        }
+      );
+    }
+    obj.push(
+      {
+        giderTitle: firstCharCapitalize(hakedis_kalemi.split('_').join(' ')),
+        totalGider: hakedis_total_cost,
+        productArray: products_list,
+      })
+  });
+  return obj;
+}
+
+    /*
+#""                main_costs: {
+                #          "tasima": {
+                #               "total_hakedis": 232,
+                #               "hakedis_items": {"evka-sd": {"number_p":12, "total_hakedis":'32},
+                #                                  "evka-crcr: {ne
+                #
+                #
+                #
+    */
+const mainCostModalMapper = (data:any) => {
+  var list:any = [];
+  data["productArray"].forEach((element:any) => {
+    list.push({
+      productName:element["productName"],
+      numberProduced:element["numberProduced"],
+      productionHakedis:element["productionHakedis"]
+    })
+  });
+  return list;
+}
+const mainCostTableMapper = (data:any) => {
+  var dict:any = 
+  {
+    giderTitle:data["giderTitle"],
+    totalGider:data["totalGider"],
+  }
+  return dict;
+}
 
 const topSellMapper = (data: any) => {
   const mappedData = data.map((item: any) => {
@@ -1499,4 +1555,7 @@ export default {
   storageItemsValidList,
   externalHakedisMapper,
   externalModalDataMapper,
+  mainCostMapper,
+  mainCostModalMapper,
+  mainCostTableMapper
 };
