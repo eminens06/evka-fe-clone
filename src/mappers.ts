@@ -154,6 +154,37 @@ export const orderSaveMapper = (values: any) => {
   };
 };
 
+export const storageOrderMapper = (values: any) => {
+  const productList = [{
+    productId: values.productId,
+      price: 0,
+      orderCount: values.count,
+  }]
+  const userOrderInput = {
+    marketplaceId: "TWFya2V0UGxhY2VOb2RlOjFkODI4Y2QwLWYzMmMtNGZkOC04NGM3LTY3NTEwNGMyMmZmMA==",
+    commissionRate: 0,
+    orderDeliveryTime: 15,
+    isKdvInclude: true,                                                                                                                                                           
+    orderDate: moment().toISOString(), //moment('2023-05-07T08:15:00').toISOString(),
+    totalPrice: 0,
+    notes: values.notes,
+    customerInfo: {
+      name: "Depo",
+      surname: "Siparişi",
+      deliveryAddress: values.konum,
+      tc: values.productSKU,
+    },
+    marketplaceOrderId: "DEPO-".concat(values.productSKUPart).concat("-").concat(String(values.count)).concat("-").concat(moment().format('DD-MM')),
+    orderType: "NR",
+  }
+  return {
+    productList: productList,
+    userOrderInput: userOrderInput,
+    invoiceNo: values.invoiceNo,
+    invoiceDate: values.invoiceDate,
+  };
+};
+
 export const orderEditMapper = (
   values: any,
   productOrderIds: string[],
@@ -1557,5 +1588,6 @@ export default {
   externalModalDataMapper,
   mainCostMapper,
   mainCostModalMapper,
-  mainCostTableMapper
+  mainCostTableMapper,
+  storageOrderMapper,
 };
