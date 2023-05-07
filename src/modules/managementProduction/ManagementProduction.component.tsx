@@ -29,6 +29,7 @@ import useFullPageLoader from '../../hooks/useFullPageLoader';
 import settings from '../../settings';
 import ImagePopover from '../common/ImagePopover';
 import StorageModal from './StorageModal';
+import CreateStorageOrderModal from './createStorageOrderModal'
 import GET_ISEXIST_PRODUCT, {
   ManagementProductionRelayStorageItemsQuery,
 } from '../../__generated__/ManagementProductionRelayStorageItemsQuery.graphql';
@@ -99,6 +100,8 @@ const ManagementProduction: FunctionComponent = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isStorageVisible, setIsStorageVisible] = useState(false);
+  
+  const [isCreateOrderModalVisible, setCreateOrderModalVisible] = useState(false);
 
   const [modalData, setModalData] = useState<any>();
   const [search, setSearch] = useState('');
@@ -189,6 +192,10 @@ const ManagementProduction: FunctionComponent = () => {
       setModalData({ ...data, existInStorage: false });
     }
   };
+  
+  const onCreateOrderClick = () => {
+    setCreateOrderModalVisible(true)
+  };
 
   const onTableClick = (data: any) => {
     getIsExist(data);
@@ -233,6 +240,10 @@ const ManagementProduction: FunctionComponent = () => {
           <Typography.Title level={5}>
             Üretim Onayı Bekleyen Siparişler
           </Typography.Title>
+          <Button
+           onClick={() => onCreateOrderClick()}
+           >Button</Button>
+
         </div>
         <Table
           onRow={(record: any, rowIndex: any) => {
@@ -261,7 +272,13 @@ const ManagementProduction: FunctionComponent = () => {
           isVisible={isModalVisible}
           closeModal={() => setIsModalVisible(false)}
         />
-
+        <CreateStorageOrderModal
+          data={modalData}
+          onApprove={onApprove}
+          isVisible={isCreateOrderModalVisible}
+          sendMutation={() => setIsStorageVisible(true)}
+          closeModal={() => setCreateOrderModalVisible(false)}
+        />
         <StorageModal
           data={modalData}
           onStorage={onStorage}
