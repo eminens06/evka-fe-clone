@@ -6,7 +6,10 @@ import {
   Typography,
   Button,
   Image,
+  Col,
+  Card,
 } from 'antd';
+import { DatabaseTwoTone } from '@ant-design/icons';
 import { InfoCircleOutlined, CameraOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
@@ -235,16 +238,19 @@ const ManagementProduction: FunctionComponent = () => {
   return (
     <PageContent header={['Üretim Yönetimi']}>
       <div>
-        <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>
             Üretim Onayı Bekleyen Siparişler
           </Typography.Title>
-          <Button
-           onClick={() => onCreateOrderClick()}
-           >Button</Button>
-
         </div>
+        <Row style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>          <Button
+          onClick={() => onCreateOrderClick()}
+          icon={<DatabaseTwoTone />}
+          type="primary"
+          style={{ marginLeft: '8px', width: '350px' }}
+        >Depoya Sipariş Emri Ver</Button>
+
+          <TableFilter onSearchComplete={onSearch} /></Row>
         <Table
           onRow={(record: any, rowIndex: any) => {
             return {
