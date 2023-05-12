@@ -73,7 +73,7 @@ const PackagingDetail: FC<Props> = ({ productName, marketplaceOrderId, isMonte, 
           <br></br>
           <Typography.Text>Montaj Durumu: {isMonteText}</Typography.Text>
           <br></br>
-          <Typography.Text>Paket Sayısı: {packageCount}</Typography.Text>
+          <Typography.Text>Reçetede Öngörülen Paket Sayısı: {packageCount}</Typography.Text>
           <br></br>
         </Card>
       </Col>
@@ -85,7 +85,7 @@ const PackagingDetail: FC<Props> = ({ productName, marketplaceOrderId, isMonte, 
                 size='large'
                 onClick={onDifferentButtonClick}
                 type="primary">
-                Kullanılan Paket Sayısı Farklı
+                Kullanılan Paket Sayısı Öngörülenden Farklı
               </Button>
             </Row>
             <Col span={24}>
