@@ -128,7 +128,10 @@ const ListPackaging: FunctionComponent = () => {
             saveTextArray={statusNextButtonText}
           >
             <PackagingDetail
+              productId={modalData}
+              status={modalData.status}
               productName={modalData.productName}
+              marketplaceOrderId={modalData.id}
               isMonte={modalData.isMonte}
               packageCount={modalData.packageCount}
             />
