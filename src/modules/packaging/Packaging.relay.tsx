@@ -66,3 +66,15 @@ graphql`
     }
   }
 `;
+
+graphql`
+  mutation PackagingRelayUpdatePackagingHakedisMutation(
+    $input: UpdatePackagingHakedisInput!
+  ) {
+    updatePackagingHakedis(input: $input) {
+      productOrder {
+        id
+      }
+    }
+  }
+`;
