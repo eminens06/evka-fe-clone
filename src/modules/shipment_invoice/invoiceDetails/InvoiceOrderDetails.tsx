@@ -63,9 +63,11 @@ const InvoiceOrderDetails: FC<Props> = ({
             })}
             <br></br>
             <Row>
-              <Col span={6}></Col>
+              <Col span={6}>
+                <Typography.Text strong>Kdv Hariç</Typography.Text>
+              </Col>
               <Col offset={12} span={6}>
-                <Typography.Text>{total} TL</Typography.Text>
+                <Typography.Text>{(total - totalKdv).toFixed(2)} TL</Typography.Text>
               </Col>
             </Row>
             <Row>
@@ -73,7 +75,7 @@ const InvoiceOrderDetails: FC<Props> = ({
                 <Typography.Text strong>Kdv</Typography.Text>
               </Col>
               <Col offset={12} span={6}>
-                <Typography.Text>{totalKdv.toFixed(2)} TL</Typography.Text>
+                <Typography.Text>{(totalKdv).toFixed(2)} TL</Typography.Text>
               </Col>
             </Row>
             <Row>
@@ -82,7 +84,7 @@ const InvoiceOrderDetails: FC<Props> = ({
               </Col>
               <Col offset={12} span={6}>
                 <Typography.Text>
-                  {(total - totalKdv).toFixed(2)} TL
+                  {total} TL
                 </Typography.Text>
               </Col>
             </Row>
