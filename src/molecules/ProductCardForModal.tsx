@@ -204,6 +204,7 @@ const ProductCardForModal: FC<Props> = ({ isDisabled }) => {
               >
                 <InputNumber
                   min={1}
+                  max={50}
                   style={{ width: '100%' }}
                   disabled={isDisabled}
                   decimalSeparator=","
