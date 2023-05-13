@@ -53,7 +53,7 @@ const PackagingDetail: FC<Props> = ({ productName, marketplaceOrderId, isMonte, 
   const onUpdateButtonClick = () => {
     const input = {
       productOrderId: String(marketplaceOrderId),
-      changeOfPackaging: actualNumber - packageCount,
+      changeOfPackaging: actualNumber,
     };
     updateHakedis({
       variables: {
