@@ -35,7 +35,7 @@ export type UserOrderProductDTO = {
   edges: OrderProductDTO[];
 };
 
-export enum OrderStatusType {
+export enum OldOrderStatusType {
   DF = 'DF',
   P = 'P',
 }
@@ -48,7 +48,7 @@ export type UserOrderDTO = {
   };
   marketplaceOrderId: string;
   notes: string;
-  orderStatus: OrderStatusType;
+  orderStatus: string;
   totalPrice: number;
   products: UserOrderProductDTO;
   orderType: OrderTypes;
@@ -67,12 +67,13 @@ export type UserOrder = {
   orderId: string;
   notes: string;
   marketplace: string;
-  status: OrderStatusType;
+  status: OldOrderStatusType;
   price: number;
   products: OrderProduct[];
   remainingTime: number;
   orderType: OrderTypes;
 };
+
 export interface CustomerDTO {
   tc: string;
   name: string;
