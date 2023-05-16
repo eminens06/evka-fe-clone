@@ -312,7 +312,7 @@ const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
       orderId: order.marketplaceOrderId,
       notes: order.notes,
       marketplace: order.marketplace.name,
-      status: order.orderStatus,
+      status: order.status,
       price: order.totalPrice,
       products: orderProductMapper(order),
       remainingTime: getRemainingDate(order.estimatedDeliveryDate),
