@@ -23,6 +23,7 @@ export type OrdersRelayGetAllUserOrdersQueryResponse = {
                 readonly customerInfo: unknown | null;
                 readonly marketplaceOrderId: string;
                 readonly orderStatus: string | null;
+                readonly shipmentStatus: string | null;
                 readonly products: {
                     readonly edges: ReadonlyArray<{
                         readonly node: {
@@ -69,6 +70,7 @@ query OrdersRelayGetAllUserOrdersQuery(
         customerInfo
         marketplaceOrderId
         orderStatus
+        shipmentStatus
         products {
           edges {
             node {
@@ -181,38 +183,45 @@ v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "orderCount",
+  "name": "shipmentStatus",
   "storageKey": null
 },
 v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "orderCount",
   "storageKey": null
 },
 v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productOrderStatus",
+  "name": "type",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "sku",
+  "name": "productOrderStatus",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "productName",
+  "name": "sku",
   "storageKey": null
 },
 v16 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "productName",
+  "storageKey": null
+},
+v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -270,6 +279,7 @@ return {
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -294,10 +304,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v11/*: any*/),
                               (v12/*: any*/),
-                              (v2/*: any*/),
                               (v13/*: any*/),
+                              (v2/*: any*/),
+                              (v14/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -306,10 +316,10 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v14/*: any*/),
-                                  (v7/*: any*/),
                                   (v15/*: any*/),
-                                  (v16/*: any*/)
+                                  (v7/*: any*/),
+                                  (v16/*: any*/),
+                                  (v17/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -385,6 +395,7 @@ return {
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -409,10 +420,10 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v11/*: any*/),
                               (v12/*: any*/),
-                              (v2/*: any*/),
                               (v13/*: any*/),
+                              (v2/*: any*/),
+                              (v14/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -421,10 +432,10 @@ return {
                                 "name": "product",
                                 "plural": false,
                                 "selections": [
-                                  (v14/*: any*/),
-                                  (v7/*: any*/),
                                   (v15/*: any*/),
+                                  (v7/*: any*/),
                                   (v16/*: any*/),
+                                  (v17/*: any*/),
                                   (v4/*: any*/)
                                 ],
                                 "storageKey": null
@@ -455,9 +466,9 @@ return {
     "metadata": {},
     "name": "OrdersRelayGetAllUserOrdersQuery",
     "operationKind": "query",
-    "text": "query OrdersRelayGetAllUserOrdersQuery(\n  $search: String\n) {\n  allUserOrders(notCompleted: \"a\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        estimatedDeliveryDate\n        id\n        totalPrice\n        orderType\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        products {\n          edges {\n            node {\n              orderCount\n              type\n              notes\n              productOrderStatus\n              product {\n                sku\n                name\n                productName\n                metaInfo\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query OrdersRelayGetAllUserOrdersQuery(\n  $search: String\n) {\n  allUserOrders(notCompleted: \"a\", superSearch: $search) {\n    edges {\n      node {\n        notes\n        estimatedDeliveryDate\n        id\n        totalPrice\n        orderType\n        marketplace {\n          name\n          id\n        }\n        customerInfo\n        marketplaceOrderId\n        orderStatus\n        shipmentStatus\n        products {\n          edges {\n            node {\n              orderCount\n              type\n              notes\n              productOrderStatus\n              product {\n                sku\n                name\n                productName\n                metaInfo\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'cfcfc9247f4d310fd747283e9b8ef015';
+(node as any).hash = 'cdf5c5996eb5f221c83fe45f57ad7494';
 export default node;
