@@ -35,7 +35,7 @@ export type UserOrderProductDTO = {
   edges: OrderProductDTO[];
 };
 
-export enum OldOrderStatusType {
+export enum OldOrderstatusType {
   DF = 'DF',
   P = 'P',
 }
@@ -67,7 +67,7 @@ export type UserOrder = {
   orderId: string;
   notes: string;
   marketplace: string;
-  status: OldOrderStatusType;
+  status: string;
   price: number;
   products: OrderProduct[];
   remainingTime: number;
