@@ -306,13 +306,13 @@ const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
     } else {
       status = String(order.orderStatus);
     }
-    return {
+      return {
       customer: `${name} ${surname || ''}`,
       id: order.id,
       orderId: order.marketplaceOrderId,
       notes: order.notes,
       marketplace: order.marketplace.name,
-      status: order.status,
+      status: status,
       price: order.totalPrice,
       products: orderProductMapper(order),
       remainingTime: getRemainingDate(order.estimatedDeliveryDate),
