@@ -151,6 +151,8 @@ const OrdersPage: FunctionComponent = () => {
           ]}
         />
       </div>
+      {(JSON.stringify(data) && JSON.stringify(data))}
+
     </PageContent>
   );
 };
