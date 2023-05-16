@@ -68,6 +68,7 @@ graphql`
           customerInfo
           marketplaceOrderId
           orderStatus
+          shipmentStatus
           products {
             edges {
               node {
