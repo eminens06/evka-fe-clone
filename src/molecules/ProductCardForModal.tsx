@@ -116,40 +116,43 @@ const ProductCardForModal: FC<Props> = ({ isDisabled }) => {
     <Card title="Ürün Bilgileri" bordered={false} className="form-card">
 
       <Row gutter={16}>
-        <Col span={18}>
-          <Form form={form} onFinish={onFinish} >
-            <Form.Item
-              label="SKU"
-              name="sku"
-              labelCol={{ span: 7 }}
-              wrapperCol={{ span: 17 }}
-              rules={[{ required: true, message: 'Lütfen SKU giriniz' }]}
-              style={{ marginBottom: 0 }}
-            >
-              <Search
-                placeholder="EVKA-ZEMA-00111010441"
-                allowClear
-
-                enterButton={<CheckCircleOutlined />}
-                size="large"
-                onSearch={() => getProductBySku()}
-                onChange={(e) => setSku(e.target.value)}
-                loading={isLoading}
+        <Col span={24}>
+          <Row gutter={16}>
+            <Col span={18}>
+              <Form form={form} onFinish={onFinish} >
+                <Form.Item
+                  label="SKU"
+                  name="sku"
+                  labelCol={{ span: 7 }}
+                  wrapperCol={{ span: 16 }}
+                  rules={[{ required: true, message: 'Lütfen SKU giriniz' }]}
+                  style={{ marginBottom: 0 }}
+                >
+                  <Search
+                    placeholder="SKU Seçimini Lütfen Tablodan Seçerek Gerçekleştiriniz"
+                    allowClear
+                    enterButton={<CheckCircleOutlined />}
+                    size="large"
+                    onSearch={() => getProductBySku()}
+                    onChange={(e) => setSku(e.target.value)}
+                    loading={isLoading}
+                    disabled={true}
+                    style={{ width: '100%' }}
+                  />
+                </Form.Item>
+              </Form>
+            </Col>
+            <Col span={4}>
+              <Button
+                type="default"
+                size='large'
+                onClick={() => setShowProductsTable(true)}
                 disabled={isDisabled}
-                style={{ width: '100%' }}
-              />
-            </Form.Item>
-          </Form>
-        </Col>
-        <Col span={6}>
-          <Button
-            type="default"
-            size='large'
-            onClick={() => setShowProductsTable(true)}
-            disabled={isDisabled}
-          >
-            Tablodan Bul
-          </Button>
+              >
+                Tablodan Bul
+              </Button>
+            </Col>
+          </Row>
         </Col>
       </Row>
 
