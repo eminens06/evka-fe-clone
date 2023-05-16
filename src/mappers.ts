@@ -296,6 +296,16 @@ const getRemainingDate = (estimatedDeliveryDate: moment.Moment) => {
 const orderListMapper = (data: UserOrderDTO[]): UserOrder[] => {
   return data.map((order) => {
     const { name, surname } = JSON.parse(order.customerInfo);
+    let status;
+    if (String(order.orderStatus) == 'Sevkiyat/Fatura Aşamasında') {
+      if (String(order.shipmentStatus) == "Sevk Edildi") {
+        status = "Fatura Aşamasında";
+      } else {
+        status = "Sevkiyat Aşamasında";
+      }
+    } else {
+      status = String(order.orderStatus);
+    }
     return {
       customer: `${name} ${surname || ''}`,
       id: order.id,
