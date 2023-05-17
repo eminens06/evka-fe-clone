@@ -33,7 +33,7 @@ const [
   ] = useMutation<PackagingRelayUpdatePackagingHakedisMutation>(
     UPDATE_PACKAGING_HAKEDIS, {
     onError: (error: any) => {
-      const errorMessage = 'UpdatePackagingHakedis error ' + error.message;
+      const errorMessage = 'HATA! ' + error.message;
       message.error(errorMessage);
     },
     onCompleted: (res) => {
