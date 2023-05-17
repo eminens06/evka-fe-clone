@@ -25,7 +25,7 @@ enum Status {
 const PackagingDetail: FC<Props> = ({ productName, marketplaceOrderId, isMonte, packageCount, status }) => {
 
   const [isActualPackagingNumberDifferent, setIsActualPackagingNumberDifferent] = useState(false);
-  const [actualNumber, setActualNumber] = useState<any>();
+  const [actualNumber, setActualNumber] = useState<number>(packageCount);
   const progressStatus = status as WorkshopStatus;
 
 const [
