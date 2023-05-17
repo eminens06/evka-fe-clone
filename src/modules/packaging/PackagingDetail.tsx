@@ -17,7 +17,6 @@ interface Props {
   packageCount: number;
 }
 
-
 enum Status {
   DONE = 'Monte',
   NOT_DONE = 'Demonte',
@@ -29,19 +28,20 @@ const PackagingDetail: FC<Props> = ({ productName, marketplaceOrderId, isMonte, 
   const [actualNumber, setActualNumber] = useState<any>();
   const progressStatus = status as WorkshopStatus;
 
-  const [
+const [
     updateHakedis,
   ] = useMutation<PackagingRelayUpdatePackagingHakedisMutation>(
     UPDATE_PACKAGING_HAKEDIS, {
     onError: (error: any) => {
-      message.error('Hata! ', error.response.errors[0].message);
+      const errorMessage = 'UpdatePackagingHakedis error ' + error.message;
+      message.error(errorMessage);
     },
     onCompleted: (res) => {
       message.success('Kullanılan Paket Adeti Başarıyla Güncellendi');
       setIsActualPackagingNumberDifferent(!isActualPackagingNumberDifferent);
     },
-  });
-
+  });  
+  
   const onChangeOfNumber = (value: number) => {
     setActualNumber(value);
   };
