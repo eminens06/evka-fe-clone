@@ -139,7 +139,7 @@ const KioskPage: FunctionComponent = () => {
         <TopSellingProducts />
       </Card>
 
-      <Card style={{ margin: 16 }} title="Sevk Emir Bugün Girilen Siparişler">
+      <Card style={{ margin: 16 }} title="Sevk Emri Bugün Girilen Siparişler">
         {loading ? (
           <div style={{ height: 300, width: '100%' }}>
             <Skeleton />
