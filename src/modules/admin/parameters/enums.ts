@@ -1,6 +1,6 @@
 export const metalFields: { label: string; name: string }[] = [
   {
-    label: 'Fiyat (TL/m)',
+    label: 'Fiyat (TL/kg)',
     name: 'fiyat',
   },
   {
