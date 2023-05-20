@@ -1262,12 +1262,20 @@ const productSaveMapper = (data: any): any => {
 };
 
 const monthlySalesMapper = (data: any): any => {
+  const date = new Date();
+  const currentMonth = date.getMonth();
+  const currentDay = date.getDate();
+  const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1; 
+
   let dataArray = data.map((item: any) => item);
   const averageSales = data.map((item: any, index: any) =>
-    (item / daysInMonth[index]).toFixed(2),
+    (item / (index === currentMonth ? currentDay : daysInMonth[index])).toFixed(2),
   );
 
-  const date = new Date();
+  let currentMonthSalesRate = dataArray[currentMonth] / currentDay;
+  let lastMonthSalesRate = dataArray[previousMonth] / daysInMonth[previousMonth];
+  let percentageChange = ((currentMonthSalesRate - lastMonthSalesRate) / lastMonthSalesRate) * 100;
+
   if (!(date.getFullYear() > 2021 && date.getMonth() > 6)) {
     averageSales[7] = 0;
     dataArray[7] = 0;
@@ -1275,22 +1283,6 @@ const monthlySalesMapper = (data: any): any => {
 
   return {
     labels: [...months],
-    options: {
-      scales: {
-        yAxes: [
-          {
-            id: 'A',
-            type: 'linear',
-            position: 'left',
-          },
-          {
-            id: 'B',
-            type: 'linear',
-            position: 'right',
-          },
-        ],
-      },
-    },
     datasets: [
       {
         label: 'Toplam Satış(TL)',
@@ -1307,6 +1299,23 @@ const monthlySalesMapper = (data: any): any => {
         yAxisID: 'B',
       },
     ],
+    options: {
+      scales: {
+        A: {
+          type: 'linear',
+          position: 'left',
+        },
+        B: {
+          type: 'linear',
+          position: 'right',
+          display: false, // don't display this axis
+          grid: {
+            drawOnChartArea: false, // don't draw grid for this axis
+          },
+        },
+      },
+    },
+    percentageChange
   };
 };
 
