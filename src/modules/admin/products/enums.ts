@@ -190,7 +190,7 @@ export const otherWsPropsFileds = [
 
 export const laborPropsFileds = [
   {
-    label: 'Metal İşçilik (A/S)',
+    label: 'Kaynak Atölyesi İşçilik (A/S)',
     name: 'metal',
   },
   {
@@ -202,7 +202,7 @@ export const laborPropsFileds = [
     name: 'toplama',
   },
   {
-    label: 'Ahşap Atölyesi İşçilik (A/S)',
+    label: 'Marangoz Atölyesi İşçilik (A/S)',
     name: 'ahsapAtolyesi',
   },
   {
@@ -225,7 +225,7 @@ export const laborPropsFileds = [
 
 export const otherPropsFileds = [
   {
-    label: 'Alüminyum Döküm (TL)',
+    label: 'Alüminyum Döküm (kg)',
     name: 'aliminyumDokum',
   },
   {
@@ -245,7 +245,7 @@ export const otherPropsFileds = [
     name: 'aksesuar',
   },
   {
-    label: 'Akrilik Tipi',
+    label: 'Akrilik Kalınlığı (mm)',
     name: 'akrilikTipi',
   },
   {
