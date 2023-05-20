@@ -121,11 +121,21 @@ const KioskPage: FunctionComponent = () => {
                 <Skeleton />
               </div>
             ) : (
-              <Bar
-                data={monthlySalesData}
-                options={{ maintainAspectRatio: false }}
-                height={400}
-              />
+              monthlySalesData && (
+                <>
+                  <Bar
+                    data={monthlySalesData}
+                    options={monthlySalesData.options}
+                    height={75}
+                  />
+                  <p style={{ textAlign: 'center', fontSize: '20px' }}>
+                    Günlük bazda satış oranı geçtiğimiz ayın ortalamasına göre <b>%{Math.abs(monthlySalesData.percentageChange.toFixed(2))}</b> oranında {monthlySalesData.percentageChange > 0 ? <b>yükselmiştir</b> : <b>düşmüştür</b>}.
+                  </p>
+                  <p style={{ textAlign: 'center', fontSize: '15px' }}>
+                    (Makul bir kıyas güdebilmek için yukarıdaki değer günlük siparişler girildikten sonra dikkate alınmalıdır. Aksi taktirde bir gün eksik satış verisi ile kıyas yapılmış olacaktır.)
+                  </p>
+                </>
+              )
             )}
           </Col>
         </Row>
