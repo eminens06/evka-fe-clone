@@ -5582,6 +5582,18 @@
                 "name": "Float",
                 "ofType": null
               }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "kutu",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
             }
           ],
           "inputFields": null,
@@ -7084,6 +7096,22 @@
               "description": "",
               "isDeprecated": false,
               "name": "ambalaj",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
+              "name": "kutu",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -9549,6 +9577,18 @@
               "description": null,
               "isDeprecated": false,
               "name": "ambalaj",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "kutu",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
@@ -12523,6 +12563,16 @@
               "defaultValue": null,
               "description": null,
               "name": "ambalaj",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "kutu",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
@@ -16096,6 +16146,16 @@
               "defaultValue": null,
               "description": null,
               "name": "ambalaj",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "kutu",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
