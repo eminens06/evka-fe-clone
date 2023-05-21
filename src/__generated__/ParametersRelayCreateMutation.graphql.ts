@@ -56,6 +56,7 @@ export type LaborParamInput = {
     dosemeIscilikKatsayisi?: number | null;
     akrilik?: number | null;
     ambalaj?: number | null;
+    kutu?: number | null;
     mermer?: number | null;
 };
 export type OtherWorkshopParamInput = {
