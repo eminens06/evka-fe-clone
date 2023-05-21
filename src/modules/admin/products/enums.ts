@@ -221,6 +221,10 @@ export const laborPropsFileds = [
     label: 'Ambalaj İşçilik (Adet)',
     name: 'ambalaj',
   },
+  {
+    label: 'Kutu Bedeli (TL)',
+    name: 'kutu',
+  }
 ];
 
 export const otherPropsFileds = [
