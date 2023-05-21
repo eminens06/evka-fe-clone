@@ -83,6 +83,7 @@ export type LaborAttributeInputs = {
     doseme?: number | null;
     akrilik?: number | null;
     ambalaj?: number | null;
+    kutu?: number | null;
 };
 export type ProductsRelayUpdateProductMutationVariables = {
     input: UpdateProductMutationInput;
