@@ -160,6 +160,7 @@ export const storageOrderMapper = (values: any) => {
       price: 0,
       orderCount: values.count,
   }]
+  var randomNum = Math.floor(Math.random() * 100) + 1;
   const userOrderInput = {
     marketplaceId: "TWFya2V0UGxhY2VOb2RlOjFkODI4Y2QwLWYzMmMtNGZkOC04NGM3LTY3NTEwNGMyMmZmMA==",
     commissionRate: 0,
@@ -174,7 +175,7 @@ export const storageOrderMapper = (values: any) => {
       deliveryAddress: values.konum,
       tc: values.productSKU,
     },
-    marketplaceOrderId: "DEPO-".concat(values.productSKUPart).concat("-").concat(String(values.count)).concat("-").concat(moment().format('DD-MM')),
+    marketplaceOrderId: "DEPO-".concat(values.productSKUPart).concat("-").concat(String(values.count)).concat("-").concat(moment().format('DD-MM')).concat("-").concat(String(randomNum)),
     orderType: "NR",
   }
   return {
