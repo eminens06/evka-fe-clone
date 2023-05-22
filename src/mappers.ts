@@ -884,23 +884,23 @@ const shipmentOrderMapper = (data: ShipmentTableDTO[]) => {
 };
 
 const invoiceMapper = (data: UserOrderDTO[]): Invoice[] => {
-  return data.map((order) => {
-    const customerInfo = JSON.parse(order.customerInfo);
-    return {
-      customer: `${customerInfo.name} ${customerInfo.surname || ''}`,
-      id: order.id,
-      customerDetail: customerInfo,
-      orderId: order.marketplaceOrderId,
-      notes: order.notes,
-      marketplace: order.marketplace.name,
-      products: orderProductMapper(order) || [],
-      shipmentCompany: order.shipmentCompanyName || 'Seçilmedi',
-      shipmentType: order.shipmentType || ' - ',
-      shipmentOrderDate: order.shipmentOrderDate
-        ? moment(order.shipmentOrderDate).format('DD-MM-YYYY')
-        : 'Sevk Emri Girilmedi',
-    };
-  });
+  return data
+    .filter((order) => order.shipmentOrderDate) // Filter out orders without shipmentOrderDate
+    .map((order) => {
+      const customerInfo = JSON.parse(order.customerInfo);
+      return {
+        customer: `${customerInfo.name} ${customerInfo.surname || ''}`,
+        id: order.id,
+        customerDetail: customerInfo,
+        orderId: order.marketplaceOrderId,
+        notes: order.notes,
+        marketplace: order.marketplace.name,
+        products: orderProductMapper(order) || [],
+        shipmentCompany: order.shipmentCompanyName || 'Seçilmedi',
+        shipmentType: order.shipmentType || ' - ',
+        shipmentOrderDate: moment(order.shipmentOrderDate).format('DD-MM-YYYY'),
+      };
+    });
 };
 
 const shipmentInvoiceSummaryMapper = (
