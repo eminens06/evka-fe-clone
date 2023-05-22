@@ -91,6 +91,7 @@ graphql`
         akrilik
       }
       labor {
+        kutu
         metal
         tasima
         toplama
