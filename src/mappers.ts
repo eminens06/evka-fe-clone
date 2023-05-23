@@ -1410,8 +1410,14 @@ const vastedMapper = (data: any) => {
   Object.keys(parsedData).map((item) => {
     const data = parsedData[item];
     const temp = Object.keys(data).map((item) => {
+      let title = '';
+      if (item === 'al-sat') {
+        title = 'Al-Sat (KDV Dahil)';
+      } else {
+        title = firstCharCapitalize(item.split('_').join(' '));
+      }
       return {
-        title: firstCharCapitalize(item.split('_').join(' ')),
+        title,
         data: data[item].toFixed(2).toString(),
       };
     });
