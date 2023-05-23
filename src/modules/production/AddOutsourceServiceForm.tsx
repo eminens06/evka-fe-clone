@@ -45,7 +45,7 @@ const AddOutSourceServiceForm: FC<Props> = ({
   }
   return (
     <Form form={form} name="basic" layout="vertical" onFinish={onFormFinish}>
-      {withRawMaterial && (
+      {withRawMaterial && moduleName !== "MR" && (
         <Form.Item
           name="rawMaterial"
           label="Hammadde"
