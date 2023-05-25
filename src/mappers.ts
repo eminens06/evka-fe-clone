@@ -1427,14 +1427,13 @@ const vastedMapper = (data: any) => {
         title = 'Al-Sat (KDV Dahil)';
       } else if (item == 'alimyum'){
         title = 'Alüminyum';
-      } else if (item.toUpperCase === 'fabric_cost'.toUpperCase){
+      } else if (item.toUpperCase() === 'fabric_cost'.toUpperCase()){
         title = 'Kumaş';
-      } else if (item.toUpperCase === 'akrilik_cost'.toUpperCase){
+      } else if (item.toUpperCase() === 'akrilik_cost'.toUpperCase()){
         title = 'Akrilik';
       }  else {
-      title = firstCharCapitalize(item.split('_').join(' '));
-
-    }
+        title = firstCharCapitalize(item.split('_').join(' '));
+      }
       return {
         title,
         data: data[item].toFixed(2).toString(),
