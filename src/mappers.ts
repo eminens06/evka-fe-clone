@@ -1492,7 +1492,7 @@ const externalModalDataMapper = (data:any) => {
     );
   return obj
 }
-const mainCostMapper = (data:any) => {
+const mainCostMapper = (data: any) => {
   var obj: any = [];
   const parsedData = JSON.parse(data as string)["main_costs"]
   Object.keys(parsedData).map((hakedis_kalemi) => {
@@ -1501,9 +1501,18 @@ const mainCostMapper = (data:any) => {
     var products_list: any[] = [];
     let productsDict = hakedis_data["hakedis_items"];
     for (let key in productsDict){
+      let title = '';
+      key = key.trim(); // Removes leading and trailing spaces
+      if (key.toLowerCase() === 'fabric_cost'){
+        title = 'Kumaş';
+      } else if (key.toLowerCase() === 'akrilik_cost'){
+        title = 'Akrilik';
+      }  else {
+        title = firstCharCapitalize(key.split('_').join(' '));
+      }
       products_list.push(
         {
-          productName: key,
+          productName: title,
           numberProduced: productsDict[key]["number_produced"],
           productionHakedis: productsDict[key]["total_hakedis"],
         }
@@ -1517,7 +1526,7 @@ const mainCostMapper = (data:any) => {
       })
   });
   return obj;
-}
+};
 
     /*
 #""                main_costs: {
