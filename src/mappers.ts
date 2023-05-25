@@ -958,7 +958,10 @@ const templateMapper = (data: any): TemplateData => {
 
 const reduceSystemParams = (fields: any, values: any) =>
   fields.reduce((acc: any, field: any) => {
-    acc[field.name] = values[field.name];
+    if (field["name"] === 'akrilikEuro'){
+      acc["akrilik"] = values.akrilikEuro
+    } else{
+    acc[field.name] = values[field.name];}
     return acc;
   }, {});
 
@@ -980,6 +983,8 @@ const systemParamsSaveMapper = (values: any) => {
   };
   return willSaveData;
 };
+
+  
 const mapLogProducts = (data: any): LogOrderProduct[] => {
   return data.map((item: any) => {
     const externalService = genericTableDataMapper(item, 'externalService');
