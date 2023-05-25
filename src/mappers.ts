@@ -1423,13 +1423,14 @@ const vastedMapper = (data: any) => {
     const data = parsedData[item];
     const temp = Object.keys(data).map((item) => {
       let title = '';
+      item = item.trim(); // removes leading and trailing spaces
       if (item === 'al-sat') {
         title = 'Al-Sat (KDV Dahil)';
       } else if (item == 'alimyum'){
         title = 'Alüminyum';
-      } else if (item.toUpperCase() === 'fabric_cost'.toUpperCase()){
+      } else if (item.toLowerCase() === 'fabric_cost'){
         title = 'Kumaş';
-      } else if (item.toUpperCase() === 'akrilik_cost'.toUpperCase()){
+      } else if (item.toLowerCase() === 'akrilik_cost'){
         title = 'Akrilik';
       }  else {
         title = firstCharCapitalize(item.split('_').join(' '));
