@@ -6,6 +6,7 @@ export type Oem = {
   remainingTime: number;
   purchasePrice?: number;
   sku: string;
+  kdvStatus: boolean;
 };
 
 export type OemFormData = {
