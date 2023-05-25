@@ -1427,8 +1427,10 @@ const vastedMapper = (data: any) => {
         title = 'Al-Sat (KDV Dahil)';
       } else if (item == 'alimyum'){
         title = 'Alüminyum';
-      } else if (item == 'fabric_cost'){
+      } else if (item.toUpperCase === 'fabric_cost'.toUpperCase){
         title = 'Kumaş';
+      } else if (item.toUpperCase === 'akrilik_cost'.toUpperCase){
+        title = 'Akrilik';
       }  else {
       title = firstCharCapitalize(item.split('_').join(' '));
 
