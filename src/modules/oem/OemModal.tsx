@@ -82,6 +82,8 @@ const OemModal: FC<Props> = ({
           <Col span={12}>
             <Typography.Title level={5}>{productName}</Typography.Title>
             <br></br>
+            <Typography.Title level={5}>Siparişte KDV Durumu: {modalData.kdvStatus? "Dahil" : "Değil"}</Typography.Title>
+            <br></br>
             <Typography.Text>{sku}</Typography.Text>
           </Col>
           <Col span={12}>
