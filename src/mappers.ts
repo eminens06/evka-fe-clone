@@ -1080,10 +1080,16 @@ const productHistoryMapper = (data: ProductHistoryDTO[]): ProductHistory[] => {
 };
 
 const systemParamMapper = (systemParams: any) => {
-  let returnData = {};
-  Object.keys(systemParams).map((key, index) => {
+  let returnData: any = {};
+  Object.keys(systemParams).forEach((key) => {
     if (key !== 'id') {
-      returnData = { ...returnData, ...systemParams[key] };
+      if (key === 'otherParams') {
+        const { akrilik, ...rest } = systemParams[key];
+        returnData = { ...returnData, ...rest };
+        returnData['akrilikEuro'] = akrilik;
+      } else {
+        returnData = { ...returnData, ...systemParams[key] };
+      }
     }
   });
   return returnData;
