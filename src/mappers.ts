@@ -1154,6 +1154,7 @@ const oemMapper = (data: any[]): Oem[] => {
       orderId: order[0].marketplaceOrderId,
       marketplace: order[0].marketplace.name,
       purchasePrice: item.purchasePrice,
+      kdvStatus: item.isKdvInclude,
       remainingTime: getRemainingDate(order[0].estimatedDeliveryDate),
     };
   });
