@@ -11,6 +11,7 @@ export type OemRelayGetListQueryResponse = {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
+                readonly isKdvInclude: boolean;
                 readonly product: {
                     readonly name: string;
                     readonly sku: string;
@@ -53,6 +54,7 @@ query OemRelayGetListQuery(
     edges {
       node {
         id
+        isKdvInclude
         product {
           name
           sku
@@ -118,31 +120,38 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "isKdvInclude",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "sku",
+  "name": "name",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "module",
+  "name": "sku",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "marketplaceOrderId",
+  "name": "module",
   "storageKey": null
 },
 v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "marketplaceOrderId",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -181,6 +190,7 @@ return {
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -189,8 +199,8 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/)
+                      (v4/*: any*/),
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -218,8 +228,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v3/*: any*/),
-                              (v5/*: any*/)
+                              (v4/*: any*/),
+                              (v6/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -253,7 +263,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v6/*: any*/),
+                              (v7/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -262,11 +272,11 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v3/*: any*/)
+                                  (v4/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v7/*: any*/)
+                              (v8/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -319,6 +329,7 @@ return {
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -327,8 +338,8 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
                       (v4/*: any*/),
+                      (v5/*: any*/),
                       (v2/*: any*/)
                     ],
                     "storageKey": null
@@ -357,8 +368,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v3/*: any*/),
-                              (v5/*: any*/),
+                              (v4/*: any*/),
+                              (v6/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -393,7 +404,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v6/*: any*/),
+                              (v7/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -402,12 +413,12 @@ return {
                                 "name": "marketplace",
                                 "plural": false,
                                 "selections": [
-                                  (v3/*: any*/),
+                                  (v4/*: any*/),
                                   (v2/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v7/*: any*/),
+                              (v8/*: any*/),
                               (v2/*: any*/)
                             ],
                             "storageKey": null
@@ -434,9 +445,9 @@ return {
     "metadata": {},
     "name": "OemRelayGetListQuery",
     "operationKind": "query",
-    "text": "query OemRelayGetListQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"AS\", superSearch: $search) {\n    edges {\n      node {\n        id\n        product {\n          name\n          sku\n          id\n        }\n        externalService {\n          edges {\n            node {\n              name\n              module\n              id\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query OemRelayGetListQuery(\n  $search: String\n) {\n  allProductByProductOrderStatus(statusType: \"AS\", superSearch: $search) {\n    edges {\n      node {\n        id\n        isKdvInclude\n        product {\n          name\n          sku\n          id\n        }\n        externalService {\n          edges {\n            node {\n              name\n              module\n              id\n            }\n          }\n        }\n        userOrder {\n          edges {\n            node {\n              marketplaceOrderId\n              marketplace {\n                name\n                id\n              }\n              estimatedDeliveryDate\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e3fa376d27d3ff865e32835720f57588';
+(node as any).hash = 'f3ed6044ac8ad9a67f115234d04b5972';
 export default node;
