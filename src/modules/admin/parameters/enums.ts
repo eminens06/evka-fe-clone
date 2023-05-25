@@ -213,7 +213,7 @@ export const otherFields = [
   },
   {
     label: 'Akrilik (EUR/m3)',
-    name: 'akrilik',
+    name: 'akrilikEuro',
   },
   {
     label: 'Ambalaj Malzemesi (TL/Adet)',
