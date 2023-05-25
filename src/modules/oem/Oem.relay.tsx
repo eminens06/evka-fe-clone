@@ -6,6 +6,7 @@ graphql`
       edges {
         node {
           id
+          isKdvInclude
           product {
             name
             sku
