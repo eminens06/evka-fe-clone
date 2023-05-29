@@ -34,6 +34,7 @@ const TopSellingProducts: FunctionComponent = () => {
   const { Summary } = Table;
 
   const [chartData, setChartData] = useState<any>(null);
+  const [totalData, setTotalData] = useState<any>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -54,7 +55,12 @@ const TopSellingProducts: FunctionComponent = () => {
     );
 
     setChartData(mappers.topSellMapper(topSellingProducts));
-
+    let total = 0;
+    let myMappingFunction = (item: any) => total += JSON.parse(item as string)[1];
+    if (topSellingProducts) {
+      topSellingProducts.forEach(myMappingFunction);
+      setTotalData(total);
+    }
     setLoading(false);
   };
 
@@ -120,7 +126,7 @@ const TopSellingProducts: FunctionComponent = () => {
                     <Summary.Cell index={1}>Toplam</Summary.Cell>
                     <Summary.Cell index={2}>
                       <Text strong type="danger">
-                        {total}
+                        {totalData}
                       </Text>
                     </Summary.Cell>
                   </Summary.Row>
