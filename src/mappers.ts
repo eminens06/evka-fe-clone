@@ -1067,14 +1067,14 @@ const productHistoryMapper = (data: ProductHistoryDTO[]): ProductHistory[] => {
     return {
       id: item.id,
       date: moment(item.updatedDate).format('DD-MM-YYYY HH:mm:ss'),
-      user: `${item.user.firstName} ${item.user.lastName}`,
+      user: `${item.user?.firstName ?? 'Kullanıcı Silinmiş'} ${item.user?.lastName ?? ''}`,
       change: {
         oldStatus: item.oldStatus,
         newStatus: item.newStatus,
       },
       type: item.type,
       module: item.module,
-      product: item.productOrder.product.name,
+      product: item.productOrder?.product?.name ?? 'Silinmiş Ürün',
     };
   });
 };
