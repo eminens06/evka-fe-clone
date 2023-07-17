@@ -28,6 +28,11 @@ const columns = [
     key: 'orderId',
     title: 'Sipariş Id',
     dataIndex: 'orderId',
+    defaultSortOrder: 'ascend',
+    sorter: {
+      compare: (a, b) => a.orderId - b.orderId,
+    },
+    sortDirections: ['descend', 'ascend'],
   },
   {
     key: 'products',
@@ -41,11 +46,21 @@ const columns = [
     key: 'customer',
     title: 'Müşteri Adı',
     dataIndex: 'customer',
+    sorter: {
+      compare: (a, b) => a.customer.localeCompare(b.customer),
+    },
+    sortDirections: ['descend', 'ascend'],
+    defaultSortOrder: 'ascend',
   },
   {
     key: 'marketplace',
     title: 'Pazaryeri',
     dataIndex: 'marketplace',
+    sorter: {
+      compare: (a, b) => a.marketplace.localeCompare(b.marketplace),
+    },
+    sortDirections: ['descend', 'ascend'],
+    defaultSortOrder: 'ascend',
   },
   {
     key: 'shipmentOrderDate',
@@ -53,22 +68,20 @@ const columns = [
     dataIndex: 'shipmentOrderDate',
     sorter: {
       compare: (a, b) =>
-        moment(a.shipmentOrderDate, 'DD-MM-YYYY') -
-        moment(b.shipmentOrderDate, 'DD-MM-YYYY'),
+        moment(a.shipmentOrderDate, 'DD-MM-YYYY').diff(moment(b.shipmentOrderDate, 'DD-MM-YYYY')),
     },
-    // console.log(
-    //   datediff(
-    //     parseDate(a.shipmentOrderDate),
-    //     parseDate(b.shipmentOrderDate),
-    //   ),
-    // ),
-    sortDirections: ['descend'],
-    defaultSortOrder: ['descend'],
+    sortDirections: ['descend', 'ascend'],
+    defaultSortOrder: 'descend',
   },
   {
     key: 'shipmentCompany',
     title: 'Sevkiyat Firması',
     dataIndex: 'shipmentCompany',
+    sorter: {
+      compare: (a, b) => a.shipmentCompany.localeCompare(b.shipmentCompany),
+    },
+    sortDirections: ['descend', 'ascend'],
+    defaultSortOrder: 'ascend',
   },
 ];
 
@@ -200,12 +213,6 @@ const Invoice: FunctionComponent = () => {
           pagination={{
             total: size,
           }}
-          sortKeys={[
-            { value: 'shipmentOrderDate', text: 'Sevk Tarihi' },
-            { value: 'remainingTime', text: 'Kalan Süre' },
-            { value: 'marketplace', text: 'Pazaryeri' },
-            { value: 'shipmentCompany', text: 'Firma' },
-          ]}
         />
         {modalData && (
           <AddEditCard
