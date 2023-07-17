@@ -22,6 +22,8 @@ import GET_TOP_SELLING_DATA, {
 } from '../../__generated__/KioskTopSellingProductsQuery.graphql';
 import moment from 'moment';
 import TopSellingProducts from './TopSellingProducts';
+import { Tabs } from 'antd';
+const { TabPane } = Tabs;
 
 const KioskPage: FunctionComponent = () => {
   const environment = useRelayEnvironment();
@@ -29,9 +31,36 @@ const KioskPage: FunctionComponent = () => {
   const [monthlySalesData, setMonthlySalesData] = useState<any>(null);
   const [productSalesData, setProductSalesData] = useState<any>(null);
   const [loading, setLoading] = useState<any>(false);
-
+  const [activeTab, setActiveTab] = useState('1');
+  
+  const tabStyle = {
+    textAlign: 'center',
+    fontSize: '20px',
+    margin: '0 300px',
+  };
+  
   const getChartsData = async () => {
+    if (activeTab !== '2') {
+      return;
+    }
+
     setLoading(true);
+    const { userOrderList } = await fetchQuery<KioskGetUserOrderListQuery>(
+      environment,
+      GET_ORDER_DATA,
+      {},
+    );
+
+    setProductSalesData(
+      mappers.productBasedSalesMapper({ userOrderList: userOrderList }),
+    );
+
+    setLoading(false);
+  };
+
+  const getCommonData = async () => {
+    setLoading(true);
+
     const { sellComparison } = await fetchQuery<KioskSellComparisonQuery>(
       environment,
       GET_CARD_DATA,
@@ -46,31 +75,41 @@ const KioskPage: FunctionComponent = () => {
       {},
     );
 
-    const { userOrderList } = await fetchQuery<KioskGetUserOrderListQuery>(
-      environment,
-      GET_ORDER_DATA,
-      {},
-    );
-
     const sellComparisonParsed =
       sellComparison && JSON.parse(sellComparison[0] as string);
     setSellComparsionData(sellComparisonParsed);
 
     setMonthlySalesData(mappers.monthlySalesMapper(monthlySalesAverages));
-    setProductSalesData(
-      mappers.productBasedSalesMapper({ userOrderList: userOrderList }),
-    );
 
     setLoading(false);
   };
 
   useEffect(() => {
-    getChartsData();
+    getCommonData();
   }, []);
 
+  useEffect(() => {
+    if (activeTab === '2') {
+      getChartsData();
+    }
+  }, [activeTab]);
+
+  const handleTabChange = (key: string) => {
+    setActiveTab(key);
+    if (key === '2') {
+      getChartsData();
+    }
+  };
   return (
-    <>
-      <Row gutter={24} style={{ padding: 16, margin: 0 }}>
+    
+    <Tabs 
+    defaultActiveKey="1" 
+    onChange={handleTabChange}
+    tabBarStyle={{ display: 'flex', justifyContent: 'center', fontSize: '200px' }}
+  >
+      
+<Tabs.TabPane tab={<div style={tabStyle}>Kiosk 1</div>} key="1">
+        <Row gutter={24} style={{ padding: 16, margin: 0 }}>
         <Col span={6}>
           <ComparisonCard
             header="Satış Tarihi"
@@ -111,9 +150,9 @@ const KioskPage: FunctionComponent = () => {
             loading={loading}
           />
         </Col>
-      </Row>
+        </Row>
 
-      <Card style={{ margin: 16 }} title="Aylık Satış">
+        <Card style={{ margin: 16 }} title="Aylık Satış">
         <Row gutter={24}>
           <Col span={24}>
             {loading ? (
@@ -139,17 +178,18 @@ const KioskPage: FunctionComponent = () => {
             )}
           </Col>
         </Row>
-      </Card>
+        </Card>
 
-      <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Satış Grafiği">
-        <CumulativeAnnual />
-      </Card>
+        <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Satış Grafiği">
+          <CumulativeAnnual />
+        </Card>
 
-      <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Ürün Satış Grafiği">
-        <TopSellingProducts />
-      </Card>
-
-      <Card style={{ margin: 16 }} title="Sevk Emri Bugün Girilen Siparişler">
+        <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Ürün Satış Grafiği">
+          <TopSellingProducts />
+        </Card>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={<div style={tabStyle}>Kiosk 2</div>} key="2">
+        <Card style={{ margin: 16 }} title="Sevk Emri Bugün Girilen Siparişler">
         {loading ? (
           <div style={{ height: 300, width: '100%' }}>
             <Skeleton />
@@ -157,17 +197,19 @@ const KioskPage: FunctionComponent = () => {
         ) : (
           <ProductSalesTable data={productSalesData} />
         )}
-      </Card>
+        </Card>
 
-      <Card style={{ margin: 16 }} title="Maliyet Analizi">
-        <VastedTotal />
-      </Card>
+        <Card style={{ margin: 16 }} title="Maliyet Analizi">
+          <VastedTotal />
+        </Card>
 
-      <Card style={{ margin: 16 }} title="Verileri İndir">
-        <DownloadDataModal />
-      </Card>
-    </>
+        <Card style={{ margin: 16 }} title="Verileri İndir">
+          <DownloadDataModal />
+        </Card>
+        </Tabs.TabPane>
+    </Tabs>
   );
 };
 
 export default KioskPage;
+
