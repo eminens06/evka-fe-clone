@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Form, message, Row } from 'antd';
+import { Breadcrumb, Button, Form, message, Row, Alert , Col } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import React, {
   FunctionComponent,
@@ -234,6 +234,7 @@ const CreateEditProduct: FunctionComponent = () => {
       }
     });
   };
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   return (
     <>
@@ -243,7 +244,29 @@ const CreateEditProduct: FunctionComponent = () => {
           <Breadcrumb.Item>Ürün Ekleme</Breadcrumb.Item>
         </Breadcrumb>
       </Header>
-
+      <Row gutter={[0, 22]}>
+      <Col span={24} 
+      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}           
+      onClick={() => setIsAlertVisible(!isAlertVisible)}>
+    <Alert 
+      type="info" 
+      showIcon 
+      style={{ maxWidth: '97%', width: '100%' , marginTop: '20px'}}
+      message="    Çoklu Ürün Oluşturma Hususları (Tıklayınız)"
+      description={isAlertVisible && (
+        <>
+          <p>Çoklu ürün oluşturmak için orijinal ürüne ait ürün adını olduğu gibi kopyalayıp, şu formata uygun hale getiriniz:
+            Orijinal Ürün Adı_COKLU_İstenilen Ürün Adeti. </p>
+          <p>Örnek: Orijinal Ürün: "Tulip Beyaz Geniş Masa", İstenilen adet: 10, Olması gereken ürün adı: "Tulip Beyaz Geniş Masa_COKLU_10"</p>
+          <p>Bunun yanı sıra, orijinal ürüne ait reçeteyi istenilen adet ile çarpıp elde edilen sonuçları bu ürün için girmeniz gerekmektedir. Gerçekleşen paket adetini ise ürün depoya eklenmeden önce değiştirebileceksiniz.
+          </p>
+          <p>Son olarak ise çoklu ürünün SKUsunun orijinal ürünün sahip olduğu SKUdan farklı bir değere sahip olması adına ilk 3 rakamı farklı girmeniz önem arz etmektedir; aksi takdirde ürünlerin depoya eklenmesinde sorun yaşanacaktır.</p>
+        </>
+      )}
+    
+    />
+  </Col>
+</Row>
       <Form
         form={form}
         layout="vertical"
