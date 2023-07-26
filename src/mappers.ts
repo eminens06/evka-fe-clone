@@ -1575,6 +1575,54 @@ const downloadDataMapper = async (data: any, startDate: any, endDate: any) => {
   csvDownload(parsedDownloadData, startDate + '_' + endDate  + '_' + 'data.csv');
 };
 
+
+const downloadProductsDataMapper = async (data: any) => {
+  const productsData = data.downloadProducts.map((elem: string) => JSON.parse(elem));
+
+  const convertToCSV = (products: any[]) => {
+    const csvRows = [];
+    // Specify headers in the order you want them to be
+    const headers = ["created_at", "updated_at", "id", "name", "product_name", "is_collectable", "sku", "package_count", "metal_attributes", "wood_attributes", "other_attributes", "labor", "aluminium_price", "sivama_price", "silikon_hirdavat_price", "aksesuar_price", "packing_price", "height", "length", "width", "is_monte", "other", "kdv"];
+    csvRows.push(headers.join(','));
+
+    for (const product of products) {
+      const values = headers.map(header => {
+        let value = product[header];
+        if (value === null) {
+          return "NULL";
+        } else if (value === true) {
+          return "True";
+        } else if (value === false) {
+          return "False";
+        } else if (value && typeof value === 'object') {
+          value = JSON.stringify(value).replace(/\\/g, '').replace(/"{/g, '{').replace(/}"/g, '}');
+        }
+        const escaped = ('' + value).replace(/"/g, '""');
+        return `"${escaped}"`;
+      });
+      csvRows.push(values.join(','));
+    }
+
+    return csvRows.join('\n');
+  };
+
+  const csvContent = convertToCSV(productsData);
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  
+  const date = new Date();
+  const formattedDate = date.getFullYear() + '_' + (date.getMonth() + 1).toString().padStart(2, '0') + '_' + date.getDate().toString().padStart(2, '0');
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', formattedDate + '_all_products.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+
 const mapStorageItem = (item: any) => {
   return {
     id: item.id,
@@ -1634,6 +1682,7 @@ export default {
   marketplaceTotalsMapper,
   vastedMapper,
   downloadDataMapper,
+  downloadProductsDataMapper,
   topSellMapper,
   storageItemsMapper,
   mapStorageItem,

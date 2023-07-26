@@ -17,6 +17,7 @@ import GET_ORDER_DATA, {
 } from '../../__generated__/KioskGetUserOrderListQuery.graphql';
 import VastedTotal from './VastedTotal';
 import DownloadDataModal from './DownloadDataModal';
+import DownloadProductsDataModal from './DownloadProductsModal';
 import GET_TOP_SELLING_DATA, {
   KioskTopSellingProductsQuery,
 } from '../../__generated__/KioskTopSellingProductsQuery.graphql';
@@ -206,6 +207,11 @@ const KioskPage: FunctionComponent = () => {
         <Card style={{ margin: 16 }} title="Verileri İndir">
           <DownloadDataModal />
         </Card>
+
+        <Card style={{ margin: 16 }} title="Ürün Verilerini İndir/Güncelle">
+          <DownloadProductsDataModal />
+        </Card>
+
         </Tabs.TabPane>
     </Tabs>
   );

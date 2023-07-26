@@ -79,6 +79,12 @@ graphql`
 `;
 
 graphql`
+  query KioskDownloadProductsQuery {
+    downloadProducts
+  }
+`;
+
+graphql`
   query KioskTopSellingProductsQuery(
     $startDate: DateTime
     $endDate: DateTime
