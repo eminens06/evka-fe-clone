@@ -342,7 +342,7 @@ const VastedTotal: FunctionComponent = () => {
                 </Row> 
                 <Row gutter={24} style={{ paddingTop: 20 }}>
                 <Col span={12}>
-              <Title level={4} underline={true}>Malzeme/İşçilik Giderleri
+              <Title level={4} underline={true}>Ana Giderler
               <ExportTableButton
           dataSource={mainCostData}
           columns={mainCostColumns}//

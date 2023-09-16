@@ -110,9 +110,6 @@ const ListStorage: FunctionComponent = () => {
         <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Depo Ürün Listesi</Typography.Title>
-          <Button type="primary" onClick={addNewItem} icon={<PlusOutlined />}>
-            Ekle
-          </Button>
         </div>
         <Table
           onRow={(record: any, rowIndex: any) => {

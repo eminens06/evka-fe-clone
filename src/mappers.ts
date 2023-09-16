@@ -1500,19 +1500,34 @@ const mainCostMapper = (data: any) => {
     const hakedis_total_cost = hakedis_data["total_hakedis"]
     var products_list: any[] = [];
     let productsDict = hakedis_data["hakedis_items"];
+    let title = firstCharCapitalize(hakedis_kalemi.split('_').join(' '));
+    if (hakedis_kalemi.toLowerCase() === 'fabric_cost'){
+      title = 'Kumaş';
+    } else if (hakedis_kalemi.toLowerCase() === 'akrilik_cost'){
+      title = 'Akrilik Hammadde';
+    } else if (hakedis_kalemi.toLowerCase() === 'akrilik'){
+      title = 'Akrilik İşçilik';
+    } else if (hakedis_kalemi.toLowerCase() === 'aliminyum_dokum'){
+      title = 'Alüminyum Döküm';
+    } else if (hakedis_kalemi.toLowerCase() === 'doseme'){
+      title = 'Döşeme İşçilik';
+    } else if (hakedis_kalemi.toLowerCase() === 'fabric_cost'){
+      title = 'Döşeme Hammadde';
+    } else if (hakedis_kalemi.toLowerCase() === 'kontplak'){
+      title = 'Kontraplak';
+    } else if (hakedis_kalemi.toLowerCase() === 'tasima'){
+      title = 'Taşıma';
+    } else if (hakedis_kalemi.toLowerCase() === 'metal'){
+      title = 'Metal İşçilik';
+    } else {
+      title = title
+    }
+
     for (let key in productsDict){
-      let title = '';
       key = key.trim(); // Removes leading and trailing spaces
-      if (key.toLowerCase() === 'fabric_cost'){
-        title = 'Kumaş';
-      } else if (key.toLowerCase() === 'akrilik_cost'){
-        title = 'Akrilik';
-      }  else {
-        title = firstCharCapitalize(key.split('_').join(' '));
-      }
       products_list.push(
         {
-          productName: title,
+          productName: key,
           numberProduced: productsDict[key]["number_produced"],
           productionHakedis: productsDict[key]["total_hakedis"],
         }
@@ -1520,7 +1535,7 @@ const mainCostMapper = (data: any) => {
     }
     obj.push(
       {
-        giderTitle: firstCharCapitalize(hakedis_kalemi.split('_').join(' ')),
+        giderTitle: title,
         totalGider: hakedis_total_cost,
         productArray: products_list,
       })
