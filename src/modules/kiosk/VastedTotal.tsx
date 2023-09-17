@@ -110,6 +110,45 @@ const VastedTotal: FunctionComponent = () => {
       dataIndex: 'siparis_hakedis',    },
   ] 
 
+  const internalHakedislerColumns:any = [
+    {
+      title: 'İç Hakediş Kalemleri',
+      dataIndex: 'title',
+      width: 200,
+      align: 'center',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.title.toLowerCase().charCodeAt(0) - b.title.toLowerCase().charCodeAt(0),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Gider Tutarı (₺)',
+      width: 200,
+      align: 'center',
+      dataIndex: 'data',
+      sorter: (a, b) => a.data- b.data,
+      sortDirections: ['descend', 'ascend'],
+    },
+  ];
+  const fonlarColumns:any = [
+    {
+      title: 'Fon Kalemleri',
+      dataIndex: 'title',
+      width: 200,
+      align: 'center',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.title.toLowerCase().charCodeAt(0) - b.title.toLowerCase().charCodeAt(0),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Gider Tutarı (₺)',
+      width: 200,
+      align: 'center',
+      dataIndex: 'data',
+      sorter: (a, b) => a.data- b.data,
+      sortDirections: ['descend', 'ascend'],
+    },
+  ];
+
   const mainCostColumns:any = [
     {
       title: 'Malzeme/İşçilik Kalemi',
@@ -319,27 +358,39 @@ const VastedTotal: FunctionComponent = () => {
         </Col>
       </Row>
       <Divider />
-      <Row gutter={24} style={{ paddingTop: 20 }}>
       {chartData &&
-          Object.keys(chartData).map((item, index) => {
-            return (
+      <Row gutter={24} style={{ paddingTop: 20 }}>
               <Col span={12}>
+              <Title level={4} underline={true}>İç Hakedişler</Title>
                 <Table 
-                  columns={getColumns(item)}
-                  dataSource={chartData[item]}
+                  columns={internalHakedislerColumns}
+                  dataSource={chartData['hakedis']}
                   size="small"
                   bordered
                   pagination={{
                     showSizeChanger: true,
-                    defaultPageSize:10,
+                    defaultPageSize:20,
                     defaultCurrent:1,
                   }}
                 />
-                {index < 2 && <Divider />}
               </Col>
-            );
-          })}
-                </Row> 
+              <Col span={12}>
+              <Title level={4} underline={true}>Fonlar</Title>
+              <Table 
+                columns={fonlarColumns}
+                dataSource={chartData['fonlar']}
+                size="small"
+                bordered
+                pagination={{
+                  showSizeChanger: true,
+                  defaultPageSize:20,
+                  defaultCurrent:1,
+                }}
+              />
+            </Col>
+            </Row> 
+          }
+
                 <Row gutter={24} style={{ paddingTop: 20 }}>
                 <Col span={12}>
               <Title level={4} underline={true}>Ana Giderler
