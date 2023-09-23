@@ -79,6 +79,12 @@ graphql`
 `;
 
 graphql`
+  query KioskMarketplacesBonusesQuery {
+    marketplacesBonuses
+  }
+`;
+
+graphql`
   query KioskDownloadProductsQuery {
     downloadProducts
   }

@@ -1152,6 +1152,22 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
+              "name": "marketplacesBonuses",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "JSONString",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
               "name": "downloadProducts",
               "type": {
                 "kind": "LIST",

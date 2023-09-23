@@ -23,6 +23,7 @@ import GET_TOP_SELLING_DATA, {
 } from '../../__generated__/KioskTopSellingProductsQuery.graphql';
 import moment from 'moment';
 import TopSellingProducts from './TopSellingProducts';
+import MarketplacesBonuses from './Marketplaces_Bonuses'
 import { Tabs } from 'antd';
 const { TabPane } = Tabs;
 
@@ -33,7 +34,6 @@ const KioskPage: FunctionComponent = () => {
   const [productSalesData, setProductSalesData] = useState<any>(null);
   const [loading, setLoading] = useState<any>(false);
   const [activeTab, setActiveTab] = useState('1');
-  
   const tabStyle = {
     textAlign: 'center',
     fontSize: '20px',
@@ -75,7 +75,6 @@ const KioskPage: FunctionComponent = () => {
       GET_SALES_DATA,
       {},
     );
-
     const sellComparisonParsed =
       sellComparison && JSON.parse(sellComparison[0] as string);
     setSellComparsionData(sellComparisonParsed);
@@ -208,8 +207,8 @@ const KioskPage: FunctionComponent = () => {
           <DownloadDataModal />
         </Card>
 
-        <Card style={{ margin: 16 }} title="Ürün Verilerini İndir/Güncelle">
-          <DownloadProductsDataModal />
+        <Card style={{ margin: 16 }} title="Pazaryeri Mütabakat ve Prim Ekranı">
+          <MarketplacesBonuses />
         </Card>
 
         </Tabs.TabPane>
