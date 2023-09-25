@@ -79,8 +79,8 @@ graphql`
 `;
 
 graphql`
-  query KioskMarketplacesBonusesQuery {
-    marketplacesBonuses
+  query KioskMarketplacesBonusesQuery($queryMonth: Int) {
+    marketplacesBonuses(queryMonth: $queryMonth)
   }
 `;
 
