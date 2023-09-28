@@ -211,6 +211,10 @@ const KioskPage: FunctionComponent = () => {
           <DownloadDataModal />
         </Card>
 
+        <Card style={{ margin: 16 }} title="Bütün Ürünleri Güncelle">
+          <DownloadProductsDataModal />
+        </Card>
+
       </Tabs.TabPane>
     </Tabs>
   );

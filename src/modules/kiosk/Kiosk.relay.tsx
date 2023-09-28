@@ -91,6 +91,14 @@ graphql`
 `;
 
 graphql`
+  mutation KioskUpdateProductsMutation($input: UpdateProductsMutationInput!) {
+    updateProducts(input: $input) {
+      ok
+    }
+  }
+`;
+
+graphql`
   query KioskTopSellingProductsQuery(
     $startDate: DateTime
     $endDate: DateTime
