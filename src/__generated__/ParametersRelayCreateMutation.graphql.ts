@@ -82,6 +82,15 @@ export type OtherParamInput = {
     fahisKatsayisi?: number | null;
     genelGiderler?: number | null;
     reklamGiderler?: number | null;
+    barem1?: number | null;
+    barem2?: number | null;
+    barem3?: number | null;
+    evkaBaremMultiplier?: number | null;
+    hepsiBaremMultiplier?: number | null;
+    tepeBaremMultiplier?: number | null;
+    trendBaremMultiplier?: number | null;
+    amazonBaremMultiplier?: number | null;
+    vivenseBaremMultiplier?: number | null;
 };
 export type ParametersRelayCreateMutationVariables = {
     input: SystemParamMutationInput;

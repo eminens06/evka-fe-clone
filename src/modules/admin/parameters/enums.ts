@@ -243,4 +243,40 @@ export const otherFields = [
     label: 'Reklam Giderleri',
     name: 'reklamGiderler',
   },
+  {
+    label: '1 Numaralı Barem Hedefi',
+    name: 'barem1',
+  },
+  {
+    label: '2 Numaralı Barem Hedefi',
+    name: 'barem2',
+  },
+  {
+    label: '3 Numaralı Barem Hedefi',
+    name: 'barem3',
+  },
+  {
+    label: 'EVKA Pazaryeri Barem Çarpanı',
+    name: 'evkaBaremMultiplier',
+  },
+  {
+    label: 'Hepsiburada Pazaryeri Barem Çarpanı',
+    name: 'hepsiBaremMultiplier',
+  },
+  {
+    label: 'Tepehome Pazaryeri Barem Çarpanı',
+    name: 'tepeBaremMultiplier',
+  },
+  {
+    label: 'Trendyol Pazaryeri Barem Çarpanı',
+    name: 'trendBaremMultiplier',
+  },
+  {
+    label: 'Amazon Pazaryeri Barem Çarpanı',
+    name: 'amazonBaremMultiplier',
+  },
+  {
+    label: 'Vivense Pazaryeri Barem Çarpanı',
+    name: 'vivenseBaremMultiplier',
+  }
 ];

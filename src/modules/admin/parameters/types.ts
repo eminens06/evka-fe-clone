@@ -65,6 +65,15 @@ export type otherTypes = {
   fahisKatsayisi: number;
   genelGiderler: number;
   reklamGiderler: number;
+  barem1: number;
+  barem2: number;
+  barem3: number;
+  evkaBaremMultiplier: number;
+  hepsiBaremMultiplier: number;
+  tepeBaremMultiplier: number;
+  trendBaremMultiplier: number;
+  amazonBaremMultiplier: number;
+  vivenseBaremMultiplier: number;
 };
 
 export type SystemFormTypes = {

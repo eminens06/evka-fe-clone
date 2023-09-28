@@ -83,7 +83,16 @@ graphql`
             fahisKatsayisi
             genelGiderler
             reklamGiderler
-          }
+            barem1
+            barem2
+            barem3
+            evkaBaremMultiplier
+            tepeBaremMultiplier
+            hepsiBaremMultiplier
+            trendBaremMultiplier
+            amazonBaremMultiplier
+            vivenseBaremMultiplier
+            }
         }
       }
     }

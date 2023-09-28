@@ -75,6 +75,15 @@ export type ParametersRelayCreateQueryResponse = {
                     readonly fahisKatsayisi: number | null;
                     readonly genelGiderler: number | null;
                     readonly reklamGiderler: number | null;
+                    readonly barem1: number | null;
+                    readonly barem2: number | null;
+                    readonly barem3: number | null;
+                    readonly evkaBaremMultiplier: number | null;
+                    readonly tepeBaremMultiplier: number | null;
+                    readonly hepsiBaremMultiplier: number | null;
+                    readonly trendBaremMultiplier: number | null;
+                    readonly amazonBaremMultiplier: number | null;
+                    readonly vivenseBaremMultiplier: number | null;
                 } | null;
             } | null;
         } | null>;
@@ -160,6 +169,15 @@ query ParametersRelayCreateQuery {
           fahisKatsayisi
           genelGiderler
           reklamGiderler
+          barem1
+          barem2
+          barem3
+          evkaBaremMultiplier
+          tepeBaremMultiplier
+          hepsiBaremMultiplier
+          trendBaremMultiplier
+          amazonBaremMultiplier
+          vivenseBaremMultiplier
         }
       }
     }
@@ -652,6 +670,69 @@ v1 = [
                     "kind": "ScalarField",
                     "name": "reklamGiderler",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "barem1",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "barem2",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "barem3",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "evkaBaremMultiplier",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "tepeBaremMultiplier",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hepsiBaremMultiplier",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "trendBaremMultiplier",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "amazonBaremMultiplier",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "vivenseBaremMultiplier",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -687,9 +768,9 @@ return {
     "metadata": {},
     "name": "ParametersRelayCreateQuery",
     "operationKind": "query",
-    "text": "query ParametersRelayCreateQuery {\n  allSystemParams {\n    edges {\n      node {\n        id\n        metalParams {\n          fiyat\n          sarfKatsayisi\n          fireKatsayisi\n          paslanmazKatsayisi\n          bukumFiyat\n          statikBoyaKatsayisi\n          eskitmeParlakPrincKatsayisi\n        }\n        woodParams {\n          mdfFiyat\n          mdfFireKatsayisi\n          mdfLamFiyat\n          ahsapKaplamaFiyat\n          ahsapKaplamaFireKatsayisi\n          ahsapAstarKaplamaFireKatsayisi\n          ahsapAstarKaplamaFiyat\n          astarBasimFiyati\n          papelFiyat\n          laminantFiyat\n          cumbaFiyat\n          cumbaFireKatsayisi\n          cumbaIscilik\n          balonFiyat\n          tornaFiyatKatsayisi\n          keresteFiyat\n          keresteFireKatsayisi\n          masifPanelFiyati\n          digerKeresteFiyati\n          kontraplakFiyati\n          keresteKaplamaCilaFiyat\n          lakeBoyaFiyat\n        }\n        laborParams {\n          metal\n          tasima\n          toplama\n          ahsap\n          polisaj\n          dosemeIscilikKatsayisi\n          akrilik\n          ambalaj\n          mermer\n        }\n        otherWorkshopParams {\n          mermerFiyat\n          ozelMermerKatsayisi\n          kumasFiyat\n          camFiyat\n          mm4Katsayisi\n          mm10Katsayisi\n          aynaKatsayisi\n        }\n        otherParams {\n          kdv1\n          kdv2\n          kdv3\n          silikon\n          aksesuarFiyatKatsayisi\n          akrilik\n          ambalajMalzeme\n          aliminyumDokumFiyatKatsayisi\n          sivamaFiyatKatsayisi\n          nakliyeFiyat\n          fahisKatsayisi\n          genelGiderler\n          reklamGiderler\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ParametersRelayCreateQuery {\n  allSystemParams {\n    edges {\n      node {\n        id\n        metalParams {\n          fiyat\n          sarfKatsayisi\n          fireKatsayisi\n          paslanmazKatsayisi\n          bukumFiyat\n          statikBoyaKatsayisi\n          eskitmeParlakPrincKatsayisi\n        }\n        woodParams {\n          mdfFiyat\n          mdfFireKatsayisi\n          mdfLamFiyat\n          ahsapKaplamaFiyat\n          ahsapKaplamaFireKatsayisi\n          ahsapAstarKaplamaFireKatsayisi\n          ahsapAstarKaplamaFiyat\n          astarBasimFiyati\n          papelFiyat\n          laminantFiyat\n          cumbaFiyat\n          cumbaFireKatsayisi\n          cumbaIscilik\n          balonFiyat\n          tornaFiyatKatsayisi\n          keresteFiyat\n          keresteFireKatsayisi\n          masifPanelFiyati\n          digerKeresteFiyati\n          kontraplakFiyati\n          keresteKaplamaCilaFiyat\n          lakeBoyaFiyat\n        }\n        laborParams {\n          metal\n          tasima\n          toplama\n          ahsap\n          polisaj\n          dosemeIscilikKatsayisi\n          akrilik\n          ambalaj\n          mermer\n        }\n        otherWorkshopParams {\n          mermerFiyat\n          ozelMermerKatsayisi\n          kumasFiyat\n          camFiyat\n          mm4Katsayisi\n          mm10Katsayisi\n          aynaKatsayisi\n        }\n        otherParams {\n          kdv1\n          kdv2\n          kdv3\n          silikon\n          aksesuarFiyatKatsayisi\n          akrilik\n          ambalajMalzeme\n          aliminyumDokumFiyatKatsayisi\n          sivamaFiyatKatsayisi\n          nakliyeFiyat\n          fahisKatsayisi\n          genelGiderler\n          reklamGiderler\n          barem1\n          barem2\n          barem3\n          evkaBaremMultiplier\n          tepeBaremMultiplier\n          hepsiBaremMultiplier\n          trendBaremMultiplier\n          amazonBaremMultiplier\n          vivenseBaremMultiplier\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '928119334445a58562d7ccecedd2f8e6';
+(node as any).hash = '19231cbf81d1133fb0ee09c3768a415d';
 export default node;
