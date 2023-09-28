@@ -39,7 +39,7 @@ const KioskPage: FunctionComponent = () => {
     fontSize: '20px',
     margin: '0 300px',
   };
-  
+
   const getChartsData = async () => {
     if (activeTab !== '2') {
       return;
@@ -101,83 +101,83 @@ const KioskPage: FunctionComponent = () => {
     }
   };
   return (
-    
-    <Tabs 
-    defaultActiveKey="1" 
-    onChange={handleTabChange}
-    tabBarStyle={{ display: 'flex', justifyContent: 'center', fontSize: '200px' }}
-  >
-      
-<Tabs.TabPane tab={<div style={tabStyle}>Kiosk 1</div>} key="1">
+
+    <Tabs
+      defaultActiveKey="1"
+      onChange={handleTabChange}
+      tabBarStyle={{ display: 'flex', justifyContent: 'center', fontSize: '200px' }}
+    >
+
+      <Tabs.TabPane tab={<div style={tabStyle}>Kiosk 1</div>} key="1">
         <Row gutter={24} style={{ padding: 16, margin: 0 }}>
-        <Col span={6}>
-          <ComparisonCard
-            header="Satış Tarihi"
-            title="Günlük Satış"
-            subTitle="Dün Satış"
-            value={sellComparsionData?.orderDate?.today.toFixed(2)}
-            subValue={sellComparsionData?.orderDate?.yesterday.toFixed(2)}
-            loading={loading}
-          />
-        </Col>
-        <Col span={6}>
-          <ComparisonCard
-            header="Sevk Tarihi"
-            title="Günlük Satış"
-            subTitle="Dün Satış"
-            value={sellComparsionData?.shipmentDate?.today.toFixed(2)}
-            subValue={sellComparsionData?.shipmentDate?.yesterday.toFixed(2)}
-            loading={loading}
-          />
-        </Col>
-        <Col span={6}>
-          <ComparisonCard
-            header="Satış Tarihi"
-            title="Aylık Satış"
-            subTitle="Geçen Gün Bazında Geçen Aylık Satış"
-            value={sellComparsionData?.orderDate?.this_month.toFixed(2)}
-            subValue={sellComparsionData?.orderDate?.last_month.toFixed(2)}
-            loading={loading}
-          />
-        </Col>
-        <Col span={6}>
-          <ComparisonCard
-            header="Sevk Tarihi"
-            title="Aylık Satış"
-            subTitle="Geçen Gün Bazında Geçen Aylık Satış"
-            value={sellComparsionData?.shipmentDate?.this_month.toFixed(2)}
-            subValue={sellComparsionData?.shipmentDate?.last_month.toFixed(2)}
-            loading={loading}
-          />
-        </Col>
+          <Col span={6}>
+            <ComparisonCard
+              header="Satış Tarihi"
+              title="Günlük Satış"
+              subTitle="Dün Satış"
+              value={sellComparsionData?.orderDate?.today.toFixed(2)}
+              subValue={sellComparsionData?.orderDate?.yesterday.toFixed(2)}
+              loading={loading}
+            />
+          </Col>
+          <Col span={6}>
+            <ComparisonCard
+              header="Sevk Tarihi"
+              title="Günlük Satış"
+              subTitle="Dün Satış"
+              value={sellComparsionData?.shipmentDate?.today.toFixed(2)}
+              subValue={sellComparsionData?.shipmentDate?.yesterday.toFixed(2)}
+              loading={loading}
+            />
+          </Col>
+          <Col span={6}>
+            <ComparisonCard
+              header="Satış Tarihi"
+              title="Aylık Satış"
+              subTitle="Geçen Gün Bazında Geçen Aylık Satış"
+              value={sellComparsionData?.orderDate?.this_month.toFixed(2)}
+              subValue={sellComparsionData?.orderDate?.last_month.toFixed(2)}
+              loading={loading}
+            />
+          </Col>
+          <Col span={6}>
+            <ComparisonCard
+              header="Sevk Tarihi"
+              title="Aylık Satış"
+              subTitle="Geçen Gün Bazında Geçen Aylık Satış"
+              value={sellComparsionData?.shipmentDate?.this_month.toFixed(2)}
+              subValue={sellComparsionData?.shipmentDate?.last_month.toFixed(2)}
+              loading={loading}
+            />
+          </Col>
         </Row>
 
         <Card style={{ margin: 16 }} title="Aylık Satış">
-        <Row gutter={24}>
-          <Col span={24}>
-            {loading ? (
-              <div style={{ height: 300, width: '100%' }}>
-                <Skeleton />
-              </div>
-            ) : (
-              monthlySalesData && (
-                <>
-                  <Bar
-                    data={monthlySalesData}
-                    options={monthlySalesData.options}
-                    height={75}
-                  />
-                  <p style={{ textAlign: 'center', fontSize: '20px' }}>
-                    Günlük bazda satış oranı geçtiğimiz ayın ortalamasına göre <b>%{Math.abs(monthlySalesData.percentageChange.toFixed(2))}</b> oranında {monthlySalesData.percentageChange > 0 ? <b>yükselmiştir</b> : <b>düşmüştür</b>}.
-                  </p>
-                  <p style={{ textAlign: 'center', fontSize: '15px' }}>
-                    (Makul bir kıyas güdebilmek için yukarıdaki değer günlük siparişler girildikten sonra dikkate alınmalıdır. Aksi taktirde bir gün eksik satış verisi ile kıyas yapılmış olacaktır.)
-                  </p>
-                </>
-              )
-            )}
-          </Col>
-        </Row>
+          <Row gutter={24}>
+            <Col span={24}>
+              {loading ? (
+                <div style={{ height: 300, width: '100%' }}>
+                  <Skeleton />
+                </div>
+              ) : (
+                monthlySalesData && (
+                  <>
+                    <Bar
+                      data={monthlySalesData}
+                      options={monthlySalesData.options}
+                      height={75}
+                    />
+                    <p style={{ textAlign: 'center', fontSize: '20px' }}>
+                      Günlük bazda satış oranı geçtiğimiz ayın ortalamasına göre <b>%{Math.abs(monthlySalesData.percentageChange.toFixed(2))}</b> oranında {monthlySalesData.percentageChange > 0 ? <b>yükselmiştir</b> : <b>düşmüştür</b>}.
+                    </p>
+                    <p style={{ textAlign: 'center', fontSize: '15px' }}>
+                      (Makul bir kıyas güdebilmek için yukarıdaki değer günlük siparişler girildikten sonra dikkate alınmalıdır. Aksi taktirde bir gün eksik satış verisi ile kıyas yapılmış olacaktır.)
+                    </p>
+                  </>
+                )
+              )}
+            </Col>
+          </Row>
         </Card>
 
         <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Satış Grafiği">
@@ -187,16 +187,20 @@ const KioskPage: FunctionComponent = () => {
         <Card style={{ margin: 16 }} title="Pazaryeri Bazlı Ürün Satış Grafiği">
           <TopSellingProducts />
         </Card>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab={<div style={tabStyle}>Kiosk 2</div>} key="2">
+      </Tabs.TabPane>
+      <Tabs.TabPane tab={<div style={tabStyle}>Kiosk 2</div>} key="2">
         <Card style={{ margin: 16 }} title="Sevk Emri Bugün Girilen Siparişler">
-        {loading ? (
-          <div style={{ height: 300, width: '100%' }}>
-            <Skeleton />
-          </div>
-        ) : (
-          <ProductSalesTable data={productSalesData} />
-        )}
+          {loading ? (
+            <div style={{ height: 300, width: '100%' }}>
+              <Skeleton />
+            </div>
+          ) : (
+            <ProductSalesTable data={productSalesData} />
+          )}
+        </Card>
+
+        <Card style={{ margin: 16 }} title="Pazaryeri Mütabakat ve Prim Ekranı">
+          <MarketplacesBonuses />
         </Card>
 
         <Card style={{ margin: 16 }} title="Maliyet Analizi">
@@ -207,11 +211,7 @@ const KioskPage: FunctionComponent = () => {
           <DownloadDataModal />
         </Card>
 
-        <Card style={{ margin: 16 }} title="Pazaryeri Mütabakat ve Prim Ekranı">
-          <MarketplacesBonuses />
-        </Card>
-
-        </Tabs.TabPane>
+      </Tabs.TabPane>
     </Tabs>
   );
 };
