@@ -1,6 +1,6 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef } from 'react';
 import { useMutation } from 'relay-hooks';
-import { Row, Col, Button, Spin, Space, message } from 'antd';
+import { Row, Alert, Button, Spin, Space, message, Col } from 'antd';
 import { useRouter } from 'next/router';
 import { fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import mappers from '../../mappers';
@@ -79,6 +79,27 @@ const DownloadProductsDataModal = () => {
 
   return (
     <>
+      <Row gutter={23}>
+        <Col span={24}
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', marginLeft: '10px' }}>
+          <Alert
+            type="info"
+            showIcon
+            style={{ maxWidth: '99%', width: '100%', marginTop: '20px' }}
+            message="    Veritabanı Ürün Reçete Güncelleştirme Fasilitesi Hakkında"
+            description={
+              <>
+                <p>Ürünleri güncelleştirme sırasında hata alınması durumunda veritabanında yapılan bütün işlemler otomatik olarak geri alınacaktır; verilerin bütünlüğü zarara uğramayacaktır.
+                  İndirilen CSV dosyasının sahip olduğu formatı bozmamaya dikkat ederek yalnızla verilerin güncellenmesi, sistemin güncellenmiş dosyayı kabul etmesindeki en büyük etmendir (indirilen CSV dosyasında kullanılan ondalık formatına lütfen riayet ediniz).
+                  Öte yandan, eğer indirilen dosyada bulunan bir veya daha çok satırı silmeniz, yeni satır eklemeniz ya da ürün ID'lerinde değişiklik yapmanız yine kabul edilmeme nedenlerindendir. Bu sebeple, ürün ekleme ya da çıkarma işlemini yüklenen CSV dosyası aracılığıyla gerçekleştirmeyiniz.</p>
+                <p>Bunların yanı sıra, reçetelerde yanlış veriler yer alıyor ise bunlar sisteme olduğu gibi kaydedilecektir. Bu durumlarda ürünlere ait tabloyu tekrar indirip, hatayı düzeltip sisteme tekrar yüklemeniz gerekmektedir.</p>
+                <p>Son olarak, işlemin tamamlanması 30 saniyeye kadar sürebilmektedir. Hata ya da başarı uyarısı alana kadar beklemeniz ve başka işlem yapmamanız oldukça önemlidir.</p>
+              </>
+            }
+          />
+        </Col>
+      </Row>
+
       <Row gutter={24}>
         <Space direction="vertical" style={{ width: '50%', paddingLeft: '30px' }}>
           <Button
@@ -90,6 +111,24 @@ const DownloadProductsDataModal = () => {
           >
             Bütün Ürünlere Ait Verileri İndir
           </Button>
+        </Space>
+        <Space direction="vertical" style={{ width: '50%', paddingLeft: '30px' }}>
+          <Button
+            type="primary"
+            onClick={triggerFileInputClick} // Updated here
+            size='large'
+            block
+            style={{ paddingLeft: '20px', height: '50px' }}
+          >
+            Ürün Reçetelerini Güncelle
+          </Button>
+          { }
+          <input
+            type="file"
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+          />
         </Space>
       </Row>
       {loading && (
