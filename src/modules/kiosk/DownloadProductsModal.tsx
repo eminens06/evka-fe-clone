@@ -91,24 +91,6 @@ const DownloadProductsDataModal = () => {
             Bütün Ürünlere Ait Verileri İndir
           </Button>
         </Space>
-        <Space direction="vertical" style={{ width: '50%', paddingLeft: '30px' }}>
-          <Button
-            type="primary"
-            onClick={triggerFileInputClick} // Updated here
-            size='large'
-            block
-            style={{ paddingLeft: '20px', height: '50px' }}
-          >
-            Ürün Reçetelerini Güncelle
-          </Button>
-          { }
-          <input
-            type="file"
-            style={{ display: 'none' }}
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-          />
-        </Space>
       </Row>
       {loading && (
         <div className="card-loader">
