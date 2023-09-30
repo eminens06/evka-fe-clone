@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Row, Col, DatePicker, Typography, Spin, Table, Divider, Modal , Badge, Descriptions, Space, Card } from 'antd';
+import { Row, Col, DatePicker, Typography, Spin, Table, Divider, Modal, Badge, Descriptions, Space, Card } from 'antd';
 import moment from 'moment';
 import ExportTableButton from '../../molecules/ExportTableButton';
 import { FileExcelOutlined } from '@ant-design/icons';
@@ -57,7 +57,7 @@ const VastedTotal: FunctionComponent = () => {
   const [mainCostTableData, setMainCostTableData] = useState<any>();
   const [mainCostModalData, setmainCostModalData] = useState<any>();
   const [isMainCostModalVisible, setisMainCostModalVisible] = useState(false);
-  
+
   const externalModalColumns: any = [
     {
       title: 'Sipariş Tarihi',
@@ -78,17 +78,17 @@ const VastedTotal: FunctionComponent = () => {
       title: 'Sipariş Toplam Tutarı (₺)',
       dataIndex: 'siparis_toplam_tutari',
       align: 'center',
-      sorter: (a, b) => a.siparis_toplam_tutari- b.siparis_toplam_tutari,
+      sorter: (a, b) => a.siparis_toplam_tutari - b.siparis_toplam_tutari,
     },
     {
       title: 'Sipariş Hakediş Değeri (₺)',
       dataIndex: 'siparis_hakedis',
       align: 'center',
-      sorter: (a, b) => a.siparis_hakedis- b.siparis_hakedis,
+      sorter: (a, b) => a.siparis_hakedis - b.siparis_hakedis,
     },
-  ] 
+  ]
 
-  const download_columns : any =[
+  const download_columns: any = [
     {
       title: 'Sipariş Tarihi',
       dataIndex: 'siparis_tarihi',
@@ -107,10 +107,11 @@ const VastedTotal: FunctionComponent = () => {
     },
     {
       title: 'Sipariş Hakediş Değeri',
-      dataIndex: 'siparis_hakedis',    },
-  ] 
+      dataIndex: 'siparis_hakedis',
+    },
+  ]
 
-  const internalHakedislerColumns:any = [
+  const internalHakedislerColumns: any = [
     {
       title: 'İç Hakediş Kalemleri',
       dataIndex: 'title',
@@ -125,31 +126,26 @@ const VastedTotal: FunctionComponent = () => {
       width: 200,
       align: 'center',
       dataIndex: 'data',
-      sorter: (a, b) => a.data- b.data,
+      sorter: (a, b) => a.data - b.data,
       sortDirections: ['descend', 'ascend'],
     },
   ];
-  const fonlarColumns:any = [
+  const fonlarColumns: any = [
     {
       title: 'Fon Kalemleri',
       dataIndex: 'title',
       width: 200,
       align: 'center',
-      defaultSortOrder: 'ascend',
-      sorter: (a, b) => a.title.toLowerCase().charCodeAt(0) - b.title.toLowerCase().charCodeAt(0),
-      sortDirections: ['descend', 'ascend'],
     },
     {
       title: 'Gider Tutarı (₺)',
       width: 200,
       align: 'center',
       dataIndex: 'data',
-      sorter: (a, b) => a.data- b.data,
-      sortDirections: ['descend', 'ascend'],
     },
   ];
 
-  const mainCostColumns:any = [
+  const mainCostColumns: any = [
     {
       title: 'Malzeme/İşçilik Kalemi',
       dataIndex: 'giderTitle',
@@ -164,21 +160,21 @@ const VastedTotal: FunctionComponent = () => {
       width: 200,
       align: 'center',
       dataIndex: 'totalGider',
-      sorter: (a, b) => a.totalGider- b.totalGider,
+      sorter: (a, b) => a.totalGider - b.totalGider,
       sortDirections: ['descend', 'ascend'],
     },
     {
       width: 270,
       render: (recordd: any) => (
-        <Space direction='vertical' style={{width: '100%'}}>
-        <Button type="default" onClick={() => onMainCostTableClick(recordd)} icon={<PieChartTwoTone />} block>
-          Gider Ayrıntılarını Göster
-        </Button>
+        <Space direction='vertical' style={{ width: '100%' }}>
+          <Button type="default" onClick={() => onMainCostTableClick(recordd)} icon={<PieChartTwoTone />} block>
+            Gider Ayrıntılarını Göster
+          </Button>
         </Space>
       ),
     }
   ];
-  const mainCostModalColumns:any = [
+  const mainCostModalColumns: any = [
     {
       title: 'Ürün SKU Kodu',
       dataIndex: 'productName',
@@ -190,7 +186,7 @@ const VastedTotal: FunctionComponent = () => {
       dataIndex: 'numberProduced',
       width: 250,
       align: 'center',
-      sorter: (a, b) => a.numberProduced- b.numberProduced,
+      sorter: (a, b) => a.numberProduced - b.numberProduced,
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -199,7 +195,7 @@ const VastedTotal: FunctionComponent = () => {
       width: 250,
       align: 'center',
       defaultSortOrder: 'ascend',
-      sorter: (a, b) => a.productionHakedis- b.productionHakedis,
+      sorter: (a, b) => a.productionHakedis - b.productionHakedis,
       sortDirections: ['descend', 'ascend'],
     },
   ];
@@ -218,35 +214,36 @@ const VastedTotal: FunctionComponent = () => {
       dataIndex: 'total_cost',
       width: 200,
       align: 'center',
-      sorter: (a, b) => a.total_cost- b.total_cost,
+      sorter: (a, b) => a.total_cost - b.total_cost,
       sortDirections: ['descend', 'ascend'],
     },
     {
       width: 270,
       render: (recordd: any) => (
-        <Space direction='vertical' style={{width: '100%'}}>
-        <Button type="default" onClick={() => onExternalTableClick(recordd)} icon={<PieChartTwoTone />} block>
-          Hakediş Ayrıntılarını Göster
-        </Button>
+        <Space direction='vertical' style={{ width: '100%' }}>
+          <Button type="default" onClick={() => onExternalTableClick(recordd)} icon={<PieChartTwoTone />} block>
+            Hakediş Ayrıntılarını Göster
+          </Button>
         </Space>
       ),
     }
   ];
   const [loading, setLoading] = useState(false);
   const getColumns = (type: string) => {
-      return [
-        {
-          title: maliyet_names[type],
-          dataIndex: 'title',
-          width: 200,
-        },
-        {
-          title: 'Değer',
-          dataIndex: 'data',
-          width: 100,
-        },
-         
-      ];};
+    return [
+      {
+        title: maliyet_names[type],
+        dataIndex: 'title',
+        width: 200,
+      },
+      {
+        title: 'Değer',
+        dataIndex: 'data',
+        width: 100,
+      },
+
+    ];
+  };
 
 
   const hideModal = () => {
@@ -329,7 +326,7 @@ const VastedTotal: FunctionComponent = () => {
   useEffect(() => {
     getChartData();
   }, [startDate, endDate]);
-  
+
   return (
     <>
       <Row gutter={24}>
@@ -359,161 +356,177 @@ const VastedTotal: FunctionComponent = () => {
       </Row>
       <Divider />
       {chartData &&
-      <Row gutter={24} style={{ paddingTop: 20 }}>
-              <Col span={12}>
-              <Title level={4} underline={true}>İç Hakedişler</Title>
-                <Table 
-                  columns={internalHakedislerColumns}
-                  dataSource={chartData['hakedis']}
-                  size="small"
-                  bordered
-                  pagination={{
-                    showSizeChanger: true,
-                    defaultPageSize:20,
-                    defaultCurrent:1,
-                  }}
-                />
-              </Col>
-              <Col span={12}>
-              <Title level={4} underline={true}>Fonlar</Title>
-              <Table 
-                columns={fonlarColumns}
+        <Row gutter={24} style={{ paddingTop: 20 }}>
+          <Col span={12}>
+            <Title level={4} underline={true}>İç Hakedişler
+              <ExportTableButton
+                dataSource={chartData['hakedis']}
+                columns={internalHakedislerColumns}//
+                fileName={"IcHakedisler_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
+                btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+              >
+                Bütün Tablo Verilerini İndir
+              </ExportTableButton></Title>
+            <Table
+              columns={internalHakedislerColumns}
+              dataSource={chartData['hakedis']}
+              size="small"
+              bordered
+              pagination={{
+                showSizeChanger: true,
+                defaultPageSize: 20,
+                defaultCurrent: 1,
+              }}
+            />
+          </Col>
+          <Col span={12}>
+            <Title level={4} underline={true}>Fonlar
+              <ExportTableButton
                 dataSource={chartData['fonlar']}
-                size="small"
-                bordered
-                pagination={{
-                  showSizeChanger: true,
-                  defaultPageSize:20,
-                  defaultCurrent:1,
-                }}
-              />
-            </Col>
-            </Row> 
-          }
+                columns={fonlarColumns}//
+                fileName={"Fonlar_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
+                btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+              >
+                Bütün Tablo Verilerini İndir
+              </ExportTableButton></Title>
+            <Table
+              columns={fonlarColumns}
+              dataSource={chartData['fonlar']}
+              size="small"
+              bordered
+              pagination={{
+                showSizeChanger: true,
+                defaultPageSize: 20,
+                defaultCurrent: 1,
+              }}
+            />
+          </Col>
+        </Row>
+      }
 
-                <Row gutter={24} style={{ paddingTop: 20 }}>
-                <Col span={12}>
-              <Title level={4} underline={true}>Ana Giderler
-              <ExportTableButton
-          dataSource={mainCostData}
-          columns={mainCostColumns}//
-          fileName={"AnaGiderler"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
-          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style:{float: 'right'}}}
-        >
-          Bütün Tablo Verilerini İndir
-        </ExportTableButton></Title>
-              <Table //External Hakediş Table
-                  columns={mainCostColumns}
-                  dataSource={mainCostData}
-                  size="small"
-                  bordered
-                  pagination={{
-                    showSizeChanger: true,
-                    defaultPageSize:20,
-                    defaultCurrent:1,
-                  }}
-                />
+      <Row gutter={24} style={{ paddingTop: 20 }}>
+        <Col span={12}>
+          <Title level={4} underline={true}>Ana Giderler
+            <ExportTableButton
+              dataSource={mainCostData}
+              columns={mainCostColumns}//
+              fileName={"AnaGiderler_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
+              btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+            >
+              Bütün Tablo Verilerini İndir
+            </ExportTableButton></Title>
+          <Table //External Hakediş Table
+            columns={mainCostColumns}
+            dataSource={mainCostData}
+            size="small"
+            bordered
+            pagination={{
+              showSizeChanger: true,
+              defaultPageSize: 20,
+              defaultCurrent: 1,
+            }}
+          />
 
-</Col>
-<Col span={12}>
-              <Title level={4} underline={true}>Dış Hizmetler Hakedişleri
-              <ExportTableButton
-          dataSource={externalData}
-          columns={externalColumns}
-          fileName={"DisHakedisler_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
-          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style:{float: 'right'}}}
-        >
-          Bütün Tablo Verilerini İndir
-        </ExportTableButton></Title>
+        </Col>
+        <Col span={12}>
+          <Title level={4} underline={true}>Dış Hizmetler Hakedişleri
+            <ExportTableButton
+              dataSource={externalData}
+              columns={externalColumns}
+              fileName={"DisHakedisler_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
+              btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+            >
+              Bütün Tablo Verilerini İndir
+            </ExportTableButton></Title>
 
-              <Table //External Hakediş Table
-                  columns={externalColumns}
-                  dataSource={externalData}
-                  size="small"
-                  bordered
-                  pagination={{
-                    showSizeChanger: true,
-                    defaultPageSize:20,
-                    defaultCurrent:1,
-                  }}
-                />
-</Col></Row>
-    {externalModalData && (
-      <Modal //external modal
-      visible={isExternalModalVisible}
-      title={'Hakediş Ayrıntıları'}
-      width={'70%'}
-      onCancel={hideExternalModal}
-      cancelText="Pencereyi Kapat"
-      footer={[<Button key="back" type='primary' onClick={hideExternalModal}>
-        Geri Dön
-      </Button>]}>
-      
-      <Descriptions title={"Hizmet Alınan Kişi:  ".concat(externalModalData.title)} bordered>
-        <Descriptions.Item label="Hizmet Alınan Sipariş Adeti">{externalModalData.siparis_adet} adet sipariş</Descriptions.Item>
-        <Descriptions.Item label="Toplam Hizmet Ödeme Tutarı"><strong>{String(externalModalData.total_cost).concat(" ₺")}</strong></Descriptions.Item>
-      </Descriptions>
-      <Row gutter={24} style={{ paddingTop: 20 }}></Row>
-      <ExportTableButton
-          dataSource={externalTableData}
-          columns={download_columns}
-          fileName={externalModalData.title+"_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
-          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled:externalModalData.siparis_adet>0 ? false:true, block:true, style:{ paddingBottom: 10 }}}
-        >
-          Tablo Verilerini İndir
-        </ExportTableButton>
-      <Table 
-                  columns={externalModalColumns}
-                  dataSource={externalTableData}
-                  size="small"
-                  bordered
-                  style={{ paddingTop: 20 }}
-                  pagination={{
-                    showSizeChanger: true,
-                    defaultPageSize:20,
-                    defaultCurrent:1,
-                  }}
-                />
+          <Table //External Hakediş Table
+            columns={externalColumns}
+            dataSource={externalData}
+            size="small"
+            bordered
+            pagination={{
+              showSizeChanger: true,
+              defaultPageSize: 20,
+              defaultCurrent: 1,
+            }}
+          />
+        </Col></Row>
+      {externalModalData && (
+        <Modal //external modal
+          visible={isExternalModalVisible}
+          title={'Hakediş Ayrıntıları'}
+          width={'70%'}
+          onCancel={hideExternalModal}
+          cancelText="Pencereyi Kapat"
+          footer={[<Button key="back" type='primary' onClick={hideExternalModal}>
+            Geri Dön
+          </Button>]}>
 
-    </Modal>)}
+          <Descriptions title={"Hizmet Alınan Kişi:  ".concat(externalModalData.title)} bordered>
+            <Descriptions.Item label="Hizmet Alınan Sipariş Adeti">{externalModalData.siparis_adet} adet sipariş</Descriptions.Item>
+            <Descriptions.Item label="Toplam Hizmet Ödeme Tutarı"><strong>{String(externalModalData.total_cost).concat(" ₺")}</strong></Descriptions.Item>
+          </Descriptions>
+          <Row gutter={24} style={{ paddingTop: 20 }}></Row>
+          <ExportTableButton
+            dataSource={externalTableData}
+            columns={download_columns}
+            fileName={externalModalData.title + "_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
+            btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled: externalModalData.siparis_adet > 0 ? false : true, block: true, style: { paddingBottom: 10 } }}
+          >
+            Tablo Verilerini İndir
+          </ExportTableButton>
+          <Table
+            columns={externalModalColumns}
+            dataSource={externalTableData}
+            size="small"
+            bordered
+            style={{ paddingTop: 20 }}
+            pagination={{
+              showSizeChanger: true,
+              defaultPageSize: 20,
+              defaultCurrent: 1,
+            }}
+          />
 
-    {mainCostModalData && (
-      <Modal //mainCost Modal
-      visible={isMainCostModalVisible}
-      title={'Hakediş Ayrıntıları'}
-      width={'60%'}
-      onCancel={hideMainCostModal}
-      cancelText="Pencereyi Kapat"
-      footer={[<Button key="back" type='primary' onClick={hideMainCostModal}>
-        Geri Dön
-      </Button>]}>
-      
-      <Descriptions title={"İşçilik/Giderin Adı:  ".concat(String(mainCostTableData.giderTitle))} bordered>
-        <Descriptions.Item label="Toplam İşçilik/Gider Bedeli"><strong>{String(mainCostTableData.totalGider).concat(" ₺")}</strong></Descriptions.Item>
-      </Descriptions>
-      <Row gutter={24} style={{ paddingTop: 20 }}></Row>
-      <ExportTableButton
-          dataSource={mainCostModalData}
-          columns={mainCostModalColumns}
-          fileName={mainCostTableData.giderTitle+"_"+startDate.format('DD-MM-YYYY')+"_"+endDate.format('DD-MM-YYYY')}
-          btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled:mainCostTableData.totalGider>0 ? false:true, block:true, style:{ paddingBottom: 10 }}}
-        >
-          Tablo Verilerini İndir
-        </ExportTableButton>
-      <Table 
-                  columns={mainCostModalColumns}
-                  dataSource={mainCostModalData}
-                  size="small"
-                  bordered
-                  style={{ paddingTop: 20 }}
-                  pagination={{
-                    showSizeChanger: true,
-                    defaultPageSize:20,
-                    defaultCurrent:1,
-                  }}
-                />
+        </Modal>)}
 
-    </Modal>)}
+      {mainCostModalData && (
+        <Modal //mainCost Modal
+          visible={isMainCostModalVisible}
+          title={'Hakediş Ayrıntıları'}
+          width={'60%'}
+          onCancel={hideMainCostModal}
+          cancelText="Pencereyi Kapat"
+          footer={[<Button key="back" type='primary' onClick={hideMainCostModal}>
+            Geri Dön
+          </Button>]}>
+
+          <Descriptions title={"İşçilik/Giderin Adı:  ".concat(String(mainCostTableData.giderTitle))} bordered>
+            <Descriptions.Item label="Toplam İşçilik/Gider Bedeli"><strong>{String(mainCostTableData.totalGider).concat(" ₺")}</strong></Descriptions.Item>
+          </Descriptions>
+          <Row gutter={24} style={{ paddingTop: 20 }}></Row>
+          <ExportTableButton
+            dataSource={mainCostModalData}
+            columns={mainCostModalColumns}
+            fileName={mainCostTableData.giderTitle + "_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
+            btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled: mainCostTableData.totalGider > 0 ? false : true, block: true, style: { paddingBottom: 10 } }}
+          >
+            Tablo Verilerini İndir
+          </ExportTableButton>
+          <Table
+            columns={mainCostModalColumns}
+            dataSource={mainCostModalData}
+            size="small"
+            bordered
+            style={{ paddingTop: 20 }}
+            pagination={{
+              showSizeChanger: true,
+              defaultPageSize: 20,
+              defaultCurrent: 1,
+            }}
+          />
+
+        </Modal>)}
 
 
 

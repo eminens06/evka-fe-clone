@@ -199,7 +199,7 @@ const KioskPage: FunctionComponent = () => {
           )}
         </Card>
 
-        <Card style={{ margin: 16 }} title="Pazaryeri Mütabakat ve Prim Ekranı">
+        <Card style={{ margin: 16 }} title="Pazaryeri Mutabakat ve Prim Ekranı">
           <MarketplacesBonuses />
         </Card>
 
