@@ -1280,14 +1280,13 @@ const monthlySalesMapper = (data: any): any => {
   const currentDay = date.getDate();
   const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1; 
 
-  let dataArray = data.map((item: any) => item);
-  const averageSales = data.map((item: any, index: any) =>
+  let dataArray = data.slice(0, 12).map((item: any) => item);
+
+  const averageSales = dataArray.map((item: any, index: any) =>
     (item / (index === currentMonth ? currentDay : daysInMonth[index])).toFixed(2),
   );
 
-  let currentMonthSalesRate = dataArray[currentMonth] / currentDay;
-  let lastMonthSalesRate = dataArray[previousMonth] / daysInMonth[previousMonth];
-  let percentageChange = ((currentMonthSalesRate - lastMonthSalesRate) / lastMonthSalesRate) * 100;
+  let percentageChange = data[12];
 
   if (!(date.getFullYear() > 2021 && date.getMonth() > 6)) {
     averageSales[7] = 0;
