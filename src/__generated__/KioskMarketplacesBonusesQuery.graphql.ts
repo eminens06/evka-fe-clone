@@ -4,6 +4,7 @@
 import { ConcreteRequest } from "relay-runtime";
 export type KioskMarketplacesBonusesQueryVariables = {
     queryMonth?: number | null;
+    queryYear?: number | null;
 };
 export type KioskMarketplacesBonusesQueryResponse = {
     readonly marketplacesBonuses: ReadonlyArray<unknown | null> | null;
@@ -18,8 +19,9 @@ export type KioskMarketplacesBonusesQuery = {
 /*
 query KioskMarketplacesBonusesQuery(
   $queryMonth: Int
+  $queryYear: Int
 ) {
-  marketplacesBonuses(queryMonth: $queryMonth)
+  marketplacesBonuses(queryMonth: $queryMonth, queryYear: $queryYear)
 }
 */
 
@@ -29,6 +31,12 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "queryMonth",
+    "type": "Int"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "queryYear",
     "type": "Int"
   }
 ],
@@ -40,6 +48,11 @@ v1 = [
         "kind": "Variable",
         "name": "queryMonth",
         "variableName": "queryMonth"
+      },
+      {
+        "kind": "Variable",
+        "name": "queryYear",
+        "variableName": "queryYear"
       }
     ],
     "kind": "ScalarField",
@@ -68,9 +81,9 @@ return {
     "metadata": {},
     "name": "KioskMarketplacesBonusesQuery",
     "operationKind": "query",
-    "text": "query KioskMarketplacesBonusesQuery(\n  $queryMonth: Int\n) {\n  marketplacesBonuses(queryMonth: $queryMonth)\n}\n"
+    "text": "query KioskMarketplacesBonusesQuery(\n  $queryMonth: Int\n  $queryYear: Int\n) {\n  marketplacesBonuses(queryMonth: $queryMonth, queryYear: $queryYear)\n}\n"
   }
 };
 })();
-(node as any).hash = 'd9e1ab515d9938a9578a83307274dcd8';
+(node as any).hash = '56b7fd75cec1596839ecdd4700754502';
 export default node;

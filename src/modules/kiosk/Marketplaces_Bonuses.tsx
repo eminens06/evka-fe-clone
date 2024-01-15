@@ -65,16 +65,20 @@ const SatisCard = ({ data, label }) => {
       {Object.entries(data).reverse().map(([month, info], index) => (
         <Row key={`${month}-${index}`} gutter={16}>
           {/* Left Side */}
-          <Col span={12} style={{ padding: '20px', background: '#f4f4f4', borderRadius: '8px' }}>
-            <div style={{ marginBottom: '15px' }}>
+          <Col span={12} style={{ padding: '10px', background: '#f4f4f4', borderRadius: '8px' }}>
+            <div style={{ marginBottom: '10px' }}>
               <Text><Text strong>Ay İçerisindeki Toplam Satış: </Text>{info.total_sale.toLocaleString()} ₺</Text>
             </div>
-            <div style={{ marginBottom: '15px' }}>
+            <div style={{ marginBottom: '10px' }}>
               <Text><Text strong>Ay İçerisindeki Toplam İade: </Text>{info.total_return.toLocaleString()} ₺</Text>
             </div>
-            <div>
+            <div style={{ marginBottom: '9px' }}>
               <Text><Text strong>Ay Toplamı: </Text>{(info.total_sale - info.total_return).toLocaleString()} ₺</Text>
             </div>
+            <div>
+              <Text><Text strong>Pazar Yerine Ödenen Toplam Komisyon Tutarı: </Text>{info.commission_total.toLocaleString()} ₺</Text>
+            </div>
+
           </Col>
           {/* Right Side */}
           <Col span={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -110,18 +114,21 @@ const MarketplaceDataViewer = () => {
   const [barem3, setBarem3] = useState(0);
 
 
-  const getBonusesData = async (month) => {
+  const getBonusesData = async (month, year) => {
+    setLoading(true);
     const {
       marketplacesBonuses,
     } = await fetchQuery<KioskMarketplacesBonusesQuery>(
       environment,
       GET_MARKETPLACES_N_BONUSES_DATA,
       {
-        queryMonth: month
+        queryMonth: month,
+        queryYear: year,
       },
     );
-    if (!marketplacesBonuses) {
-      console.error('marketplacesBonuses is null or undefined');
+
+     if (!marketplacesBonuses) {
+      console.error('Bonus hesaplamalarini almada hata!');
       return;
     }
 
@@ -154,15 +161,17 @@ const MarketplaceDataViewer = () => {
         }
       }
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     const month = selectedMonth.month() + 1;
-    getBonusesData(month).then(() => setLoading(false));
+    const year = selectedMonth.year();
+    getBonusesData(month, year).then(() => setLoading(false));
   }, [selectedMonth]);
 
   if (loading) {
-    return <div style={{ textAlign: 'center', marginTop: '20px' }}><Spin /></div>;
+    return <div style={{ textAlign: 'center', marginTop: '375px', marginBottom: '375px' }}><Spin /></div>;
   }
 
 
