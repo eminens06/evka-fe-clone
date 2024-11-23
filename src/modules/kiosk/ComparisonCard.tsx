@@ -1,11 +1,8 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { Card, Divider, Skeleton, Spin, Statistic, Typography } from 'antd';
-import {
-  CaretUpOutlined,
-  CaretDownOutlined,
-  MinusOutlined,
-} from '@ant-design/icons';
+
 import { percIncrease } from '../../utils/helpers';
+import { AiOutlineCaretDown, AiOutlineCaretUp, AiOutlineMinus } from 'react-icons/ai';
 
 const { Title, Text } = Typography;
 
@@ -31,19 +28,19 @@ const ComparisonCard: FunctionComponent<Props> = ({
     if (change > 0) {
       return (
         <Text type="success">
-          {change}% <CaretUpOutlined />
+          {change}% <AiOutlineCaretUp />
         </Text>
       );
     } else if (change < 0) {
       return (
         <Text type="danger">
-          {change}% <CaretDownOutlined />
+          {change}% <AiOutlineCaretDown />
         </Text>
       );
     }
     return (
       <Text>
-        {change}% <MinusOutlined />
+        {change}% <AiOutlineMinus />
       </Text>
     );
   }, [value, subValue]);

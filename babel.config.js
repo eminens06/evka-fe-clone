@@ -1,15 +1,12 @@
 module.exports = {
-  presets: ['next/babel'],
+  presets: ['next/babel'], // Next.js için gerekli Babel preset'i
   plugins: [
-    ['relay', { artifactDirectory: './src/__generated__' }],
     [
       'import',
       {
         libraryName: 'antd',
-        style: true,
+        style: true, // LESS kullanımı için true yapıyoruz
       },
     ],
-    '@babel/plugin-transform-runtime',
-    '@babel/plugin-proposal-class-properties',
   ],
 };

@@ -9,7 +9,7 @@ import {
   Checkbox,
 } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
-import { DeleteOutlined } from '@ant-design/icons';
+import { AiOutlineDelete} from 'react-icons/ai';
 import { useMutation } from 'relay-hooks';
 import { SingleSelect } from '../../../atoms';
 import { ModuleType } from './types';
@@ -264,7 +264,7 @@ const ExternalServiceForm: FC<ExternalServiceProps> = (props) => {
             <Button
               type="primary"
               danger
-              icon={<DeleteOutlined />}
+              icon={<AiOutlineDelete />}
               onClick={onPressDelete}
             >
               Pazaryeri Sil

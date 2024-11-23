@@ -66,7 +66,7 @@ async function fetchQuery(
   // https://evka-backend-gbwnb.ondigitalocean.app
   return ajax
     .post(
-      'https://evka-backend-gbwnb.ondigitalocean.app/graphql/',
+      'https://evka-backend-app-b7k7r.ondigitalocean.app/graphql/',
       body,
       headers,
     )

@@ -1,5 +1,4 @@
 import { message, Row, Tooltip, Typography } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
@@ -17,6 +16,7 @@ import APPROVE_OEM, {
   OemRelayApproveMutation,
 } from '../../__generated__/OemRelayApproveMutation.graphql';
 import { useMutation } from 'relay-hooks';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 const columns = [
   {
@@ -29,7 +29,7 @@ const columns = [
           <Row className="note">
             <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
               <Typography.Text>{`${value}  `}</Typography.Text>
-              <InfoCircleOutlined />
+              <AiOutlineInfoCircle />
             </Tooltip>
           </Row>
         );

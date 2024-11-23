@@ -9,11 +9,11 @@ import { DataSource } from './types';
 import settings from '../settings';
 import { OrderTypes } from '../modules/orders/types';
 import { RowClass } from '../modules/production/types';
-import { FileExcelOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import TableSort from './TableSort';
 import ExportTableButton from './ExportTableButton';
 import DropdownFilter from '../molecules/DropdownFilter';
+import { AiOutlineFileExcel } from 'react-icons/ai';
 
 const { Title } = Typography;
 
@@ -113,7 +113,7 @@ const Table: FC<Props> = (props) => {
           dataSource={exportableDataSource}
           columns={props.columns}
           fileName={fileName}
-          btnProps={{ type: 'primary', icon: <FileExcelOutlined /> }}
+          btnProps={{ type: 'primary', icon: <AiOutlineFileExcel /> }}
         >
           İndir
         </ExportTableButton>

@@ -23,7 +23,6 @@ import TextArea from 'antd/lib/input/TextArea';
 import GET_STORAGE_ITEM, {
   StorageItemQuery,
 } from '../../__generated__/StorageItemQuery.graphql';
-import { DeleteOutlined } from '@ant-design/icons';
 import mappers from '../../mappers';
 import ADD_TO_STORAGE, {
   StorageAddToStorageMutation,
@@ -35,6 +34,7 @@ import DELETE_STORAGE_ITEM, {
   StorageDeleteStorageMutation,
 } from '../../__generated__/StorageDeleteStorageMutation.graphql';
 import { getUserRoles } from '../auth/utils/session.utils';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const PartOptions = [
   'Ayak',
@@ -201,7 +201,7 @@ const CreateEditStorageItem: FunctionComponent = () => {
           extra={
             <Button
               onClick={() => setModalVisible(true)}
-              icon={<DeleteOutlined />}
+              icon={<AiOutlineDelete />}
               danger
               disabled={!deleteEnabled}
             />

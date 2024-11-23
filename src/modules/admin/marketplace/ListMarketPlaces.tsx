@@ -1,5 +1,4 @@
 import { Button, Form, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
 import TableFilter from '../../../molecules/TableFilter';
@@ -10,6 +9,7 @@ import useFetchTablePagination from '../../../hooks/useFetchTableData';
 import AddEditCard from '../../common/AddEditCard';
 import MarketPlaceForm from './MarketPlaceForm';
 import Table from '../../../molecules/Table';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const columns = [
   {
@@ -80,7 +80,7 @@ const ListMarketPlaces: FunctionComponent = () => {
         <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Pazaryerleri</Typography.Title>
-          <Button type="primary" onClick={addNewUser} icon={<PlusOutlined />}>
+          <Button type="primary" onClick={addNewUser} icon={<AiOutlinePlus />}>
             Ekle
           </Button>
         </div>

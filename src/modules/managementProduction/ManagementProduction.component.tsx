@@ -9,8 +9,7 @@ import {
   Col,
   Card,
 } from 'antd';
-import { DatabaseTwoTone } from '@ant-design/icons';
-import { InfoCircleOutlined, CameraOutlined } from '@ant-design/icons';
+
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
@@ -36,6 +35,7 @@ import CreateStorageOrderModal from './createStorageOrderModal'
 import GET_ISEXIST_PRODUCT, {
   ManagementProductionRelayStorageItemsQuery,
 } from '../../__generated__/ManagementProductionRelayStorageItemsQuery.graphql';
+import { AiOutlineInfoCircle, AiTwotoneDatabase } from 'react-icons/ai';
 
 const columns = [
   {
@@ -48,7 +48,7 @@ const columns = [
           <Row className="note">
             <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
               <Typography.Text>{`${value}  `}</Typography.Text>
-              <InfoCircleOutlined />
+              <AiOutlineInfoCircle />
             </Tooltip>
           </Row>
         );
@@ -245,7 +245,7 @@ const ManagementProduction: FunctionComponent = () => {
         </div>
         <Row style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>          <Button
           onClick={() => onCreateOrderClick()}
-          icon={<DatabaseTwoTone />}
+          icon={<AiTwotoneDatabase />}
           type="primary"
           style={{ marginLeft: '8px', width: '350px' }}
         >Depoya Sipariş Emri Ver</Button>

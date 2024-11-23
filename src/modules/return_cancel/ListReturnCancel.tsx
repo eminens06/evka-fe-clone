@@ -1,5 +1,4 @@
 import { Button, Row, Tooltip, Typography } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import React, { FunctionComponent } from 'react';
 import PageContent from '../../layout/PageContent';
 import Table from '../../molecules/Table';
@@ -12,6 +11,7 @@ import GET_CANCEL_RETURN, {
   ReturnCancelListOrdersQuery,
 } from '../../__generated__/ReturnCancelListOrdersQuery.graphql';
 import { ReturnCancelData } from './types';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 const columns = [
   {
@@ -24,7 +24,7 @@ const columns = [
           <Row className="note">
             <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
               <Typography.Text>{`${value}  `}</Typography.Text>
-              <InfoCircleOutlined />
+              <AiOutlineInfoCircle />
             </Tooltip>
           </Row>
         );

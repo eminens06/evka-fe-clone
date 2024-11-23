@@ -2,9 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Row, Col, DatePicker, Typography, Spin, Table, Divider, Modal, Badge, Descriptions, Space, Card } from 'antd';
 import moment from 'moment';
 import ExportTableButton from '../../molecules/ExportTableButton';
-import { FileExcelOutlined } from '@ant-design/icons';
 import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
-import { PieChartTwoTone } from '@ant-design/icons'
 import mappers from '../../mappers';
 import type { ColumnsType } from 'antd/es/table';
 import VASTED_TOTALS, {
@@ -18,6 +16,7 @@ import MAINCOST_TOTALS, {
 } from '../../__generated__/KioskMainCostQuery.graphql';
 
 import { Button } from 'antd';
+import { AiOutlineFileExcel } from 'react-icons/ai';
 const { Text } = Typography;
 const { Title } = Typography;
 const maliyet_names: Record<string, string> = {
@@ -363,7 +362,7 @@ const VastedTotal: FunctionComponent = () => {
                 dataSource={chartData['hakedis']}
                 columns={internalHakedislerColumns}//
                 fileName={"IcHakedisler_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
-                btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+                btnProps={{ type: 'primary', icon: <AiOutlineFileExcel />, style: { float: 'right' } }}
               >
                 Bütün Tablo Verilerini İndir
               </ExportTableButton></Title>
@@ -385,7 +384,7 @@ const VastedTotal: FunctionComponent = () => {
                 dataSource={chartData['fonlar']}
                 columns={fonlarColumns}//
                 fileName={"Fonlar_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
-                btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+                btnProps={{ type: 'primary', icon: <AiOutlineFileExcel />, style: { float: 'right' } }}
               >
                 Bütün Tablo Verilerini İndir
               </ExportTableButton></Title>
@@ -411,7 +410,7 @@ const VastedTotal: FunctionComponent = () => {
               dataSource={mainCostData}
               columns={mainCostColumns}//
               fileName={"AnaGiderler_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
-              btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+              btnProps={{ type: 'primary', icon: <AiOutlineFileExcel />, style: { float: 'right' } }}
             >
               Bütün Tablo Verilerini İndir
             </ExportTableButton></Title>
@@ -434,7 +433,7 @@ const VastedTotal: FunctionComponent = () => {
               dataSource={externalData}
               columns={externalColumns}
               fileName={"DisHakedisler_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
-              btnProps={{ type: 'primary', icon: <FileExcelOutlined />, style: { float: 'right' } }}
+              btnProps={{ type: 'primary', icon: <AiOutlineFileExcel />, style: { float: 'right' } }}
             >
               Bütün Tablo Verilerini İndir
             </ExportTableButton></Title>
@@ -471,7 +470,7 @@ const VastedTotal: FunctionComponent = () => {
             dataSource={externalTableData}
             columns={download_columns}
             fileName={externalModalData.title + "_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
-            btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled: externalModalData.siparis_adet > 0 ? false : true, block: true, style: { paddingBottom: 10 } }}
+            btnProps={{ type: 'primary', icon: <AiOutlineFileExcel />, disabled: externalModalData.siparis_adet > 0 ? false : true, block: true, style: { paddingBottom: 10 } }}
           >
             Tablo Verilerini İndir
           </ExportTableButton>
@@ -509,7 +508,7 @@ const VastedTotal: FunctionComponent = () => {
             dataSource={mainCostModalData}
             columns={mainCostModalColumns}
             fileName={mainCostTableData.giderTitle + "_" + startDate.format('DD-MM-YYYY') + "_" + endDate.format('DD-MM-YYYY')}
-            btnProps={{ type: 'primary', icon: <FileExcelOutlined />, disabled: mainCostTableData.totalGider > 0 ? false : true, block: true, style: { paddingBottom: 10 } }}
+            btnProps={{ type: 'primary', icon: <AiOutlineFileExcel />, disabled: mainCostTableData.totalGider > 0 ? false : true, block: true, style: { paddingBottom: 10 } }}
           >
             Tablo Verilerini İndir
           </ExportTableButton>

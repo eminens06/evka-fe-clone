@@ -5,7 +5,7 @@ import { ProgressStepValue } from '../../molecules/types';
 import settings from '../../settings';
 import ImagePopover from '../common/ImagePopover';
 import { PackageStatus } from './types';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 export const StatusMapper: Record<PackageStatus, StatusObject> = {
   [PackageStatus.READY]: {
@@ -33,7 +33,7 @@ export const packagingColumns = [
           <Row className="note">
             <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
               <Typography.Text>{`${value}  `}</Typography.Text>
-              <InfoCircleOutlined />
+              <AiOutlineInfoCircle />
             </Tooltip>
           </Row>
         );

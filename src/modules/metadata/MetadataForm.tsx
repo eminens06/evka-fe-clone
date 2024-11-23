@@ -1,5 +1,4 @@
 import { Input, Form, Row, Col, message, FormInstance, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useMutation } from 'relay-hooks';
 import { SingleSelect } from '../../atoms';
@@ -19,6 +18,7 @@ import DELETE_METADATA, {
   MetadataRelayDeleteMetadataMutation,
 } from '../../__generated__/MetadataRelayDeleteMetadataMutation.graphql';
 import { MetadataType } from './types';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 export interface MetadataProps {
   initialValues?: MetadataFormProps;
@@ -213,7 +213,7 @@ const MetadataForm: FC<MetadataProps> = (props) => {
             <Button
               type="primary"
               danger
-              icon={<DeleteOutlined />}
+              icon={<AiOutlineDelete />}
               onClick={onPressDelete}
             >
               Metadata Sil

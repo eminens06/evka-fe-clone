@@ -1,6 +1,5 @@
 import { Input, Form, Row, Col, message, FormInstance, Button } from 'antd';
 import React, { FC, useEffect } from 'react';
-import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from 'relay-hooks';
 import CREATE_MARKETPLACE, {
   MarketplaceRelayCreateMarketplaceMutation,
@@ -12,6 +11,7 @@ import DELETE_MARKETPLACE, {
   MarketplaceRelayDeleteMarketplaceMutation,
 } from '../../../__generated__/MarketplaceRelayDeleteMarketplaceMutation.graphql';
 import useFullPageLoader from '../../../hooks/useFullPageLoader';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 export interface MarketPlaceProps {
   initialValues?: any;
@@ -158,7 +158,7 @@ const MarketPlaceForm: FC<MarketPlaceProps> = (props) => {
             <Button
               type="primary"
               danger
-              icon={<DeleteOutlined />}
+              icon={<AiOutlineDelete />}
               onClick={onPressDelete}
             >
               Pazaryeri Sil

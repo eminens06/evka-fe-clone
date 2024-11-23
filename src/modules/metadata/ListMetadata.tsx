@@ -1,5 +1,4 @@
 import { Button, Col, Form, Row, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useMemo, useState } from 'react';
 import useFetchTablePagination from '../../hooks/useFetchTableData';
 import PageContent from '../../layout/PageContent';
@@ -13,6 +12,7 @@ import AddEditCard from '../common/AddEditCard';
 import { SingleSelect } from '../../atoms';
 import MetadataForm from './MetadataForm';
 import Table from '../../molecules/Table';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 export const MetadataText: Record<MetadataType, string> = {
   [MetadataType.CT]: 'Kategori',
@@ -209,7 +209,7 @@ const ListMetadata: FunctionComponent = () => {
               <Button
                 type="primary"
                 onClick={addNewMetadata}
-                icon={<PlusOutlined />}
+                icon={<AiOutlinePlus />}
               >
                 Ekle
               </Button>

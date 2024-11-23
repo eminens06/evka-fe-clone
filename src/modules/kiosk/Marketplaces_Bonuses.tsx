@@ -4,11 +4,11 @@ const trTR = require('antd/lib/locale/tr_TR');
 import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
 import { Menu, Dropdown, Button, Spin, Divider, DatePicker, Card, Col, Row, Typography } from 'antd';
 const { Title, Text } = Typography;
-import { DownOutlined } from '@ant-design/icons';
 import GET_MARKETPLACES_N_BONUSES_DATA, {
   KioskMarketplacesBonusesQuery,
 } from '../../__generated__/KioskMarketplacesBonusesQuery.graphql';
 import VerticalProgressBar from './VerticalProgressBar';
+import { AiOutlineDown } from 'react-icons/ai';
 
 const monthNamesTr = {
   '1': 'Ocak',
@@ -211,7 +211,7 @@ const MarketplaceDataViewer = () => {
         <label style={{ marginRight: '10px', fontWeight: 'bold' }}>Pazaryeri Seçimi:</label>
         <Dropdown overlay={menu}>
           <Button style={{ minWidth: '200px' }}>
-            {selectedMarketplace ? selectedMarketplace.marketplace : 'Select...'} <DownOutlined />
+            {selectedMarketplace ? selectedMarketplace.marketplace : 'Select...'} <AiOutlineDown />
           </Button>
         </Dropdown>
       </div>

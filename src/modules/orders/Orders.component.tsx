@@ -1,5 +1,4 @@
 import { Row, Tooltip, Typography } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import React, { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import PageContent from '../../layout/PageContent';
@@ -16,6 +15,7 @@ import { OrderProduct, OrderTypes, UserOrder } from './types';
 import MultiProductDisplayer from '../../molecules/MultiProductDisplayer';
 import settings from '../../settings';
 import excelFormatter from '../../utils/excelFormatter';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 const READY_STATUS = 'Onay Bekliyor';
 
@@ -36,7 +36,7 @@ const columns = [
           <Row className="note">
             <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
               <Typography.Text>{`${value}  `}</Typography.Text>
-              <InfoCircleOutlined />
+              <AiOutlineInfoCircle />
             </Tooltip>
           </Row>
         );

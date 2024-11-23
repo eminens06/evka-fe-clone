@@ -1,5 +1,4 @@
 import { Row, Tooltip, Typography } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import Status from '../../atoms/Status';
 import { ProgressStepValue } from '../../molecules/types';
@@ -11,6 +10,7 @@ import {
 } from './types';
 import settings from '../../settings';
 import ImagePopover from '../common/ImagePopover';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 export const WorkshopStatusMapper: Record<WorkshopStatus, StatusObject> = {
   [WorkshopStatus.READY]: {
@@ -185,7 +185,7 @@ export const mainProductionColumns = [
           <Row className="note">
             <Tooltip placement="topLeft" title={order.notes} arrowPointAtCenter>
               <Typography.Text>{`${value}  `}</Typography.Text>
-              <InfoCircleOutlined />
+              <AiOutlineInfoCircle />
             </Tooltip>
           </Row>
         );

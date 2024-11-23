@@ -9,7 +9,6 @@ import {
   Button,
 } from 'antd';
 import React, { FC, useEffect } from 'react';
-import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from 'relay-hooks';
 import { SingleSelect } from '../../../atoms';
 import { RoleOptions, RoleTexts } from '../../../layout/roles';
@@ -24,6 +23,7 @@ import DELETE_USER, {
   UsersRelayDeleteMarketplaceMutation,
 } from '../../../__generated__/UsersRelayDeleteMarketplaceMutation.graphql';
 import useFullPageLoader from '../../../hooks/useFullPageLoader';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const PASSWORD_MAPPER = '**********';
 
@@ -223,7 +223,7 @@ const UserForm: FC<UserFormProps> = (props) => {
             <Button
               type="primary"
               danger
-              icon={<DeleteOutlined />}
+              icon={<AiOutlineDelete />}
               onClick={onPressDelete}
             >
               Kullanıcı Sil

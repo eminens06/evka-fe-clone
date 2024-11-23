@@ -12,7 +12,6 @@ import {
 } from 'antd';
 import Search from 'antd/lib/input/Search';
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 import { useRelayEnvironment, fetchQuery } from 'relay-hooks';
 import PRODUCTS_QUERY, {
@@ -22,6 +21,7 @@ import { metaProductsDTO, productDTO } from './types';
 import ListProducts from '../modules/orders/ListProducts';
 import { OrderTypes } from '../modules/orders/types';
 import TextArea from 'antd/lib/input/TextArea';
+import { AiOutlineCheckCircle, AiOutlineDelete } from 'react-icons/ai';
 interface Props {
   remove: () => void;
   field: FormListFieldData;
@@ -118,7 +118,7 @@ const ProductCard: FC<Props> = ({
       extra={
         <Button
           onClick={() => remove()}
-          icon={<DeleteOutlined />}
+          icon={<AiOutlineDelete />}
           danger
           disabled={isDisabled}
         />
@@ -137,7 +137,7 @@ const ProductCard: FC<Props> = ({
             <Search
               placeholder="EVKA-ZEMA-00111010441"
               allowClear
-              enterButton={<CheckCircleOutlined />}
+              enterButton={<AiOutlineCheckCircle />}
               size="middle"
               onSearch={() => getProductBySku()}
               onChange={(e) => setSku(e.target.value)}

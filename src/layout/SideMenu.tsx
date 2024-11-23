@@ -1,18 +1,18 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
-  TableOutlined,
-  InboxOutlined,
-  DashboardOutlined,
-  AuditOutlined,
-  SisternodeOutlined,
-  InteractionOutlined,
-  MinusCircleOutlined,
-  CodeOutlined,
-  SettingOutlined,
-  MenuFoldOutlined,
-  ShopOutlined,
-} from '@ant-design/icons';
+  AiOutlineTable,
+  AiOutlineInbox,
+  AiOutlineDashboard,
+  AiOutlineAudit,
+  AiOutlineCluster,
+  AiOutlineInteraction,
+  AiOutlineMinusCircle,
+  AiOutlineCode,
+  AiOutlineSetting,
+  AiOutlineMenuFold,
+  AiOutlineShop,
+} from 'react-icons/ai';
 import CustomMenuItem from './CustomMenuItem';
 import { Roles } from './roles';
 import CustomSubMenu from './CustomSubMenu';
@@ -37,7 +37,7 @@ const SideMenu: FunctionComponent<Props> = (props) => {
       onCollapse={toggleCollapsed}
       trigger={
         <div className="menu-trigger">
-          <MenuFoldOutlined
+          <AiOutlineMenuFold
             className={collapsed ? 'trigger-icon' : 'trigger-icon-reverse'}
             style={{ color: 'black' }}
           />
@@ -48,26 +48,26 @@ const SideMenu: FunctionComponent<Props> = (props) => {
         <CustomMenuItem
           role={Roles.kiosk}
           title="KIOSK"
-          icon={<DashboardOutlined />}
+          icon={<AiOutlineDashboard />}
         />
         <CustomMenuItem
           role={Roles.orders}
           title="Siparişler"
-          icon={<TableOutlined />}
+          icon={<AiOutlineTable />}
         />
         <CustomMenuItem
           role={Roles.management_production}
           title="Üretim Yönetimi"
-          icon={<AuditOutlined />}
+          icon={<AiOutlineAudit />}
         />
         <CustomMenuItem
           role={Roles.storage}
           title="Depo"
-          icon={<ShopOutlined />}
+          icon={<AiOutlineShop />}
         />
         <CustomSubMenu
           role="production"
-          icon={<SisternodeOutlined />}
+          icon={<AiOutlineCluster/>}
           title="Üretim"
         >
           <CustomMenuItem

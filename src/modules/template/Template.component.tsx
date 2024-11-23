@@ -10,7 +10,6 @@ import {
 } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { PrinterOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import GET_TEMPLATE, {
@@ -18,6 +17,7 @@ import GET_TEMPLATE, {
 } from '../../__generated__/TemplateRelayDetailQuery.graphql';
 import mappers from '../../mappers';
 import { TemplateData } from './types';
+import { AiOutlinePrinter } from 'react-icons/ai';
 
 const TemplatePage: FunctionComponent = () => {
   const router = useRouter();
@@ -76,7 +76,7 @@ const TemplatePage: FunctionComponent = () => {
         </Breadcrumb>
         <Button
           type="primary"
-          icon={<PrinterOutlined />}
+          icon={<AiOutlinePrinter />}
           style={{ marginTop: '16px', float: 'right' }}
           onClick={() => printProduct()}
         >

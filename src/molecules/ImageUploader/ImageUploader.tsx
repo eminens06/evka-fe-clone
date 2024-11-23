@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import { message, Upload } from 'antd';
 
-import { InboxOutlined } from '@ant-design/icons';
 import { useFragment, useMutation } from 'relay-hooks';
 import CREATE_IMAGE_GROUP, {
   ImageUploaderRelayCreateImageMutation,
@@ -17,6 +16,7 @@ import IMAGE_GROUP_FRAGMENT, {
   ImageUploaderFragment,
 } from '../../__generated__/ImageUploaderFragment.graphql';
 import { getImageGroupByWidth } from '../../utils/helpers';
+import { AiOutlineInbox } from 'react-icons/ai';
 const { Dragger } = Upload;
 
 interface Props {
@@ -87,7 +87,7 @@ const ImageUploader: FunctionComponent<Props> = ({
         defaultFileList={defaultFileList}
       >
         <p className="ant-upload-drag-icon">
-          <InboxOutlined />
+          <AiOutlineInbox />
         </p>
         <p className="ant-upload-text">Sürükle Bırak veya Seç </p>
         <p className="ant-upload-hint">

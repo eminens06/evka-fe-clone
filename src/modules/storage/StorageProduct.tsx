@@ -11,13 +11,13 @@ import {
 } from 'antd';
 import Search from 'antd/lib/input/Search';
 import React, { FC, useEffect, useState } from 'react';
-import { CheckCircleOutlined } from '@ant-design/icons';
 import { fetchQuery, useRelayEnvironment } from 'relay-hooks';
 import { productDTO } from '../../molecules/types';
 import ListProducts from '../orders/ListProducts';
 import PRODUCTS_QUERY, {
   OrdersAllProductsQuery,
 } from '../../__generated__/OrdersAllProductsQuery.graphql';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 interface Props {
   form: FormInstance<any>;
   isDisabled: boolean;
@@ -89,7 +89,7 @@ const StorageProduct: FC<Props> = ({ form, isDisabled, isEdit }) => {
             <Search
               placeholder="EVKA-ZEMA-00111010441"
               allowClear
-              enterButton={<CheckCircleOutlined />}
+              enterButton={<AiOutlineCheckCircle />}
               size="middle"
               onSearch={() => getProductBySku()}
               onChange={(e) => setSku(e.target.value)}

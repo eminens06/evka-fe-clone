@@ -10,7 +10,6 @@ import {
 } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 import CustomerCard from '../../molecules/CustomerCard';
@@ -40,6 +39,7 @@ import useFullPageLoader from '../../hooks/useFullPageLoader';
 import DELETE_ORDER, {
   OrdersDeleteOrderMutation,
 } from '../../__generated__/OrdersDeleteOrderMutation.graphql';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 interface Props {
   orderType: OrderTypes;
@@ -223,7 +223,7 @@ const CreateEditOrder: FunctionComponent<Props> = (props) => {
                   onClick={() => add()}
                   disabled={!isAdmin && isEdit}
                 >
-                  <PlusOutlined />
+                  <AiOutlinePlus />
                 </Button>
               </Divider>
             </>

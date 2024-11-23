@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useMemo, useState } from 'react';
 import { Upload, Modal } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import { getImageGroupByWidth } from '../../utils/helpers';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 function getBase64(file: any) {
   return new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ const PicturesWall: FunctionComponent<Props> = ({
 
   const uploadButton = (
     <div>
-      <PlusOutlined />
+      <AiOutlinePlusCircle />
       <div style={{ marginTop: 8 }}>Görsel Seç</div>
     </div>
   );

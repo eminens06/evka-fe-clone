@@ -1,5 +1,4 @@
 import { Button, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
 import TableFilter from '../../../molecules/TableFilter';

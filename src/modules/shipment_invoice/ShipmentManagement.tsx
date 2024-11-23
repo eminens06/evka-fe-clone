@@ -1,6 +1,5 @@
 import { Button, Form, message, Row, Tooltip, Typography } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
-import { CaretRightOutlined, WarningOutlined } from '@ant-design/icons';
 import PageContent from '../../layout/PageContent';
 import TableFilter from '../../molecules/TableFilter';
 import { ShipmentFormTypes, ShipmentManagementData } from './types';
@@ -19,6 +18,7 @@ import CHANGE_STATUS, {
 import { useMutation } from 'relay-hooks';
 import useFullPageLoader from '../../hooks/useFullPageLoader';
 import settings from '../../settings';
+import { AiOutlineCaretRight, AiOutlineWarning } from 'react-icons/ai';
 
 const expandable = {
   expandedRowRender: (record: ShipmentManagementData) => (
@@ -42,7 +42,7 @@ const columns = [
               arrowPointAtCenter
             >
               <Typography.Text>{`${value}  `}</Typography.Text>
-              <WarningOutlined />
+              <AiOutlineWarning />
             </Tooltip>
           </Row>
         );
@@ -174,7 +174,7 @@ const ShipmentManagement: FunctionComponent = () => {
             type="primary"
             disabled={!(selected && selected.length > 0)}
             onClick={sendShipment}
-            icon={<CaretRightOutlined />}
+            icon={<AiOutlineCaretRight />}
           >
             Sevk Et
           </Button>

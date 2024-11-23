@@ -13,7 +13,6 @@ import { useForm } from 'antd/lib/form/Form';
 import { Header } from 'antd/lib/layout/layout';
 import Search from 'antd/lib/input/Search';
 import React, { FC, useState } from 'react';
-import { CheckCircleOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 import { fetchQuery, useMutation } from 'relay-hooks';
 import GET_USER_ORDER, {
@@ -28,6 +27,7 @@ import RETURN_ORDER, {
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import useFullPageLoader from '../../hooks/useFullPageLoader';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 
 const AddReturnProduct: FC = () => {
   const [form] = useForm();
@@ -124,7 +124,7 @@ const AddReturnProduct: FC = () => {
               >
                 <Search
                   placeholder="Pazaryeri sipariş numarası giriniz..."
-                  enterButton={<CheckCircleOutlined />}
+                  enterButton={<AiOutlineCheckCircle />}
                   size="middle"
                   onSearch={() => getOrderId()}
                   onChange={(e) => onSearch(e.target.value)}

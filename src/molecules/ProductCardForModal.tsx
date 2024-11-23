@@ -17,7 +17,6 @@ import {
 } from '../mappers';
 import Search from 'antd/lib/input/Search';
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useRelayEnvironment, fetchQuery, useMutation } from 'relay-hooks';
 import PRODUCTS_QUERY, {
   OrdersAllProductsQuery,
@@ -32,6 +31,7 @@ import CREATE_ORDER, {
   OrdersCreateOrderMutation,
 } from '../__generated__/OrdersCreateOrderMutation.graphql';
 import { last } from 'lodash';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 
 const ProductCardForModal: FC<Props> = ({ isDisabled }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -131,7 +131,7 @@ const ProductCardForModal: FC<Props> = ({ isDisabled }) => {
                   <Search
                     placeholder="SKU Seçimini Lütfen Tablodan Seçerek Gerçekleştiriniz"
                     allowClear
-                    enterButton={<CheckCircleOutlined />}
+                    enterButton={<AiOutlineCheckCircle />}
                     size="large"
                     onSearch={() => getProductBySku()}
                     onChange={(e) => setSku(e.target.value)}

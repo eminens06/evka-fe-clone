@@ -1,5 +1,4 @@
 import { Button, Form, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useState } from 'react';
 import PageContent from '../../../layout/PageContent';
 import TableFilter from '../../../molecules/TableFilter';
@@ -12,6 +11,7 @@ import GET_EXTERNAL_SERVICES, {
 import Table from '../../../molecules/Table';
 import { ModuleType } from './types';
 import { ModuleTexts } from '../../log/helpers';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const columns = [
   {
@@ -90,7 +90,7 @@ const ListExternalServices: FunctionComponent = () => {
         <TableFilter onSearchComplete={onSearch} />
         <div className="table-header">
           <Typography.Title level={5}>Dış Hizmetler</Typography.Title>
-          <Button type="primary" onClick={addNewUser} icon={<PlusOutlined />}>
+          <Button type="primary" onClick={addNewUser} icon={<AiOutlinePlus />}>
             Ekle
           </Button>
         </div>

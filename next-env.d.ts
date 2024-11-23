@@ -1,22 +1,5 @@
 /// <reference types="next" />
-/// <reference types="next/types/global" />
+/// <reference types="next/image-types/global" />
 
-declare module '*.less' {
-  const content: any;
-  export default content;
-}
-
-declare module '*.svg' {
-  const content: any;
-  export default content;
-}
-
-declare module '*.png' {
-  const content: any;
-  export default content;
-}
-
-declare module 'json-to-csv-export' {
-  const content: any;
-  export default content;
-}
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/pages/building-your-application/configuring/typescript for more information.

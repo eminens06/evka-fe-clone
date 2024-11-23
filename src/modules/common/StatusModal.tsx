@@ -1,9 +1,9 @@
 import { Button, ButtonProps, FormInstance, Modal, Row, Tag } from 'antd';
-import { FilePdfOutlined, CaretRightOutlined } from '@ant-design/icons';
 import React, { FC, ReactChild, ReactElement, useMemo } from 'react';
 import ProgressStep from '../../molecules/ProgressStep';
 import { ProgressStepValue } from '../../molecules/types';
 import { WorkshopStatus } from '../production/types';
+import { AiOutlineCaretRight, AiOutlineFilePdf } from 'react-icons/ai';
 
 type CustomActionTypes = 'revert' | 'bluePrint';
 
@@ -17,11 +17,11 @@ const Actions: Record<CustomActionTypes, CustomActionProps> = {
   revert: {
     text: 'Tekrar Gönder',
     danger: true,
-    icon: <CaretRightOutlined />,
+    icon: <AiOutlineCaretRight />,
   },
   bluePrint: {
     text: 'Şablonu Göster',
-    icon: <FilePdfOutlined />,
+    icon: <AiOutlineFilePdf />,
   },
 };
 

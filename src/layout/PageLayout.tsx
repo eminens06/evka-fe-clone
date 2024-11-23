@@ -7,7 +7,7 @@ import React, {
 import SideMenu from './SideMenu';
 import './layout.module.less';
 import { Layout, Menu, Dropdown, Avatar } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { AiOutlineLogout } from 'react-icons/ai';
 import signOut from '../modules/auth/utils/sign-out';
 import { useRouter } from 'next/router';
 import { User } from '../modules/auth/types';
@@ -33,7 +33,7 @@ const PageLayout: FunctionComponent<Props> = (props: Props) => {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={handleSignOut} icon={<LogoutOutlined />} key="logout">
+      <Menu.Item onClick={handleSignOut} icon={<AiOutlineLogout />} key="logout">
         Çıkış Yap
       </Menu.Item>
     </Menu>

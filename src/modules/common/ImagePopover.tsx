@@ -1,6 +1,6 @@
 import { Button, Image, Popover, Row, Typography } from 'antd';
 import React, { FC } from 'react';
-import { CameraOutlined } from '@ant-design/icons';
+import { AiOutlineCamera } from 'react-icons/ai';
 
 interface Props {
   images: any[];
@@ -30,7 +30,7 @@ const ImagePopover: FC<Props> = ({ images, text }) => {
         <Button
           size="small"
           shape="circle"
-          icon={<CameraOutlined />}
+          icon={<AiOutlineCamera />}
           onClick={(event) => event.stopPropagation()}
         />
       </Popover>

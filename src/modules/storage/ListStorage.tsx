@@ -1,5 +1,4 @@
 import { Button, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PageContent from '../../layout/PageContent';

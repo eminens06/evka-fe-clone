@@ -3,7 +3,6 @@ import { Form, Button, Row, Col, message } from 'antd';
 import { loadSession } from '../utils/session.utils';
 import useAuthState from '../utils/UseAuthState.hook';
 import './SignIn.module.less';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Router from 'next/router';
 import { Routes } from '../utils/routes';
 import { useEffect } from 'react';
@@ -12,6 +11,7 @@ import { useMutation } from 'relay-hooks';
 import TOKEN_AUTH, {
   SignInFormRelayMutation,
 } from '../../../__generated__/SignInFormRelayMutation.graphql';
+import { AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 
 const SignInForm: NextPage = () => {
   const session = loadSession();
@@ -72,7 +72,7 @@ const SignInForm: NextPage = () => {
             ]}
           >
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
+              prefix={<AiOutlineUser className="site-form-item-icon" />}
               placeholder="Kullanıcı Adı"
             />
           </Form.Item>
@@ -83,7 +83,7 @@ const SignInForm: NextPage = () => {
             ]}
           >
             <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
+              prefix={<AiOutlineLock className="site-form-item-icon" />}
               type="password"
               placeholder="Şifre"
             />

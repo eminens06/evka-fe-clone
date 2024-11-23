@@ -1,7 +1,7 @@
 import { Dropdown, Button, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
+import { AiOutlineDown } from 'react-icons/ai';
 
 const AddProductMenu: FC = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const AddProductMenu: FC = () => {
   return (
     <Dropdown overlay={menu} trigger={['click']}>
       <Button>
-        Ekle <DownOutlined />
+        Ekle <AiOutlineDown />
       </Button>
     </Dropdown>
   );
